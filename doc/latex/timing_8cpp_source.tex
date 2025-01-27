@@ -1,0 +1,67 @@
+\doxysection{timing.\+cpp}
+\hypertarget{timing_8cpp_source}{}\label{timing_8cpp_source}\index{src/timing.cpp@{src/timing.cpp}}
+\mbox{\hyperlink{timing_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timing_8h}{timing.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <cstdio>}}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00007}\mbox{\hyperlink{timing_8cpp_a25026002310b9c489bc8e0b360d78a6d}{00007}}\ \mbox{\hyperlink{struct_time_keeper}{TimeKeeper}}\ \mbox{\hyperlink{timing_8cpp_a25026002310b9c489bc8e0b360d78a6d}{global\_time\_keeper}}(1);}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00009}00009\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00011}\mbox{\hyperlink{struct_time_keeper_ab9581cb5e1423af2b5dd8a8cb0b46551}{00011}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_time_keeper_ab9581cb5e1423af2b5dd8a8cb0b46551}{TimeKeeper::print\_report}}(\textcolor{keywordtype}{int}\ n\_steps)\ \{}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00012}00012\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_float4}{S}}\ \{}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00013}00013\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ name;\ }
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00014}00014\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_time_keeper_1_1_time_record}{TimeRecord}}\ rec;}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00015}00015\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ avg\_time;}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00016}00016\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ steps\_per\_invocation;}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00017}00017\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ contribution;}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00018}00018\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00020}00020\ \ \ \ \ vector<S>\ sorted\_records;}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00022}00022\ \ \ \ \ \textcolor{keywordtype}{double}\ all\_total\ =\ 0.;}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00023}00023\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ \&p:\ \mbox{\hyperlink{struct_time_keeper_acb38c81f7c1486c2f45171543a06a80e}{records}})\ \{}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ avg\_time\ =\ p.second.\mbox{\hyperlink{struct_time_keeper_1_1_time_record_a1b876e5bfe01db0cd8ba59958b1b6a5d}{total\_elapsed}}\ /\ (p.second.n\_invoke-\/\mbox{\hyperlink{struct_time_keeper_a5743032f7a919eb69c88a21e46cf2256}{n\_ignore}});}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ steps\_per\_invocation\ =\ double(n\_steps)\ /\ p.second.n\_invoke;}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!(avg\_time>0.))\ avg\_time\ =\ 0.;}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ sorted\_records.emplace\_back();\ }
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00029}00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \&s\ =\ sorted\_records.back();}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00031}00031\ \ \ \ \ \ \ \ \ s.name\ =\ p.first;}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00032}00032\ \ \ \ \ \ \ \ \ s.rec\ =\ p.second;}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00033}00033\ \ \ \ \ \ \ \ \ s.avg\_time\ =\ avg\_time;}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00034}00034\ \ \ \ \ \ \ \ \ s.steps\_per\_invocation\ =\ steps\_per\_invocation;}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ s.contribution\ =\ s.avg\_time\ /\ s.steps\_per\_invocation;}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ all\_total\ +=\ s.contribution;}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00037}00037\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00038}00038\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00039}00039\ \ \ \ \ sort(begin(sorted\_records),\ end(sorted\_records),\ [\&](\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_float4}{S}}\&\ s1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_float4}{S}}\&\ s2)\ \{}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ s1.contribution!=s2.contribution\ ?\ s1.contribution\ >\ s2.contribution\ :\ s1.name\ <\ s2.name;\});}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00042}00042\ \ \ \ \ \textcolor{keywordtype}{int}\ maxlen\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00043}00043\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ \&p:\ sorted\_records)\ maxlen\ =\ \mbox{\hyperlink{_float4_8h_a808942fd61ab9b0629299e577df245c8}{max}}(\textcolor{keywordtype}{int}(p.name.size()),\ maxlen);}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00045}00045\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ \&p:\ sorted\_records)\ \{}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00046}00046\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%*s\ \ \%6.1f\ us/step\ \ (\%4.1f\%\%,\ \%7.2f\ invocations/step,\ \%7.1f\ us/invocation)\(\backslash\)n"{}},\ }
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ maxlen,\ p.name.c\_str(),\ }
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p.contribution*1e6,\ }
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p.contribution/all\_total*100.,}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1.f/p.steps\_per\_invocation,\ }
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p.avg\_time*1e6);}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00052}00052\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00053}00053\ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%*s\ \ \%6.1f\ us/step\(\backslash\)n"{}},\ maxlen,\ \textcolor{stringliteral}{"{}(total)"{}},\ all\_total*1e6);}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00054}00054\ \}}
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{timing_8cpp_source_l00061}00061\ }
+
+\end{DoxyCode}

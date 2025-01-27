@@ -1,0 +1,99 @@
+\doxysection{Time\+Keeper Struct Reference}
+\hypertarget{struct_time_keeper}{}\label{struct_time_keeper}\index{TimeKeeper@{TimeKeeper}}
+
+
+{\ttfamily \#include $<$timing.\+h$>$}
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_time_keeper_1_1_time_record}{Time\+Record}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_time_keeper_a0145f0a9eedfbccba06845e4c7a14a8f}{Time\+Keeper}} (int n\+\_\+ignore\+\_\+=-\/1)
+\item 
+void \mbox{\hyperlink{struct_time_keeper_a0459365c717ffcf5f2c2dab26db86770}{add\+\_\+time}} (const std\+::string \&name, double t\+\_\+elapsed)
+\item 
+void \mbox{\hyperlink{struct_time_keeper_ab9581cb5e1423af2b5dd8a8cb0b46551}{print\+\_\+report}} (int n\+\_\+steps)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const int \mbox{\hyperlink{struct_time_keeper_a5743032f7a919eb69c88a21e46cf2256}{n\+\_\+ignore}}
+\item 
+std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{struct_time_keeper_1_1_time_record}{Time\+Record}} $>$ \mbox{\hyperlink{struct_time_keeper_acb38c81f7c1486c2f45171543a06a80e}{records}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{timing_8h_source_l00008}{8}} of file \mbox{\hyperlink{timing_8h_source}{timing.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_time_keeper_a0145f0a9eedfbccba06845e4c7a14a8f}\label{struct_time_keeper_a0145f0a9eedfbccba06845e4c7a14a8f} 
+\index{TimeKeeper@{TimeKeeper}!TimeKeeper@{TimeKeeper}}
+\index{TimeKeeper@{TimeKeeper}!TimeKeeper@{TimeKeeper}}
+\doxysubsubsection{\texorpdfstring{TimeKeeper()}{TimeKeeper()}}
+{\footnotesize\ttfamily Time\+Keeper\+::\+Time\+Keeper (\begin{DoxyParamCaption}\item[{int}]{n\+\_\+ignore\+\_\+ = {\ttfamily -\/1} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{timing_8h_source_l00018}{18}} of file \mbox{\hyperlink{timing_8h_source}{timing.\+h}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_time_keeper_a0459365c717ffcf5f2c2dab26db86770}\label{struct_time_keeper_a0459365c717ffcf5f2c2dab26db86770} 
+\index{TimeKeeper@{TimeKeeper}!add\_time@{add\_time}}
+\index{add\_time@{add\_time}!TimeKeeper@{TimeKeeper}}
+\doxysubsubsection{\texorpdfstring{add\_time()}{add\_time()}}
+{\footnotesize\ttfamily void Time\+Keeper\+::add\+\_\+time (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{double}]{t\+\_\+elapsed }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{timing_8h_source_l00022}{22}} of file \mbox{\hyperlink{timing_8h_source}{timing.\+h}}.
+
+\Hypertarget{struct_time_keeper_ab9581cb5e1423af2b5dd8a8cb0b46551}\label{struct_time_keeper_ab9581cb5e1423af2b5dd8a8cb0b46551} 
+\index{TimeKeeper@{TimeKeeper}!print\_report@{print\_report}}
+\index{print\_report@{print\_report}!TimeKeeper@{TimeKeeper}}
+\doxysubsubsection{\texorpdfstring{print\_report()}{print\_report()}}
+{\footnotesize\ttfamily void Time\+Keeper\+::print\+\_\+report (\begin{DoxyParamCaption}\item[{int}]{n\+\_\+steps }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{timing_8cpp_source_l00011}{11}} of file \mbox{\hyperlink{timing_8cpp_source}{timing.\+cpp}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_time_keeper_a5743032f7a919eb69c88a21e46cf2256}\label{struct_time_keeper_a5743032f7a919eb69c88a21e46cf2256} 
+\index{TimeKeeper@{TimeKeeper}!n\_ignore@{n\_ignore}}
+\index{n\_ignore@{n\_ignore}!TimeKeeper@{TimeKeeper}}
+\doxysubsubsection{\texorpdfstring{n\_ignore}{n\_ignore}}
+{\footnotesize\ttfamily const int Time\+Keeper\+::n\+\_\+ignore}
+
+
+
+Definition at line \mbox{\hyperlink{timing_8h_source_l00011}{11}} of file \mbox{\hyperlink{timing_8h_source}{timing.\+h}}.
+
+\Hypertarget{struct_time_keeper_acb38c81f7c1486c2f45171543a06a80e}\label{struct_time_keeper_acb38c81f7c1486c2f45171543a06a80e} 
+\index{TimeKeeper@{TimeKeeper}!records@{records}}
+\index{records@{records}!TimeKeeper@{TimeKeeper}}
+\doxysubsubsection{\texorpdfstring{records}{records}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$std\+::string, \mbox{\hyperlink{struct_time_keeper_1_1_time_record}{Time\+Record}}$>$ Time\+Keeper\+::records}
+
+
+
+Definition at line \mbox{\hyperlink{timing_8h_source_l00020}{20}} of file \mbox{\hyperlink{timing_8h_source}{timing.\+h}}.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{timing_8h}{timing.\+h}}\item 
+src/\mbox{\hyperlink{timing_8cpp}{timing.\+cpp}}\end{DoxyCompactItemize}

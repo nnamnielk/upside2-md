@@ -1,0 +1,153 @@
+\doxysection{Vec\+Array\+Storage Struct Reference}
+\hypertarget{struct_vec_array_storage}{}\label{struct_vec_array_storage}\index{VecArrayStorage@{VecArrayStorage}}
+
+
+{\ttfamily \#include $<$vector\+\_\+math.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_vec_array_storage_ad0ffb9c269cb023e97caa56c18406f6f}{Vec\+Array\+Storage}} (int elem\+\_\+width\+\_\+, int n\+\_\+elem\+\_\+)
+\item 
+\mbox{\hyperlink{struct_vec_array_storage_a3971b277a4f434f8715b378a94b4402b}{Vec\+Array\+Storage}} (const \mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} \&o)
+\item 
+\mbox{\hyperlink{struct_vec_array_storage_ab98ddd319d08ea99a3aaa420cb41de6a}{Vec\+Array\+Storage}} ()
+\item 
+float \& \mbox{\hyperlink{struct_vec_array_storage_a05deb3c22ce318ef998a35d296d38377}{operator()}} (int i\+\_\+comp, int i\+\_\+elem)
+\item 
+const float \& \mbox{\hyperlink{struct_vec_array_storage_a37068d65963df0badf781bf21e40c722}{operator()}} (int i\+\_\+comp, int i\+\_\+elem) const
+\item 
+\mbox{\hyperlink{struct_vec_array_storage_a1f3dd66c3302da8f6be64e9c33ddd15e}{operator Vec\+Array}} ()
+\item 
+void \mbox{\hyperlink{struct_vec_array_storage_a34058880b246c1184b328d31403c9ae2}{reset}} (int elem\+\_\+width\+\_\+, int n\+\_\+elem\+\_\+)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{struct_vec_array_storage_ad8ff048b740a03a17b8f9419c7e48e8e}{n\+\_\+elem}}
+\item 
+int \mbox{\hyperlink{struct_vec_array_storage_a57f67793ee4bbeee1c31781e491d38d9}{row\+\_\+width}}
+\item 
+std\+::unique\+\_\+ptr$<$ float\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_vec_array_storage_af1bb8eccf0a6c0cc7697ad988ac83a27}{x}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00072}{72}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_vec_array_storage_ad0ffb9c269cb023e97caa56c18406f6f}\label{struct_vec_array_storage_ad0ffb9c269cb023e97caa56c18406f6f} 
+\index{VecArrayStorage@{VecArrayStorage}!VecArrayStorage@{VecArrayStorage}}
+\index{VecArrayStorage@{VecArrayStorage}!VecArrayStorage@{VecArrayStorage}}
+\doxysubsubsection{\texorpdfstring{VecArrayStorage()}{VecArrayStorage()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Vec\+Array\+Storage\+::\+Vec\+Array\+Storage (\begin{DoxyParamCaption}\item[{int}]{elem\+\_\+width\+\_\+,  }\item[{int}]{n\+\_\+elem\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00077}{77}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{struct_vec_array_storage_a3971b277a4f434f8715b378a94b4402b}\label{struct_vec_array_storage_a3971b277a4f434f8715b378a94b4402b} 
+\index{VecArrayStorage@{VecArrayStorage}!VecArrayStorage@{VecArrayStorage}}
+\index{VecArrayStorage@{VecArrayStorage}!VecArrayStorage@{VecArrayStorage}}
+\doxysubsubsection{\texorpdfstring{VecArrayStorage()}{VecArrayStorage()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Vec\+Array\+Storage\+::\+Vec\+Array\+Storage (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} \&}]{o }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00083}{83}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{struct_vec_array_storage_ab98ddd319d08ea99a3aaa420cb41de6a}\label{struct_vec_array_storage_ab98ddd319d08ea99a3aaa420cb41de6a} 
+\index{VecArrayStorage@{VecArrayStorage}!VecArrayStorage@{VecArrayStorage}}
+\index{VecArrayStorage@{VecArrayStorage}!VecArrayStorage@{VecArrayStorage}}
+\doxysubsubsection{\texorpdfstring{VecArrayStorage()}{VecArrayStorage()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Vec\+Array\+Storage\+::\+Vec\+Array\+Storage (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00090}{90}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_vec_array_storage_a1f3dd66c3302da8f6be64e9c33ddd15e}\label{struct_vec_array_storage_a1f3dd66c3302da8f6be64e9c33ddd15e} 
+\index{VecArrayStorage@{VecArrayStorage}!operator VecArray@{operator VecArray}}
+\index{operator VecArray@{operator VecArray}!VecArrayStorage@{VecArrayStorage}}
+\doxysubsubsection{\texorpdfstring{operator VecArray()}{operator VecArray()}}
+{\footnotesize\ttfamily Vec\+Array\+Storage\+::operator \mbox{\hyperlink{struct_vec_array}{Vec\+Array}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00100}{100}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{struct_vec_array_storage_a05deb3c22ce318ef998a35d296d38377}\label{struct_vec_array_storage_a05deb3c22ce318ef998a35d296d38377} 
+\index{VecArrayStorage@{VecArrayStorage}!operator()@{operator()}}
+\index{operator()@{operator()}!VecArrayStorage@{VecArrayStorage}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily float \& Vec\+Array\+Storage\+::operator() (\begin{DoxyParamCaption}\item[{int}]{i\+\_\+comp,  }\item[{int}]{i\+\_\+elem }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00092}{92}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{struct_vec_array_storage_a37068d65963df0badf781bf21e40c722}\label{struct_vec_array_storage_a37068d65963df0badf781bf21e40c722} 
+\index{VecArrayStorage@{VecArrayStorage}!operator()@{operator()}}
+\index{operator()@{operator()}!VecArrayStorage@{VecArrayStorage}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const float \& Vec\+Array\+Storage\+::operator() (\begin{DoxyParamCaption}\item[{int}]{i\+\_\+comp,  }\item[{int}]{i\+\_\+elem }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00096}{96}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{struct_vec_array_storage_a34058880b246c1184b328d31403c9ae2}\label{struct_vec_array_storage_a34058880b246c1184b328d31403c9ae2} 
+\index{VecArrayStorage@{VecArrayStorage}!reset@{reset}}
+\index{reset@{reset}!VecArrayStorage@{VecArrayStorage}}
+\doxysubsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily void Vec\+Array\+Storage\+::reset (\begin{DoxyParamCaption}\item[{int}]{elem\+\_\+width\+\_\+,  }\item[{int}]{n\+\_\+elem\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00102}{102}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_vec_array_storage_ad8ff048b740a03a17b8f9419c7e48e8e}\label{struct_vec_array_storage_ad8ff048b740a03a17b8f9419c7e48e8e} 
+\index{VecArrayStorage@{VecArrayStorage}!n\_elem@{n\_elem}}
+\index{n\_elem@{n\_elem}!VecArrayStorage@{VecArrayStorage}}
+\doxysubsubsection{\texorpdfstring{n\_elem}{n\_elem}}
+{\footnotesize\ttfamily int Vec\+Array\+Storage\+::n\+\_\+elem}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00073}{73}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{struct_vec_array_storage_a57f67793ee4bbeee1c31781e491d38d9}\label{struct_vec_array_storage_a57f67793ee4bbeee1c31781e491d38d9} 
+\index{VecArrayStorage@{VecArrayStorage}!row\_width@{row\_width}}
+\index{row\_width@{row\_width}!VecArrayStorage@{VecArrayStorage}}
+\doxysubsubsection{\texorpdfstring{row\_width}{row\_width}}
+{\footnotesize\ttfamily int Vec\+Array\+Storage\+::row\+\_\+width}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00074}{74}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{struct_vec_array_storage_af1bb8eccf0a6c0cc7697ad988ac83a27}\label{struct_vec_array_storage_af1bb8eccf0a6c0cc7697ad988ac83a27} 
+\index{VecArrayStorage@{VecArrayStorage}!x@{x}}
+\index{x@{x}!VecArrayStorage@{VecArrayStorage}}
+\doxysubsubsection{\texorpdfstring{x}{x}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$float\mbox{[}$\,$\mbox{]}$>$ Vec\+Array\+Storage\+::x}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00075}{75}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{vector__math_8h}{vector\+\_\+math.\+h}}\end{DoxyCompactItemize}

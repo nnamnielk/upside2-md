@@ -1,0 +1,314 @@
+\doxysection{monte\+\_\+carlo\+\_\+sampler.\+cpp}
+\hypertarget{monte__carlo__sampler_8cpp_source}{}\label{monte__carlo__sampler_8cpp_source}\index{src/monte\_carlo\_sampler.cpp@{src/monte\_carlo\_sampler.cpp}}
+\mbox{\hyperlink{monte__carlo__sampler_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{monte__carlo__sampler_8h}{monte\_carlo\_sampler.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00004}00004\ \textcolor{comment}{//\ ===[Pivot\ Sampler\ Definitions]===}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00005}\mbox{\hyperlink{struct_pivot_location}{00005}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_pivot_location}{PivotLocation}}\ \{}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00006}\mbox{\hyperlink{struct_pivot_location_a6e6d9edc0325144de733bd32e15467ee}{00006}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_pivot_location_a6e6d9edc0325144de733bd32e15467ee}{rama\_atom}}[5];}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00007}\mbox{\hyperlink{struct_pivot_location_aea790a87d886356acc9234c755a8bed0}{00007}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_pivot_location_aea790a87d886356acc9234c755a8bed0}{pivot\_range}}[2];}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00008}\mbox{\hyperlink{struct_pivot_location_a97be1e6393a65ddd98deccfd96541241}{00008}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_pivot_location_a97be1e6393a65ddd98deccfd96541241}{restype}};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00009}00009\ \};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00011}00011\ \textcolor{comment}{//\ FIXME\ take\ a\ set\ of\ temperatures\ and\ propose\ at\ the\ appropriate\ temperature}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00012}\mbox{\hyperlink{struct_pivot_sampler}{00012}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_pivot_sampler}{PivotSampler}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{struct_monte_carlo_sampler}{MonteCarloSampler}}\ \{}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00013}\mbox{\hyperlink{struct_pivot_sampler_aa5aaa0ac21a42ff37fd3573d8ced7207}{00013}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_pivot_sampler_aa5aaa0ac21a42ff37fd3573d8ced7207}{n\_layer}};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00014}\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{00014}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00015}\mbox{\hyperlink{struct_pivot_sampler_a346e57715fa5f6a6f639ff497e579617}{00015}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_pivot_sampler_a346e57715fa5f6a6f639ff497e579617}{n\_pivot\_loc}};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00017}\mbox{\hyperlink{struct_pivot_sampler_a65226281f8fa2f955c3ea22706c8266b}{00017}}\ \ \ \ \ std::vector<PivotLocation>\ \mbox{\hyperlink{struct_pivot_sampler_a65226281f8fa2f955c3ea22706c8266b}{pivot\_loc}};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00018}\mbox{\hyperlink{struct_pivot_sampler_afc826ed4e2f7da7359cd0c09122811d5}{00018}}\ \ \ \ \ std::vector<float>\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_afc826ed4e2f7da7359cd0c09122811d5}{proposal\_pot}};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00019}\mbox{\hyperlink{struct_pivot_sampler_a6600fd5ae7f81a0f25130769e3415fe8}{00019}}\ \ \ \ \ std::vector<float>\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_a6600fd5ae7f81a0f25130769e3415fe8}{proposal\_prob\_cdf}};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00021}\mbox{\hyperlink{struct_pivot_sampler_ad65527c35537711528dc5e5f6b2821cb}{00021}}\ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_ad65527c35537711528dc5e5f6b2821cb}{PivotSampler}}():\ \mbox{\hyperlink{struct_monte_carlo_sampler}{MonteCarloSampler}}(),\ \mbox{\hyperlink{struct_pivot_sampler_aa5aaa0ac21a42ff37fd3573d8ced7207}{n\_layer}}(0),\ \mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}(0),\ \mbox{\hyperlink{struct_pivot_sampler_a346e57715fa5f6a6f639ff497e579617}{n\_pivot\_loc}}(0)\ \{\}\ \textcolor{comment}{//\ Default\ constructor\ definition}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00023}00023\ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_ad65527c35537711528dc5e5f6b2821cb}{PivotSampler}}(\textcolor{keyword}{const}\ std::string\&\ grp\_name,\ hid\_t\ grp,\ \mbox{\hyperlink{struct_h5_logger}{H5Logger}}\&\ logger);\ \textcolor{comment}{//\ Constructor\ declaration}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00025}00025\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_pivot_sampler_a8ea47a0214ccbec71ab5acbeee14b797}{propose\_random\_move}}(\textcolor{keywordtype}{float}*\ delta\_lprob,\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_random_generator}{RandomGenerator}}\&\ random,\ \mbox{\hyperlink{struct_vec_array}{VecArray}}\ pos)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00027}00027\ \};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00029}\mbox{\hyperlink{struct_pivot_sampler_aae4c38911f6dc0a3bf102467dd350ae6}{00029}}\ \mbox{\hyperlink{struct_pivot_sampler_ad65527c35537711528dc5e5f6b2821cb}{PivotSampler::PivotSampler}}(\textcolor{keyword}{const}\ std::string\&\ name,\ hid\_t\ grp,\ \mbox{\hyperlink{struct_h5_logger}{H5Logger}}\&\ logger):\ \textcolor{comment}{//\ Constructor\ definition}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00030}00030\ \ \ \ \ \mbox{\hyperlink{struct_monte_carlo_sampler}{MonteCarloSampler}}(name,\ \mbox{\hyperlink{random_8h_ab1fa763976d66d77a7a63f680bfd720baac33e6e3d5cf7777014d55c0ee632a1d}{PIVOT\_MOVE\_RANDOM\_STREAM}},\ logger),}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00031}00031\ \ \ \ \ n\_layer(\mbox{\hyperlink{namespaceh5}{h5}}::get\_dset\_size(3,\ grp,\ \textcolor{stringliteral}{"{}proposal\_pot"{}})[0]),\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00032}00032\ \ \ \ \ n\_bin\ \ (\mbox{\hyperlink{namespaceh5}{h5}}::get\_dset\_size(3,\ grp,\ \textcolor{stringliteral}{"{}proposal\_pot"{}})[1]),}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00033}00033\ \ \ \ \ n\_pivot\_loc(\mbox{\hyperlink{namespaceh5}{h5}}::get\_dset\_size(2,\ grp,\ \textcolor{stringliteral}{"{}pivot\_atom"{}})[0]),}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00035}00035\ \ \ \ \ pivot\_loc(n\_pivot\_loc),}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00036}00036\ \ \ \ \ proposal\_prob\_cdf(n\_layer*n\_bin*n\_bin)}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00037}00037\ \{}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00038}00038\ \ \ \ \ \textcolor{keyword}{using\ namespace\ }\mbox{\hyperlink{namespaceh5}{h5}};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00040}00040\ \ \ \ \ check\_size(grp,\ \textcolor{stringliteral}{"{}proposal\_pot"{}},\ \mbox{\hyperlink{struct_pivot_sampler_aa5aaa0ac21a42ff37fd3573d8ced7207}{n\_layer}},\ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}},\ \mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}});}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00041}00041\ \ \ \ \ check\_size(grp,\ \textcolor{stringliteral}{"{}pivot\_atom"{}},\ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_a346e57715fa5f6a6f639ff497e579617}{n\_pivot\_loc}},\ 5);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00042}00042\ \ \ \ \ check\_size(grp,\ \textcolor{stringliteral}{"{}pivot\_range"{}},\ \ \ \mbox{\hyperlink{struct_pivot_sampler_a346e57715fa5f6a6f639ff497e579617}{n\_pivot\_loc}},\ 2);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00043}00043\ \ \ \ \ check\_size(grp,\ \textcolor{stringliteral}{"{}pivot\_restype"{}},\ \mbox{\hyperlink{struct_pivot_sampler_a346e57715fa5f6a6f639ff497e579617}{n\_pivot\_loc}});}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00045}00045\ \ \ \ \ traverse\_dset<2,int>(grp,\ \textcolor{stringliteral}{"{}pivot\_atom"{}},\ \ \ \ [\&](\textcolor{keywordtype}{size\_t}\ np,\ \textcolor{keywordtype}{size\_t}\ na,\ \textcolor{keywordtype}{int}\ x)\ \{\mbox{\hyperlink{struct_pivot_sampler_a65226281f8fa2f955c3ea22706c8266b}{pivot\_loc}}[np].rama\_atom[na]\ =x;\});}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00046}00046\ \ \ \ \ traverse\_dset<2,int>(grp,\ \textcolor{stringliteral}{"{}pivot\_range"{}},\ \ \ [\&](\textcolor{keywordtype}{size\_t}\ np,\ \textcolor{keywordtype}{size\_t}\ j,\ \ \textcolor{keywordtype}{int}\ x)\ \{\mbox{\hyperlink{struct_pivot_sampler_a65226281f8fa2f955c3ea22706c8266b}{pivot\_loc}}[np].pivot\_range[j]=x;\});}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00047}00047\ \ \ \ \ traverse\_dset<1,int>(grp,\ \textcolor{stringliteral}{"{}pivot\_restype"{}},\ [\&](\textcolor{keywordtype}{size\_t}\ np,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ x)\ \{\mbox{\hyperlink{struct_pivot_sampler_a65226281f8fa2f955c3ea22706c8266b}{pivot\_loc}}[np].restype\ =x;\});}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00049}00049\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ \&p:\ \mbox{\hyperlink{struct_pivot_sampler_a65226281f8fa2f955c3ea22706c8266b}{pivot\_loc}})\ \{}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(p.restype<0\ ||\ p.restype>=\mbox{\hyperlink{struct_pivot_sampler_aa5aaa0ac21a42ff37fd3573d8ced7207}{n\_layer}})\ \textcolor{keywordflow}{throw}\ std::string(\textcolor{stringliteral}{"{}invalid\ pivot\ restype"{}});}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ na=0;\ na<5;\ ++na)\ \{}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(p.pivot\_range[0]\ <=\ p.rama\_atom[na]\ \&\&\ p.rama\_atom[na]\ <\ p.pivot\_range[1])}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::string(\textcolor{stringliteral}{"{}pivot\_range\ cannot\ contain\ any\ atoms\ in\ pivot\_atom\ "{}})\ +\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::to\_string(p.pivot\_range[0])\ +\ \textcolor{stringliteral}{"{}\ <=\ "{}}\ +\ std::to\_string(p.rama\_atom[na])\ +\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ <\ "{}}\ +\ std::to\_string(p.pivot\_range[1]);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00056}00056\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00057}00057\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00059}00059\ \ \ \ \ traverse\_dset<3,float>(grp,\ \textcolor{stringliteral}{"{}proposal\_pot"{}},\ [\&](\textcolor{keywordtype}{size\_t}\ nl,\ \textcolor{keywordtype}{size\_t}\ nx,\ \textcolor{keywordtype}{size\_t}\ ny,\ \textcolor{keywordtype}{float}\ x)\ \{\mbox{\hyperlink{struct_pivot_sampler_afc826ed4e2f7da7359cd0c09122811d5}{proposal\_pot}}.push\_back(x);\});}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00061}00061\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ nl=0;\ nl<\mbox{\hyperlink{struct_pivot_sampler_aa5aaa0ac21a42ff37fd3573d8ced7207}{n\_layer}};\ ++nl)\ \{}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ sum\_prob\ =\ 0.;}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}};\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ sum\_prob\ +=\ exp(-\/\mbox{\hyperlink{struct_pivot_sampler_afc826ed4e2f7da7359cd0c09122811d5}{proposal\_pot}}[nl*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}\ +\ i]);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_a6600fd5ae7f81a0f25130769e3415fe8}{proposal\_prob\_cdf}}[nl*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}\ +\ i]\ =\ sum\_prob;}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ normalize\ both\ the\ negative\ log\ probability\ and\ the\ cdf}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ inv\_sum\_prob\ =\ 1./sum\_prob;}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ lsum\_prob\ =\ log(sum\_prob);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}};\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_a6600fd5ae7f81a0f25130769e3415fe8}{proposal\_prob\_cdf}}[nl*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}\ +\ i]\ *=\ inv\_sum\_prob;}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_afc826ed4e2f7da7359cd0c09122811d5}{proposal\_pot}}[nl*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}\ +\ i]\ \ \ \ \ \ +=\ lsum\_prob;}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00075}00075\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00076}00076\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_a6600fd5ae7f81a0f25130769e3415fe8}{proposal\_prob\_cdf}}[(nl+1)*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}-\/1]\ =\ 1.f;\ \ \textcolor{comment}{//\ ensure\ no\ rounding\ error\ here}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00077}00077\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00078}00078\ \}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00080}\mbox{\hyperlink{struct_pivot_sampler_a8ea47a0214ccbec71ab5acbeee14b797}{00080}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_pivot_sampler_a8ea47a0214ccbec71ab5acbeee14b797}{PivotSampler::propose\_random\_move}}(\textcolor{keywordtype}{float}*\ delta\_lprob,\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00081}00081\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_random_generator}{RandomGenerator}}\&\ random,\ \mbox{\hyperlink{struct_vec_array}{VecArray}}\ pos)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00082}00082\ \ \ \ \ \mbox{\hyperlink{struct_timer}{Timer}}\ timer(std::string(\textcolor{stringliteral}{"{}random\_pivot"{}}));}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00083}00083\ \ \ \ \ \mbox{\hyperlink{struct_vec}{float4}}\ random\_values\ =\ random.\mbox{\hyperlink{struct_random_generator_a15c5594b6abffc2c829ac20e08b8d0b8}{uniform\_open\_closed}}();}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00085}00085\ \ \ \ \ \textcolor{comment}{//\ pick\ a\ random\ pivot\ location}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00086}00086\ \ \ \ \ \textcolor{keywordtype}{int}\ loc\ =\ int(\mbox{\hyperlink{struct_pivot_sampler_a346e57715fa5f6a6f639ff497e579617}{n\_pivot\_loc}}\ *\ random\_values.\mbox{\hyperlink{struct_vec_ad85da573f2248ee25c5c0219be221e40}{z}}());}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00087}00087\ \ \ \ \ \textcolor{keywordflow}{if}(loc\ ==\ \mbox{\hyperlink{struct_pivot_sampler_a346e57715fa5f6a6f639ff497e579617}{n\_pivot\_loc}})\ loc-\/-\/;\ \ \textcolor{comment}{//\ this\ may\ occur\ due\ to\ rounding}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00088}00088\ \ \ \ \ \textcolor{keyword}{auto}\ p\ =\ \mbox{\hyperlink{struct_pivot_sampler_a65226281f8fa2f955c3ea22706c8266b}{pivot\_loc}}[loc];}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00090}00090\ \ \ \ \ \textcolor{comment}{//\ select\ a\ bin}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00091}00091\ \ \ \ \ \textcolor{keywordtype}{float}\ cdf\_value\ =\ random\_values.\mbox{\hyperlink{struct_vec_a285120a00012d8eaaa0dc8748c0294c2}{w}}();}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00093}00093\ \ \ \ \ \textcolor{keywordtype}{int}\ pivot\_bin\ =\ std::lower\_bound(}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_a6600fd5ae7f81a0f25130769e3415fe8}{proposal\_prob\_cdf}}.data()+\ p.restype\ \ \ *\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}},\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_a6600fd5ae7f81a0f25130769e3415fe8}{proposal\_prob\_cdf}}.data()+(p.restype+1)*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}},}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ cdf\_value)\ -\/\ (\mbox{\hyperlink{struct_pivot_sampler_a6600fd5ae7f81a0f25130769e3415fe8}{proposal\_prob\_cdf}}.data()+p.restype*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}});}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00097}00097\ \ \ \ \ \textcolor{keywordtype}{float}\ new\_lprob\ =\ \mbox{\hyperlink{struct_pivot_sampler_afc826ed4e2f7da7359cd0c09122811d5}{proposal\_pot}}[p.restype*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}\ +\ pivot\_bin];}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00099}00099\ \ \ \ \ \textcolor{keywordtype}{int}\ phi\_bin\ =\ pivot\_bin/\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00100}00100\ \ \ \ \ \textcolor{keywordtype}{int}\ psi\_bin\ =\ pivot\_bin\%\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00102}00102\ \ \ \ \ \textcolor{comment}{//\ now\ pick\ a\ random\ location\ in\ that\ bin}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00103}00103\ \ \ \ \ \textcolor{comment}{//\ Note\ the\ half-\/bin\ shift\ because\ we\ want\ the\ bin\ center\ of\ the\ left-\/most\ bin\ at\ 0}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00104}00104\ \ \ \ \ \mbox{\hyperlink{struct_vec}{float2}}\ new\_rama\ =\ (2.f*\mbox{\hyperlink{compute__rotamer__centers_8cpp_a10eed9dbd8803e4acfbfc3432fc48b08}{M\_PI\_F}}/\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}})*\mbox{\hyperlink{vector__math_8h_a07f83a9ab124f930a5af5e9036c6ea9e}{make\_vec2}}(phi\_bin+random\_values.\mbox{\hyperlink{struct_vec_a053cf7422a55ce5bd20f5e14ad1c85bd}{x}}()-\/0.5f,\ psi\_bin+random\_values.\mbox{\hyperlink{struct_vec_a35750631386ec744b20299992d2b2fe9}{y}}()-\/0.5f)\ -\/\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_a10eed9dbd8803e4acfbfc3432fc48b08}{M\_PI\_F}};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00106}00106\ \ \ \ \ \textcolor{comment}{//\ find\ deviation\ from\ old\ rama}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00107}00107\ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ d1,d2,d3,d4;}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00108}00108\ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ prevC\ =\ load\_vec<3>(pos,\ p.rama\_atom[0]);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00109}00109\ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ N\ \ \ \ \ =\ load\_vec<3>(pos,\ p.rama\_atom[1]);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00110}00110\ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ CA\ \ \ \ =\ load\_vec<3>(pos,\ p.rama\_atom[2]);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00111}00111\ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ C\ \ \ \ \ =\ load\_vec<3>(pos,\ p.rama\_atom[3]);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00112}00112\ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ nextN\ =\ load\_vec<3>(pos,\ p.rama\_atom[4]);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00114}00114\ \ \ \ \ \mbox{\hyperlink{struct_vec}{float2}}\ old\_rama\ =\ \mbox{\hyperlink{vector__math_8h_a07f83a9ab124f930a5af5e9036c6ea9e}{make\_vec2}}(}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ dihedral\_germ(prevC,N,CA,C,\ d1,d2,d3,d4),}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ dihedral\_germ(N,CA,C,nextN,\ d1,d2,d3,d4));}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00118}00118\ \ \ \ \ \textcolor{comment}{//\ reverse\ the\ half-\/bin\ shift}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00119}00119\ \ \ \ \ \textcolor{keywordtype}{int}\ old\_phi\_bin\ =\ (old\_rama.\mbox{\hyperlink{struct_vec_a053cf7422a55ce5bd20f5e14ad1c85bd}{x}}()+\mbox{\hyperlink{compute__rotamer__centers_8cpp_a10eed9dbd8803e4acfbfc3432fc48b08}{M\_PI\_F}})\ *\ (0.5f/\mbox{\hyperlink{compute__rotamer__centers_8cpp_a10eed9dbd8803e4acfbfc3432fc48b08}{M\_PI\_F}})\ *\ \mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}\ +\ 0.5f;}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00120}00120\ \ \ \ \ \textcolor{keywordtype}{int}\ old\_psi\_bin\ =\ (old\_rama.\mbox{\hyperlink{struct_vec_a35750631386ec744b20299992d2b2fe9}{y}}()+\mbox{\hyperlink{compute__rotamer__centers_8cpp_a10eed9dbd8803e4acfbfc3432fc48b08}{M\_PI\_F}})\ *\ (0.5f/\mbox{\hyperlink{compute__rotamer__centers_8cpp_a10eed9dbd8803e4acfbfc3432fc48b08}{M\_PI\_F}})\ *\ \mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}\ +\ 0.5f;}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00121}00121\ \ \ \ \ old\_phi\_bin\ =\ old\_phi\_bin>=\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}\ ?\ 0\ :\ old\_phi\_bin;\ \ \textcolor{comment}{//\ enforce\ periodicity}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00122}00122\ \ \ \ \ old\_psi\_bin\ =\ old\_psi\_bin>=\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}\ ?\ 0\ :\ old\_psi\_bin;}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00123}00123\ \ \ \ \ \textcolor{keywordtype}{float}\ old\_lprob\ =\ \mbox{\hyperlink{struct_pivot_sampler_afc826ed4e2f7da7359cd0c09122811d5}{proposal\_pot}}[(p.restype*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}\ +\ old\_phi\_bin)*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}\ +\ old\_psi\_bin];}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00125}00125\ \ \ \ \ \textcolor{comment}{//\ apply\ rotations}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00126}00126\ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ phi\_origin\ =\ CA;}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00127}00127\ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ psi\_origin\ =\ C;}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00129}00129\ \ \ \ \ \mbox{\hyperlink{struct_vec}{float2}}\ delta\_rama\ =\ new\_rama\ -\/\ old\_rama;}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00130}00130\ \ \ \ \ \textcolor{keywordtype}{float}\ phi\_U[9];\ \mbox{\hyperlink{affine_8h_a73b199010f781e87af84f95d8ef4eada}{axis\_angle\_to\_rot}}(phi\_U,\ delta\_rama.\mbox{\hyperlink{struct_vec_a053cf7422a55ce5bd20f5e14ad1c85bd}{x}}(),\ normalized(CA-\/N\ ));}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00131}00131\ \ \ \ \ \textcolor{keywordtype}{float}\ psi\_U[9];\ \mbox{\hyperlink{affine_8h_a73b199010f781e87af84f95d8ef4eada}{axis\_angle\_to\_rot}}(psi\_U,\ delta\_rama.\mbox{\hyperlink{struct_vec_a35750631386ec744b20299992d2b2fe9}{y}}(),\ normalized(C\ -\/CA));}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00132}00132\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00133}00133\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00134}00134\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ y\ =\ load\_vec<3>(pos,\ p.rama\_atom[3]);\ \ \textcolor{comment}{//\ C}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00135}00135\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ after\_psi\ =\ psi\_origin\ +\ \mbox{\hyperlink{affine_8h_a4898ef1f196b90dec831946aa0171167}{apply\_rotation}}(psi\_U,\ y\ \ \ \ \ \ \ \ -\/psi\_origin);\ \textcolor{comment}{//\ unnecessary\ but\ harmless}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00136}00136\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ after\_phi\ =\ phi\_origin\ +\ \mbox{\hyperlink{affine_8h_a4898ef1f196b90dec831946aa0171167}{apply\_rotation}}(phi\_U,\ after\_psi-\/phi\_origin);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00137}00137\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{vector__math_8h_a721fdbc18b9714a8bfa755fefeb12961}{store\_vec}}(pos,\ p.rama\_atom[3],\ after\_phi);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00138}00138\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00140}00140\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00141}00141\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ y\ =\ load\_vec<3>(pos,\ p.rama\_atom[4]);\ \ \textcolor{comment}{//\ nextN}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00142}00142\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ after\_psi\ =\ psi\_origin\ +\ \mbox{\hyperlink{affine_8h_a4898ef1f196b90dec831946aa0171167}{apply\_rotation}}(psi\_U,\ y\ \ \ \ \ \ \ \ -\/psi\_origin);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00143}00143\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ after\_phi\ =\ phi\_origin\ +\ \mbox{\hyperlink{affine_8h_a4898ef1f196b90dec831946aa0171167}{apply\_rotation}}(phi\_U,\ after\_psi-\/phi\_origin);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00144}00144\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{vector__math_8h_a721fdbc18b9714a8bfa755fefeb12961}{store\_vec}}(pos,\ p.rama\_atom[4],\ after\_phi);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00145}00145\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00147}00147\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ na=p.pivot\_range[0];\ na<p.pivot\_range[1];\ ++na)\ \{}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00148}00148\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ y\ =\ load\_vec<3>(pos,\ na);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00149}00149\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ after\_psi\ =\ psi\_origin\ +\ \mbox{\hyperlink{affine_8h_a4898ef1f196b90dec831946aa0171167}{apply\_rotation}}(psi\_U,\ y\ \ \ \ \ \ \ \ -\/psi\_origin);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00150}00150\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ after\_phi\ =\ phi\_origin\ +\ \mbox{\hyperlink{affine_8h_a4898ef1f196b90dec831946aa0171167}{apply\_rotation}}(phi\_U,\ after\_psi-\/phi\_origin);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00151}00151\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{vector__math_8h_a721fdbc18b9714a8bfa755fefeb12961}{store\_vec}}(pos,\ na,\ after\_phi);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00152}00152\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00153}00153\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00154}00154\ \ \ \ \ *delta\_lprob\ =\ new\_lprob\ -\/\ old\_lprob;}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00155}00155\ \}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00156}00156\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00157}00157\ \textcolor{comment}{//\ ===[Jump\ Sampler\ Definitions]===}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00159}\mbox{\hyperlink{struct_jump_sampler}{00159}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_jump_sampler}{JumpSampler}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{struct_monte_carlo_sampler}{MonteCarloSampler}}\ \{}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00160}\mbox{\hyperlink{struct_jump_sampler_1_1_jump_chain}{00160}}\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_jump_sampler_1_1_jump_chain}{JumpChain}}\ \{}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00161}\mbox{\hyperlink{struct_jump_sampler_1_1_jump_chain_ad45679b0eeef6515190cf8bc239f1c81}{00161}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_jump_sampler_1_1_jump_chain_ad45679b0eeef6515190cf8bc239f1c81}{first\_atom}},\ \mbox{\hyperlink{struct_jump_sampler_1_1_jump_chain_a340c8ae1cc3ce6213a503ed851907964}{next\_first}};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00162}\mbox{\hyperlink{struct_jump_sampler_1_1_jump_chain_a2a09a3f36332786fdda8f74355b20a11}{00162}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_jump_sampler_1_1_jump_chain_a6a1f6b1ade66d683f3a8906d9c5cbe31}{sigma\_trans}},\ \mbox{\hyperlink{struct_jump_sampler_1_1_jump_chain_a2a09a3f36332786fdda8f74355b20a11}{sigma\_rot}};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00163}00163\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00164}00164\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00165}\mbox{\hyperlink{struct_jump_sampler_a120238f90c6a9eb0d3e65b122d8eb3b9}{00165}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_jump_sampler_a120238f90c6a9eb0d3e65b122d8eb3b9}{n\_jump\_chains}};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00166}\mbox{\hyperlink{struct_jump_sampler_af84f6482909e43acb532d87b0930cdcf}{00166}}\ \ \ \ \ std::vector<JumpChain>\ \mbox{\hyperlink{struct_jump_sampler_af84f6482909e43acb532d87b0930cdcf}{jump\_chains}};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00167}\mbox{\hyperlink{struct_jump_sampler_a2618c7ebafdca5962379a4e6ab277a72}{00167}}\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_jump_sampler_a2618c7ebafdca5962379a4e6ab277a72}{prob\_mod}};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00168}00168\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00169}00169\ \ \ \ \ \mbox{\hyperlink{struct_jump_sampler}{JumpSampler}}(\textcolor{keyword}{const}\ std::string\&\ grp\_name,\ hid\_t\ grp,\ \mbox{\hyperlink{struct_h5_logger}{H5Logger}}\&\ logger);\ \textcolor{comment}{//\ Constructor\ declaration}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00170}00170\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00171}00171\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_jump_sampler_acd8c25137839486f38e00b1a9ab6433c}{propose\_random\_move}}(\textcolor{keywordtype}{float}*\ delta\_lprob,\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00172}00172\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_random_generator}{RandomGenerator}}\&\ random,\ \mbox{\hyperlink{struct_vec_array}{VecArray}}\ pos)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00173}00173\ \};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00174}00174\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00175}\mbox{\hyperlink{struct_jump_sampler_a9022160f19a36dce32040a53a57d594a}{00175}}\ \mbox{\hyperlink{struct_jump_sampler_a9022160f19a36dce32040a53a57d594a}{JumpSampler::JumpSampler}}(\textcolor{keyword}{const}\ std::string\&\ name,\ hid\_t\ grp,\ \mbox{\hyperlink{struct_h5_logger}{H5Logger}}\&\ logger):\ \textcolor{comment}{//\ Constructor\ definition}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00176}00176\ \ \ \ \ \mbox{\hyperlink{struct_monte_carlo_sampler}{MonteCarloSampler}}(name,\ \mbox{\hyperlink{random_8h_ab1fa763976d66d77a7a63f680bfd720ba53def7472034cd1aa9f696ae7afcdfe1}{JUMP\_MOVE\_RANDOM\_STREAM}},\ logger),}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00177}00177\ \ \ \ \ n\_jump\_chains(\mbox{\hyperlink{namespaceh5}{h5}}::get\_dset\_size(2,\ grp,\ \textcolor{stringliteral}{"{}atom\_range"{}})[0]),}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00178}00178\ \ \ \ \ jump\_chains(n\_jump\_chains),}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00179}00179\ \ \ \ \ prob\_mod(\mbox{\hyperlink{namespaceh5}{h5}}::read\_attribute<float>(grp,\ \textcolor{stringliteral}{"{}."{}},\ \textcolor{stringliteral}{"{}prob\_mod"{}},\ 0.f))}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00180}00180\ \{}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00181}00181\ \ \ \ \ \textcolor{keyword}{using\ namespace\ }\mbox{\hyperlink{namespaceh5}{h5}};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00182}00182\ \ \ \ \ check\_size(grp,\ \textcolor{stringliteral}{"{}atom\_range"{}},\ \ \mbox{\hyperlink{struct_jump_sampler_a120238f90c6a9eb0d3e65b122d8eb3b9}{n\_jump\_chains}},\ 2);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00183}00183\ \ \ \ \ check\_size(grp,\ \textcolor{stringliteral}{"{}sigma\_trans"{}},\ \mbox{\hyperlink{struct_jump_sampler_a120238f90c6a9eb0d3e65b122d8eb3b9}{n\_jump\_chains}});}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00184}00184\ \ \ \ \ check\_size(grp,\ \textcolor{stringliteral}{"{}sigma\_rot"{}},\ \ \ \mbox{\hyperlink{struct_jump_sampler_a120238f90c6a9eb0d3e65b122d8eb3b9}{n\_jump\_chains}});}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00185}00185\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00186}00186\ \ \ \ \ printf(\textcolor{stringliteral}{"{}-\/-\/-\/[Adding\ JumpSampler]-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00187}00187\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00188}00188\ \ \ \ \ traverse\_dset<2,int>(grp,\ \textcolor{stringliteral}{"{}atom\_range"{}},\ [\&](\textcolor{keywordtype}{size\_t}\ ns,\ \textcolor{keywordtype}{size\_t}\ begin\_end,\ \textcolor{keywordtype}{int}\ x)\ \{\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00189}00189\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!begin\_end)\ \{}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}[\%d,"{}},\ x);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_jump_sampler_af84f6482909e43acb532d87b0930cdcf}{jump\_chains}}[ns].first\_atom\ =\ x;\ \}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00192}00192\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%d]\(\backslash\)n"{}},\ x);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_jump_sampler_af84f6482909e43acb532d87b0930cdcf}{jump\_chains}}[ns].next\_first\ =\ x;\ \}\ \});}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00195}00195\ \ \ \ \ traverse\_dset<1,float>(grp,\ \textcolor{stringliteral}{"{}sigma\_trans"{}},\ [\&](\textcolor{keywordtype}{size\_t}\ ns,\ \textcolor{keywordtype}{float}\ x)\ \{\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00196}00196\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%.3f\(\backslash\)n"{}},\ x);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00197}00197\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_jump_sampler_af84f6482909e43acb532d87b0930cdcf}{jump\_chains}}[ns].sigma\_trans\ =\ x;\ \});}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00198}00198\ \ \ \ \ traverse\_dset<1,float>(grp,\ \textcolor{stringliteral}{"{}sigma\_rot"{}},\ \ \ [\&](\textcolor{keywordtype}{size\_t}\ ns,\ \textcolor{keywordtype}{float}\ x)\ \{}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00199}00199\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%.3f\(\backslash\)n"{}},\ x);\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00200}00200\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_jump_sampler_af84f6482909e43acb532d87b0930cdcf}{jump\_chains}}[ns].sigma\_rot\ =\ x;\ \});}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00201}00201\ \}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00202}00202\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00203}\mbox{\hyperlink{struct_jump_sampler_acd8c25137839486f38e00b1a9ab6433c}{00203}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_jump_sampler_acd8c25137839486f38e00b1a9ab6433c}{JumpSampler::propose\_random\_move}}(\textcolor{keywordtype}{float}*\ delta\_lprob,\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00204}00204\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_random_generator}{RandomGenerator}}\&\ random,\ \mbox{\hyperlink{struct_vec_array}{VecArray}}\ pos)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00205}00205\ \ \ \ \ \mbox{\hyperlink{struct_timer}{Timer}}\ timer(std::string(\textcolor{stringliteral}{"{}random\_jump"{}}));}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00206}00206\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00207}00207\ \ \ \ \ \textcolor{comment}{//\ pick\ jump\ move\ type:\ translation\ or\ rotation}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00208}00208\ \ \ \ \ \mbox{\hyperlink{struct_vec}{float4}}\ rand\_type\_val\ =\ random.\mbox{\hyperlink{struct_random_generator_a15c5594b6abffc2c829ac20e08b8d0b8}{uniform\_open\_closed}}();}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00209}00209\ \ \ \ \ \textcolor{keywordtype}{int}\ jump\_move\_type\ =\ int(2\ *\ rand\_type\_val.\mbox{\hyperlink{struct_vec_a053cf7422a55ce5bd20f5e14ad1c85bd}{x}}());}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00211}00211\ \ \ \ \ \textcolor{comment}{//\ pick\ a\ random\ jump\ chain}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00212}00212\ \ \ \ \ \textcolor{keywordtype}{int}\ chain\ =\ int(\mbox{\hyperlink{struct_jump_sampler_a120238f90c6a9eb0d3e65b122d8eb3b9}{n\_jump\_chains}}\ *\ rand\_type\_val.\mbox{\hyperlink{struct_vec_a285120a00012d8eaaa0dc8748c0294c2}{w}}());}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00213}00213\ \ \ \ \ \textcolor{keywordflow}{if}(chain\ ==\ \mbox{\hyperlink{struct_jump_sampler_a120238f90c6a9eb0d3e65b122d8eb3b9}{n\_jump\_chains}})\ chain-\/-\/;\ \ \textcolor{comment}{//\ this\ may\ occur\ due\ to\ rounding}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00214}00214\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ j\ =\ \mbox{\hyperlink{struct_jump_sampler_af84f6482909e43acb532d87b0930cdcf}{jump\_chains}}[chain];}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00215}00215\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00216}00216\ \ \ \ \ \textcolor{keywordflow}{if}\ (jump\_move\_type\ ==\ 0)\ \{\ \textcolor{comment}{//\ translation}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00217}00217\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ pick\ a\ random\ jump\ translation}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00218}00218\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ rand\_disp\_val\ =\ j.sigma\_trans/\mbox{\hyperlink{_float4_8h_a71bff4a4d976cf10c637579a0fd58ae5}{sqrtf}}(3.f)\ *\ random.\mbox{\hyperlink{struct_random_generator_af178abea1dd12f5b54c6b35524b58009}{normal3}}();}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00219}00219\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00220}00220\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ apply\ displacement}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00221}00221\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ na\ =\ j.first\_atom;\ na\ <\ j.next\_first;\ na++)\ \{}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ pos\_na\ =\ load\_vec<3>(pos,\ na);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ new\_pos\_na\ =\ rand\_disp\_val\ +\ pos\_na;}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{vector__math_8h_a721fdbc18b9714a8bfa755fefeb12961}{store\_vec}}(pos,\ na,\ new\_pos\_na);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00225}00225\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00226}00226\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00227}00227\ \ \ \ \ \textcolor{keywordflow}{else}\ \{\ \textcolor{comment}{//\ rotation}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00228}00228\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ pick\ a\ random\ jump\ rotation\ angle\ and\ axis\ unit\ vector.\ Create\ rotation\ matrix\ }}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00229}00229\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float4}}\ rand\_rot\_variates\ =\ random.\mbox{\hyperlink{struct_random_generator_a55e49ba7cf0dc8c46ca453f7c783eeb3}{normal}}();}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00230}00230\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ rand\_rot\_angle\ \ \ \ =\ j.sigma\_rot\ *\ rand\_rot\_variates[0];}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00231}00231\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ rand\_rot\_axis\ \ \ \ \ =\ extract<1,4>(rand\_rot\_variates);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00232}00232\ \ \ \ \ \ \ \ \ rand\_rot\_axis\ /=\ mag(rand\_rot\_axis)+1e-\/16f;\ \ \textcolor{comment}{//\ 1e-\/16\ is\ paranoia\ against\ division\ by\ zero}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00233}00233\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00234}00234\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ U[9];\ \mbox{\hyperlink{affine_8h_a73b199010f781e87af84f95d8ef4eada}{axis\_angle\_to\_rot}}(U,\ rand\_rot\_angle,\ rand\_rot\_axis);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00235}00235\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00236}00236\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ CoM}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00237}00237\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ com\ =\ \mbox{\hyperlink{vector__math_8h_a7d18efc8f976ad6c055d9dd7d3bd4867}{make\_vec3}}(0.f,\ 0.f,\ 0.f);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00238}00238\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ na\ =\ j.first\_atom;\ na\ <\ j.next\_first;\ na++)}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00239}00239\ \ \ \ \ \ \ \ \ \ \ \ \ com\ +=\ load\_vec<3>(pos,\ na);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00240}00240\ \ \ \ \ \ \ \ \ com\ *=\ 1.f/(j.next\_first-\/j.first\_atom);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00241}00241\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00242}00242\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ apply\ rotation\ about\ com}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00243}00243\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ na\ =\ j.first\_atom;\ na\ <\ j.next\_first;\ na++)\ \{}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00244}00244\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ pos\_na\ =\ load\_vec<3>(pos,\ na);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ new\_pos\_na\ =\ com\ +\ \mbox{\hyperlink{affine_8h_a4898ef1f196b90dec831946aa0171167}{apply\_rotation}}(U,\ pos\_na-\/com);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00246}00246\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{vector__math_8h_a721fdbc18b9714a8bfa755fefeb12961}{store\_vec}}(pos,\ na,\ new\_pos\_na);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00247}00247\ \ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00248}00248\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00249}00249\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00250}00250\ \ \ \ \ *delta\_lprob\ =\ \mbox{\hyperlink{struct_jump_sampler_a2618c7ebafdca5962379a4e6ab277a72}{prob\_mod}};\ \textcolor{comment}{//0.f;}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00251}00251\ \}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00252}00252\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00253}00253\ \textcolor{comment}{//\ ===[Monte\ Carlo\ Sampler\ Definitions]===}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00254}00254\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00255}\mbox{\hyperlink{struct_monte_carlo_sampler_a583b3063ce8f9e0a34474d3c0dbde0f5}{00255}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_monte_carlo_sampler_a583b3063ce8f9e0a34474d3c0dbde0f5}{MonteCarloSampler::monte\_carlo\_step}}(}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00256}00256\ \ \ \ \ \ \ \ \ uint32\_t\ seed,\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00257}00257\ \ \ \ \ \ \ \ \ uint64\_t\ round,}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00258}00258\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ temperature,}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00259}00259\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_deriv_engine}{DerivEngine}}\&\ engine)\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00260}00260\ \{}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00261}00261\ \ \ \ \ \mbox{\hyperlink{struct_random_generator}{RandomGenerator}}\ random(seed,\ \mbox{\hyperlink{struct_monte_carlo_sampler_a84b6639a52078ee2c6901b01d8d887fc}{stream\_id}},\ 0,\ round);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00262}00262\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00263}00263\ \ \ \ \ \textcolor{keyword}{auto}\ \&pos\ =\ engine.\mbox{\hyperlink{struct_deriv_engine_a4d1eead19c296c11095a8d7ecfa138ae}{pos}}-\/>\mbox{\hyperlink{struct_coord_node_a678c754ea0a0fdd4e01a23875426d6b5}{output}};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00264}00264\ \ \ \ \ \mbox{\hyperlink{struct_vec_array_storage}{VecArrayStorage}}\ pos\_copy(pos);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00265}00265\ \ \ \ \ \textcolor{keywordtype}{float}\ delta\_lprob;}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00266}00266\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00267}00267\ \ \ \ \ engine.\mbox{\hyperlink{struct_deriv_engine_a6aa1208083a02ae463d4a7aea00389cc}{compute}}(\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4a08446ed6520358b5446fcd916b65610c}{PotentialAndDerivMode}});}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00268}00268\ \ \ \ \ \textcolor{keywordtype}{float}\ old\_potential\ =\ engine.\mbox{\hyperlink{struct_deriv_engine_a3a0ab62cfd0b13b064466312d4b3f5e8}{potential}};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00269}00269\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00270}00270\ \ \ \ \ \mbox{\hyperlink{struct_monte_carlo_sampler_a815cb0c94eedf488358d69711b9bcfd5}{propose\_random\_move}}(\&delta\_lprob,\ random,\ pos);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00271}00271\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00272}00272\ \ \ \ \ engine.\mbox{\hyperlink{struct_deriv_engine_a6aa1208083a02ae463d4a7aea00389cc}{compute}}(\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4a08446ed6520358b5446fcd916b65610c}{PotentialAndDerivMode}});}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00273}00273\ \ \ \ \ \textcolor{keywordtype}{float}\ new\_potential\ =\ engine.\mbox{\hyperlink{struct_deriv_engine_a3a0ab62cfd0b13b064466312d4b3f5e8}{potential}};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00274}00274\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00275}00275\ \ \ \ \ \textcolor{keywordtype}{float}\ lboltz\_diff\ =\ delta\_lprob\ -\/\ (1.f/temperature)\ *\ (new\_potential-\/old\_potential);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00276}00276\ \ \ \ \ \mbox{\hyperlink{struct_monte_carlo_sampler_a387a72d76d0215f8047a726b1604716a}{move\_stats}}.\mbox{\hyperlink{struct_monte_carlo_sampler_1_1_move_stats_a66e04f03386727d0cb853c8ab6378c49}{n\_attempt}}++;}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00277}00277\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00278}00278\ \ \ \ \ \textcolor{keywordflow}{if}(lboltz\_diff\ >=\ 0.f\ ||\ \mbox{\hyperlink{_float4_8h_aea31e5e2a8dd98fe7d99206ced8f792c}{expf}}(lboltz\_diff)\ >=\ random.\mbox{\hyperlink{struct_random_generator_a15c5594b6abffc2c829ac20e08b8d0b8}{uniform\_open\_closed}}().\mbox{\hyperlink{struct_vec_a053cf7422a55ce5bd20f5e14ad1c85bd}{x}}())\ \{}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00279}00279\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_monte_carlo_sampler_a387a72d76d0215f8047a726b1604716a}{move\_stats}}.\mbox{\hyperlink{struct_monte_carlo_sampler_1_1_move_stats_ab5f09379131728199c0f1d439705e609}{n\_success}}++;}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00280}00280\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00281}00281\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ we\ reject\ the\ move,\ we\ must\ reverse\ it}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00282}00282\ \ \ \ \ \ \ \ \ copy(pos\_copy,\ pos);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00283}00283\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00284}00284\ \}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00285}00285\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00286}00286\ \textcolor{comment}{//\ ===[Multiple\ Monte\ Carlo\ Sampler\ Definitions]===}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00287}00287\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00288}\mbox{\hyperlink{struct_multiple_monte_carlo_sampler_aa2fb0f9f8d8a21cf2b4c758a94f8cb5c}{00288}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_multiple_monte_carlo_sampler_aa2fb0f9f8d8a21cf2b4c758a94f8cb5c}{MultipleMonteCarloSampler::execute}}(uint32\_t\ seed,\ uint64\_t\ round,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ temperature,\ \mbox{\hyperlink{struct_deriv_engine}{DerivEngine}}\&\ engine)\ \{}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00289}00289\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ s:\ \mbox{\hyperlink{struct_multiple_monte_carlo_sampler_a25ae255de71e3eebeb87e320a2ff0e8c}{samplers}})\ s-\/>monte\_carlo\_step(seed,\ round,\ temperature,\ engine);}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00290}00290\ \}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00291}00291\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00292}\mbox{\hyperlink{struct_multiple_monte_carlo_sampler_aa47ee40bc755bee8e8a7edea428019fd}{00292}}\ \mbox{\hyperlink{struct_multiple_monte_carlo_sampler_a0f676bf2206c0639831acf84374ba998}{MultipleMonteCarloSampler::MultipleMonteCarloSampler}}(hid\_t\ sampler\_group,\ \mbox{\hyperlink{struct_h5_logger}{H5Logger}}\&\ logger)\ \{}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00293}00293\ \ \ \ \ \textcolor{keyword}{using\ namespace\ }\mbox{\hyperlink{namespaceh5}{h5}};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00294}00294\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00295}00295\ \ \ \ \ \ \ \ \ std::string\ name;}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00296}00296\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00297}00297\ \ \ \ \ \ \ \ \ name\ =\ \textcolor{stringliteral}{"{}pivot"{}};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00298}00298\ \ \ \ \ \textcolor{keywordflow}{if}(h5\_exists(sampler\_group,\ (name\ +\ \textcolor{stringliteral}{"{}\_moves"{}}).c\_str()))}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00299}00299\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_multiple_monte_carlo_sampler_a25ae255de71e3eebeb87e320a2ff0e8c}{samplers}}.emplace\_back(}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00300}00300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ \mbox{\hyperlink{struct_pivot_sampler}{PivotSampler}}(name.c\_str(),\ open\_group(sampler\_group,\ (name\ +\ \textcolor{stringliteral}{"{}\_moves"{}}).c\_str()).get(),\ logger));}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00301}00301\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00302}00302\ \ \ \ \ \ \ \ \ name\ =\ \textcolor{stringliteral}{"{}jump"{}};}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00303}00303\ \ \ \ \ \textcolor{keywordflow}{if}(h5\_exists(sampler\_group,\ (name\ +\ \textcolor{stringliteral}{"{}\_moves"{}}).c\_str()))}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00304}00304\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_multiple_monte_carlo_sampler_a25ae255de71e3eebeb87e320a2ff0e8c}{samplers}}.emplace\_back(}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00305}00305\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ \mbox{\hyperlink{struct_jump_sampler}{JumpSampler}}(name.c\_str(),\ open\_group(sampler\_group,\ (name\ +\ \textcolor{stringliteral}{"{}\_moves"{}}).c\_str()).get(),\ logger));}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00306}00306\ \}}
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00307}00307\ }
+\DoxyCodeLine{\Hypertarget{monte__carlo__sampler_8cpp_source_l00308}00308\ }
+
+\end{DoxyCode}

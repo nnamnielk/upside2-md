@@ -1,0 +1,44 @@
+\doxysection{src/boxmuller.hpp File Reference}
+\hypertarget{boxmuller_8hpp}{}\label{boxmuller_8hpp}\index{src/boxmuller.hpp@{src/boxmuller.hpp}}
+{\ttfamily \#include $<$Random123/features/compilerfeatures.\+h$>$}\newline
+{\ttfamily \#include "{}uniform.\+hpp"{}}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+Include dependency graph for boxmuller.\+hpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=313pt]{boxmuller_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{boxmuller_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structr123_1_1float2}{r123\+::float2}}
+\item 
+struct \mbox{\hyperlink{structr123_1_1double2}{r123\+::double2}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacer123}{r123}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+R123\+\_\+\+CUDA\+\_\+\+DEVICE R123\+\_\+\+STATIC\+\_\+\+INLINE void \mbox{\hyperlink{namespacer123_a44c7b96d6943ef6f07a688c976fae5c4}{r123\+::sincospif}} (float x, float \texorpdfstring{$\ast$}{*}s, float \texorpdfstring{$\ast$}{*}c)
+\item 
+R123\+\_\+\+CUDA\+\_\+\+DEVICE R123\+\_\+\+STATIC\+\_\+\+INLINE void \mbox{\hyperlink{namespacer123_a603446b853f885a101ec6752f5da9e47}{r123\+::sincospi}} (double x, double \texorpdfstring{$\ast$}{*}s, double \texorpdfstring{$\ast$}{*}c)
+\item 
+R123\+\_\+\+CUDA\+\_\+\+DEVICE R123\+\_\+\+STATIC\+\_\+\+INLINE \mbox{\hyperlink{structr123_1_1float2}{float2}} \mbox{\hyperlink{namespacer123_afe781081ff63812582c2f02af778a1f5}{r123\+::boxmuller}} (uint32\+\_\+t u0, uint32\+\_\+t u1)
+\item 
+R123\+\_\+\+CUDA\+\_\+\+DEVICE R123\+\_\+\+STATIC\+\_\+\+INLINE \mbox{\hyperlink{structr123_1_1double2}{double2}} \mbox{\hyperlink{namespacer123_a641db790ccf468913483f1d23bb009c0}{r123\+::boxmuller}} (uint64\+\_\+t u0, uint64\+\_\+t u1)
+\end{DoxyCompactItemize}

@@ -1,0 +1,82 @@
+\doxysection{Multiple\+Monte\+Carlo\+Sampler Struct Reference}
+\hypertarget{struct_multiple_monte_carlo_sampler}{}\label{struct_multiple_monte_carlo_sampler}\index{MultipleMonteCarloSampler@{MultipleMonteCarloSampler}}
+
+
+{\ttfamily \#include $<$monte\+\_\+carlo\+\_\+sampler.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_multiple_monte_carlo_sampler_a0f676bf2206c0639831acf84374ba998}{Multiple\+Monte\+Carlo\+Sampler}} ()
+\item 
+\mbox{\hyperlink{struct_multiple_monte_carlo_sampler_aa47ee40bc755bee8e8a7edea428019fd}{Multiple\+Monte\+Carlo\+Sampler}} (hid\+\_\+t sampler\+\_\+group, \mbox{\hyperlink{struct_h5_logger}{H5\+Logger}} \&logger)
+\item 
+void \mbox{\hyperlink{struct_multiple_monte_carlo_sampler_aa2fb0f9f8d8a21cf2b4c758a94f8cb5c}{execute}} (uint32\+\_\+t seed, uint64\+\_\+t round, const float temperature, \mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \&engine)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{struct_monte_carlo_sampler}{Monte\+Carlo\+Sampler}} $>$ $>$ \mbox{\hyperlink{struct_multiple_monte_carlo_sampler_a25ae255de71e3eebeb87e320a2ff0e8c}{samplers}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8h_source_l00045}{45}} of file \mbox{\hyperlink{monte__carlo__sampler_8h_source}{monte\+\_\+carlo\+\_\+sampler.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_multiple_monte_carlo_sampler_a0f676bf2206c0639831acf84374ba998}\label{struct_multiple_monte_carlo_sampler_a0f676bf2206c0639831acf84374ba998} 
+\index{MultipleMonteCarloSampler@{MultipleMonteCarloSampler}!MultipleMonteCarloSampler@{MultipleMonteCarloSampler}}
+\index{MultipleMonteCarloSampler@{MultipleMonteCarloSampler}!MultipleMonteCarloSampler@{MultipleMonteCarloSampler}}
+\doxysubsubsection{\texorpdfstring{MultipleMonteCarloSampler()}{MultipleMonteCarloSampler()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Multiple\+Monte\+Carlo\+Sampler\+::\+Multiple\+Monte\+Carlo\+Sampler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8h_source_l00048}{48}} of file \mbox{\hyperlink{monte__carlo__sampler_8h_source}{monte\+\_\+carlo\+\_\+sampler.\+h}}.
+
+\Hypertarget{struct_multiple_monte_carlo_sampler_aa47ee40bc755bee8e8a7edea428019fd}\label{struct_multiple_monte_carlo_sampler_aa47ee40bc755bee8e8a7edea428019fd} 
+\index{MultipleMonteCarloSampler@{MultipleMonteCarloSampler}!MultipleMonteCarloSampler@{MultipleMonteCarloSampler}}
+\index{MultipleMonteCarloSampler@{MultipleMonteCarloSampler}!MultipleMonteCarloSampler@{MultipleMonteCarloSampler}}
+\doxysubsubsection{\texorpdfstring{MultipleMonteCarloSampler()}{MultipleMonteCarloSampler()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Multiple\+Monte\+Carlo\+Sampler\+::\+Multiple\+Monte\+Carlo\+Sampler (\begin{DoxyParamCaption}\item[{hid\+\_\+t}]{sampler\+\_\+group,  }\item[{\mbox{\hyperlink{struct_h5_logger}{H5\+Logger}} \&}]{logger }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8cpp_source_l00292}{292}} of file \mbox{\hyperlink{monte__carlo__sampler_8cpp_source}{monte\+\_\+carlo\+\_\+sampler.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_multiple_monte_carlo_sampler_aa2fb0f9f8d8a21cf2b4c758a94f8cb5c}\label{struct_multiple_monte_carlo_sampler_aa2fb0f9f8d8a21cf2b4c758a94f8cb5c} 
+\index{MultipleMonteCarloSampler@{MultipleMonteCarloSampler}!execute@{execute}}
+\index{execute@{execute}!MultipleMonteCarloSampler@{MultipleMonteCarloSampler}}
+\doxysubsubsection{\texorpdfstring{execute()}{execute()}}
+{\footnotesize\ttfamily void Multiple\+Monte\+Carlo\+Sampler\+::execute (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{seed,  }\item[{uint64\+\_\+t}]{round,  }\item[{const float}]{temperature,  }\item[{\mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \&}]{engine }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8cpp_source_l00288}{288}} of file \mbox{\hyperlink{monte__carlo__sampler_8cpp_source}{monte\+\_\+carlo\+\_\+sampler.\+cpp}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_multiple_monte_carlo_sampler_a25ae255de71e3eebeb87e320a2ff0e8c}\label{struct_multiple_monte_carlo_sampler_a25ae255de71e3eebeb87e320a2ff0e8c} 
+\index{MultipleMonteCarloSampler@{MultipleMonteCarloSampler}!samplers@{samplers}}
+\index{samplers@{samplers}!MultipleMonteCarloSampler@{MultipleMonteCarloSampler}}
+\doxysubsubsection{\texorpdfstring{samplers}{samplers}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{struct_monte_carlo_sampler}{Monte\+Carlo\+Sampler}}$>$ $>$ Multiple\+Monte\+Carlo\+Sampler\+::samplers}
+
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8h_source_l00046}{46}} of file \mbox{\hyperlink{monte__carlo__sampler_8h_source}{monte\+\_\+carlo\+\_\+sampler.\+h}}.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{monte__carlo__sampler_8h}{monte\+\_\+carlo\+\_\+sampler.\+h}}\item 
+src/\mbox{\hyperlink{monte__carlo__sampler_8cpp}{monte\+\_\+carlo\+\_\+sampler.\+cpp}}\end{DoxyCompactItemize}

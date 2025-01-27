@@ -1,0 +1,338 @@
+\doxysection{Torus\+DBN\+\_\+\+Emission Struct Reference}
+\hypertarget{struct_torus_d_b_n___emission}{}\label{struct_torus_d_b_n___emission}\index{TorusDBN\_Emission@{TorusDBN\_Emission}}
+
+
+Inheritance diagram for Torus\+DBN\+\_\+\+Emission\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=193pt]{struct_torus_d_b_n___emission__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Torus\+DBN\+\_\+\+Emission\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=349pt]{struct_torus_d_b_n___emission__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_torus_d_b_n___emission_1_1_params}{Params}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_torus_d_b_n___emission_aae9538195d8c75f9b80838ed9f5acbd8}{update\+\_\+prior\+\_\+offset}} ()
+\item 
+\mbox{\hyperlink{struct_torus_d_b_n___emission_a21a9ab0743afeefca4a12aabd16f162a}{Torus\+DBN\+\_\+\+Emission}} (\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{hid\+\_\+t}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{grp}}, \mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rama\+\_\+}})
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_torus_d_b_n___emission_ac2ff7ea8ea86388e949ee3f507e2018c}{compute\+\_\+value}} (\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{Compute\+Mode}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{mode}})
+\begin{DoxyCompactList}\small\item\em Reads inputs and computes output value. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_torus_d_b_n___emission_a92ef9d1c5344154cb42b444b2b1569a9}{propagate\+\_\+deriv}} ()
+\begin{DoxyCompactList}\small\item\em Uses its sensitivity to its output to add to sensivities of its inputs. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} $>$ \mbox{\hyperlink{struct_torus_d_b_n___emission_acf97d93a5e501586be45b0fd4fabb583}{get\+\_\+param}} () \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{const}}
+\begin{DoxyCompactList}\small\item\em Return arbitrary subset of parameters. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_torus_d_b_n___emission_a2f78803e25f48e0fd7ac1e925b06e39b}{set\+\_\+param}} (\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{const}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} $>$ \&\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{new\+\_\+param}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_coord_node}{Coord\+Node}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_coord_node_a9483bd859494380be2d2851e094c453f}{Coord\+Node}} (int n\+\_\+elem\+\_\+, int elem\+\_\+width\+\_\+)
+\begin{DoxyCompactList}\small\item\em Initialize from n\+\_\+elem and elem\+\_\+width. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_deriv_computation_ab55a3d270aedc331a7ade09591198c4f}{Deriv\+Computation}} (bool potential\+\_\+term\+\_\+)
+\begin{DoxyCompactList}\small\item\em Construct only noting if node is a potential\+\_\+node. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{struct_deriv_computation_ae61f149a7fc4869f1d053c263fd03657}{\texorpdfstring{$\sim$}{\string~}\+Deriv\+Computation}} ()
+\begin{DoxyCompactList}\small\item\em Trivial destructor. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{struct_deriv_computation_a7c8dbb439e850f9cb4769aac0808d8c6}{set\+\_\+param}} (const std\+::vector$<$ float $>$ \&new\+\_\+params)
+\begin{DoxyCompactList}\small\item\em Set arbitrary subset of parameters (same as get\+\_\+param) \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_deriv_computation_aec2d05db4c36f52f8b7de6922af52494}{get\+\_\+value\+\_\+by\+\_\+name}} (const char \texorpdfstring{$\ast$}{*}log\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Compute a named quantity and return vector of floats (arbitrary behavior) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \& \mbox{\hyperlink{struct_torus_d_b_n___emission_a19d6716e628e4be51ce08c79c606215d}{rama}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_torus_d_b_n___emission_a34840c9b9065d85eb9b79c9c2092970f}{n\+\_\+restype}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_torus_d_b_n___emission_a209347c59bd04286077f1ba85df3efb2}{n\+\_\+residue}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_torus_d_b_n___emission_afc14eac669dfc6249c679ac66dd56835}{n\+\_\+state}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} $>$ \mbox{\hyperlink{struct_torus_d_b_n___emission_a0a6179649c6f02be2ea41b217baac32d}{restypes}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{struct_torus_d_b_n___emission_1_1_params}{Params}} $>$ \mbox{\hyperlink{struct_torus_d_b_n___emission_a5dfc878f1b13ee3e447e6cac3a9d7237}{params}}
+\item 
+\mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} \mbox{\hyperlink{struct_torus_d_b_n___emission_a9bb3b10f18f503aa44ad0dfe475d057c}{bp}}
+\item 
+\mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} \mbox{\hyperlink{struct_torus_d_b_n___emission_a1e43c5de2e65a83a47d7a3272d05980d}{prior\+\_\+offset\+\_\+energies}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Matrix\+Xf}} \mbox{\hyperlink{struct_torus_d_b_n___emission_aff4afe569af935a031cad248169bc0bf}{prior\+\_\+offset}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Matrix}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}}, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Dynamic}}, 6 $>$ \mbox{\hyperlink{struct_torus_d_b_n___emission_ac455e0c7ea97ac7dd21d1a1f485fc6d1}{cs}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Matrix}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}}, 6, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Dynamic}} $>$ \mbox{\hyperlink{struct_torus_d_b_n___emission_a42300da77e2361c3c6c28022e944a474}{cs\+\_\+to\+\_\+emission}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Matrix}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}}, 6, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Dynamic}} $>$ \mbox{\hyperlink{struct_torus_d_b_n___emission_a096f5b6d9ee3853ea7bb70d6df4cae7d}{cs\+\_\+sens}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{unique\+\_\+ptr}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} $>$ \mbox{\hyperlink{struct_torus_d_b_n___emission_a254c93e081906a47291a1ca6d727fc83}{basin\+\_\+param}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_coord_node}{Coord\+Node}}}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{struct_coord_node_a232a2dcef6925113085311168f3f7700}{n\+\_\+elem}}
+\begin{DoxyCompactList}\small\item\em number of output elements \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{struct_coord_node_ad9ae2976ea3b4379fe00959be6a04721}{elem\+\_\+width}}
+\begin{DoxyCompactList}\small\item\em number of dimensions for each output element \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} \mbox{\hyperlink{struct_coord_node_a678c754ea0a0fdd4e01a23875426d6b5}{output}}
+\begin{DoxyCompactList}\small\item\em output values \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} \mbox{\hyperlink{struct_coord_node_aee777afa72f20aef74cdf071127fb0aa}{sens}}
+\begin{DoxyCompactList}\small\item\em sensitivity of the overall potential to each output value \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}}}
+\begin{DoxyCompactItemize}
+\item 
+const bool \mbox{\hyperlink{struct_deriv_computation_ab9caf415ec64cd42c99d24545238e691}{potential\+\_\+term}}
+\begin{DoxyCompactList}\small\item\em True if output represents a potential energy rather than a new coordinate. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{hmm_8cpp_source_l00218}{218}} of file \mbox{\hyperlink{hmm_8cpp_source}{hmm.\+cpp}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_torus_d_b_n___emission_a21a9ab0743afeefca4a12aabd16f162a}\label{struct_torus_d_b_n___emission_a21a9ab0743afeefca4a12aabd16f162a} 
+\index{TorusDBN\_Emission@{TorusDBN\_Emission}!TorusDBN\_Emission@{TorusDBN\_Emission}}
+\index{TorusDBN\_Emission@{TorusDBN\_Emission}!TorusDBN\_Emission@{TorusDBN\_Emission}}
+\doxysubsubsection{\texorpdfstring{TorusDBN\_Emission()}{TorusDBN\_Emission()}}
+{\footnotesize\ttfamily Torus\+DBN\+\_\+\+Emission\+::\+Torus\+DBN\+\_\+\+Emission (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{hid\+\_\+t}}}]{grp,  }\item[{\mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&}]{rama\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{hmm_8cpp_source_l00245}{245}} of file \mbox{\hyperlink{hmm_8cpp_source}{hmm.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_torus_d_b_n___emission_ac2ff7ea8ea86388e949ee3f507e2018c}\label{struct_torus_d_b_n___emission_ac2ff7ea8ea86388e949ee3f507e2018c} 
+\index{TorusDBN\_Emission@{TorusDBN\_Emission}!compute\_value@{compute\_value}}
+\index{compute\_value@{compute\_value}!TorusDBN\_Emission@{TorusDBN\_Emission}}
+\doxysubsubsection{\texorpdfstring{compute\_value()}{compute\_value()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} Torus\+DBN\+\_\+\+Emission\+::compute\+\_\+value (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{Compute\+Mode}}}]{mode }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reads inputs and computes output value. 
+
+
+
+Implements \mbox{\hyperlink{struct_deriv_computation_a750d9688cee97b4ab8a6c66c8a739bfc}{Deriv\+Computation}}.
+
+
+
+Definition at line \mbox{\hyperlink{hmm_8cpp_source_l00296}{296}} of file \mbox{\hyperlink{hmm_8cpp_source}{hmm.\+cpp}}.
+
+\Hypertarget{struct_torus_d_b_n___emission_acf97d93a5e501586be45b0fd4fabb583}\label{struct_torus_d_b_n___emission_acf97d93a5e501586be45b0fd4fabb583} 
+\index{TorusDBN\_Emission@{TorusDBN\_Emission}!get\_param@{get\_param}}
+\index{get\_param@{get\_param}!TorusDBN\_Emission@{TorusDBN\_Emission}}
+\doxysubsubsection{\texorpdfstring{get\_param()}{get\_param()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} $>$ Torus\+DBN\+\_\+\+Emission\+::get\+\_\+param (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Return arbitrary subset of parameters. 
+
+
+
+Reimplemented from \mbox{\hyperlink{struct_deriv_computation_a5824da52d79ac4ac46e2cee217d8197c}{Deriv\+Computation}}.
+
+
+
+Definition at line \mbox{\hyperlink{hmm_8cpp_source_l00335}{335}} of file \mbox{\hyperlink{hmm_8cpp_source}{hmm.\+cpp}}.
+
+\Hypertarget{struct_torus_d_b_n___emission_a92ef9d1c5344154cb42b444b2b1569a9}\label{struct_torus_d_b_n___emission_a92ef9d1c5344154cb42b444b2b1569a9} 
+\index{TorusDBN\_Emission@{TorusDBN\_Emission}!propagate\_deriv@{propagate\_deriv}}
+\index{propagate\_deriv@{propagate\_deriv}!TorusDBN\_Emission@{TorusDBN\_Emission}}
+\doxysubsubsection{\texorpdfstring{propagate\_deriv()}{propagate\_deriv()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} Torus\+DBN\+\_\+\+Emission\+::propagate\+\_\+deriv (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Uses its sensitivity to its output to add to sensivities of its inputs. 
+
+
+
+Implements \mbox{\hyperlink{struct_deriv_computation_a007700dca1cba2aeb17b27c8a94a3f16}{Deriv\+Computation}}.
+
+
+
+Definition at line \mbox{\hyperlink{hmm_8cpp_source_l00317}{317}} of file \mbox{\hyperlink{hmm_8cpp_source}{hmm.\+cpp}}.
+
+\Hypertarget{struct_torus_d_b_n___emission_a2f78803e25f48e0fd7ac1e925b06e39b}\label{struct_torus_d_b_n___emission_a2f78803e25f48e0fd7ac1e925b06e39b} 
+\index{TorusDBN\_Emission@{TorusDBN\_Emission}!set\_param@{set\_param}}
+\index{set\_param@{set\_param}!TorusDBN\_Emission@{TorusDBN\_Emission}}
+\doxysubsubsection{\texorpdfstring{set\_param()}{set\_param()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} Torus\+DBN\+\_\+\+Emission\+::set\+\_\+param (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{const}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} $>$ \&}]{new\+\_\+param }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{hmm_8cpp_source_l00349}{349}} of file \mbox{\hyperlink{hmm_8cpp_source}{hmm.\+cpp}}.
+
+\Hypertarget{struct_torus_d_b_n___emission_aae9538195d8c75f9b80838ed9f5acbd8}\label{struct_torus_d_b_n___emission_aae9538195d8c75f9b80838ed9f5acbd8} 
+\index{TorusDBN\_Emission@{TorusDBN\_Emission}!update\_prior\_offset@{update\_prior\_offset}}
+\index{update\_prior\_offset@{update\_prior\_offset}!TorusDBN\_Emission@{TorusDBN\_Emission}}
+\doxysubsubsection{\texorpdfstring{update\_prior\_offset()}{update\_prior\_offset()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} Torus\+DBN\+\_\+\+Emission\+::update\+\_\+prior\+\_\+offset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{hmm_8cpp_source_l00240}{240}} of file \mbox{\hyperlink{hmm_8cpp_source}{hmm.\+cpp}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_torus_d_b_n___emission_a254c93e081906a47291a1ca6d727fc83}\label{struct_torus_d_b_n___emission_a254c93e081906a47291a1ca6d727fc83} 
+\index{TorusDBN\_Emission@{TorusDBN\_Emission}!basin\_param@{basin\_param}}
+\index{basin\_param@{basin\_param}!TorusDBN\_Emission@{TorusDBN\_Emission}}
+\doxysubsubsection{\texorpdfstring{basin\_param}{basin\_param}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{unique\+\_\+ptr}}$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}}$>$ Torus\+DBN\+\_\+\+Emission\+::basin\+\_\+param}
+
+
+
+Definition at line \mbox{\hyperlink{hmm_8cpp_source_l00238}{238}} of file \mbox{\hyperlink{hmm_8cpp_source}{hmm.\+cpp}}.
+
+\Hypertarget{struct_torus_d_b_n___emission_a9bb3b10f18f503aa44ad0dfe475d057c}\label{struct_torus_d_b_n___emission_a9bb3b10f18f503aa44ad0dfe475d057c} 
+\index{TorusDBN\_Emission@{TorusDBN\_Emission}!bp@{bp}}
+\index{bp@{bp}!TorusDBN\_Emission@{TorusDBN\_Emission}}
+\doxysubsubsection{\texorpdfstring{bp}{bp}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} Torus\+DBN\+\_\+\+Emission\+::bp}
+
+
+
+Definition at line \mbox{\hyperlink{hmm_8cpp_source_l00231}{231}} of file \mbox{\hyperlink{hmm_8cpp_source}{hmm.\+cpp}}.
+
+\Hypertarget{struct_torus_d_b_n___emission_ac455e0c7ea97ac7dd21d1a1f485fc6d1}\label{struct_torus_d_b_n___emission_ac455e0c7ea97ac7dd21d1a1f485fc6d1} 
+\index{TorusDBN\_Emission@{TorusDBN\_Emission}!cs@{cs}}
+\index{cs@{cs}!TorusDBN\_Emission@{TorusDBN\_Emission}}
+\doxysubsubsection{\texorpdfstring{cs}{cs}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Matrix}}$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}},\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Dynamic}},6$>$ Torus\+DBN\+\_\+\+Emission\+::cs}
+
+
+
+Definition at line \mbox{\hyperlink{hmm_8cpp_source_l00234}{234}} of file \mbox{\hyperlink{hmm_8cpp_source}{hmm.\+cpp}}.
+
+\Hypertarget{struct_torus_d_b_n___emission_a096f5b6d9ee3853ea7bb70d6df4cae7d}\label{struct_torus_d_b_n___emission_a096f5b6d9ee3853ea7bb70d6df4cae7d} 
+\index{TorusDBN\_Emission@{TorusDBN\_Emission}!cs\_sens@{cs\_sens}}
+\index{cs\_sens@{cs\_sens}!TorusDBN\_Emission@{TorusDBN\_Emission}}
+\doxysubsubsection{\texorpdfstring{cs\_sens}{cs\_sens}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Matrix}}$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}},6,\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Dynamic}}$>$ Torus\+DBN\+\_\+\+Emission\+::cs\+\_\+sens}
+
+
+
+Definition at line \mbox{\hyperlink{hmm_8cpp_source_l00236}{236}} of file \mbox{\hyperlink{hmm_8cpp_source}{hmm.\+cpp}}.
+
+\Hypertarget{struct_torus_d_b_n___emission_a42300da77e2361c3c6c28022e944a474}\label{struct_torus_d_b_n___emission_a42300da77e2361c3c6c28022e944a474} 
+\index{TorusDBN\_Emission@{TorusDBN\_Emission}!cs\_to\_emission@{cs\_to\_emission}}
+\index{cs\_to\_emission@{cs\_to\_emission}!TorusDBN\_Emission@{TorusDBN\_Emission}}
+\doxysubsubsection{\texorpdfstring{cs\_to\_emission}{cs\_to\_emission}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Matrix}}$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}},6,\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Dynamic}}$>$ Torus\+DBN\+\_\+\+Emission\+::cs\+\_\+to\+\_\+emission}
+
+
+
+Definition at line \mbox{\hyperlink{hmm_8cpp_source_l00235}{235}} of file \mbox{\hyperlink{hmm_8cpp_source}{hmm.\+cpp}}.
+
+\Hypertarget{struct_torus_d_b_n___emission_a209347c59bd04286077f1ba85df3efb2}\label{struct_torus_d_b_n___emission_a209347c59bd04286077f1ba85df3efb2} 
+\index{TorusDBN\_Emission@{TorusDBN\_Emission}!n\_residue@{n\_residue}}
+\index{n\_residue@{n\_residue}!TorusDBN\_Emission@{TorusDBN\_Emission}}
+\doxysubsubsection{\texorpdfstring{n\_residue}{n\_residue}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} Torus\+DBN\+\_\+\+Emission\+::n\+\_\+residue}
+
+
+
+Definition at line \mbox{\hyperlink{hmm_8cpp_source_l00226}{226}} of file \mbox{\hyperlink{hmm_8cpp_source}{hmm.\+cpp}}.
+
+\Hypertarget{struct_torus_d_b_n___emission_a34840c9b9065d85eb9b79c9c2092970f}\label{struct_torus_d_b_n___emission_a34840c9b9065d85eb9b79c9c2092970f} 
+\index{TorusDBN\_Emission@{TorusDBN\_Emission}!n\_restype@{n\_restype}}
+\index{n\_restype@{n\_restype}!TorusDBN\_Emission@{TorusDBN\_Emission}}
+\doxysubsubsection{\texorpdfstring{n\_restype}{n\_restype}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} Torus\+DBN\+\_\+\+Emission\+::n\+\_\+restype}
+
+
+
+Definition at line \mbox{\hyperlink{hmm_8cpp_source_l00225}{225}} of file \mbox{\hyperlink{hmm_8cpp_source}{hmm.\+cpp}}.
+
+\Hypertarget{struct_torus_d_b_n___emission_afc14eac669dfc6249c679ac66dd56835}\label{struct_torus_d_b_n___emission_afc14eac669dfc6249c679ac66dd56835} 
+\index{TorusDBN\_Emission@{TorusDBN\_Emission}!n\_state@{n\_state}}
+\index{n\_state@{n\_state}!TorusDBN\_Emission@{TorusDBN\_Emission}}
+\doxysubsubsection{\texorpdfstring{n\_state}{n\_state}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} Torus\+DBN\+\_\+\+Emission\+::n\+\_\+state}
+
+
+
+Definition at line \mbox{\hyperlink{hmm_8cpp_source_l00227}{227}} of file \mbox{\hyperlink{hmm_8cpp_source}{hmm.\+cpp}}.
+
+\Hypertarget{struct_torus_d_b_n___emission_a5dfc878f1b13ee3e447e6cac3a9d7237}\label{struct_torus_d_b_n___emission_a5dfc878f1b13ee3e447e6cac3a9d7237} 
+\index{TorusDBN\_Emission@{TorusDBN\_Emission}!params@{params}}
+\index{params@{params}!TorusDBN\_Emission@{TorusDBN\_Emission}}
+\doxysubsubsection{\texorpdfstring{params}{params}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$\mbox{\hyperlink{struct_torus_d_b_n___emission_1_1_params}{Params}}$>$ Torus\+DBN\+\_\+\+Emission\+::params}
+
+
+
+Definition at line \mbox{\hyperlink{hmm_8cpp_source_l00230}{230}} of file \mbox{\hyperlink{hmm_8cpp_source}{hmm.\+cpp}}.
+
+\Hypertarget{struct_torus_d_b_n___emission_aff4afe569af935a031cad248169bc0bf}\label{struct_torus_d_b_n___emission_aff4afe569af935a031cad248169bc0bf} 
+\index{TorusDBN\_Emission@{TorusDBN\_Emission}!prior\_offset@{prior\_offset}}
+\index{prior\_offset@{prior\_offset}!TorusDBN\_Emission@{TorusDBN\_Emission}}
+\doxysubsubsection{\texorpdfstring{prior\_offset}{prior\_offset}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Matrix\+Xf}} Torus\+DBN\+\_\+\+Emission\+::prior\+\_\+offset}
+
+
+
+Definition at line \mbox{\hyperlink{hmm_8cpp_source_l00233}{233}} of file \mbox{\hyperlink{hmm_8cpp_source}{hmm.\+cpp}}.
+
+\Hypertarget{struct_torus_d_b_n___emission_a1e43c5de2e65a83a47d7a3272d05980d}\label{struct_torus_d_b_n___emission_a1e43c5de2e65a83a47d7a3272d05980d} 
+\index{TorusDBN\_Emission@{TorusDBN\_Emission}!prior\_offset\_energies@{prior\_offset\_energies}}
+\index{prior\_offset\_energies@{prior\_offset\_energies}!TorusDBN\_Emission@{TorusDBN\_Emission}}
+\doxysubsubsection{\texorpdfstring{prior\_offset\_energies}{prior\_offset\_energies}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} Torus\+DBN\+\_\+\+Emission\+::prior\+\_\+offset\+\_\+energies}
+
+
+
+Definition at line \mbox{\hyperlink{hmm_8cpp_source_l00232}{232}} of file \mbox{\hyperlink{hmm_8cpp_source}{hmm.\+cpp}}.
+
+\Hypertarget{struct_torus_d_b_n___emission_a19d6716e628e4be51ce08c79c606215d}\label{struct_torus_d_b_n___emission_a19d6716e628e4be51ce08c79c606215d} 
+\index{TorusDBN\_Emission@{TorusDBN\_Emission}!rama@{rama}}
+\index{rama@{rama}!TorusDBN\_Emission@{TorusDBN\_Emission}}
+\doxysubsubsection{\texorpdfstring{rama}{rama}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_coord_node}{Coord\+Node}}\& Torus\+DBN\+\_\+\+Emission\+::rama}
+
+
+
+Definition at line \mbox{\hyperlink{hmm_8cpp_source_l00223}{223}} of file \mbox{\hyperlink{hmm_8cpp_source}{hmm.\+cpp}}.
+
+\Hypertarget{struct_torus_d_b_n___emission_a0a6179649c6f02be2ea41b217baac32d}\label{struct_torus_d_b_n___emission_a0a6179649c6f02be2ea41b217baac32d} 
+\index{TorusDBN\_Emission@{TorusDBN\_Emission}!restypes@{restypes}}
+\index{restypes@{restypes}!TorusDBN\_Emission@{TorusDBN\_Emission}}
+\doxysubsubsection{\texorpdfstring{restypes}{restypes}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}}$>$ Torus\+DBN\+\_\+\+Emission\+::restypes}
+
+
+
+Definition at line \mbox{\hyperlink{hmm_8cpp_source_l00228}{228}} of file \mbox{\hyperlink{hmm_8cpp_source}{hmm.\+cpp}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{hmm_8cpp}{hmm.\+cpp}}\end{DoxyCompactItemize}

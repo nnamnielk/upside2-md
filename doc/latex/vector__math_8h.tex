@@ -1,0 +1,555 @@
+\doxysection{src/vector\+\_\+math.h File Reference}
+\hypertarget{vector__math_8h}{}\label{vector__math_8h}\index{src/vector\_math.h@{src/vector\_math.h}}
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$cstdio$>$}\newline
+{\ttfamily \#include $<$cassert$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include "{}Float4.\+h"{}}\newline
+Include dependency graph for vector\+\_\+math.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{vector__math_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{vector__math_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_vec_array}{Vec\+Array}}
+\item 
+struct \mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}}
+\item 
+struct \mbox{\hyperlink{structrange}{range}}
+\item 
+struct \mbox{\hyperlink{structrange_1_1iterator}{range\+::iterator}}
+\item 
+struct \mbox{\hyperlink{struct_vec}{Vec$<$ ndim, Scalar\+T $>$}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef \mbox{\hyperlink{struct_vec}{Vec}}$<$ 1, float $>$ \mbox{\hyperlink{vector__math_8h_adfe208ac2ed5b6bf6b27a46e82e4e160}{float1}}
+\item 
+typedef \mbox{\hyperlink{struct_vec}{Vec}}$<$ 2, float $>$ \mbox{\hyperlink{vector__math_8h_ae03dca9736601e8df0de6ea439ea6813}{float2}}
+\item 
+typedef \mbox{\hyperlink{struct_vec}{Vec}}$<$ 3, float $>$ \mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}}
+\item 
+typedef \mbox{\hyperlink{struct_vec}{Vec}}$<$ 4, float $>$ \mbox{\hyperlink{vector__math_8h_a09f787ed46793fc1c3fab8715ee00405}{float4}}
+\item 
+typedef \mbox{\hyperlink{struct_vec}{Vec}}$<$ 3, int $>$ \mbox{\hyperlink{vector__math_8h_afd2e4784dc8bd53c9fdf8672f2447b7d}{int3}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+constexpr int \mbox{\hyperlink{vector__math_8h_a11d1b932b49bff2f336cf46a43d9120c}{maxint}} (int i, int j)
+\item 
+constexpr int \mbox{\hyperlink{vector__math_8h_a14921fcd20cbc1b551faae059b182043}{round\+\_\+up}} (int i, int alignment)
+\item 
+constexpr long long \mbox{\hyperlink{vector__math_8h_a8bc34c64c7f67aae4d233e90b71564e7}{round\+\_\+up}} (long long i, long long alignment)
+\item 
+constexpr int \mbox{\hyperlink{vector__math_8h_a182295099948ad607a0fd1f0818a45e5}{ru}} (int i)
+\item 
+void \mbox{\hyperlink{vector__math_8h_aa6761fe7366e0766c6e91f5ef1de1791}{swap}} (\mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} \&a, \mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} \&b)
+\item 
+{\footnotesize template$<$int D$>$ }\\\mbox{\hyperlink{struct_vec}{Vec}}$<$ D, float $>$ \mbox{\hyperlink{vector__math_8h_a76d0abf0b917739a83ea0510a7f26ab5}{load\+\_\+vec}} (const \mbox{\hyperlink{struct_vec_array}{Vec\+Array}} \&a, int idx)
+\item 
+{\footnotesize template$<$int D$>$ }\\\mbox{\hyperlink{struct_vec}{Vec}}$<$ D, float $>$ \mbox{\hyperlink{vector__math_8h_a0a29540be417c50c86298a65bc3d0712}{load\+\_\+vec}} (const float \texorpdfstring{$\ast$}{*}a)
+\item 
+{\footnotesize template$<$int D$>$ }\\\mbox{\hyperlink{struct_vec}{Vec}}$<$ D, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \mbox{\hyperlink{vector__math_8h_a2573be65c5053072b2751b374816cb24}{load\+\_\+vec}} (const float \texorpdfstring{$\ast$}{*}a, \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726}{Alignment}} align)
+\item 
+{\footnotesize template$<$int D$>$ }\\void \mbox{\hyperlink{vector__math_8h_a721fdbc18b9714a8bfa755fefeb12961}{store\+\_\+vec}} (\mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} \&a, int idx, const \mbox{\hyperlink{struct_vec}{Vec}}$<$ D, float $>$ \&r)
+\item 
+{\footnotesize template$<$int D$>$ }\\void \mbox{\hyperlink{vector__math_8h_a8b288b08389265feefdc3ea1d5606285}{store\+\_\+vec}} (\mbox{\hyperlink{struct_vec_array}{Vec\+Array}} \&a, int idx, const \mbox{\hyperlink{struct_vec}{Vec}}$<$ D, float $>$ \&r)
+\item 
+{\footnotesize template$<$int D$>$ }\\void \mbox{\hyperlink{vector__math_8h_afe59d18bc634fe7cb9aa2f1872b5e38a}{store\+\_\+vec}} (float \texorpdfstring{$\ast$}{*}a, const \mbox{\hyperlink{struct_vec}{Vec}}$<$ D, float $>$ \&r)
+\item 
+{\footnotesize template$<$int D$>$ }\\void \mbox{\hyperlink{vector__math_8h_a41101ea9d9b7ae1bd41c46ae707c0bb3}{store\+\_\+vec}} (float \texorpdfstring{$\ast$}{*}a, const \mbox{\hyperlink{struct_vec}{Vec}}$<$ D, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \&r, \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726}{Alignment}} align=\mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726a165f93b99f87c219277d70d866425da6}{Alignment\+::aligned}})
+\item 
+{\footnotesize template$<$int D, typename multype $>$ }\\void \mbox{\hyperlink{vector__math_8h_aa46b6fe0924d95e39ff2458c489f2eb0}{update\+\_\+vec\+\_\+scale}} (\mbox{\hyperlink{struct_vec_array}{Vec\+Array}} a, int idx, const multype \&r)
+\item 
+{\footnotesize template$<$int D, typename VArray $>$ }\\void \mbox{\hyperlink{vector__math_8h_a0eee3996b046ba5bfaa227fe044e610a}{update\+\_\+vec}} (VArray \&a, int idx, const \mbox{\hyperlink{struct_vec}{Vec}}$<$ D $>$ \&r)
+\item 
+{\footnotesize template$<$int D$>$ }\\void \mbox{\hyperlink{vector__math_8h_ae3d38a2b5b354eaa8e72a1ce498ab6d0}{update\+\_\+vec}} (float \texorpdfstring{$\ast$}{*}a, const \mbox{\hyperlink{struct_vec}{Vec}}$<$ D $>$ \&r)
+\item 
+float \mbox{\hyperlink{vector__math_8h_a1be74df07b9f2b5e4c8dd16b48cda0bd}{approx\+\_\+rsqrt}} (float x)
+\begin{DoxyCompactList}\small\item\em reciprocal square root at lower accuracy \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{vector__math_8h_a9bc3fe65fb4459716d84f95d514fa931}{rsqrt}} (float x)
+\begin{DoxyCompactList}\small\item\em reciprocal square root (1/sqrt(x)) \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename D $>$ }\\constexpr D \mbox{\hyperlink{vector__math_8h_ac2cc70fa5aef0642281b678f84c029ae}{sqr}} (D x)
+\begin{DoxyCompactList}\small\item\em square a number (x\texorpdfstring{$^\wedge$}{\string^}2) \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{vector__math_8h_ace84e008b9ec0019272733fe00ccfde6}{rcp}} (float x)
+\begin{DoxyCompactList}\small\item\em reciprocal of number \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{vector__math_8h_abae3ecc875dc807a5c62fcb0a0dd4a0e}{approx\+\_\+rcp}} (float x)
+\begin{DoxyCompactList}\small\item\em reciprocal of number \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{vector__math_8h_af2d10019eeb83854df1db5a83fa59615}{ternary}} (bool b, float x, float y)
+\item 
+{\footnotesize template$<$int D, typename \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ }\\\mbox{\hyperlink{struct_vec}{Vec}}$<$ D, \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \mbox{\hyperlink{vector__math_8h_aa3c35a9578efd169459f72bd3aedc639}{vec\+\_\+rcp}} (const \mbox{\hyperlink{struct_vec}{Vec}}$<$ D, \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \&x)
+\item 
+{\footnotesize template$<$int D, typename \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ }\\\mbox{\hyperlink{struct_vec}{Vec}}$<$ D, \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \mbox{\hyperlink{vector__math_8h_ae60f2d0733b6c32c7289d66f4463fc09}{approx\+\_\+vec\+\_\+rcp}} (const \mbox{\hyperlink{struct_vec}{Vec}}$<$ D, \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \&x)
+\item 
+{\footnotesize template$<$int D, typename \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ }\\\mbox{\hyperlink{struct_vec}{Vec}}$<$ D, int $>$ \mbox{\hyperlink{vector__math_8h_a4c127fc61f5529b38b59891fffe61347}{vec\+\_\+floor}} (const \mbox{\hyperlink{struct_vec}{Vec}}$<$ D, \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \&x)
+\item 
+{\footnotesize template$<$int D, typename \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ }\\\mbox{\hyperlink{struct_vec}{Vec}}$<$ D, int $>$ \mbox{\hyperlink{vector__math_8h_a8d98f566f65d1e640e329a03736bfa3b}{vec\+\_\+round}} (const \mbox{\hyperlink{struct_vec}{Vec}}$<$ D, \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \&x)
+\item 
+{\footnotesize template$<$int D, typename \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ }\\\mbox{\hyperlink{struct_vec}{Vec}}$<$ D, int $>$ \mbox{\hyperlink{vector__math_8h_a563ab539278bc1fba84753edf0ac91ad}{vec\+\_\+ceil}} (const \mbox{\hyperlink{struct_vec}{Vec}}$<$ D, \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \&x)
+\item 
+{\footnotesize template$<$int D$>$ }\\\mbox{\hyperlink{struct_vec}{Vec}}$<$ D, float $>$ \mbox{\hyperlink{vector__math_8h_a243642001027f0e59cceac293717dbd3}{blendv}} (bool which, const \mbox{\hyperlink{struct_vec}{Vec}}$<$ D, float $>$ \&a, const \mbox{\hyperlink{struct_vec}{Vec}}$<$ D, float $>$ \&b)
+\item 
+{\footnotesize template$<$typename \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ }\\\mbox{\hyperlink{struct_vec}{Vec}}$<$ 1, \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \mbox{\hyperlink{vector__math_8h_a3afa336fce79ac5c33d50596100282d6}{make\+\_\+vec1}} (const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&x)
+\item 
+{\footnotesize template$<$typename \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ }\\\mbox{\hyperlink{struct_vec}{Vec}}$<$ 2, \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \mbox{\hyperlink{vector__math_8h_a07f83a9ab124f930a5af5e9036c6ea9e}{make\+\_\+vec2}} (const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&x, const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&y)
+\item 
+{\footnotesize template$<$typename \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ }\\\mbox{\hyperlink{struct_vec}{Vec}}$<$ 3, \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \mbox{\hyperlink{vector__math_8h_a7d18efc8f976ad6c055d9dd7d3bd4867}{make\+\_\+vec3}} (const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&x, const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&y, const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&z)
+\item 
+{\footnotesize template$<$typename \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ }\\\mbox{\hyperlink{struct_vec}{Vec}}$<$ 4, \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \mbox{\hyperlink{vector__math_8h_a0ae9aa67bd2c4cd31139e13a5b5e64ac}{make\+\_\+vec4}} (const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&x, const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&y, const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&z, const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&w)
+\item 
+\mbox{\hyperlink{vector__math_8h_a09f787ed46793fc1c3fab8715ee00405}{float4}} \mbox{\hyperlink{vector__math_8h_a1e0e061ed9d5187757394dc8d2855c34}{make\+\_\+vec4}} (\mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}} \mbox{\hyperlink{eig_8cpp_a8632be35f000cadfa136fc7d22eabac5}{v}}, float w)
+\begin{DoxyCompactList}\small\item\em make float4 from float3 (as x,y,z) and scalar (as w) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}} \mbox{\hyperlink{vector__math_8h_ad2b837a2d750ad0193c9a37d1ded8ee2}{xyz}} (const \mbox{\hyperlink{vector__math_8h_a09f787ed46793fc1c3fab8715ee00405}{float4}} \&x)
+\begin{DoxyCompactList}\small\item\em return x,y,z as float3 from a float4 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{vector__math_8h_adfe208ac2ed5b6bf6b27a46e82e4e160}\label{vector__math_8h_adfe208ac2ed5b6bf6b27a46e82e4e160} 
+\index{vector\_math.h@{vector\_math.h}!float1@{float1}}
+\index{float1@{float1}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{float1}{float1}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{struct_vec}{Vec}}$<$1,float$>$ \mbox{\hyperlink{vector__math_8h_adfe208ac2ed5b6bf6b27a46e82e4e160}{float1}}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00181}{181}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_ae03dca9736601e8df0de6ea439ea6813}\label{vector__math_8h_ae03dca9736601e8df0de6ea439ea6813} 
+\index{vector\_math.h@{vector\_math.h}!float2@{float2}}
+\index{float2@{float2}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{float2}{float2}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{struct_vec}{Vec}}$<$2,float$>$ \mbox{\hyperlink{vector__math_8h_ae03dca9736601e8df0de6ea439ea6813}{float2}}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00182}{182}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_a64381bef6dd0e097a367318f70136255}\label{vector__math_8h_a64381bef6dd0e097a367318f70136255} 
+\index{vector\_math.h@{vector\_math.h}!float3@{float3}}
+\index{float3@{float3}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{float3}{float3}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{struct_vec}{Vec}}$<$3,float$>$ \mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00183}{183}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_a09f787ed46793fc1c3fab8715ee00405}\label{vector__math_8h_a09f787ed46793fc1c3fab8715ee00405} 
+\index{vector\_math.h@{vector\_math.h}!float4@{float4}}
+\index{float4@{float4}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{float4}{float4}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{struct_vec}{Vec}}$<$4,float$>$ \mbox{\hyperlink{vector__math_8h_a09f787ed46793fc1c3fab8715ee00405}{float4}}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00184}{184}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_afd2e4784dc8bd53c9fdf8672f2447b7d}\label{vector__math_8h_afd2e4784dc8bd53c9fdf8672f2447b7d} 
+\index{vector\_math.h@{vector\_math.h}!int3@{int3}}
+\index{int3@{int3}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{int3}{int3}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{struct_vec}{Vec}}$<$3, int$>$ \mbox{\hyperlink{vector__math_8h_afd2e4784dc8bd53c9fdf8672f2447b7d}{int3}}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00186}{186}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{vector__math_8h_abae3ecc875dc807a5c62fcb0a0dd4a0e}\label{vector__math_8h_abae3ecc875dc807a5c62fcb0a0dd4a0e} 
+\index{vector\_math.h@{vector\_math.h}!approx\_rcp@{approx\_rcp}}
+\index{approx\_rcp@{approx\_rcp}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{approx\_rcp()}{approx\_rcp()}}
+{\footnotesize\ttfamily float approx\+\_\+rcp (\begin{DoxyParamCaption}\item[{float}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+reciprocal of number 
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00269}{269}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_a1be74df07b9f2b5e4c8dd16b48cda0bd}\label{vector__math_8h_a1be74df07b9f2b5e4c8dd16b48cda0bd} 
+\index{vector\_math.h@{vector\_math.h}!approx\_rsqrt@{approx\_rsqrt}}
+\index{approx\_rsqrt@{approx\_rsqrt}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{approx\_rsqrt()}{approx\_rsqrt()}}
+{\footnotesize\ttfamily float approx\+\_\+rsqrt (\begin{DoxyParamCaption}\item[{float}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+reciprocal square root at lower accuracy 
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00265}{265}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_ae60f2d0733b6c32c7289d66f4463fc09}\label{vector__math_8h_ae60f2d0733b6c32c7289d66f4463fc09} 
+\index{vector\_math.h@{vector\_math.h}!approx\_vec\_rcp@{approx\_vec\_rcp}}
+\index{approx\_vec\_rcp@{approx\_vec\_rcp}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{approx\_vec\_rcp()}{approx\_vec\_rcp()}}
+{\footnotesize\ttfamily template$<$int D, typename \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \\
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ D, \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ approx\+\_\+vec\+\_\+rcp (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_vec}{Vec}}$<$ D, \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00280}{280}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_a243642001027f0e59cceac293717dbd3}\label{vector__math_8h_a243642001027f0e59cceac293717dbd3} 
+\index{vector\_math.h@{vector\_math.h}!blendv@{blendv}}
+\index{blendv@{blendv}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{blendv()}{blendv()}}
+{\footnotesize\ttfamily template$<$int D$>$ \\
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ D, float $>$ blendv (\begin{DoxyParamCaption}\item[{bool}]{which,  }\item[{const \mbox{\hyperlink{struct_vec}{Vec}}$<$ D, float $>$ \&}]{a,  }\item[{const \mbox{\hyperlink{struct_vec}{Vec}}$<$ D, float $>$ \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00310}{310}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_a0a29540be417c50c86298a65bc3d0712}\label{vector__math_8h_a0a29540be417c50c86298a65bc3d0712} 
+\index{vector\_math.h@{vector\_math.h}!load\_vec@{load\_vec}}
+\index{load\_vec@{load\_vec}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{load\_vec()}{load\_vec()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$int D$>$ \\
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ D, float $>$ load\+\_\+vec (\begin{DoxyParamCaption}\item[{const float \texorpdfstring{$\ast$}{*}}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00205}{205}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_a2573be65c5053072b2751b374816cb24}\label{vector__math_8h_a2573be65c5053072b2751b374816cb24} 
+\index{vector\_math.h@{vector\_math.h}!load\_vec@{load\_vec}}
+\index{load\_vec@{load\_vec}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{load\_vec()}{load\_vec()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$int D$>$ \\
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ D, \mbox{\hyperlink{struct_float4}{Float4}} $>$ load\+\_\+vec (\begin{DoxyParamCaption}\item[{const float \texorpdfstring{$\ast$}{*}}]{a,  }\item[{\mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726}{Alignment}}}]{align }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00212}{212}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_a76d0abf0b917739a83ea0510a7f26ab5}\label{vector__math_8h_a76d0abf0b917739a83ea0510a7f26ab5} 
+\index{vector\_math.h@{vector\_math.h}!load\_vec@{load\_vec}}
+\index{load\_vec@{load\_vec}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{load\_vec()}{load\_vec()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$int D$>$ \\
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ D, float $>$ load\+\_\+vec (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_vec_array}{Vec\+Array}} \&}]{a,  }\item[{int}]{idx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00197}{197}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_a3afa336fce79ac5c33d50596100282d6}\label{vector__math_8h_a3afa336fce79ac5c33d50596100282d6} 
+\index{vector\_math.h@{vector\_math.h}!make\_vec1@{make\_vec1}}
+\index{make\_vec1@{make\_vec1}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{make\_vec1()}{make\_vec1()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \\
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ 1, \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ make\+\_\+vec1 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00317}{317}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_a07f83a9ab124f930a5af5e9036c6ea9e}\label{vector__math_8h_a07f83a9ab124f930a5af5e9036c6ea9e} 
+\index{vector\_math.h@{vector\_math.h}!make\_vec2@{make\_vec2}}
+\index{make\_vec2@{make\_vec2}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{make\_vec2()}{make\_vec2()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \\
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ 2, \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ make\+\_\+vec2 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&}]{x,  }\item[{const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00318}{318}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_a7d18efc8f976ad6c055d9dd7d3bd4867}\label{vector__math_8h_a7d18efc8f976ad6c055d9dd7d3bd4867} 
+\index{vector\_math.h@{vector\_math.h}!make\_vec3@{make\_vec3}}
+\index{make\_vec3@{make\_vec3}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{make\_vec3()}{make\_vec3()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \\
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ 3, \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ make\+\_\+vec3 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&}]{x,  }\item[{const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&}]{y,  }\item[{const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&}]{z }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00319}{319}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_a0ae9aa67bd2c4cd31139e13a5b5e64ac}\label{vector__math_8h_a0ae9aa67bd2c4cd31139e13a5b5e64ac} 
+\index{vector\_math.h@{vector\_math.h}!make\_vec4@{make\_vec4}}
+\index{make\_vec4@{make\_vec4}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{make\_vec4()}{make\_vec4()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \\
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ 4, \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ make\+\_\+vec4 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&}]{x,  }\item[{const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&}]{y,  }\item[{const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&}]{z,  }\item[{const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&}]{w }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00320}{320}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_a1e0e061ed9d5187757394dc8d2855c34}\label{vector__math_8h_a1e0e061ed9d5187757394dc8d2855c34} 
+\index{vector\_math.h@{vector\_math.h}!make\_vec4@{make\_vec4}}
+\index{make\_vec4@{make\_vec4}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{make\_vec4()}{make\_vec4()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{vector__math_8h_a09f787ed46793fc1c3fab8715ee00405}{float4}} make\+\_\+vec4 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}}}]{v,  }\item[{float}]{w }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+make float4 from float3 (as x,y,z) and scalar (as w) 
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00322}{322}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_a11d1b932b49bff2f336cf46a43d9120c}\label{vector__math_8h_a11d1b932b49bff2f336cf46a43d9120c} 
+\index{vector\_math.h@{vector\_math.h}!maxint@{maxint}}
+\index{maxint@{maxint}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{maxint()}{maxint()}}
+{\footnotesize\ttfamily constexpr int maxint (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{j }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00016}{16}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_ace84e008b9ec0019272733fe00ccfde6}\label{vector__math_8h_ace84e008b9ec0019272733fe00ccfde6} 
+\index{vector\_math.h@{vector\_math.h}!rcp@{rcp}}
+\index{rcp@{rcp}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{rcp()}{rcp()}}
+{\footnotesize\ttfamily float rcp (\begin{DoxyParamCaption}\item[{float}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+reciprocal of number 
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00268}{268}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_a14921fcd20cbc1b551faae059b182043}\label{vector__math_8h_a14921fcd20cbc1b551faae059b182043} 
+\index{vector\_math.h@{vector\_math.h}!round\_up@{round\_up}}
+\index{round\_up@{round\_up}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{round\_up()}{round\_up()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily constexpr int round\+\_\+up (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{alignment }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00020}{20}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_a8bc34c64c7f67aae4d233e90b71564e7}\label{vector__math_8h_a8bc34c64c7f67aae4d233e90b71564e7} 
+\index{vector\_math.h@{vector\_math.h}!round\_up@{round\_up}}
+\index{round\_up@{round\_up}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{round\_up()}{round\_up()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily constexpr long long round\+\_\+up (\begin{DoxyParamCaption}\item[{long long}]{i,  }\item[{long long}]{alignment }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00024}{24}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_a9bc3fe65fb4459716d84f95d514fa931}\label{vector__math_8h_a9bc3fe65fb4459716d84f95d514fa931} 
+\index{vector\_math.h@{vector\_math.h}!rsqrt@{rsqrt}}
+\index{rsqrt@{rsqrt}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{rsqrt()}{rsqrt()}}
+{\footnotesize\ttfamily float rsqrt (\begin{DoxyParamCaption}\item[{float}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+reciprocal square root (1/sqrt(x)) 
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00266}{266}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_a182295099948ad607a0fd1f0818a45e5}\label{vector__math_8h_a182295099948ad607a0fd1f0818a45e5} 
+\index{vector\_math.h@{vector\_math.h}!ru@{ru}}
+\index{ru@{ru}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{ru()}{ru()}}
+{\footnotesize\ttfamily constexpr int ru (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00028}{28}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_ac2cc70fa5aef0642281b678f84c029ae}\label{vector__math_8h_ac2cc70fa5aef0642281b678f84c029ae} 
+\index{vector\_math.h@{vector\_math.h}!sqr@{sqr}}
+\index{sqr@{sqr}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{sqr()}{sqr()}}
+{\footnotesize\ttfamily template$<$typename D $>$ \\
+constexpr D sqr (\begin{DoxyParamCaption}\item[{D}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}}
+
+
+
+square a number (x\texorpdfstring{$^\wedge$}{\string^}2) 
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00267}{267}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_afe59d18bc634fe7cb9aa2f1872b5e38a}\label{vector__math_8h_afe59d18bc634fe7cb9aa2f1872b5e38a} 
+\index{vector\_math.h@{vector\_math.h}!store\_vec@{store\_vec}}
+\index{store\_vec@{store\_vec}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{store\_vec()}{store\_vec()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$int D$>$ \\
+void store\+\_\+vec (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}}]{a,  }\item[{const \mbox{\hyperlink{struct_vec}{Vec}}$<$ D, float $>$ \&}]{r }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00233}{233}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_a41101ea9d9b7ae1bd41c46ae707c0bb3}\label{vector__math_8h_a41101ea9d9b7ae1bd41c46ae707c0bb3} 
+\index{vector\_math.h@{vector\_math.h}!store\_vec@{store\_vec}}
+\index{store\_vec@{store\_vec}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{store\_vec()}{store\_vec()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$int D$>$ \\
+void store\+\_\+vec (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}}]{a,  }\item[{const \mbox{\hyperlink{struct_vec}{Vec}}$<$ D, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \&}]{r,  }\item[{\mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726}{Alignment}}}]{align = {\ttfamily \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726a165f93b99f87c219277d70d866425da6}{Alignment\+::aligned}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00239}{239}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_a8b288b08389265feefdc3ea1d5606285}\label{vector__math_8h_a8b288b08389265feefdc3ea1d5606285} 
+\index{vector\_math.h@{vector\_math.h}!store\_vec@{store\_vec}}
+\index{store\_vec@{store\_vec}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{store\_vec()}{store\_vec()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$int D$>$ \\
+void store\+\_\+vec (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_vec_array}{Vec\+Array}} \&}]{a,  }\item[{int}]{idx,  }\item[{const \mbox{\hyperlink{struct_vec}{Vec}}$<$ D, float $>$ \&}]{r }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00227}{227}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_a721fdbc18b9714a8bfa755fefeb12961}\label{vector__math_8h_a721fdbc18b9714a8bfa755fefeb12961} 
+\index{vector\_math.h@{vector\_math.h}!store\_vec@{store\_vec}}
+\index{store\_vec@{store\_vec}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{store\_vec()}{store\_vec()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$int D$>$ \\
+void store\+\_\+vec (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} \&}]{a,  }\item[{int}]{idx,  }\item[{const \mbox{\hyperlink{struct_vec}{Vec}}$<$ D, float $>$ \&}]{r }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00221}{221}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_aa6761fe7366e0766c6e91f5ef1de1791}\label{vector__math_8h_aa6761fe7366e0766c6e91f5ef1de1791} 
+\index{vector\_math.h@{vector\_math.h}!swap@{swap}}
+\index{swap@{swap}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{swap()}{swap()}}
+{\footnotesize\ttfamily void swap (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} \&}]{a,  }\item[{\mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00116}{116}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_af2d10019eeb83854df1db5a83fa59615}\label{vector__math_8h_af2d10019eeb83854df1db5a83fa59615} 
+\index{vector\_math.h@{vector\_math.h}!ternary@{ternary}}
+\index{ternary@{ternary}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{ternary()}{ternary()}}
+{\footnotesize\ttfamily float ternary (\begin{DoxyParamCaption}\item[{bool}]{b,  }\item[{float}]{x,  }\item[{float}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00270}{270}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_ae3d38a2b5b354eaa8e72a1ce498ab6d0}\label{vector__math_8h_ae3d38a2b5b354eaa8e72a1ce498ab6d0} 
+\index{vector\_math.h@{vector\_math.h}!update\_vec@{update\_vec}}
+\index{update\_vec@{update\_vec}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{update\_vec()}{update\_vec()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$int D$>$ \\
+void update\+\_\+vec (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}}]{a,  }\item[{const \mbox{\hyperlink{struct_vec}{Vec}}$<$ D $>$ \&}]{r }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00255}{255}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_a0eee3996b046ba5bfaa227fe044e610a}\label{vector__math_8h_a0eee3996b046ba5bfaa227fe044e610a} 
+\index{vector\_math.h@{vector\_math.h}!update\_vec@{update\_vec}}
+\index{update\_vec@{update\_vec}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{update\_vec()}{update\_vec()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$int D, typename VArray $>$ \\
+void update\+\_\+vec (\begin{DoxyParamCaption}\item[{VArray \&}]{a,  }\item[{int}]{idx,  }\item[{const \mbox{\hyperlink{struct_vec}{Vec}}$<$ D $>$ \&}]{r }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00250}{250}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_aa46b6fe0924d95e39ff2458c489f2eb0}\label{vector__math_8h_aa46b6fe0924d95e39ff2458c489f2eb0} 
+\index{vector\_math.h@{vector\_math.h}!update\_vec\_scale@{update\_vec\_scale}}
+\index{update\_vec\_scale@{update\_vec\_scale}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{update\_vec\_scale()}{update\_vec\_scale()}}
+{\footnotesize\ttfamily template$<$int D, typename multype $>$ \\
+void update\+\_\+vec\+\_\+scale (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_vec_array}{Vec\+Array}}}]{a,  }\item[{int}]{idx,  }\item[{const multype \&}]{r }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00245}{245}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_a563ab539278bc1fba84753edf0ac91ad}\label{vector__math_8h_a563ab539278bc1fba84753edf0ac91ad} 
+\index{vector\_math.h@{vector\_math.h}!vec\_ceil@{vec\_ceil}}
+\index{vec\_ceil@{vec\_ceil}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{vec\_ceil()}{vec\_ceil()}}
+{\footnotesize\ttfamily template$<$int D, typename \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \\
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ D, int $>$ vec\+\_\+ceil (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_vec}{Vec}}$<$ D, \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00301}{301}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_a4c127fc61f5529b38b59891fffe61347}\label{vector__math_8h_a4c127fc61f5529b38b59891fffe61347} 
+\index{vector\_math.h@{vector\_math.h}!vec\_floor@{vec\_floor}}
+\index{vec\_floor@{vec\_floor}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{vec\_floor()}{vec\_floor()}}
+{\footnotesize\ttfamily template$<$int D, typename \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \\
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ D, int $>$ vec\+\_\+floor (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_vec}{Vec}}$<$ D, \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00287}{287}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_aa3c35a9578efd169459f72bd3aedc639}\label{vector__math_8h_aa3c35a9578efd169459f72bd3aedc639} 
+\index{vector\_math.h@{vector\_math.h}!vec\_rcp@{vec\_rcp}}
+\index{vec\_rcp@{vec\_rcp}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{vec\_rcp()}{vec\_rcp()}}
+{\footnotesize\ttfamily template$<$int D, typename \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \\
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ D, \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ vec\+\_\+rcp (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_vec}{Vec}}$<$ D, \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00273}{273}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_a8d98f566f65d1e640e329a03736bfa3b}\label{vector__math_8h_a8d98f566f65d1e640e329a03736bfa3b} 
+\index{vector\_math.h@{vector\_math.h}!vec\_round@{vec\_round}}
+\index{vec\_round@{vec\_round}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{vec\_round()}{vec\_round()}}
+{\footnotesize\ttfamily template$<$int D, typename \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \\
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ D, int $>$ vec\+\_\+round (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_vec}{Vec}}$<$ D, \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00294}{294}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+
+\Hypertarget{vector__math_8h_ad2b837a2d750ad0193c9a37d1ded8ee2}\label{vector__math_8h_ad2b837a2d750ad0193c9a37d1ded8ee2} 
+\index{vector\_math.h@{vector\_math.h}!xyz@{xyz}}
+\index{xyz@{xyz}!vector\_math.h@{vector\_math.h}}
+\doxysubsubsection{\texorpdfstring{xyz()}{xyz()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}} xyz (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{vector__math_8h_a09f787ed46793fc1c3fab8715ee00405}{float4}} \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+return x,y,z as float3 from a float4 
+
+
+
+Definition at line \mbox{\hyperlink{vector__math_8h_source_l00324}{324}} of file \mbox{\hyperlink{vector__math_8h_source}{vector\+\_\+math.\+h}}.
+

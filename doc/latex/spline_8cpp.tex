@@ -1,0 +1,181 @@
+\doxysection{src/spline.cpp File Reference}
+\hypertarget{spline_8cpp}{}\label{spline_8cpp}\index{src/spline.cpp@{src/spline.cpp}}
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include "{}vector\+\_\+math.\+h"{}}\newline
+{\ttfamily \#include "{}spline.\+h"{}}\newline
+Include dependency graph for spline.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{spline_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{spline_8cpp_a27a8e2e447b848df6f19b21379f4186d}{solve\+\_\+tridiagonal\+\_\+system}} (int n, double \texorpdfstring{$\ast$}{*}d, double \texorpdfstring{$\ast$}{*}a, double \texorpdfstring{$\ast$}{*}b, double \texorpdfstring{$\ast$}{*}c)
+\item 
+void \mbox{\hyperlink{spline_8cpp_a4375fd35e1ad7d117164c547c26e1a75}{solve\+\_\+periodic\+\_\+tridiagonal\+\_\+system}} (int n, double \texorpdfstring{$\ast$}{*}solution, double \texorpdfstring{$\ast$}{*}d, double \texorpdfstring{$\ast$}{*}a, double \texorpdfstring{$\ast$}{*}b, double \texorpdfstring{$\ast$}{*}c, double \texorpdfstring{$\ast$}{*}temp\+\_\+storage)
+\item 
+void \mbox{\hyperlink{spline_8cpp_a77e0f4d07809a28f00976019b2da3b3e}{evaluate\+\_\+1d\+\_\+spline}} (double \texorpdfstring{$\ast$}{*}y, int n\+\_\+knot, const double \texorpdfstring{$\ast$}{*}coeff, int nx, const double \texorpdfstring{$\ast$}{*}x)
+\item 
+void \mbox{\hyperlink{spline_8cpp_a191b206f254262ea92aaa06606a619b9}{evaluate\+\_\+1d\+\_\+spline\+\_\+first\+\_\+derivative}} (double \texorpdfstring{$\ast$}{*}dy, int n\+\_\+knot, const double \texorpdfstring{$\ast$}{*}coeff, int nx, const double \texorpdfstring{$\ast$}{*}x)
+\item 
+void \mbox{\hyperlink{spline_8cpp_ae15d71ec38bac83f2c588774cfbd04d8}{solve\+\_\+periodic\+\_\+1d\+\_\+spline}} (int n, double \texorpdfstring{$\ast$}{*}coefficients, const double \texorpdfstring{$\ast$}{*}data, double \texorpdfstring{$\ast$}{*}temp\+\_\+storage)
+\begin{DoxyCompactList}\small\item\em Compute polynomial coefficients from periodic data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{spline_8cpp_ab9e3b5aba2ac038660c8e6c7c0e96c39}{solve\+\_\+clamped\+\_\+1d\+\_\+spline\+\_\+for\+\_\+bsplines}} (int n\+\_\+coeff, double \texorpdfstring{$\ast$}{*}coefficients, const double \texorpdfstring{$\ast$}{*}data, double \texorpdfstring{$\ast$}{*}temp\+\_\+storage)
+\begin{DoxyCompactList}\small\item\em Compute bspline coefficients from data for clamped spline. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{spline_8cpp_aa5f33175e7355ab880b8d4430caa5268}{solve\+\_\+clamped\+\_\+1d\+\_\+spline}} (int n, double \texorpdfstring{$\ast$}{*}coefficients, const double \texorpdfstring{$\ast$}{*}data, double \texorpdfstring{$\ast$}{*}temp\+\_\+storage)
+\begin{DoxyCompactList}\small\item\em Compute polynomial coefficients from data for clamped spline. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{spline_8cpp_a20e2bcb01b6a1247957f64aeb3e64bed}{solve\+\_\+periodic\+\_\+2d\+\_\+spline}} (int nx, int ny, double \texorpdfstring{$\ast$}{*}coefficients, const double \texorpdfstring{$\ast$}{*}data, double \texorpdfstring{$\ast$}{*}temp\+\_\+storage)
+\begin{DoxyCompactList}\small\item\em Compute polynomial coefficients for 2d periodic data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{spline_8cpp_ac33f647af7917a36b29bb0ce7c0b54d3}{evaluate\+\_\+2d\+\_\+spline}} (double \texorpdfstring{$\ast$}{*}z, int n\+\_\+knot\+\_\+x, int n\+\_\+knot\+\_\+y, const double \texorpdfstring{$\ast$}{*}coeff, int n\+\_\+point, const double \texorpdfstring{$\ast$}{*}points)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+constexpr const double \mbox{\hyperlink{spline_8cpp_a1b981da51a405ec41e9a2accc4d7e098}{bspline\+\_\+coeffs}} \mbox{[}4\mbox{]}\mbox{[}4\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{spline_8cpp_a77e0f4d07809a28f00976019b2da3b3e}\label{spline_8cpp_a77e0f4d07809a28f00976019b2da3b3e} 
+\index{spline.cpp@{spline.cpp}!evaluate\_1d\_spline@{evaluate\_1d\_spline}}
+\index{evaluate\_1d\_spline@{evaluate\_1d\_spline}!spline.cpp@{spline.cpp}}
+\doxysubsubsection{\texorpdfstring{evaluate\_1d\_spline()}{evaluate\_1d\_spline()}}
+{\footnotesize\ttfamily void evaluate\+\_\+1d\+\_\+spline (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}}]{y,  }\item[{int}]{n\+\_\+knot,  }\item[{const double \texorpdfstring{$\ast$}{*}}]{coeff,  }\item[{int}]{nx,  }\item[{const double \texorpdfstring{$\ast$}{*}}]{x }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{spline_8cpp_source_l00079}{79}} of file \mbox{\hyperlink{spline_8cpp_source}{spline.\+cpp}}.
+
+\Hypertarget{spline_8cpp_a191b206f254262ea92aaa06606a619b9}\label{spline_8cpp_a191b206f254262ea92aaa06606a619b9} 
+\index{spline.cpp@{spline.cpp}!evaluate\_1d\_spline\_first\_derivative@{evaluate\_1d\_spline\_first\_derivative}}
+\index{evaluate\_1d\_spline\_first\_derivative@{evaluate\_1d\_spline\_first\_derivative}!spline.cpp@{spline.cpp}}
+\doxysubsubsection{\texorpdfstring{evaluate\_1d\_spline\_first\_derivative()}{evaluate\_1d\_spline\_first\_derivative()}}
+{\footnotesize\ttfamily void evaluate\+\_\+1d\+\_\+spline\+\_\+first\+\_\+derivative (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}}]{dy,  }\item[{int}]{n\+\_\+knot,  }\item[{const double \texorpdfstring{$\ast$}{*}}]{coeff,  }\item[{int}]{nx,  }\item[{const double \texorpdfstring{$\ast$}{*}}]{x }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{spline_8cpp_source_l00096}{96}} of file \mbox{\hyperlink{spline_8cpp_source}{spline.\+cpp}}.
+
+\Hypertarget{spline_8cpp_ac33f647af7917a36b29bb0ce7c0b54d3}\label{spline_8cpp_ac33f647af7917a36b29bb0ce7c0b54d3} 
+\index{spline.cpp@{spline.cpp}!evaluate\_2d\_spline@{evaluate\_2d\_spline}}
+\index{evaluate\_2d\_spline@{evaluate\_2d\_spline}!spline.cpp@{spline.cpp}}
+\doxysubsubsection{\texorpdfstring{evaluate\_2d\_spline()}{evaluate\_2d\_spline()}}
+{\footnotesize\ttfamily void evaluate\+\_\+2d\+\_\+spline (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}}]{z,  }\item[{int}]{n\+\_\+knot\+\_\+x,  }\item[{int}]{n\+\_\+knot\+\_\+y,  }\item[{const double \texorpdfstring{$\ast$}{*}}]{coeff,  }\item[{int}]{n\+\_\+point,  }\item[{const double \texorpdfstring{$\ast$}{*}}]{points }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{spline_8cpp_source_l00297}{297}} of file \mbox{\hyperlink{spline_8cpp_source}{spline.\+cpp}}.
+
+\Hypertarget{spline_8cpp_aa5f33175e7355ab880b8d4430caa5268}\label{spline_8cpp_aa5f33175e7355ab880b8d4430caa5268} 
+\index{spline.cpp@{spline.cpp}!solve\_clamped\_1d\_spline@{solve\_clamped\_1d\_spline}}
+\index{solve\_clamped\_1d\_spline@{solve\_clamped\_1d\_spline}!spline.cpp@{spline.cpp}}
+\doxysubsubsection{\texorpdfstring{solve\_clamped\_1d\_spline()}{solve\_clamped\_1d\_spline()}}
+{\footnotesize\ttfamily void solve\+\_\+clamped\+\_\+1d\+\_\+spline (\begin{DoxyParamCaption}\item[{int}]{n,  }\item[{double \texorpdfstring{$\ast$}{*}}]{coefficients,  }\item[{const double \texorpdfstring{$\ast$}{*}}]{data,  }\item[{double \texorpdfstring{$\ast$}{*}}]{temp\+\_\+storage }\end{DoxyParamCaption})}
+
+
+
+Compute polynomial coefficients from data for clamped spline. 
+
+Computes data in polynomial representation, where each segment of the spline is represented by coefficients for ax\texorpdfstring{$^\wedge$}{\string^}3+bx\texorpdfstring{$^\wedge$}{\string^}2+cx+d. Clamped spline means that the derivative of the spline is zero on both ends. 
+
+Definition at line \mbox{\hyperlink{spline_8cpp_source_l00192}{192}} of file \mbox{\hyperlink{spline_8cpp_source}{spline.\+cpp}}.
+
+\Hypertarget{spline_8cpp_ab9e3b5aba2ac038660c8e6c7c0e96c39}\label{spline_8cpp_ab9e3b5aba2ac038660c8e6c7c0e96c39} 
+\index{spline.cpp@{spline.cpp}!solve\_clamped\_1d\_spline\_for\_bsplines@{solve\_clamped\_1d\_spline\_for\_bsplines}}
+\index{solve\_clamped\_1d\_spline\_for\_bsplines@{solve\_clamped\_1d\_spline\_for\_bsplines}!spline.cpp@{spline.cpp}}
+\doxysubsubsection{\texorpdfstring{solve\_clamped\_1d\_spline\_for\_bsplines()}{solve\_clamped\_1d\_spline\_for\_bsplines()}}
+{\footnotesize\ttfamily void solve\+\_\+clamped\+\_\+1d\+\_\+spline\+\_\+for\+\_\+bsplines (\begin{DoxyParamCaption}\item[{int}]{n\+\_\+coeff,  }\item[{double \texorpdfstring{$\ast$}{*}}]{coefficients,  }\item[{const double \texorpdfstring{$\ast$}{*}}]{data,  }\item[{double \texorpdfstring{$\ast$}{*}}]{temp\+\_\+storage }\end{DoxyParamCaption})}
+
+
+
+Compute bspline coefficients from data for clamped spline. 
+
+Computes data in bspline coefficient representation, where each of the values represents the scale factor for a single B-\/spline centered at that knot. Clamped spline means that the derivative of the spline is zero on both ends. 
+
+Definition at line \mbox{\hyperlink{spline_8cpp_source_l00158}{158}} of file \mbox{\hyperlink{spline_8cpp_source}{spline.\+cpp}}.
+
+\Hypertarget{spline_8cpp_ae15d71ec38bac83f2c588774cfbd04d8}\label{spline_8cpp_ae15d71ec38bac83f2c588774cfbd04d8} 
+\index{spline.cpp@{spline.cpp}!solve\_periodic\_1d\_spline@{solve\_periodic\_1d\_spline}}
+\index{solve\_periodic\_1d\_spline@{solve\_periodic\_1d\_spline}!spline.cpp@{spline.cpp}}
+\doxysubsubsection{\texorpdfstring{solve\_periodic\_1d\_spline()}{solve\_periodic\_1d\_spline()}}
+{\footnotesize\ttfamily void solve\+\_\+periodic\+\_\+1d\+\_\+spline (\begin{DoxyParamCaption}\item[{int}]{n,  }\item[{double \texorpdfstring{$\ast$}{*}}]{coefficients,  }\item[{const double \texorpdfstring{$\ast$}{*}}]{data,  }\item[{double \texorpdfstring{$\ast$}{*}}]{temp\+\_\+storage }\end{DoxyParamCaption})}
+
+
+
+Compute polynomial coefficients from periodic data. 
+
+Computes data in polynomial representation, where each segment of the spline is represented by coefficients for ax\texorpdfstring{$^\wedge$}{\string^}3+bx\texorpdfstring{$^\wedge$}{\string^}2+cx+d 
+\begin{DoxyParams}[1]{Parameters}
+ & {\em n} & number of data points  \\
+\hline
+\mbox{\texttt{ out}}  & {\em coefficients} & coefficients, length 4\texorpdfstring{$\ast$}{*}n  \\
+\hline
+\mbox{\texttt{ in}}  & {\em data} & data points to fit with spline, length n  \\
+\hline
+\mbox{\texttt{ out}}  & {\em temp\+\_\+storage} & scratch storage for the fitting algorithm, length 8\texorpdfstring{$\ast$}{*}n \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{spline_8cpp_source_l00121}{121}} of file \mbox{\hyperlink{spline_8cpp_source}{spline.\+cpp}}.
+
+\Hypertarget{spline_8cpp_a20e2bcb01b6a1247957f64aeb3e64bed}\label{spline_8cpp_a20e2bcb01b6a1247957f64aeb3e64bed} 
+\index{spline.cpp@{spline.cpp}!solve\_periodic\_2d\_spline@{solve\_periodic\_2d\_spline}}
+\index{solve\_periodic\_2d\_spline@{solve\_periodic\_2d\_spline}!spline.cpp@{spline.cpp}}
+\doxysubsubsection{\texorpdfstring{solve\_periodic\_2d\_spline()}{solve\_periodic\_2d\_spline()}}
+{\footnotesize\ttfamily void solve\+\_\+periodic\+\_\+2d\+\_\+spline (\begin{DoxyParamCaption}\item[{int}]{nx,  }\item[{int}]{ny,  }\item[{double \texorpdfstring{$\ast$}{*}}]{coefficients,  }\item[{const double \texorpdfstring{$\ast$}{*}}]{data,  }\item[{double \texorpdfstring{$\ast$}{*}}]{temp\+\_\+storage }\end{DoxyParamCaption})}
+
+
+
+Compute polynomial coefficients for 2d periodic data. 
+
+Computes data in polynomial representation, where each segment of the spline is represented by the 16 coefficients necessary for a 3d bicubic polynomial. 
+
+Definition at line \mbox{\hyperlink{spline_8cpp_source_l00262}{262}} of file \mbox{\hyperlink{spline_8cpp_source}{spline.\+cpp}}.
+
+\Hypertarget{spline_8cpp_a4375fd35e1ad7d117164c547c26e1a75}\label{spline_8cpp_a4375fd35e1ad7d117164c547c26e1a75} 
+\index{spline.cpp@{spline.cpp}!solve\_periodic\_tridiagonal\_system@{solve\_periodic\_tridiagonal\_system}}
+\index{solve\_periodic\_tridiagonal\_system@{solve\_periodic\_tridiagonal\_system}!spline.cpp@{spline.cpp}}
+\doxysubsubsection{\texorpdfstring{solve\_periodic\_tridiagonal\_system()}{solve\_periodic\_tridiagonal\_system()}}
+{\footnotesize\ttfamily void solve\+\_\+periodic\+\_\+tridiagonal\+\_\+system (\begin{DoxyParamCaption}\item[{int}]{n,  }\item[{double \texorpdfstring{$\ast$}{*}}]{solution,  }\item[{double \texorpdfstring{$\ast$}{*}}]{d,  }\item[{double \texorpdfstring{$\ast$}{*}}]{a,  }\item[{double \texorpdfstring{$\ast$}{*}}]{b,  }\item[{double \texorpdfstring{$\ast$}{*}}]{c,  }\item[{double \texorpdfstring{$\ast$}{*}}]{temp\+\_\+storage }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{spline_8cpp_source_l00033}{33}} of file \mbox{\hyperlink{spline_8cpp_source}{spline.\+cpp}}.
+
+\Hypertarget{spline_8cpp_a27a8e2e447b848df6f19b21379f4186d}\label{spline_8cpp_a27a8e2e447b848df6f19b21379f4186d} 
+\index{spline.cpp@{spline.cpp}!solve\_tridiagonal\_system@{solve\_tridiagonal\_system}}
+\index{solve\_tridiagonal\_system@{solve\_tridiagonal\_system}!spline.cpp@{spline.cpp}}
+\doxysubsubsection{\texorpdfstring{solve\_tridiagonal\_system()}{solve\_tridiagonal\_system()}}
+{\footnotesize\ttfamily void solve\+\_\+tridiagonal\+\_\+system (\begin{DoxyParamCaption}\item[{int}]{n,  }\item[{double \texorpdfstring{$\ast$}{*}}]{d,  }\item[{double \texorpdfstring{$\ast$}{*}}]{a,  }\item[{double \texorpdfstring{$\ast$}{*}}]{b,  }\item[{double \texorpdfstring{$\ast$}{*}}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{spline_8cpp_source_l00007}{7}} of file \mbox{\hyperlink{spline_8cpp_source}{spline.\+cpp}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{spline_8cpp_a1b981da51a405ec41e9a2accc4d7e098}\label{spline_8cpp_a1b981da51a405ec41e9a2accc4d7e098} 
+\index{spline.cpp@{spline.cpp}!bspline\_coeffs@{bspline\_coeffs}}
+\index{bspline\_coeffs@{bspline\_coeffs}!spline.cpp@{spline.cpp}}
+\doxysubsubsection{\texorpdfstring{bspline\_coeffs}{bspline\_coeffs}}
+{\footnotesize\ttfamily constexpr const double bspline\+\_\+coeffs\mbox{[}4\mbox{]}\mbox{[}4\mbox{]}\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ \{\ 0./6.,\ 0./6.,\ 0./6.,\ 1./6.\},}
+\DoxyCodeLine{\ \ \ \ \{\ 1./6.,\ 3./6.,\ 3./6.,-\/3./6.\},}
+\DoxyCodeLine{\ \ \ \ \{\ 4./6.,\ 0./6.,-\/6./6.,\ 3./6.\},}
+\DoxyCodeLine{\ \ \ \ \{\ 1./6.,-\/3./6.,\ 3./6.,-\/1./6.\}\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{spline_8cpp_source_l00114}{114}} of file \mbox{\hyperlink{spline_8cpp_source}{spline.\+cpp}}.
+

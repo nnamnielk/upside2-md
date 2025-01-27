@@ -1,0 +1,24 @@
+\doxysection{thermostat.\+cpp}
+\hypertarget{thermostat_8cpp_source}{}\label{thermostat_8cpp_source}\index{src/thermostat.cpp@{src/thermostat.cpp}}
+\mbox{\hyperlink{thermostat_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{thermostat_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{deriv__engine_8h}{deriv\_engine.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{thermostat_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{thermostat_8h}{thermostat.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{thermostat_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timing_8h}{timing.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{thermostat_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{random_8h}{random.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{thermostat_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{\Hypertarget{thermostat_8cpp_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{thermostat_8cpp_source_l00007}00007\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{\Hypertarget{thermostat_8cpp_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{thermostat_8cpp_source_l00009}\mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a2001f98d4431191bfba61c2563f97914}{00009}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a2001f98d4431191bfba61c2563f97914}{OrnsteinUhlenbeckThermostat::apply}}(\mbox{\hyperlink{struct_vec_array}{VecArray}}\ mom,\ \textcolor{keywordtype}{int}\ n\_atom)\ \{}
+\DoxyCodeLine{\Hypertarget{thermostat_8cpp_source_l00010}00010\ \ \ \ \ \mbox{\hyperlink{struct_timer}{Timer}}\ timer(\textcolor{keywordtype}{string}(\textcolor{stringliteral}{"{}thermostat"{}}));}
+\DoxyCodeLine{\Hypertarget{thermostat_8cpp_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{thermostat_8cpp_source_l00012}00012\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ na=0;\ na<n\_atom;\ ++na)\ \{}
+\DoxyCodeLine{\Hypertarget{thermostat_8cpp_source_l00013}00013\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_random_generator}{RandomGenerator}}\ random(\mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_aca08c572572feb3972c7c24aeebd9a14}{random\_seed}},\ \mbox{\hyperlink{random_8h_ab1fa763976d66d77a7a63f680bfd720ba22e752eca08a4aac60ee6108d52dc38a}{THERMOSTAT\_RANDOM\_STREAM}},\ na,\ n\_invocations);}
+\DoxyCodeLine{\Hypertarget{thermostat_8cpp_source_l00014}00014\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ p\ =\ load\_vec<3>(mom,\ na);}
+\DoxyCodeLine{\Hypertarget{thermostat_8cpp_source_l00015}00015\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{vector__math_8h_a721fdbc18b9714a8bfa755fefeb12961}{store\_vec}}(mom,\ na,\ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_aff154bd7afad8f15db595834c9a28c29}{mom\_scale}}*p\ +\ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_afdbbd049f507939c85ea85b5dbc53a7f}{noise\_scale}}*random.\mbox{\hyperlink{struct_random_generator_af178abea1dd12f5b54c6b35524b58009}{normal3}}());}
+\DoxyCodeLine{\Hypertarget{thermostat_8cpp_source_l00016}00016\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{thermostat_8cpp_source_l00017}00017\ \ \ \ \ n\_invocations++;}
+\DoxyCodeLine{\Hypertarget{thermostat_8cpp_source_l00018}00018\ \}}
+
+\end{DoxyCode}

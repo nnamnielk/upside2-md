@@ -1,0 +1,491 @@
+\doxysection{spline.\+h}
+\hypertarget{spline_8h_source}{}\label{spline_8h_source}\index{src/spline.h@{src/spline.h}}
+\mbox{\hyperlink{spline_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ SPLINE\_H}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00002}00002\ \textcolor{preprocessor}{\#define\ \ SPLINE\_H}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{vector__math_8h}{vector\_math.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_float4_8h}{Float4.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00016}00016\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{spline_8h_ae15d71ec38bac83f2c588774cfbd04d8}{solve\_periodic\_1d\_spline}}(}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00017}00017\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00018}00018\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ coefficients,\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00019}00019\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ data,\ \ \ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00020}00020\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ temp\_storage\ \ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00021}00021\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00029}00029\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{spline_8h_aa5f33175e7355ab880b8d4430caa5268}{solve\_clamped\_1d\_spline}}(}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n,\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00031}00031\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ coefficients,\ \textcolor{comment}{//\ length\ 4*(n-\/1)}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00032}00032\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ data,\ \ \ \textcolor{comment}{//\ length\ n}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ temp\_storage);\textcolor{comment}{//\ length\ 4*n}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00041}00041\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{spline_8h_ab9e3b5aba2ac038660c8e6c7c0e96c39}{solve\_clamped\_1d\_spline\_for\_bsplines}}(}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00042}00042\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n\_coeff,\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00043}00043\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ coefficients,\ \textcolor{comment}{//\ length\ n\_coeff}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00044}00044\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ data,\ \ \ \textcolor{comment}{//\ length\ n\_coeff-\/2}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00045}00045\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ temp\_storage);\textcolor{comment}{//\ length\ 3*n\_coeff}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00053}00053\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{spline_8h_a20e2bcb01b6a1247957f64aeb3e64bed}{solve\_periodic\_2d\_spline}}(}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00054}00054\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nx,\ \textcolor{keywordtype}{int}\ ny,}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00055}00055\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ coefficients,\ \textcolor{comment}{//\ length\ (nx,ny,4,4)\ row-\/major}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00056}00056\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ data,\ \ \ \textcolor{comment}{//\ length\ (nx,ny),\ row-\/major}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ temp\_storage);\textcolor{comment}{//\ length\ (nx+8)*(ny+8)*4}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00061}00061\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00062}\mbox{\hyperlink{spline_8h_a02d56a9c6c9fd59ebed74f4d1a401f2c}{00062}}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{spline_8h_a02d56a9c6c9fd59ebed74f4d1a401f2c}{spline\_value\_and\_deriv}}(T\ \&value,\ T\ \&dx,\ T\ \&dy,\ \textcolor{keyword}{const}\ T*\ c,\ T\ fx,\ T\ fy)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00063}00063\ \ \ \ \ T\ fx2\ =\ fx*fx;\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00064}00064\ \ \ \ \ T\ fx3\ =\ fx*fx2;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00066}00066\ \ \ \ \ T\ fy2\ =\ fy*fy;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00068}00068\ \ \ \ \ T\ vx0\ =\ c[\ 0]\ +\ fy*(c[\ 1]\ +\ fy*(c[\ 2]\ +\ fy*c[\ 3]));}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00069}00069\ \ \ \ \ T\ vx1\ =\ c[\ 4]\ +\ fy*(c[\ 5]\ +\ fy*(c[\ 6]\ +\ fy*c[\ 7]));}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00070}00070\ \ \ \ \ T\ vx2\ =\ c[\ 8]\ +\ fy*(c[\ 9]\ +\ fy*(c[10]\ +\ fy*c[11]));}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00071}00071\ \ \ \ \ T\ vx3\ =\ c[12]\ +\ fy*(c[13]\ +\ fy*(c[14]\ +\ fy*c[15]));}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00073}00073\ \ \ \ \ \textcolor{comment}{//\ T\ vy0\ =\ c[\ 0]\ +\ fx*(c[\ 4]\ +\ fx*(c[\ 8]\ +\ fx*c[12]));}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00074}00074\ \ \ \ \ T\ vy1\ =\ c[\ 1]\ +\ fx*(c[\ 5]\ +\ fx*(c[\ 9]\ +\ fx*c[13]));}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00075}00075\ \ \ \ \ T\ vy2\ =\ c[\ 2]\ +\ fx*(c[\ 6]\ +\ fx*(c[10]\ +\ fx*c[14]));}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00076}00076\ \ \ \ \ T\ vy3\ =\ c[\ 3]\ +\ fx*(c[\ 7]\ +\ fx*(c[11]\ +\ fx*c[15]));}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00078}00078\ \ \ \ \ dx\ \ \ \ =\ vx1\ +\ T(2.f)*fx*vx2\ +\ T(3.f)*fx2*vx3;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00079}00079\ \ \ \ \ dy\ \ \ \ =\ vy1\ +\ T(2.f)*fy*vy2\ +\ T(3.f)*fy2*vy3;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00080}00080\ \ \ \ \ value\ =\ vx0\ +\ fx*vx1\ +\ fx2*vx2\ +\ fx3*vx3;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00081}00081\ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00084}00084\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00085}\mbox{\hyperlink{spline_8h_a8f09875e90afbd44df566da568667c3b}{00085}}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{spline_8h_a02d56a9c6c9fd59ebed74f4d1a401f2c}{spline\_value\_and\_deriv}}(T\ result[2],\ \textcolor{keyword}{const}\ T*\ c,\ T\ fx)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00086}00086\ \ \ \ \ T\ fx2\ =\ fx*fx;\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00087}00087\ \ \ \ \ T\ fx3\ =\ fx*fx2;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00088}00088\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00089}00089\ \ \ \ \ result[0]\ =\ \ \ \ \ \ \ \ \ \ \ c[1]\ +\ T(2.f)*fx\ *c[2]\ +\ T(3.f)*fx2*c[3];\ \textcolor{comment}{//\ deriv}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00090}00090\ \ \ \ \ result[1]\ =\ c[0]\ +\ fx*c[1]\ +\ \ \ \ \ \ \ \ fx2*c[2]\ +\ \ \ \ \ \ \ \ fx3*c[3];\ \textcolor{comment}{//\ value}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00091}00091\ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00098}\mbox{\hyperlink{spline_8h_aa3d872070f6b772fae6930ee53d50d37}{00098}}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{struct_vec}{Vec<2>}}\ \mbox{\hyperlink{spline_8h_aa3d872070f6b772fae6930ee53d50d37}{deBoor\_value\_and\_deriv}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}*\ bspline\_coeff,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ x)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00099}00099\ \ \ \ \ \textcolor{comment}{//\ this\ function\ assumes\ that\ endpoint\ conditions\ (say\ x<=1.)\ have\ already\ been\ taken\ care\ of}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00100}00100\ \ \ \ \ \textcolor{comment}{//\ the\ first\ spline\ is\ centered\ at\ -\/1}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00101}00101\ \ \ \ \ \textcolor{comment}{//\ return\ is\ value\ then\ derivative}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00103}00103\ \ \ \ \ \textcolor{keywordtype}{int}\ x\_bin\ =\ int(x);\ \textcolor{comment}{//\ must\ be\ at\ least\ 1}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00104}00104\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ y\ =\ \mbox{\hyperlink{struct_float4}{Float4}}(x-\/x\_bin);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00106}00106\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ c0(bspline\_coeff+(x\_bin-\/1),\ \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726ac1ee38840b675778cb869cc00f8a95e8}{Alignment::unaligned}});}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00107}00107\ \ \ \ \ \textcolor{comment}{//\ let's\ do\ value\ first}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00109}00109\ \ \ \ \ \textcolor{comment}{//\ leftmost\ value\ of\ u\ is\ unused}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00110}00110\ \ \ \ \ \textcolor{keyword}{alignas}(16)\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ u[4]\ =\ \{0.f,\ -\/2.f,\ -\/1.f,\ 0.f\};}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00111}00111\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ yu\ =\ y\ -\/\ \mbox{\hyperlink{struct_float4}{Float4}}(u);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00112}00112\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ one\ =\ \mbox{\hyperlink{struct_float4}{Float4}}(1.f);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00114}00114\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ alpha1\ =\ \mbox{\hyperlink{struct_float4}{Float4}}(1.f/3.f)\ *\ yu;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00115}00115\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ c1\ =\ (one-\/alpha1)*c0.\mbox{\hyperlink{struct_float4_af0e7a56045e40b3df0ff311e9f1daed5}{right\_rotate}}()\ +\ alpha1*c0;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00117}00117\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ alpha2\ =\ \mbox{\hyperlink{struct_float4}{Float4}}(1.f/2.f)\ *\ yu;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00118}00118\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ c2\ =\ (one-\/alpha2)*c1.\mbox{\hyperlink{struct_float4_af0e7a56045e40b3df0ff311e9f1daed5}{right\_rotate}}()\ +\ alpha2*c1;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00120}00120\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ alpha3\ =\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ yu;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00121}00121\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ c3\ =\ (one-\/alpha3)*c2.\mbox{\hyperlink{struct_float4_af0e7a56045e40b3df0ff311e9f1daed5}{right\_rotate}}()\ +\ alpha3*c2;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00123}00123\ \ \ \ \ \textcolor{comment}{//\ now\ let's\ do\ derivatives}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00124}00124\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ d1\ =\ c0\ -\/\ c0.\mbox{\hyperlink{struct_float4_af0e7a56045e40b3df0ff311e9f1daed5}{right\_rotate}}();\ \ \textcolor{comment}{//\ coeffs\ for\ spline\ of\ order\ 2}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00125}00125\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ d2\ =\ (one-\/alpha2)*d1.\mbox{\hyperlink{struct_float4_af0e7a56045e40b3df0ff311e9f1daed5}{right\_rotate}}()\ +\ alpha2*d1;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00126}00126\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ d3\ =\ (one-\/alpha3)*d2.\mbox{\hyperlink{struct_float4_af0e7a56045e40b3df0ff311e9f1daed5}{right\_rotate}}()\ +\ alpha3*d2;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00128}00128\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{vector__math_8h_a07f83a9ab124f930a5af5e9036c6ea9e}{make\_vec2}}(c3.\mbox{\hyperlink{struct_float4_aa2dd68a30230d3e413829dbbf6dcc180}{w}}(),\ d3.\mbox{\hyperlink{struct_float4_aa2dd68a30230d3e413829dbbf6dcc180}{w}}());}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00129}00129\ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00131}\mbox{\hyperlink{spline_8h_ab2abc4e132a8f96aaf51486f162693e1}{00131}}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{struct_vec}{Vec<2>}}\ \mbox{\hyperlink{spline_8h_aa3d872070f6b772fae6930ee53d50d37}{deBoor\_value\_and\_deriv}}(\textcolor{keyword}{const}\ std::vector<float>\&\ bspline\_coeff,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ x)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00132}00132\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00133}00133\ \ \ \ \ \textcolor{keywordtype}{int}\ x\_bin\ =\ int(x);\ \textcolor{comment}{//\ must\ be\ at\ least\ 1}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00134}00134\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ y\ =\ \mbox{\hyperlink{struct_float4}{Float4}}(x-\/x\_bin);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00136}00136\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ c0(\&(bspline\_coeff[x\_bin-\/1]),\ \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726ac1ee38840b675778cb869cc00f8a95e8}{Alignment::unaligned}});}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00137}00137\ \ \ \ \ \textcolor{comment}{//\ let's\ do\ value\ first}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00139}00139\ \ \ \ \ \textcolor{comment}{//\ leftmost\ value\ of\ u\ is\ unused}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00140}00140\ \ \ \ \ \textcolor{keyword}{alignas}(16)\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ u[4]\ =\ \{0.f,\ -\/2.f,\ -\/1.f,\ 0.f\};}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00141}00141\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ yu\ =\ y\ -\/\ \mbox{\hyperlink{struct_float4}{Float4}}(u);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00142}00142\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ one\ =\ \mbox{\hyperlink{struct_float4}{Float4}}(1.f);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00144}00144\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ alpha1\ =\ \mbox{\hyperlink{struct_float4}{Float4}}(1.f/3.f)\ *\ yu;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00145}00145\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ c1\ =\ (one-\/alpha1)*c0.\mbox{\hyperlink{struct_float4_af0e7a56045e40b3df0ff311e9f1daed5}{right\_rotate}}()\ +\ alpha1*c0;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00147}00147\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ alpha2\ =\ \mbox{\hyperlink{struct_float4}{Float4}}(1.f/2.f)\ *\ yu;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00148}00148\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ c2\ =\ (one-\/alpha2)*c1.\mbox{\hyperlink{struct_float4_af0e7a56045e40b3df0ff311e9f1daed5}{right\_rotate}}()\ +\ alpha2*c1;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00149}00149\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00150}00150\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ alpha3\ =\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ yu;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00151}00151\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ c3\ =\ (one-\/alpha3)*c2.\mbox{\hyperlink{struct_float4_af0e7a56045e40b3df0ff311e9f1daed5}{right\_rotate}}()\ +\ alpha3*c2;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00152}00152\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00153}00153\ \ \ \ \ \textcolor{comment}{//\ now\ let's\ do\ derivatives}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00154}00154\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ d1\ =\ c0\ -\/\ c0.\mbox{\hyperlink{struct_float4_af0e7a56045e40b3df0ff311e9f1daed5}{right\_rotate}}();\ \ \textcolor{comment}{//\ coeffs\ for\ spline\ of\ order\ 2}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00155}00155\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ d2\ =\ (one-\/alpha2)*d1.\mbox{\hyperlink{struct_float4_af0e7a56045e40b3df0ff311e9f1daed5}{right\_rotate}}()\ +\ alpha2*d1;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00156}00156\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ d3\ =\ (one-\/alpha3)*d2.\mbox{\hyperlink{struct_float4_af0e7a56045e40b3df0ff311e9f1daed5}{right\_rotate}}()\ +\ alpha3*d2;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00157}00157\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00158}00158\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{vector__math_8h_a07f83a9ab124f930a5af5e9036c6ea9e}{make\_vec2}}(c3.\mbox{\hyperlink{struct_float4_aa2dd68a30230d3e413829dbbf6dcc180}{w}}(),\ d3.\mbox{\hyperlink{struct_float4_aa2dd68a30230d3e413829dbbf6dcc180}{w}}());}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00159}00159\ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00166}\mbox{\hyperlink{spline_8h_ab7655e98487247d7c9602943dfc9b4d8}{00166}}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{struct_vec}{Vec<2,Float4>}}\ \mbox{\hyperlink{spline_8h_ab7655e98487247d7c9602943dfc9b4d8}{uniform\_deBoor\_algorithm}}(}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00167}00167\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_float4}{Float4}}\&\ c00,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_float4}{Float4}}\&\ c01,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_float4}{Float4}}\&\ c02,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_float4}{Float4}}\&\ c03,}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00168}00168\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_float4}{Float4}}\&\ excess)\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00169}00169\ \ \ \ \ \textcolor{comment}{//\ excess\ should\ be\ on\ [0,1]}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00170}00170\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00171}00171\ \ \ \ \ \textcolor{keyword}{auto}\ one\ =\ \mbox{\hyperlink{struct_float4}{Float4}}(1.f);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00172}00172\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00173}00173\ \ \ \ \ \textcolor{keyword}{auto}\ yu1\ =\ excess\ +\ \mbox{\hyperlink{struct_float4}{Float4}}(2.f);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00174}00174\ \ \ \ \ \textcolor{keyword}{auto}\ yu2\ =\ excess\ +\ one;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00175}00175\ \ \ \ \ \textcolor{keyword}{auto}\ yu3\ =\ excess;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00176}00176\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00177}00177\ \ \ \ \ \textcolor{keyword}{auto}\ frac13\ =\ \mbox{\hyperlink{struct_float4}{Float4}}(1.f/3.f);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00178}00178\ \ \ \ \ \textcolor{keyword}{auto}\ alpha11\ =\ frac13*yu1;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00179}00179\ \ \ \ \ \textcolor{keyword}{auto}\ alpha12\ =\ frac13*yu2;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00180}00180\ \ \ \ \ \textcolor{keyword}{auto}\ alpha13\ =\ frac13*yu3;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00181}00181\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00182}00182\ \ \ \ \ \textcolor{keyword}{auto}\ c11\ =\ \mbox{\hyperlink{_float4_8h_aacb91429a798338284da425e353e1a07}{fmadd}}(one-\/alpha11,c00,\ alpha11*c01);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00183}00183\ \ \ \ \ \textcolor{keyword}{auto}\ d11\ =\ c01\ -\/\ c00;\ \ \textcolor{comment}{//\ deriv\ coeffs\ for\ spline\ of\ order\ 2}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00184}00184\ \ \ \ \ \textcolor{keyword}{auto}\ c12\ =\ \mbox{\hyperlink{_float4_8h_aacb91429a798338284da425e353e1a07}{fmadd}}(one-\/alpha12,c01,\ alpha12*c02);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00185}00185\ \ \ \ \ \textcolor{keyword}{auto}\ d12\ =\ c02\ -\/\ c01;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00186}00186\ \ \ \ \ \textcolor{keyword}{auto}\ c13\ =\ \mbox{\hyperlink{_float4_8h_aacb91429a798338284da425e353e1a07}{fmadd}}(one-\/alpha13,c02,\ alpha13*c03);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00187}00187\ \ \ \ \ \textcolor{keyword}{auto}\ d13\ =\ c03\ -\/\ c02;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00188}00188\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00189}00189\ \ \ \ \ \textcolor{keyword}{auto}\ frac12\ =\ \mbox{\hyperlink{struct_float4}{Float4}}(1.f/2.f);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00190}00190\ \ \ \ \ \textcolor{keyword}{auto}\ alpha22\ =\ frac12*yu2;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00191}00191\ \ \ \ \ \textcolor{keyword}{auto}\ alpha23\ =\ frac12*yu3;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00192}00192\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00193}00193\ \ \ \ \ \textcolor{keyword}{auto}\ c22\ =\ \mbox{\hyperlink{_float4_8h_aacb91429a798338284da425e353e1a07}{fmadd}}(one-\/alpha22,c11,\ alpha22*c12);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00194}00194\ \ \ \ \ \textcolor{keyword}{auto}\ d22\ =\ \mbox{\hyperlink{_float4_8h_aacb91429a798338284da425e353e1a07}{fmadd}}(one-\/alpha22,d11,\ alpha22*d12);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00195}00195\ \ \ \ \ \textcolor{keyword}{auto}\ c23\ =\ \mbox{\hyperlink{_float4_8h_aacb91429a798338284da425e353e1a07}{fmadd}}(one-\/alpha23,c12,\ alpha23*c13);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00196}00196\ \ \ \ \ \textcolor{keyword}{auto}\ d23\ =\ \mbox{\hyperlink{_float4_8h_aacb91429a798338284da425e353e1a07}{fmadd}}(one-\/alpha23,d12,\ alpha23*d13);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00197}00197\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00198}00198\ \ \ \ \ \textcolor{keyword}{auto}\ alpha33\ =\ yu3;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00200}00200\ \ \ \ \ \textcolor{keyword}{auto}\ c33\ =\ \mbox{\hyperlink{_float4_8h_aacb91429a798338284da425e353e1a07}{fmadd}}(one-\/alpha33,c22,\ alpha33*c23);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00201}00201\ \ \ \ \ \textcolor{keyword}{auto}\ d33\ =\ \mbox{\hyperlink{_float4_8h_aacb91429a798338284da425e353e1a07}{fmadd}}(one-\/alpha33,d22,\ alpha33*d23);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00202}00202\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00203}00203\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{vector__math_8h_a07f83a9ab124f930a5af5e9036c6ea9e}{make\_vec2}}(c33,\ d33);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00204}00204\ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00205}00205\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00206}00206\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00212}\mbox{\hyperlink{spline_8h_aaf460ff4b5d08d917f7107503e02ba89}{00212}}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{struct_vec}{Vec<3,Float4>}}\ \mbox{\hyperlink{spline_8h_aaf460ff4b5d08d917f7107503e02ba89}{deBoor2d\_value\_and\_deriv}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ ny,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}*\ bspline\_coeff[4],}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00213}00213\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_float4}{Float4}}\&\ x,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_float4}{Float4}}\&\ y)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00214}00214\ \ \ \ \ \textcolor{comment}{//\ return\ array\ contains\ (value,\ dvalue/dx,\ dvalue/dy)}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00215}00215\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00216}00216\ \ \ \ \ \textcolor{comment}{//\ First\ compute\ the\ x\ bins\ so\ I\ know\ where\ to\ pick\ out\ rows\ for\ the\ y\ deBoor}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00217}00217\ \ \ \ \ \textcolor{keyword}{alignas}(16)\ \textcolor{keywordtype}{int}\ x\_bin[4];\ x.\mbox{\hyperlink{struct_float4_aef5f9b7c4944f32aa51a3b62b8cefdf2}{truncate\_to\_int}}().\mbox{\hyperlink{struct_int4_ac47c6c7f3fc4d08810d6e996ce904be4}{store}}(x\_bin);\ \ \textcolor{comment}{//\ must\ be\ at\ least\ 1}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00218}00218\ \ \ \ \ \textcolor{keyword}{alignas}(16)\ \textcolor{keywordtype}{int}\ y\_bin[4];\ y.\mbox{\hyperlink{struct_float4_aef5f9b7c4944f32aa51a3b62b8cefdf2}{truncate\_to\_int}}().\mbox{\hyperlink{struct_int4_ac47c6c7f3fc4d08810d6e996ce904be4}{store}}(y\_bin);\ \ \textcolor{comment}{//\ must\ be\ at\ least\ 1}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00219}00219\ \ \ \ \ \textcolor{keyword}{alignas}(16)\ \textcolor{keywordtype}{float}\ x\_excess[4];\ (x\ -\/\ x.\mbox{\hyperlink{struct_float4_a7f70a209d45029c5cfb04b51744f7c59}{round}}<\_MM\_FROUND\_TO\_ZERO>()).store(x\_excess);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00220}00220\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00221}00221\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ val\_coeff[4];}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00222}00222\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ \ dx\_coeff[4];}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00223}00223\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00224}00224\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<4;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00225}00225\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}*\ bspline\_base\ =\ bspline\_coeff[i]\ +\ (x\_bin[i]-\/1)*ny\ +\ y\_bin[i]-\/1;\ \ \textcolor{comment}{//\ lower\ left\ corner\ of\ coeffs}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00226}00226\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ c00(bspline\_base\ +\ 0*ny,\ \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726ac1ee38840b675778cb869cc00f8a95e8}{Alignment::unaligned}});}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00227}00227\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ c01(bspline\_base\ +\ 1*ny,\ \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726ac1ee38840b675778cb869cc00f8a95e8}{Alignment::unaligned}});}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00228}00228\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ c02(bspline\_base\ +\ 2*ny,\ \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726ac1ee38840b675778cb869cc00f8a95e8}{Alignment::unaligned}});}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00229}00229\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ c03(bspline\_base\ +\ 3*ny,\ \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726ac1ee38840b675778cb869cc00f8a95e8}{Alignment::unaligned}});}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00230}00230\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00231}00231\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ execute\ deBoor\ for\ all\ y\ columns\ simultaneously}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00232}00232\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{eig_8cpp_a8632be35f000cadfa136fc7d22eabac5}{v}}\ =\ \mbox{\hyperlink{spline_8h_ab7655e98487247d7c9602943dfc9b4d8}{uniform\_deBoor\_algorithm}}(c00,c01,c02,c03,\ \mbox{\hyperlink{struct_float4}{Float4}}(x\_excess[i]));}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00233}00233\ \ \ \ \ \ \ \ \ val\_coeff[i]\ =\ \mbox{\hyperlink{eig_8cpp_a8632be35f000cadfa136fc7d22eabac5}{v}}[0];}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00234}00234\ \ \ \ \ \ \ \ \ dx\_coeff\ [i]\ =\ \mbox{\hyperlink{eig_8cpp_a8632be35f000cadfa136fc7d22eabac5}{v}}[1];}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00235}00235\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00236}00236\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00237}00237\ \ \ \ \ \textcolor{comment}{//\ prepare\ for\ second\ round}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00238}00238\ \ \ \ \ \mbox{\hyperlink{_float4_8h_a37f2e029fa219a5e82f8c4c5c4552d93}{transpose4}}(val\_coeff[0],val\_coeff[1],val\_coeff[2],val\_coeff[3]);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00239}00239\ \ \ \ \ \mbox{\hyperlink{_float4_8h_a37f2e029fa219a5e82f8c4c5c4552d93}{transpose4}}(\ dx\_coeff[0],\ dx\_coeff[1],\ dx\_coeff[2],\ dx\_coeff[3]);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00240}00240\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00241}00241\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ y\_excess\ =\ y\ -\/\ y.\mbox{\hyperlink{struct_float4_a7f70a209d45029c5cfb04b51744f7c59}{round}}<\_MM\_FROUND\_TO\_ZERO>();}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00242}00242\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00243}00243\ \ \ \ \ \textcolor{keyword}{auto}\ val\ =\ \mbox{\hyperlink{spline_8h_ab7655e98487247d7c9602943dfc9b4d8}{uniform\_deBoor\_algorithm}}(val\_coeff[0],val\_coeff[1],val\_coeff[2],val\_coeff[3],\ y\_excess);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00244}00244\ \ \ \ \ \textcolor{keyword}{auto}\ dx\ \ =\ \mbox{\hyperlink{spline_8h_ab7655e98487247d7c9602943dfc9b4d8}{uniform\_deBoor\_algorithm}}(\ dx\_coeff[0],\ dx\_coeff[1],\ dx\_coeff[2],\ dx\_coeff[3],\ y\_excess);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00245}00245\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00246}00246\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{vector__math_8h_a7d18efc8f976ad6c055d9dd7d3bd4867}{make\_vec3}}(val[0],dx[0],val[1]);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00247}00247\ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00248}00248\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00249}00249\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00258}\mbox{\hyperlink{spline_8h_ad17c15224040b3d4e27ec6c0d2a3bd1c}{00258}}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{struct_vec}{Vec<2,Float4>}}\ \mbox{\hyperlink{spline_8h_aa3d872070f6b772fae6930ee53d50d37}{deBoor\_value\_and\_deriv}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}*\ bspline\_coeff[4],\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_float4}{Float4}}\&\ x)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00259}00259\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00260}00260\ \ \ \ \ \mbox{\hyperlink{struct_int4}{Int4}}\ x\_bin\ =\ x.\mbox{\hyperlink{struct_float4_aef5f9b7c4944f32aa51a3b62b8cefdf2}{truncate\_to\_int}}();\ \ \textcolor{comment}{//\ must\ be\ at\ least\ 1}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00261}00261\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ y\ =\ x\ -\/\ x.\mbox{\hyperlink{struct_float4_a7f70a209d45029c5cfb04b51744f7c59}{round}}<\_MM\_FROUND\_TO\_ZERO>();}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00262}00262\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00263}00263\ \ \ \ \ \textcolor{comment}{//\ Read\ the\ coefficients\ for\ each\ slot\ then\ transpose\ to\ prepare}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00264}00264\ \ \ \ \ \textcolor{comment}{//\ \ \ for\ vertical\ simd}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00265}00265\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ c00(bspline\_coeff[0]-\/1\ +\ x\_bin.\mbox{\hyperlink{struct_int4_a9ed181c8be90b8dba75820e69e9b348f}{x}}(),\ \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726ac1ee38840b675778cb869cc00f8a95e8}{Alignment::unaligned}});}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00266}00266\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ c01(bspline\_coeff[1]-\/1\ +\ x\_bin.\mbox{\hyperlink{struct_int4_acb4c03f9e4e5f1ee3202b95f69168b72}{y}}(),\ \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726ac1ee38840b675778cb869cc00f8a95e8}{Alignment::unaligned}});}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00267}00267\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ c02(bspline\_coeff[2]-\/1\ +\ x\_bin.\mbox{\hyperlink{struct_int4_a314e7573e5330120c83fe95a83fe8740}{z}}(),\ \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726ac1ee38840b675778cb869cc00f8a95e8}{Alignment::unaligned}});}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00268}00268\ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ c03(bspline\_coeff[3]-\/1\ +\ x\_bin.\mbox{\hyperlink{struct_int4_af211133f82ad964a13e9deaaba33afbc}{w}}(),\ \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726ac1ee38840b675778cb869cc00f8a95e8}{Alignment::unaligned}});}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00269}00269\ \ \ \ \ \mbox{\hyperlink{_float4_8h_a37f2e029fa219a5e82f8c4c5c4552d93}{transpose4}}(c00,c01,c02,c03);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00270}00270\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00271}00271\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{spline_8h_ab7655e98487247d7c9602943dfc9b4d8}{uniform\_deBoor\_algorithm}}(c00,c01,c02,c03,\ y);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00272}00272\ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00273}00273\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00278}\mbox{\hyperlink{spline_8h_a15c0801533a7a30dad3b57b89362fb08}{00278}}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{spline_8h_a15c0801533a7a30dad3b57b89362fb08}{clamped\_spline\_left}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}*\ bspline\_coeff,\ \textcolor{keywordtype}{int}\ n\_coeff)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00279}00279\ \ \ \ \ \textcolor{keywordflow}{return}\ (1.f/6.f)*bspline\_coeff[0]\ +\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00280}00280\ \ \ \ \ \ \ \ \ \ \ \ (2.f/3.f)*bspline\_coeff[1]\ +\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00281}00281\ \ \ \ \ \ \ \ \ \ \ \ (1.f/6.f)*bspline\_coeff[2];}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00282}00282\ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00283}00283\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00284}\mbox{\hyperlink{spline_8h_aa3cf4410a80acea4e68e2b81bab72f76}{00284}}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{spline_8h_a15c0801533a7a30dad3b57b89362fb08}{clamped\_spline\_left}}(\textcolor{keyword}{const}\ std::vector<float>\&\ bspline\_coeff,\ \textcolor{keywordtype}{int}\ n\_coeff)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00285}00285\ \ \ \ \ \textcolor{keywordflow}{return}\ (1.f/6.f)*bspline\_coeff[0]\ +\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00286}00286\ \ \ \ \ \ \ \ \ \ \ \ (2.f/3.f)*bspline\_coeff[1]\ +\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00287}00287\ \ \ \ \ \ \ \ \ \ \ \ (1.f/6.f)*bspline\_coeff[2];}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00288}00288\ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00289}00289\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00294}\mbox{\hyperlink{spline_8h_ab330a7b78278eda614f0379608bfce4a}{00294}}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{spline_8h_ab330a7b78278eda614f0379608bfce4a}{clamped\_spline\_right}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}*\ bspline\_coeff,\ \textcolor{keywordtype}{int}\ n\_coeff)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00295}00295\ \ \ \ \ \textcolor{keywordflow}{return}\ (1.f/6.f)*bspline\_coeff[n\_coeff-\/3]\ +\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00296}00296\ \ \ \ \ \ \ \ \ \ \ \ (2.f/3.f)*bspline\_coeff[n\_coeff-\/2]\ +\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00297}00297\ \ \ \ \ \ \ \ \ \ \ \ (1.f/6.f)*bspline\_coeff[n\_coeff-\/1];}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00298}00298\ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00299}00299\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00300}\mbox{\hyperlink{spline_8h_ac1a9fd1d3ee031a2579c2548e5368a94}{00300}}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{spline_8h_ab330a7b78278eda614f0379608bfce4a}{clamped\_spline\_right}}(\textcolor{keyword}{const}\ std::vector<float>\&\ bspline\_coeff,\ \textcolor{keywordtype}{int}\ n\_coeff)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00301}00301\ \ \ \ \ \textcolor{keywordflow}{return}\ (1.f/6.f)*bspline\_coeff[n\_coeff-\/3]\ +\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00302}00302\ \ \ \ \ \ \ \ \ \ \ \ (2.f/3.f)*bspline\_coeff[n\_coeff-\/2]\ +\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00303}00303\ \ \ \ \ \ \ \ \ \ \ \ (1.f/6.f)*bspline\_coeff[n\_coeff-\/1];}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00304}00304\ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00305}00305\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00310}\mbox{\hyperlink{spline_8h_a788bdb1776cdf54b913166a9aa613478}{00310}}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{struct_vec}{Vec<2>}}\ \mbox{\hyperlink{spline_8h_a788bdb1776cdf54b913166a9aa613478}{clamped\_deBoor\_value\_and\_deriv}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}*\ bspline\_coeff,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{int}\ n\_knot)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00311}00311\ \ \ \ \ \textcolor{keywordflow}{if}(x<=1.f)\ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{vector__math_8h_a07f83a9ab124f930a5af5e9036c6ea9e}{make\_vec2}}(\mbox{\hyperlink{spline_8h_a15c0801533a7a30dad3b57b89362fb08}{clamped\_spline\_left}}\ (bspline\_coeff,\ n\_knot),\ 0.f);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00312}00312\ \ \ \ \ \textcolor{keywordflow}{if}(x>=n\_knot-\/2)\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{vector__math_8h_a07f83a9ab124f930a5af5e9036c6ea9e}{make\_vec2}}(\mbox{\hyperlink{spline_8h_ab330a7b78278eda614f0379608bfce4a}{clamped\_spline\_right}}(bspline\_coeff,\ n\_knot),\ 0.f);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00313}00313\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{spline_8h_aa3d872070f6b772fae6930ee53d50d37}{deBoor\_value\_and\_deriv}}(bspline\_coeff,\ x);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00314}00314\ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00315}00315\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00316}\mbox{\hyperlink{spline_8h_a8070836fae6a9e0d9a5fbb60972e2386}{00316}}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{struct_vec}{Vec<2>}}\ \mbox{\hyperlink{spline_8h_a788bdb1776cdf54b913166a9aa613478}{clamped\_deBoor\_value\_and\_deriv}}(\textcolor{keyword}{const}\ std::vector<float>\&\ bspline\_coeff,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{int}\ n\_knot)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00317}00317\ \ \ \ \ \textcolor{keywordflow}{if}(x<=1.f)\ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{vector__math_8h_a07f83a9ab124f930a5af5e9036c6ea9e}{make\_vec2}}(\mbox{\hyperlink{spline_8h_a15c0801533a7a30dad3b57b89362fb08}{clamped\_spline\_left}}\ (bspline\_coeff,\ n\_knot),\ 0.f);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00318}00318\ \ \ \ \ \textcolor{keywordflow}{if}(x>=n\_knot-\/2)\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{vector__math_8h_a07f83a9ab124f930a5af5e9036c6ea9e}{make\_vec2}}(\mbox{\hyperlink{spline_8h_ab330a7b78278eda614f0379608bfce4a}{clamped\_spline\_right}}(bspline\_coeff,\ n\_knot),\ 0.f);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00319}00319\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{spline_8h_aa3d872070f6b772fae6930ee53d50d37}{deBoor\_value\_and\_deriv}}(bspline\_coeff,\ x);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00320}00320\ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00321}00321\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00323}\mbox{\hyperlink{spline_8h_a3aec4d37d3282557795ff9d8235da7f6}{00323}}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{struct_vec}{Vec<2,Float4>}}\ \mbox{\hyperlink{spline_8h_a788bdb1776cdf54b913166a9aa613478}{clamped\_deBoor\_value\_and\_deriv}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}*\ bspline\_coeff[4],}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00324}00324\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_float4}{Float4}}\&\ x,\ \textcolor{keywordtype}{int}\ n\_knot)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00325}00325\ \ \ \ \ \textcolor{keyword}{auto}\ one\ =\ \mbox{\hyperlink{struct_float4}{Float4}}(1.f);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00326}00326\ \ \ \ \ \textcolor{keyword}{auto}\ too\_small\ =\ x<one;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00327}00327\ \ \ \ \ \textcolor{keyword}{auto}\ too\_big\ \ \ =\ \mbox{\hyperlink{struct_float4}{Float4}}(n\_knot-\/2)<=x;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00328}00328\ \ \ \ \ \textcolor{keyword}{auto}\ clamp\_mask\ =\ too\_small\ |\ too\_big;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00329}00329\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00330}00330\ \ \ \ \ \textcolor{keyword}{auto}\ x\_clamp\ =\ \mbox{\hyperlink{_float4_8h_a617d53f010c1d5e9a10a1720f300b7fe}{ternary}}(clamp\_mask,\ one,\ x);\ \textcolor{comment}{//\ make\ all\ values\ in\ bounds\ to\ proceed\ with\ spline\ eval}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00331}00331\ \ \ \ \ \textcolor{keyword}{auto}\ value\ =\ \mbox{\hyperlink{spline_8h_aa3d872070f6b772fae6930ee53d50d37}{deBoor\_value\_and\_deriv}}(bspline\_coeff,\ x\_clamp);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00332}00332\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00333}00333\ \ \ \ \ \textcolor{keywordflow}{if}(clamp\_mask.any())\ \{\ \textcolor{comment}{//\ hopefully\ rare}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00334}00334\ \ \ \ \ \ \ \ \ value.y()\ =\ \mbox{\hyperlink{_float4_8h_a617d53f010c1d5e9a10a1720f300b7fe}{ternary}}(clamp\_mask,\ \mbox{\hyperlink{struct_float4}{Float4}}(),\ value.\mbox{\hyperlink{struct_float4_a7ec6dc72ec3124db87f6deea616bc2c8}{y}}());\ \ \textcolor{comment}{//\ both\ cases\ set\ derivative\ to\ 0}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00335}00335\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00336}00336\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ outer\ =\ \mbox{\hyperlink{struct_float4}{Float4}}(1.f/6.f);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00337}00337\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ inner\ =\ \mbox{\hyperlink{struct_float4}{Float4}}(2.f/3.f);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00338}00338\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00339}00339\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ c0(bspline\_coeff[0],\ \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726ac1ee38840b675778cb869cc00f8a95e8}{Alignment::unaligned}});}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00340}00340\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ c1(bspline\_coeff[1],\ \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726ac1ee38840b675778cb869cc00f8a95e8}{Alignment::unaligned}});}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00341}00341\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ c2(bspline\_coeff[2],\ \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726ac1ee38840b675778cb869cc00f8a95e8}{Alignment::unaligned}});}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00342}00342\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ c3(bspline\_coeff[3],\ \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726ac1ee38840b675778cb869cc00f8a95e8}{Alignment::unaligned}});}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00343}00343\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_float4_8h_a37f2e029fa219a5e82f8c4c5c4552d93}{transpose4}}(c0,c1,c2,c3);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00344}00344\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ left\_clamp\ =\ outer*c0\ +\ inner*c1\ +\ outer*c2;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00345}00345\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00346}00346\ \ \ \ \ \ \ \ \ value.\mbox{\hyperlink{struct_float4_a835f1776da7a288188fcdbb4b390f277}{x}}()\ =\ \mbox{\hyperlink{_float4_8h_a617d53f010c1d5e9a10a1720f300b7fe}{ternary}}(too\_small,\ left\_clamp,\ value.x());}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00347}00347\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00348}00348\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ cn4(bspline\_coeff[0]+n\_knot-\/4,\ \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726ac1ee38840b675778cb869cc00f8a95e8}{Alignment::unaligned}});}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00349}00349\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ cn3(bspline\_coeff[1]+n\_knot-\/4,\ \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726ac1ee38840b675778cb869cc00f8a95e8}{Alignment::unaligned}});}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00350}00350\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ cn2(bspline\_coeff[2]+n\_knot-\/4,\ \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726ac1ee38840b675778cb869cc00f8a95e8}{Alignment::unaligned}});}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00351}00351\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_float4}{Float4}}\ cn1(bspline\_coeff[3]+n\_knot-\/4,\ \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726ac1ee38840b675778cb869cc00f8a95e8}{Alignment::unaligned}});}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00352}00352\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_float4_8h_a37f2e029fa219a5e82f8c4c5c4552d93}{transpose4}}(cn4,cn3,cn2,cn1);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00353}00353\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ right\_clamp\ =\ outer*cn3\ +\ inner*cn2\ +\ outer*cn1;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00354}00354\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00355}00355\ \ \ \ \ \ \ \ \ value.\mbox{\hyperlink{struct_float4_a835f1776da7a288188fcdbb4b390f277}{x}}()\ =\ \mbox{\hyperlink{_float4_8h_a617d53f010c1d5e9a10a1720f300b7fe}{ternary}}(too\_big,\ \ right\_clamp,\ value.x());}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00356}00356\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00357}00357\ \ \ \ \ \textcolor{keywordflow}{return}\ value;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00358}00358\ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00359}00359\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00366}\mbox{\hyperlink{spline_8h_afb10f68b32f01820ec8d606c3d7e4070}{00366}}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{spline_8h_afb10f68b32f01820ec8d606c3d7e4070}{deBoor\_coeff\_deriv}}(\textcolor{keywordtype}{int}*\ starting\_bin,\ \textcolor{keywordtype}{float}\ result[4],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ x)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00367}00367\ \ \ \ \ \textcolor{comment}{//\ this\ function\ is\ not\ intended\ to\ be\ especially\ efficient}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00368}00368\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00369}00369\ \ \ \ \ \textcolor{keywordtype}{int}\ x\_bin\ =\ int(x);\ \textcolor{comment}{//\ must\ be\ at\ least\ 1}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00370}00370\ \ \ \ \ *starting\_bin\ =\ x\_bin-\/1;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00371}00371\ \ \ \ \ \textcolor{keywordtype}{float}\ y\ =\ x-\/x\_bin\ +\ 1.f;\ \textcolor{comment}{//\ ensure\ y\ in\ [1.,2)}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00372}00372\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00373}00373\ \ \ \ \ \textcolor{keywordtype}{float}\ dc[4];}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00374}00374\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00375}00375\ \ \ \ \ \textcolor{comment}{//\ derivative\ with\ respect\ to\ coefficient}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00376}00376\ \ \ \ \ \textcolor{comment}{//\ is\ the\ value\ of\ spline\ with\ zeros\ for\ every\ coefficient}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00377}00377\ \ \ \ \ \textcolor{comment}{//\ except\ that\ one}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00378}00378\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00379}00379\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<4;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00380}00380\ \ \ \ \ \ \ \ \ dc[0]=dc[1]=dc[2]=dc[3]=0.f;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00381}00381\ \ \ \ \ \ \ \ \ dc[i]=1.f;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00382}00382\ \ \ \ \ \ \ \ \ result[i]\ =\ \mbox{\hyperlink{spline_8h_aa3d872070f6b772fae6930ee53d50d37}{deBoor\_value\_and\_deriv}}(dc,\ y).x();}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00383}00383\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00384}00384\ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00385}00385\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00392}\mbox{\hyperlink{spline_8h_a85f483dbcbf9fe6d16fd555bde273b2a}{00392}}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{spline_8h_a85f483dbcbf9fe6d16fd555bde273b2a}{deBoor2d\_coeff\_deriv}}(\textcolor{keywordtype}{int}*\ starting\_bin,\ \textcolor{keywordtype}{float}\ result[4][4],\ \textcolor{keywordtype}{int}\ ny,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ x,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ y)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00393}00393\ \ \ \ \ \textcolor{comment}{//\ this\ function\ is\ not\ intended\ to\ be\ especially\ efficient}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00394}00394\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00395}00395\ \ \ \ \ \textcolor{keywordtype}{int}\ x\_bin\ =\ int(x);\ \textcolor{comment}{//\ must\ be\ at\ least\ 1}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00396}00396\ \ \ \ \ \textcolor{keywordtype}{int}\ y\_bin\ =\ int(y);\ \textcolor{comment}{//\ must\ be\ at\ least\ 1}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00397}00397\ \ \ \ \ *starting\_bin\ =\ (x\_bin-\/1)*ny\ +\ (y\_bin-\/1);\ \ \textcolor{comment}{//\ lower\ left\ corner\ of\ coeffs}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00398}00398\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00399}00399\ \ \ \ \ \textcolor{comment}{//\ Derivative\ with\ respect\ to\ coefficient}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00400}00400\ \ \ \ \ \textcolor{comment}{//\ is\ the\ value\ of\ spline\ with\ zeros\ for\ every\ coefficient}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00401}00401\ \ \ \ \ \textcolor{comment}{//\ except\ that\ one\ since\ the\ coefficients\ are\ linearly\ coupled}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00402}00402\ \ \ \ \ \textcolor{comment}{//\ to\ the\ basis\ functions}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00403}00403\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00404}00404\ \ \ \ \ \textcolor{comment}{//\ Since\ the\ 2d\ spline\ basis\ functions\ are\ just\ products\ of\ 1d\ spline\ basis\ functions,}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00405}00405\ \ \ \ \ \textcolor{comment}{//\ we\ can\ just\ take\ the\ outer\ product\ of\ the\ 1d\ coeff\_deriv\ values.}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00406}00406\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00407}00407\ \ \ \ \ \textcolor{keywordtype}{int}\ unused;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00408}00408\ \ \ \ \ \textcolor{keywordtype}{float}\ x\_deriv[4];\ \mbox{\hyperlink{spline_8h_afb10f68b32f01820ec8d606c3d7e4070}{deBoor\_coeff\_deriv}}(\&unused,\ x\_deriv,\ x);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00409}00409\ \ \ \ \ \textcolor{keywordtype}{float}\ y\_deriv[4];\ \mbox{\hyperlink{spline_8h_afb10f68b32f01820ec8d606c3d7e4070}{deBoor\_coeff\_deriv}}(\&unused,\ y\_deriv,\ y);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00410}00410\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00411}00411\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<4;\ ++i)}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00412}00412\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j=0;\ j<4;\ ++j)}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00413}00413\ \ \ \ \ \ \ \ \ \ \ \ \ result[i][j]\ =\ x\_deriv[i]*y\_deriv[j];}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00414}00414\ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00415}00415\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00416}00416\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00423}\mbox{\hyperlink{spline_8h_a27e4172c50ac40ec56ded6a6601a65f8}{00423}}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{spline_8h_a27e4172c50ac40ec56ded6a6601a65f8}{clamped\_deBoor\_coeff\_deriv}}(\textcolor{keywordtype}{int}*\ starting\_bin,}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00424}00424\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ result[4],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{int}\ n\_knot)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00425}00425\ \ \ \ \ \textcolor{keywordflow}{if}(x<=1.f)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00426}00426\ \ \ \ \ \ \ \ \ *starting\_bin\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00427}00427\ \ \ \ \ \ \ \ \ result[0]\ =\ 1.f/6.f;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00428}00428\ \ \ \ \ \ \ \ \ result[1]\ =\ 2.f/3.f;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00429}00429\ \ \ \ \ \ \ \ \ result[2]\ =\ 1.f/6.f;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00430}00430\ \ \ \ \ \ \ \ \ result[3]\ =\ 0.f;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00431}00431\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(x>=n\_knot-\/2)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00432}00432\ \ \ \ \ \ \ \ \ *starting\_bin\ =\ n\_knot-\/4;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00433}00433\ \ \ \ \ \ \ \ \ result[0]\ =\ 0.f;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00434}00434\ \ \ \ \ \ \ \ \ result[1]\ =\ 1.f/6.f;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00435}00435\ \ \ \ \ \ \ \ \ result[2]\ =\ 2.f/3.f;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00436}00436\ \ \ \ \ \ \ \ \ result[3]\ =\ 1.f/6.f;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00437}00437\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00438}00438\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{spline_8h_afb10f68b32f01820ec8d606c3d7e4070}{deBoor\_coeff\_deriv}}(starting\_bin,\ result,\ x);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00439}00439\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00440}00440\ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00441}00441\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00442}00442\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00444}00444\ \textcolor{keyword}{template}<\textcolor{keywordtype}{int}\ NDIM\_VALUE>}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00445}\mbox{\hyperlink{struct_layered_periodic_spline2_d}{00445}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_layered_periodic_spline2_d}{LayeredPeriodicSpline2D}}\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00446}\mbox{\hyperlink{struct_layered_periodic_spline2_d_acd3d587d7d75101cf665c08e99b700d9}{00446}}\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_layered_periodic_spline2_d_acd3d587d7d75101cf665c08e99b700d9}{n\_layer}};}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00447}\mbox{\hyperlink{struct_layered_periodic_spline2_d_abad15f1977240df20488dca90a58c5c2}{00447}}\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_layered_periodic_spline2_d_abad15f1977240df20488dca90a58c5c2}{nx}};}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00448}\mbox{\hyperlink{struct_layered_periodic_spline2_d_ad14d1f13ff098cf74d589a061572407e}{00448}}\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_layered_periodic_spline2_d_ad14d1f13ff098cf74d589a061572407e}{ny}};}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00449}\mbox{\hyperlink{struct_layered_periodic_spline2_d_a039f033b0c5556d189d0b73f6e58cd82}{00449}}\ \ \ \ \ std::vector<float>\ \mbox{\hyperlink{struct_layered_periodic_spline2_d_a039f033b0c5556d189d0b73f6e58cd82}{coefficients}};}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00450}00450\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00451}\mbox{\hyperlink{struct_layered_periodic_spline2_d_a635b2d6b7573af5dceb2066349c1861d}{00451}}\ \ \ \ \ \mbox{\hyperlink{struct_layered_periodic_spline2_d_a635b2d6b7573af5dceb2066349c1861d}{LayeredPeriodicSpline2D}}(\textcolor{keywordtype}{int}\ n\_layer\_,\ \textcolor{keywordtype}{int}\ nx\_,\ \textcolor{keywordtype}{int}\ ny\_):}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00452}00452\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_layered_periodic_spline2_d_acd3d587d7d75101cf665c08e99b700d9}{n\_layer}}(n\_layer\_),\ \mbox{\hyperlink{struct_layered_periodic_spline2_d_abad15f1977240df20488dca90a58c5c2}{nx}}(nx\_),\ \mbox{\hyperlink{struct_layered_periodic_spline2_d_ad14d1f13ff098cf74d589a061572407e}{ny}}(ny\_),\ \mbox{\hyperlink{struct_layered_periodic_spline2_d_a039f033b0c5556d189d0b73f6e58cd82}{coefficients}}(\mbox{\hyperlink{struct_layered_periodic_spline2_d_acd3d587d7d75101cf665c08e99b700d9}{n\_layer}}*\mbox{\hyperlink{struct_layered_periodic_spline2_d_abad15f1977240df20488dca90a58c5c2}{nx}}*\mbox{\hyperlink{struct_layered_periodic_spline2_d_ad14d1f13ff098cf74d589a061572407e}{ny}}*NDIM\_VALUE*16)}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00453}00453\ \ \ \ \ \{\}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00454}00454\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00455}\mbox{\hyperlink{struct_layered_periodic_spline2_d_a9e5ee88ef894c78ed5dd08363bf0cd2f}{00455}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_layered_periodic_spline2_d_a9e5ee88ef894c78ed5dd08363bf0cd2f}{fit\_spline}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ data)\ \textcolor{comment}{//\ size\ (n\_layer,\ nx,\ ny,\ NDIM\_VALUE)}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00456}00456\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00457}00457\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ store\ values\ in\ float,\ but\ solve\ system\ in\ double}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00458}00458\ \ \ \ \ \ \ \ \ std::vector<double>\ coeff\_tmp(\mbox{\hyperlink{struct_layered_periodic_spline2_d_abad15f1977240df20488dca90a58c5c2}{nx}}*\mbox{\hyperlink{struct_layered_periodic_spline2_d_ad14d1f13ff098cf74d589a061572407e}{ny}}*16);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00459}00459\ \ \ \ \ \ \ \ \ std::vector<double>\ data\_tmp(\mbox{\hyperlink{struct_layered_periodic_spline2_d_abad15f1977240df20488dca90a58c5c2}{nx}}*\mbox{\hyperlink{struct_layered_periodic_spline2_d_ad14d1f13ff098cf74d589a061572407e}{ny}});}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00460}00460\ \ \ \ \ \ \ \ \ std::vector<double>\ temp\_storage((\mbox{\hyperlink{struct_layered_periodic_spline2_d_abad15f1977240df20488dca90a58c5c2}{nx}}+8)*(\mbox{\hyperlink{struct_layered_periodic_spline2_d_ad14d1f13ff098cf74d589a061572407e}{ny}}+8)*4);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00461}00461\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00462}00462\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ il=0;\ il<\mbox{\hyperlink{struct_layered_periodic_spline2_d_acd3d587d7d75101cf665c08e99b700d9}{n\_layer}};\ ++il)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00463}00463\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id}=0;\ \textcolor{keywordtype}{id}<NDIM\_VALUE;\ ++id)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00464}00464\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00465}00465\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ copy\ data\ to\ buffer\ to\ solve\ spline}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00466}00466\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ ix=0;\ ix<\mbox{\hyperlink{struct_layered_periodic_spline2_d_abad15f1977240df20488dca90a58c5c2}{nx}};\ ++ix)\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00467}00467\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ iy=0;\ iy<\mbox{\hyperlink{struct_layered_periodic_spline2_d_ad14d1f13ff098cf74d589a061572407e}{ny}};\ ++iy)\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00468}00468\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data\_tmp[ix*\mbox{\hyperlink{struct_layered_periodic_spline2_d_ad14d1f13ff098cf74d589a061572407e}{ny}}+iy]\ =\ data[((il*\mbox{\hyperlink{struct_layered_periodic_spline2_d_abad15f1977240df20488dca90a58c5c2}{nx}}\ +\ ix)*\mbox{\hyperlink{struct_layered_periodic_spline2_d_ad14d1f13ff098cf74d589a061572407e}{ny}}\ +\ iy)*NDIM\_VALUE\ +\ id];}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00469}00469\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00470}00470\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{spline_8h_a20e2bcb01b6a1247957f64aeb3e64bed}{solve\_periodic\_2d\_spline}}(\mbox{\hyperlink{struct_layered_periodic_spline2_d_abad15f1977240df20488dca90a58c5c2}{nx}},\mbox{\hyperlink{struct_layered_periodic_spline2_d_ad14d1f13ff098cf74d589a061572407e}{ny}},\ coeff\_tmp.data(),\ data\_tmp.data(),\ temp\_storage.data());}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00471}00471\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00472}00472\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ copy\ spline\ coefficients\ to\ coefficient\ array}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00473}00473\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ ix=0;\ ix<\mbox{\hyperlink{struct_layered_periodic_spline2_d_abad15f1977240df20488dca90a58c5c2}{nx}};\ ++ix)\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00474}00474\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ iy=0;\ iy<\mbox{\hyperlink{struct_layered_periodic_spline2_d_ad14d1f13ff098cf74d589a061572407e}{ny}};\ ++iy)\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00475}00475\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ ic=0;\ ic<16;\ ++ic)\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00476}00476\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_layered_periodic_spline2_d_a039f033b0c5556d189d0b73f6e58cd82}{coefficients}}[(((il*\mbox{\hyperlink{struct_layered_periodic_spline2_d_abad15f1977240df20488dca90a58c5c2}{nx}}+ix)*\mbox{\hyperlink{struct_layered_periodic_spline2_d_ad14d1f13ff098cf74d589a061572407e}{ny}}+iy)*NDIM\_VALUE+\textcolor{keywordtype}{id})*16+ic]\ =\ coeff\_tmp[(ix*\mbox{\hyperlink{struct_layered_periodic_spline2_d_ad14d1f13ff098cf74d589a061572407e}{ny}}+iy)*16+ic];}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00477}00477\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00478}00478\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00479}00479\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00480}00480\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00481}00481\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00482}\mbox{\hyperlink{struct_layered_periodic_spline2_d_a852ee8e6c034abb5df906779ceb26166}{00482}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_layered_periodic_spline2_d_a852ee8e6c034abb5df906779ceb26166}{evaluate\_value\_and\_deriv}}(}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00483}00483\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}*\ restrict\ value,\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00484}00484\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}*\ restrict\ dx,\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00485}00485\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}*\ restrict\ dy,\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00486}00486\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ layer,\ \textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00487}00487\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ order\ of\ answer\ is\ (dx1,dy1,value1,\ dx2,dy2,value2,\ ...)}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00488}00488\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ x\_bin\ =\ int(x);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00489}00489\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ y\_bin\ =\ int(y);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00490}00490\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00491}00491\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ fx\ =\ x\ -\/\ x\_bin;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00492}00492\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ fy\ =\ y\ -\/\ y\_bin;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00493}00493\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00494}00494\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}*\ c\ =\ \mbox{\hyperlink{struct_layered_periodic_spline2_d_a039f033b0c5556d189d0b73f6e58cd82}{coefficients}}.data()\ +\ (layer*\mbox{\hyperlink{struct_layered_periodic_spline2_d_abad15f1977240df20488dca90a58c5c2}{nx}}*\mbox{\hyperlink{struct_layered_periodic_spline2_d_ad14d1f13ff098cf74d589a061572407e}{ny}}\ +\ x\_bin*\mbox{\hyperlink{struct_layered_periodic_spline2_d_ad14d1f13ff098cf74d589a061572407e}{ny}}\ +\ y\_bin)*16*NDIM\_VALUE;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00495}00495\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00496}00496\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id}=0;\ \textcolor{keywordtype}{id}<NDIM\_VALUE;\ ++id)\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00497}00497\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{spline_8h_a02d56a9c6c9fd59ebed74f4d1a401f2c}{spline\_value\_and\_deriv}}(value[\textcolor{keywordtype}{id}],\ dx[\textcolor{keywordtype}{id}],\ dy[\textcolor{keywordtype}{id}],\ c+\textcolor{keywordtype}{id}*16,\ fx,\ fy);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00498}00498\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00499}00499\ \};}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00500}00500\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00501}00501\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00503}00503\ \textcolor{keyword}{template}<\textcolor{keywordtype}{int}\ NDIM\_VALUE>}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00504}\mbox{\hyperlink{struct_layered_clamped_spline1_d}{00504}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_layered_clamped_spline1_d}{LayeredClampedSpline1D}}\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00505}\mbox{\hyperlink{struct_layered_clamped_spline1_d_aea17c6a2f62bdbb38dccb6f382fce05d}{00505}}\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_layered_clamped_spline1_d_aea17c6a2f62bdbb38dccb6f382fce05d}{n\_layer}};}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00506}\mbox{\hyperlink{struct_layered_clamped_spline1_d_a1357dcdb721d49ae061d0886c8f74d36}{00506}}\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_layered_clamped_spline1_d_a1357dcdb721d49ae061d0886c8f74d36}{nx}};}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00507}\mbox{\hyperlink{struct_layered_clamped_spline1_d_a6f197fbe9dec71bcaffccfd028ba80bc}{00507}}\ \ \ \ \ std::vector<float>\ \mbox{\hyperlink{struct_layered_clamped_spline1_d_a6f197fbe9dec71bcaffccfd028ba80bc}{coefficients}};}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00508}\mbox{\hyperlink{struct_layered_clamped_spline1_d_a27d000697e59ce01f1d4fe9e86912f0e}{00508}}\ \ \ \ \ std::vector<float>\ \mbox{\hyperlink{struct_layered_clamped_spline1_d_a27d000697e59ce01f1d4fe9e86912f0e}{left\_clamped\_value}};}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00509}\mbox{\hyperlink{struct_layered_clamped_spline1_d_ac89a14a0af67bc0a3de3be50ac615bfa}{00509}}\ \ \ \ \ std::vector<float>\ \mbox{\hyperlink{struct_layered_clamped_spline1_d_ac89a14a0af67bc0a3de3be50ac615bfa}{right\_clamped\_value}};}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00510}00510\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00511}\mbox{\hyperlink{struct_layered_clamped_spline1_d_ad53b8c55855a3e1e785280b88f7cd575}{00511}}\ \ \ \ \ \mbox{\hyperlink{struct_layered_clamped_spline1_d_ad53b8c55855a3e1e785280b88f7cd575}{LayeredClampedSpline1D}}(\textcolor{keywordtype}{int}\ n\_layer\_,\ \textcolor{keywordtype}{int}\ nx\_):}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00512}00512\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_layered_clamped_spline1_d_aea17c6a2f62bdbb38dccb6f382fce05d}{n\_layer}}(n\_layer\_),\ \mbox{\hyperlink{struct_layered_clamped_spline1_d_a1357dcdb721d49ae061d0886c8f74d36}{nx}}(nx\_),\ \mbox{\hyperlink{struct_layered_clamped_spline1_d_a6f197fbe9dec71bcaffccfd028ba80bc}{coefficients}}(\mbox{\hyperlink{struct_layered_clamped_spline1_d_aea17c6a2f62bdbb38dccb6f382fce05d}{n\_layer}}*\mbox{\hyperlink{struct_layered_clamped_spline1_d_a1357dcdb721d49ae061d0886c8f74d36}{nx}}*NDIM\_VALUE*4),}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00513}00513\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_layered_clamped_spline1_d_a27d000697e59ce01f1d4fe9e86912f0e}{left\_clamped\_value}}\ (\mbox{\hyperlink{struct_layered_clamped_spline1_d_aea17c6a2f62bdbb38dccb6f382fce05d}{n\_layer}}*NDIM\_VALUE),}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00514}00514\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_layered_clamped_spline1_d_ac89a14a0af67bc0a3de3be50ac615bfa}{right\_clamped\_value}}(\mbox{\hyperlink{struct_layered_clamped_spline1_d_aea17c6a2f62bdbb38dccb6f382fce05d}{n\_layer}}*NDIM\_VALUE)}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00515}00515\ \ \ \ \ \{\}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00516}00516\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00517}\mbox{\hyperlink{struct_layered_clamped_spline1_d_a4d87f429807d69e917880b9f41dbee5f}{00517}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_layered_clamped_spline1_d_a4d87f429807d69e917880b9f41dbee5f}{fit\_spline}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ data)\ \ \textcolor{comment}{//\ size\ (n\_layer,\ nx,\ NDIM\_VALUE)}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00518}00518\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00519}00519\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ store\ values\ in\ float,\ but\ solve\ system\ in\ double}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00520}00520\ \ \ \ \ \ \ \ \ std::vector<double>\ coeff\_tmp((\mbox{\hyperlink{struct_layered_clamped_spline1_d_a1357dcdb721d49ae061d0886c8f74d36}{nx}}-\/1)*4);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00521}00521\ \ \ \ \ \ \ \ \ std::vector<double>\ data\_tmp(\mbox{\hyperlink{struct_layered_clamped_spline1_d_a1357dcdb721d49ae061d0886c8f74d36}{nx}});}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00522}00522\ \ \ \ \ \ \ \ \ std::vector<double>\ temp\_storage(4*\mbox{\hyperlink{struct_layered_clamped_spline1_d_a1357dcdb721d49ae061d0886c8f74d36}{nx}});}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00523}00523\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00524}00524\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ il=0;\ il<\mbox{\hyperlink{struct_layered_clamped_spline1_d_aea17c6a2f62bdbb38dccb6f382fce05d}{n\_layer}};\ ++il)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00525}00525\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id}=0;\ \textcolor{keywordtype}{id}<NDIM\_VALUE;\ ++id)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00526}00526\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_layered_clamped_spline1_d_a27d000697e59ce01f1d4fe9e86912f0e}{left\_clamped\_value}}\ [il*NDIM\_VALUE+id]\ =\ data[(il*\mbox{\hyperlink{struct_layered_clamped_spline1_d_a1357dcdb721d49ae061d0886c8f74d36}{nx}}\ +\ 0\ \ \ \ \ )*NDIM\_VALUE\ +\ \textcolor{keywordtype}{id}];}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00527}00527\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_layered_clamped_spline1_d_ac89a14a0af67bc0a3de3be50ac615bfa}{right\_clamped\_value}}[il*NDIM\_VALUE+id]\ =\ data[(il*\mbox{\hyperlink{struct_layered_clamped_spline1_d_a1357dcdb721d49ae061d0886c8f74d36}{nx}}\ +\ (\mbox{\hyperlink{struct_layered_clamped_spline1_d_a1357dcdb721d49ae061d0886c8f74d36}{nx}}-\/1))*NDIM\_VALUE\ +\ id];}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00528}00528\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00529}00529\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ copy\ data\ to\ buffer\ to\ solve\ spline}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00530}00530\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ ix=0;\ ix<\mbox{\hyperlink{struct_layered_clamped_spline1_d_a1357dcdb721d49ae061d0886c8f74d36}{nx}};\ ++ix)\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00531}00531\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data\_tmp[ix]\ =\ data[(il*\mbox{\hyperlink{struct_layered_clamped_spline1_d_a1357dcdb721d49ae061d0886c8f74d36}{nx}}\ +\ ix)*NDIM\_VALUE\ +\ id];}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00532}00532\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00533}00533\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{spline_8h_aa5f33175e7355ab880b8d4430caa5268}{solve\_clamped\_1d\_spline}}(\mbox{\hyperlink{struct_layered_clamped_spline1_d_a1357dcdb721d49ae061d0886c8f74d36}{nx}},\ coeff\_tmp.data(),\ data\_tmp.data(),\ temp\_storage.data());}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00534}00534\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00535}00535\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ copy\ spline\ coefficients\ to\ coefficient\ array}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00536}00536\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ ix=0;\ ix<\mbox{\hyperlink{struct_layered_clamped_spline1_d_a1357dcdb721d49ae061d0886c8f74d36}{nx}}-\/1;\ ++ix)\ \ \ \textcolor{comment}{//\ nx-\/1\ splines\ in\ clamped\ spline}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00537}00537\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ ic=0;\ ic<4;\ ++ic)\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00538}00538\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_layered_clamped_spline1_d_a6f197fbe9dec71bcaffccfd028ba80bc}{coefficients}}[((il*(\mbox{\hyperlink{struct_layered_clamped_spline1_d_a1357dcdb721d49ae061d0886c8f74d36}{nx}}-\/1)+ix)*NDIM\_VALUE+\textcolor{keywordtype}{id})*4+ic]\ =\ coeff\_tmp[ix*4+ic];}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00539}00539\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00540}00540\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00541}00541\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00542}00542\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00543}00543\ \ \ \ \ \textcolor{comment}{//\ result\ contains\ (dx1,\ value1,\ dx2,\ value2,\ ...)}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00544}\mbox{\hyperlink{struct_layered_clamped_spline1_d_a7db2817e26234f6fae2906df7f54ed15}{00544}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_layered_clamped_spline1_d_a7db2817e26234f6fae2906df7f54ed15}{evaluate\_value\_and\_deriv}}(\textcolor{keywordtype}{float}*\ restrict\ result,\ \textcolor{keywordtype}{int}\ layer,\ \textcolor{keywordtype}{float}\ x)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00545}00545\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(x>=\mbox{\hyperlink{struct_layered_clamped_spline1_d_a1357dcdb721d49ae061d0886c8f74d36}{nx}}-\/1)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00546}00546\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id}=0;\ \textcolor{keywordtype}{id}<NDIM\_VALUE;\ ++id)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00547}00547\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result[\textcolor{keywordtype}{id}*2+0]\ =\ 0.f;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00548}00548\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result[\textcolor{keywordtype}{id}*2+1]\ =\ \mbox{\hyperlink{struct_layered_clamped_spline1_d_ac89a14a0af67bc0a3de3be50ac615bfa}{right\_clamped\_value}}[layer*NDIM\_VALUE+id];\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00549}00549\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00550}00550\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(x<=0)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00551}00551\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id}=0;\ \textcolor{keywordtype}{id}<NDIM\_VALUE;\ ++id)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00552}00552\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result[\textcolor{keywordtype}{id}*2+0]\ =\ 0.f;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00553}00553\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result[\textcolor{keywordtype}{id}*2+1]\ =\ \mbox{\hyperlink{struct_layered_clamped_spline1_d_a27d000697e59ce01f1d4fe9e86912f0e}{left\_clamped\_value}}[layer*NDIM\_VALUE+id];\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00554}00554\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00555}00555\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00556}00556\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ x\_bin\ =\ int(x);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00557}00557\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ fx\ =\ x\ -\/\ x\_bin;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00558}00558\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00559}00559\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}*\ c\ =\ \mbox{\hyperlink{struct_layered_clamped_spline1_d_a6f197fbe9dec71bcaffccfd028ba80bc}{coefficients}}.data()\ +\ (layer*(\mbox{\hyperlink{struct_layered_clamped_spline1_d_a1357dcdb721d49ae061d0886c8f74d36}{nx}}-\/1)\ +\ x\_bin)*4*NDIM\_VALUE;}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00560}00560\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id}=0;\ \textcolor{keywordtype}{id}<NDIM\_VALUE;\ ++id)\ }
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00561}00561\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{spline_8h_a02d56a9c6c9fd59ebed74f4d1a401f2c}{spline\_value\_and\_deriv}}(result+\textcolor{keywordtype}{id}*2,\ c+\textcolor{keywordtype}{id}*4,\ fx);}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00562}00562\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00563}00563\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00564}00564\ \};}
+\DoxyCodeLine{\Hypertarget{spline_8h_source_l00565}00565\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

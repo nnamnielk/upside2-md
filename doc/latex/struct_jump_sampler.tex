@@ -1,0 +1,138 @@
+\doxysection{Jump\+Sampler Struct Reference}
+\hypertarget{struct_jump_sampler}{}\label{struct_jump_sampler}\index{JumpSampler@{JumpSampler}}
+
+
+Inheritance diagram for Jump\+Sampler\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=193pt]{struct_jump_sampler__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Jump\+Sampler\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=201pt]{struct_jump_sampler__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_jump_sampler_1_1_jump_chain}{Jump\+Chain}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_jump_sampler_a9022160f19a36dce32040a53a57d594a}{Jump\+Sampler}} (const std\+::string \&grp\+\_\+name, hid\+\_\+t grp, \mbox{\hyperlink{struct_h5_logger}{H5\+Logger}} \&logger)
+\item 
+void \mbox{\hyperlink{struct_jump_sampler_acd8c25137839486f38e00b1a9ab6433c}{propose\+\_\+random\+\_\+move}} (float \texorpdfstring{$\ast$}{*}delta\+\_\+lprob, \mbox{\hyperlink{struct_random_generator}{Random\+Generator}} \&random, \mbox{\hyperlink{struct_vec_array}{Vec\+Array}} pos) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_monte_carlo_sampler}{Monte\+Carlo\+Sampler}}}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{struct_monte_carlo_sampler_a0289ffe3fa35c97af7438a1aac3930c4}{reset\+\_\+stats}} ()
+\item 
+\mbox{\hyperlink{struct_monte_carlo_sampler_a8e1fcbeec59ebf1e67a71161db0e8ac6}{Monte\+Carlo\+Sampler}} ()
+\item 
+\mbox{\hyperlink{struct_monte_carlo_sampler_a48209b8b9b0a2305d4dbb2fe1f6836ef}{Monte\+Carlo\+Sampler}} (const std\+::string \&name\+\_\+, \mbox{\hyperlink{random_8h_ab1fa763976d66d77a7a63f680bfd720b}{Random\+Stream\+Type}} stream\+\_\+id\+\_\+, \mbox{\hyperlink{struct_h5_logger}{H5\+Logger}} \&logger)
+\item 
+void \mbox{\hyperlink{struct_monte_carlo_sampler_a583b3063ce8f9e0a34474d3c0dbde0f5}{monte\+\_\+carlo\+\_\+step}} (uint32\+\_\+t seed, uint64\+\_\+t round, const float temperature, \mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \&engine)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{struct_jump_sampler_a120238f90c6a9eb0d3e65b122d8eb3b9}{n\+\_\+jump\+\_\+chains}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_jump_sampler_1_1_jump_chain}{Jump\+Chain}} $>$ \mbox{\hyperlink{struct_jump_sampler_af84f6482909e43acb532d87b0930cdcf}{jump\+\_\+chains}}
+\item 
+float \mbox{\hyperlink{struct_jump_sampler_a2618c7ebafdca5962379a4e6ab277a72}{prob\+\_\+mod}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_monte_carlo_sampler}{Monte\+Carlo\+Sampler}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_monte_carlo_sampler_1_1_move_stats}{Move\+Stats}} \mbox{\hyperlink{struct_monte_carlo_sampler_a387a72d76d0215f8047a726b1604716a}{move\+\_\+stats}}
+\item 
+std\+::string \mbox{\hyperlink{struct_monte_carlo_sampler_a70033be891a2559f03c5d4bc8c851d8e}{name}}
+\item 
+\mbox{\hyperlink{random_8h_ab1fa763976d66d77a7a63f680bfd720b}{Random\+Stream\+Type}} \mbox{\hyperlink{struct_monte_carlo_sampler_a84b6639a52078ee2c6901b01d8d887fc}{stream\+\_\+id}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8cpp_source_l00159}{159}} of file \mbox{\hyperlink{monte__carlo__sampler_8cpp_source}{monte\+\_\+carlo\+\_\+sampler.\+cpp}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_jump_sampler_a9022160f19a36dce32040a53a57d594a}\label{struct_jump_sampler_a9022160f19a36dce32040a53a57d594a} 
+\index{JumpSampler@{JumpSampler}!JumpSampler@{JumpSampler}}
+\index{JumpSampler@{JumpSampler}!JumpSampler@{JumpSampler}}
+\doxysubsubsection{\texorpdfstring{JumpSampler()}{JumpSampler()}}
+{\footnotesize\ttfamily Jump\+Sampler\+::\+Jump\+Sampler (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{grp\+\_\+name,  }\item[{hid\+\_\+t}]{grp,  }\item[{\mbox{\hyperlink{struct_h5_logger}{H5\+Logger}} \&}]{logger }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8cpp_source_l00175}{175}} of file \mbox{\hyperlink{monte__carlo__sampler_8cpp_source}{monte\+\_\+carlo\+\_\+sampler.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_jump_sampler_acd8c25137839486f38e00b1a9ab6433c}\label{struct_jump_sampler_acd8c25137839486f38e00b1a9ab6433c} 
+\index{JumpSampler@{JumpSampler}!propose\_random\_move@{propose\_random\_move}}
+\index{propose\_random\_move@{propose\_random\_move}!JumpSampler@{JumpSampler}}
+\doxysubsubsection{\texorpdfstring{propose\_random\_move()}{propose\_random\_move()}}
+{\footnotesize\ttfamily void Jump\+Sampler\+::propose\+\_\+random\+\_\+move (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}}]{delta\+\_\+lprob,  }\item[{\mbox{\hyperlink{struct_random_generator}{Random\+Generator}} \&}]{random,  }\item[{\mbox{\hyperlink{struct_vec_array}{Vec\+Array}}}]{pos }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{struct_monte_carlo_sampler_a815cb0c94eedf488358d69711b9bcfd5}{Monte\+Carlo\+Sampler}}.
+
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8cpp_source_l00203}{203}} of file \mbox{\hyperlink{monte__carlo__sampler_8cpp_source}{monte\+\_\+carlo\+\_\+sampler.\+cpp}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_jump_sampler_af84f6482909e43acb532d87b0930cdcf}\label{struct_jump_sampler_af84f6482909e43acb532d87b0930cdcf} 
+\index{JumpSampler@{JumpSampler}!jump\_chains@{jump\_chains}}
+\index{jump\_chains@{jump\_chains}!JumpSampler@{JumpSampler}}
+\doxysubsubsection{\texorpdfstring{jump\_chains}{jump\_chains}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{struct_jump_sampler_1_1_jump_chain}{Jump\+Chain}}$>$ Jump\+Sampler\+::jump\+\_\+chains}
+
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8cpp_source_l00166}{166}} of file \mbox{\hyperlink{monte__carlo__sampler_8cpp_source}{monte\+\_\+carlo\+\_\+sampler.\+cpp}}.
+
+\Hypertarget{struct_jump_sampler_a120238f90c6a9eb0d3e65b122d8eb3b9}\label{struct_jump_sampler_a120238f90c6a9eb0d3e65b122d8eb3b9} 
+\index{JumpSampler@{JumpSampler}!n\_jump\_chains@{n\_jump\_chains}}
+\index{n\_jump\_chains@{n\_jump\_chains}!JumpSampler@{JumpSampler}}
+\doxysubsubsection{\texorpdfstring{n\_jump\_chains}{n\_jump\_chains}}
+{\footnotesize\ttfamily int Jump\+Sampler\+::n\+\_\+jump\+\_\+chains}
+
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8cpp_source_l00165}{165}} of file \mbox{\hyperlink{monte__carlo__sampler_8cpp_source}{monte\+\_\+carlo\+\_\+sampler.\+cpp}}.
+
+\Hypertarget{struct_jump_sampler_a2618c7ebafdca5962379a4e6ab277a72}\label{struct_jump_sampler_a2618c7ebafdca5962379a4e6ab277a72} 
+\index{JumpSampler@{JumpSampler}!prob\_mod@{prob\_mod}}
+\index{prob\_mod@{prob\_mod}!JumpSampler@{JumpSampler}}
+\doxysubsubsection{\texorpdfstring{prob\_mod}{prob\_mod}}
+{\footnotesize\ttfamily float Jump\+Sampler\+::prob\+\_\+mod}
+
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8cpp_source_l00167}{167}} of file \mbox{\hyperlink{monte__carlo__sampler_8cpp_source}{monte\+\_\+carlo\+\_\+sampler.\+cpp}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{monte__carlo__sampler_8cpp}{monte\+\_\+carlo\+\_\+sampler.\+cpp}}\end{DoxyCompactItemize}

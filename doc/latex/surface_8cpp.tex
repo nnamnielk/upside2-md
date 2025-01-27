@@ -1,0 +1,154 @@
+\doxysection{src/surface.cpp File Reference}
+\hypertarget{surface_8cpp}{}\label{surface_8cpp}\index{src/surface.cpp@{src/surface.cpp}}
+{\ttfamily \#include "{}deriv\+\_\+engine.\+h"{}}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include "{}timing.\+h"{}}\newline
+{\ttfamily \#include "{}affine.\+h"{}}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include "{}h5\+\_\+support.\+h"{}}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include "{}spline.\+h"{}}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$set$>$}\newline
+Include dependency graph for surface.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{surface_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_surface}{Surface}}
+\item 
+struct \mbox{\hyperlink{struct_surface_1_1auxiliary__point}{Surface\+::auxiliary\+\_\+point}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{surface_8cpp_a7be6e0fac70b0029f478cc316e4f957f}{N\+\_\+\+AMINO\+\_\+\+ACID\+\_\+\+TYPE}}~20
+\item 
+\#define \mbox{\hyperlink{surface_8cpp_ad55a6536a8c590881ec639d872951eed}{Force\+Norm}}~0.\+70710678
+\item 
+\#define \mbox{\hyperlink{surface_8cpp_a410e67b86a65c62e86f2ed630ec79f65}{FORCE\+\_\+\+UNIT}}~2.\+428602e-\/5
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef vector$<$ int $>$ \mbox{\hyperlink{surface_8cpp_a0c8b158df0657087279556e9367bd50c}{int1d}}
+\item 
+typedef vector$<$ \mbox{\hyperlink{surface_8cpp_a0c8b158df0657087279556e9367bd50c}{int1d}} $>$ \mbox{\hyperlink{surface_8cpp_ae9e1bb7762c28bc3048c83d432ae7cee}{int2d}}
+\item 
+typedef vector$<$ \mbox{\hyperlink{surface_8cpp_ae9e1bb7762c28bc3048c83d432ae7cee}{int2d}} $>$ \mbox{\hyperlink{surface_8cpp_a3f4a6970632efa38c6632124860dc19b}{int3d}}
+\item 
+typedef map$<$ int, \mbox{\hyperlink{surface_8cpp_a0c8b158df0657087279556e9367bd50c}{int1d}} $>$ \mbox{\hyperlink{surface_8cpp_aa253cc1aebb3cf85e166389ffa2e9754}{map\+\_\+int1d}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{surface_8cpp_abadb255652ac11e57292855016cd1305}{Rotate\+XY}} (vector$<$ float $>$ \&x, vector$<$ float $>$ \&y, float rx, float ry, float angle, int size)
+\item 
+void \mbox{\hyperlink{surface_8cpp_aae15be6f8adb9abe29a43eeadd8d30ad}{Find\+Min\+Max}} (vector$<$ float $>$ \&X, float \&minx, float \&maxx, bool initialization, int size)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{surface_8cpp_a410e67b86a65c62e86f2ed630ec79f65}\label{surface_8cpp_a410e67b86a65c62e86f2ed630ec79f65} 
+\index{surface.cpp@{surface.cpp}!FORCE\_UNIT@{FORCE\_UNIT}}
+\index{FORCE\_UNIT@{FORCE\_UNIT}!surface.cpp@{surface.cpp}}
+\doxysubsubsection{\texorpdfstring{FORCE\_UNIT}{FORCE\_UNIT}}
+{\footnotesize\ttfamily \#define FORCE\+\_\+\+UNIT~2.\+428602e-\/5}
+
+
+
+Definition at line \mbox{\hyperlink{surface_8cpp_source_l00015}{15}} of file \mbox{\hyperlink{surface_8cpp_source}{surface.\+cpp}}.
+
+\Hypertarget{surface_8cpp_ad55a6536a8c590881ec639d872951eed}\label{surface_8cpp_ad55a6536a8c590881ec639d872951eed} 
+\index{surface.cpp@{surface.cpp}!ForceNorm@{ForceNorm}}
+\index{ForceNorm@{ForceNorm}!surface.cpp@{surface.cpp}}
+\doxysubsubsection{\texorpdfstring{ForceNorm}{ForceNorm}}
+{\footnotesize\ttfamily \#define Force\+Norm~0.\+70710678}
+
+
+
+Definition at line \mbox{\hyperlink{surface_8cpp_source_l00014}{14}} of file \mbox{\hyperlink{surface_8cpp_source}{surface.\+cpp}}.
+
+\Hypertarget{surface_8cpp_a7be6e0fac70b0029f478cc316e4f957f}\label{surface_8cpp_a7be6e0fac70b0029f478cc316e4f957f} 
+\index{surface.cpp@{surface.cpp}!N\_AMINO\_ACID\_TYPE@{N\_AMINO\_ACID\_TYPE}}
+\index{N\_AMINO\_ACID\_TYPE@{N\_AMINO\_ACID\_TYPE}!surface.cpp@{surface.cpp}}
+\doxysubsubsection{\texorpdfstring{N\_AMINO\_ACID\_TYPE}{N\_AMINO\_ACID\_TYPE}}
+{\footnotesize\ttfamily \#define N\+\_\+\+AMINO\+\_\+\+ACID\+\_\+\+TYPE~20}
+
+
+
+Definition at line \mbox{\hyperlink{surface_8cpp_source_l00013}{13}} of file \mbox{\hyperlink{surface_8cpp_source}{surface.\+cpp}}.
+
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{surface_8cpp_a0c8b158df0657087279556e9367bd50c}\label{surface_8cpp_a0c8b158df0657087279556e9367bd50c} 
+\index{surface.cpp@{surface.cpp}!int1d@{int1d}}
+\index{int1d@{int1d}!surface.cpp@{surface.cpp}}
+\doxysubsubsection{\texorpdfstring{int1d}{int1d}}
+{\footnotesize\ttfamily typedef vector$<$int$>$ \mbox{\hyperlink{surface_8cpp_a0c8b158df0657087279556e9367bd50c}{int1d}}}
+
+
+
+Definition at line \mbox{\hyperlink{surface_8cpp_source_l00020}{20}} of file \mbox{\hyperlink{surface_8cpp_source}{surface.\+cpp}}.
+
+\Hypertarget{surface_8cpp_ae9e1bb7762c28bc3048c83d432ae7cee}\label{surface_8cpp_ae9e1bb7762c28bc3048c83d432ae7cee} 
+\index{surface.cpp@{surface.cpp}!int2d@{int2d}}
+\index{int2d@{int2d}!surface.cpp@{surface.cpp}}
+\doxysubsubsection{\texorpdfstring{int2d}{int2d}}
+{\footnotesize\ttfamily typedef vector$<$\mbox{\hyperlink{surface_8cpp_a0c8b158df0657087279556e9367bd50c}{int1d}}$>$ \mbox{\hyperlink{surface_8cpp_ae9e1bb7762c28bc3048c83d432ae7cee}{int2d}}}
+
+
+
+Definition at line \mbox{\hyperlink{surface_8cpp_source_l00021}{21}} of file \mbox{\hyperlink{surface_8cpp_source}{surface.\+cpp}}.
+
+\Hypertarget{surface_8cpp_a3f4a6970632efa38c6632124860dc19b}\label{surface_8cpp_a3f4a6970632efa38c6632124860dc19b} 
+\index{surface.cpp@{surface.cpp}!int3d@{int3d}}
+\index{int3d@{int3d}!surface.cpp@{surface.cpp}}
+\doxysubsubsection{\texorpdfstring{int3d}{int3d}}
+{\footnotesize\ttfamily typedef vector$<$\mbox{\hyperlink{surface_8cpp_ae9e1bb7762c28bc3048c83d432ae7cee}{int2d}}$>$ \mbox{\hyperlink{surface_8cpp_a3f4a6970632efa38c6632124860dc19b}{int3d}}}
+
+
+
+Definition at line \mbox{\hyperlink{surface_8cpp_source_l00022}{22}} of file \mbox{\hyperlink{surface_8cpp_source}{surface.\+cpp}}.
+
+\Hypertarget{surface_8cpp_aa253cc1aebb3cf85e166389ffa2e9754}\label{surface_8cpp_aa253cc1aebb3cf85e166389ffa2e9754} 
+\index{surface.cpp@{surface.cpp}!map\_int1d@{map\_int1d}}
+\index{map\_int1d@{map\_int1d}!surface.cpp@{surface.cpp}}
+\doxysubsubsection{\texorpdfstring{map\_int1d}{map\_int1d}}
+{\footnotesize\ttfamily typedef map$<$int, \mbox{\hyperlink{surface_8cpp_a0c8b158df0657087279556e9367bd50c}{int1d}}$>$ \mbox{\hyperlink{surface_8cpp_aa253cc1aebb3cf85e166389ffa2e9754}{map\+\_\+int1d}}}
+
+
+
+Definition at line \mbox{\hyperlink{surface_8cpp_source_l00023}{23}} of file \mbox{\hyperlink{surface_8cpp_source}{surface.\+cpp}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{surface_8cpp_aae15be6f8adb9abe29a43eeadd8d30ad}\label{surface_8cpp_aae15be6f8adb9abe29a43eeadd8d30ad} 
+\index{surface.cpp@{surface.cpp}!FindMinMax@{FindMinMax}}
+\index{FindMinMax@{FindMinMax}!surface.cpp@{surface.cpp}}
+\doxysubsubsection{\texorpdfstring{FindMinMax()}{FindMinMax()}}
+{\footnotesize\ttfamily void Find\+Min\+Max (\begin{DoxyParamCaption}\item[{vector$<$ float $>$ \&}]{X,  }\item[{float \&}]{minx,  }\item[{float \&}]{maxx,  }\item[{bool}]{initialization,  }\item[{int}]{size }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{surface_8cpp_source_l00035}{35}} of file \mbox{\hyperlink{surface_8cpp_source}{surface.\+cpp}}.
+
+\Hypertarget{surface_8cpp_abadb255652ac11e57292855016cd1305}\label{surface_8cpp_abadb255652ac11e57292855016cd1305} 
+\index{surface.cpp@{surface.cpp}!RotateXY@{RotateXY}}
+\index{RotateXY@{RotateXY}!surface.cpp@{surface.cpp}}
+\doxysubsubsection{\texorpdfstring{RotateXY()}{RotateXY()}}
+{\footnotesize\ttfamily void Rotate\+XY (\begin{DoxyParamCaption}\item[{vector$<$ float $>$ \&}]{x,  }\item[{vector$<$ float $>$ \&}]{y,  }\item[{float}]{rx,  }\item[{float}]{ry,  }\item[{float}]{angle,  }\item[{int}]{size }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{surface_8cpp_source_l00025}{25}} of file \mbox{\hyperlink{surface_8cpp_source}{surface.\+cpp}}.
+

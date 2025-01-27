@@ -1,0 +1,223 @@
+\doxysection{Deriv\+Engine\+::Node Struct Reference}
+\hypertarget{struct_deriv_engine_1_1_node}{}\label{struct_deriv_engine_1_1_node}\index{DerivEngine::Node@{DerivEngine::Node}}
+
+
+Class for managing the automatic differentiation.  
+
+
+
+
+{\ttfamily \#include $<$deriv\+\_\+engine.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_deriv_engine_1_1_node_a27561237dd0c6541a270938c912ca96f}{Node}} (std\+::string name\+\_\+, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}} $>$ computation\+\_\+)
+\begin{DoxyCompactList}\small\item\em Construct from name and unique\+\_\+ptr to computation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_deriv_engine_1_1_node_ac9c2109567bc854e722b908584895062}{Node}} (std\+::string name\+\_\+, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}} $>$ computation\+\_\+, int integrator\+\_\+level\+\_\+)
+\item 
+\mbox{\hyperlink{struct_deriv_engine_1_1_node_ae82bdd396c364aa839fd6ca261979581}{Node}} (std\+::string name\+\_\+, \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}} \texorpdfstring{$\ast$}{*}computation\+\_\+)
+\begin{DoxyCompactList}\small\item\em Construct from name and raw pointer to computation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_deriv_engine_1_1_node_a2a29b48d4e9aa448dca5d578675556dc}{Node}} (std\+::string name\+\_\+, \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}} \texorpdfstring{$\ast$}{*}computation\+\_\+, int integrator\+\_\+level\+\_\+)
+\item 
+\mbox{\hyperlink{struct_deriv_engine_1_1_node_a74cd969b1462e7c8221ac61927677437}{Node}} (const \mbox{\hyperlink{struct_deriv_engine_1_1_node}{Node}} \&other)=delete
+\item 
+\mbox{\hyperlink{struct_deriv_engine_1_1_node_aaae7d5d0ec694c6d63e3e740016ab54e}{Node}} (\mbox{\hyperlink{struct_deriv_engine_1_1_node}{Node}} \&\&other)
+\begin{DoxyCompactList}\small\item\em Move constructor (\doxylink{struct_deriv_engine_1_1_node}{Node}\textquotesingle{}s are not copyable) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{struct_deriv_engine_1_1_node_a8009f24e8a8858d91dd83263f6ac09ef}{name}}
+\begin{DoxyCompactList}\small\item\em HDF5 name of the group for the node. \end{DoxyCompactList}\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}} $>$ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a9f32b31d5c591b68812b8724e26277ab}{computation}}
+\begin{DoxyCompactList}\small\item\em underlying \doxylink{struct_deriv_computation}{Deriv\+Computation} for calculations \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{struct_deriv_engine_1_1_node_a5e34f08eb4ea8fd0e9e844129a65411f}{integrator\+\_\+level}}
+\item 
+std\+::vector$<$ size\+\_\+t $>$ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a08877bb98e3b90d4626293e6da3e05a4}{parents}}
+\begin{DoxyCompactList}\small\item\em list of indices for parent nodes (a.\+k.\+a. inputs) \end{DoxyCompactList}\item 
+std\+::vector$<$ size\+\_\+t $>$ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a7b39c8b4dee66a2e0ceabe95f6c49c4a}{children}}
+\begin{DoxyCompactList}\small\item\em list of indices for child nodes (a.\+k.\+a. consumers of output) \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{struct_deriv_engine_1_1_node_a31a35817671107fd3a17776f04ce693d}{germ\+\_\+exec\+\_\+level}}
+\begin{DoxyCompactList}\small\item\em Directed acyclic graph height of compute\+\_\+value computation. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{struct_deriv_engine_1_1_node_a6050051182d32323499cd9d50518c14b}{deriv\+\_\+exec\+\_\+level}}
+\begin{DoxyCompactList}\small\item\em Directed acyclic graph height of propagate\+\_\+deriv computation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class for managing the automatic differentiation. 
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00148}{148}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_deriv_engine_1_1_node_a27561237dd0c6541a270938c912ca96f}\label{struct_deriv_engine_1_1_node_a27561237dd0c6541a270938c912ca96f} 
+\index{DerivEngine::Node@{DerivEngine::Node}!Node@{Node}}
+\index{Node@{Node}!DerivEngine::Node@{DerivEngine::Node}}
+\doxysubsubsection{\texorpdfstring{Node()}{Node()}\hspace{0.1cm}{\footnotesize\ttfamily [1/6]}}
+{\footnotesize\ttfamily Deriv\+Engine\+::\+Node\+::\+Node (\begin{DoxyParamCaption}\item[{std\+::string}]{name\+\_\+,  }\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}} $>$}]{computation\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct from name and unique\+\_\+ptr to computation. 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00160}{160}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+\Hypertarget{struct_deriv_engine_1_1_node_ac9c2109567bc854e722b908584895062}\label{struct_deriv_engine_1_1_node_ac9c2109567bc854e722b908584895062} 
+\index{DerivEngine::Node@{DerivEngine::Node}!Node@{Node}}
+\index{Node@{Node}!DerivEngine::Node@{DerivEngine::Node}}
+\doxysubsubsection{\texorpdfstring{Node()}{Node()}\hspace{0.1cm}{\footnotesize\ttfamily [2/6]}}
+{\footnotesize\ttfamily Deriv\+Engine\+::\+Node\+::\+Node (\begin{DoxyParamCaption}\item[{std\+::string}]{name\+\_\+,  }\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}} $>$}]{computation\+\_\+,  }\item[{int}]{integrator\+\_\+level\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00163}{163}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+\Hypertarget{struct_deriv_engine_1_1_node_ae82bdd396c364aa839fd6ca261979581}\label{struct_deriv_engine_1_1_node_ae82bdd396c364aa839fd6ca261979581} 
+\index{DerivEngine::Node@{DerivEngine::Node}!Node@{Node}}
+\index{Node@{Node}!DerivEngine::Node@{DerivEngine::Node}}
+\doxysubsubsection{\texorpdfstring{Node()}{Node()}\hspace{0.1cm}{\footnotesize\ttfamily [3/6]}}
+{\footnotesize\ttfamily Deriv\+Engine\+::\+Node\+::\+Node (\begin{DoxyParamCaption}\item[{std\+::string}]{name\+\_\+,  }\item[{\mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}} \texorpdfstring{$\ast$}{*}}]{computation\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct from name and raw pointer to computation. 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00167}{167}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+\Hypertarget{struct_deriv_engine_1_1_node_a2a29b48d4e9aa448dca5d578675556dc}\label{struct_deriv_engine_1_1_node_a2a29b48d4e9aa448dca5d578675556dc} 
+\index{DerivEngine::Node@{DerivEngine::Node}!Node@{Node}}
+\index{Node@{Node}!DerivEngine::Node@{DerivEngine::Node}}
+\doxysubsubsection{\texorpdfstring{Node()}{Node()}\hspace{0.1cm}{\footnotesize\ttfamily [4/6]}}
+{\footnotesize\ttfamily Deriv\+Engine\+::\+Node\+::\+Node (\begin{DoxyParamCaption}\item[{std\+::string}]{name\+\_\+,  }\item[{\mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}} \texorpdfstring{$\ast$}{*}}]{computation\+\_\+,  }\item[{int}]{integrator\+\_\+level\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00170}{170}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+\Hypertarget{struct_deriv_engine_1_1_node_a74cd969b1462e7c8221ac61927677437}\label{struct_deriv_engine_1_1_node_a74cd969b1462e7c8221ac61927677437} 
+\index{DerivEngine::Node@{DerivEngine::Node}!Node@{Node}}
+\index{Node@{Node}!DerivEngine::Node@{DerivEngine::Node}}
+\doxysubsubsection{\texorpdfstring{Node()}{Node()}\hspace{0.1cm}{\footnotesize\ttfamily [5/6]}}
+{\footnotesize\ttfamily Deriv\+Engine\+::\+Node\+::\+Node (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_deriv_engine_1_1_node}{Node}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\Hypertarget{struct_deriv_engine_1_1_node_aaae7d5d0ec694c6d63e3e740016ab54e}\label{struct_deriv_engine_1_1_node_aaae7d5d0ec694c6d63e3e740016ab54e} 
+\index{DerivEngine::Node@{DerivEngine::Node}!Node@{Node}}
+\index{Node@{Node}!DerivEngine::Node@{DerivEngine::Node}}
+\doxysubsubsection{\texorpdfstring{Node()}{Node()}\hspace{0.1cm}{\footnotesize\ttfamily [6/6]}}
+{\footnotesize\ttfamily Deriv\+Engine\+::\+Node\+::\+Node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_deriv_engine_1_1_node}{Node}} \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Move constructor (\doxylink{struct_deriv_engine_1_1_node}{Node}\textquotesingle{}s are not copyable) 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00175}{175}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_deriv_engine_1_1_node_a7b39c8b4dee66a2e0ceabe95f6c49c4a}\label{struct_deriv_engine_1_1_node_a7b39c8b4dee66a2e0ceabe95f6c49c4a} 
+\index{DerivEngine::Node@{DerivEngine::Node}!children@{children}}
+\index{children@{children}!DerivEngine::Node@{DerivEngine::Node}}
+\doxysubsubsection{\texorpdfstring{children}{children}}
+{\footnotesize\ttfamily std\+::vector$<$size\+\_\+t$>$ Deriv\+Engine\+::\+Node\+::children}
+
+
+
+list of indices for child nodes (a.\+k.\+a. consumers of output) 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00154}{154}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+\Hypertarget{struct_deriv_engine_1_1_node_a9f32b31d5c591b68812b8724e26277ab}\label{struct_deriv_engine_1_1_node_a9f32b31d5c591b68812b8724e26277ab} 
+\index{DerivEngine::Node@{DerivEngine::Node}!computation@{computation}}
+\index{computation@{computation}!DerivEngine::Node@{DerivEngine::Node}}
+\doxysubsubsection{\texorpdfstring{computation}{computation}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}}$>$ Deriv\+Engine\+::\+Node\+::computation}
+
+
+
+underlying \doxylink{struct_deriv_computation}{Deriv\+Computation} for calculations 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00151}{151}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+\Hypertarget{struct_deriv_engine_1_1_node_a6050051182d32323499cd9d50518c14b}\label{struct_deriv_engine_1_1_node_a6050051182d32323499cd9d50518c14b} 
+\index{DerivEngine::Node@{DerivEngine::Node}!deriv\_exec\_level@{deriv\_exec\_level}}
+\index{deriv\_exec\_level@{deriv\_exec\_level}!DerivEngine::Node@{DerivEngine::Node}}
+\doxysubsubsection{\texorpdfstring{deriv\_exec\_level}{deriv\_exec\_level}}
+{\footnotesize\ttfamily int Deriv\+Engine\+::\+Node\+::deriv\+\_\+exec\+\_\+level}
+
+
+
+Directed acyclic graph height of propagate\+\_\+deriv computation. 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00157}{157}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+\Hypertarget{struct_deriv_engine_1_1_node_a31a35817671107fd3a17776f04ce693d}\label{struct_deriv_engine_1_1_node_a31a35817671107fd3a17776f04ce693d} 
+\index{DerivEngine::Node@{DerivEngine::Node}!germ\_exec\_level@{germ\_exec\_level}}
+\index{germ\_exec\_level@{germ\_exec\_level}!DerivEngine::Node@{DerivEngine::Node}}
+\doxysubsubsection{\texorpdfstring{germ\_exec\_level}{germ\_exec\_level}}
+{\footnotesize\ttfamily int Deriv\+Engine\+::\+Node\+::germ\+\_\+exec\+\_\+level}
+
+
+
+Directed acyclic graph height of compute\+\_\+value computation. 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00156}{156}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+\Hypertarget{struct_deriv_engine_1_1_node_a5e34f08eb4ea8fd0e9e844129a65411f}\label{struct_deriv_engine_1_1_node_a5e34f08eb4ea8fd0e9e844129a65411f} 
+\index{DerivEngine::Node@{DerivEngine::Node}!integrator\_level@{integrator\_level}}
+\index{integrator\_level@{integrator\_level}!DerivEngine::Node@{DerivEngine::Node}}
+\doxysubsubsection{\texorpdfstring{integrator\_level}{integrator\_level}}
+{\footnotesize\ttfamily int Deriv\+Engine\+::\+Node\+::integrator\+\_\+level}
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00152}{152}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+\Hypertarget{struct_deriv_engine_1_1_node_a8009f24e8a8858d91dd83263f6ac09ef}\label{struct_deriv_engine_1_1_node_a8009f24e8a8858d91dd83263f6ac09ef} 
+\index{DerivEngine::Node@{DerivEngine::Node}!name@{name}}
+\index{name@{name}!DerivEngine::Node@{DerivEngine::Node}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily std\+::string Deriv\+Engine\+::\+Node\+::name}
+
+
+
+HDF5 name of the group for the node. 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00150}{150}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+\Hypertarget{struct_deriv_engine_1_1_node_a08877bb98e3b90d4626293e6da3e05a4}\label{struct_deriv_engine_1_1_node_a08877bb98e3b90d4626293e6da3e05a4} 
+\index{DerivEngine::Node@{DerivEngine::Node}!parents@{parents}}
+\index{parents@{parents}!DerivEngine::Node@{DerivEngine::Node}}
+\doxysubsubsection{\texorpdfstring{parents}{parents}}
+{\footnotesize\ttfamily std\+::vector$<$size\+\_\+t$>$ Deriv\+Engine\+::\+Node\+::parents}
+
+
+
+list of indices for parent nodes (a.\+k.\+a. inputs) 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00153}{153}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{deriv__engine_8h}{deriv\+\_\+engine.\+h}}\end{DoxyCompactItemize}

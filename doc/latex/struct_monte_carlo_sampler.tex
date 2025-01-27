@@ -1,0 +1,155 @@
+\doxysection{Monte\+Carlo\+Sampler Struct Reference}
+\hypertarget{struct_monte_carlo_sampler}{}\label{struct_monte_carlo_sampler}\index{MonteCarloSampler@{MonteCarloSampler}}
+
+
+{\ttfamily \#include $<$monte\+\_\+carlo\+\_\+sampler.\+h$>$}
+
+
+
+Inheritance diagram for Monte\+Carlo\+Sampler\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{struct_monte_carlo_sampler__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Monte\+Carlo\+Sampler\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=201pt]{struct_monte_carlo_sampler__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_monte_carlo_sampler_1_1_move_stats}{Move\+Stats}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{struct_monte_carlo_sampler_a0289ffe3fa35c97af7438a1aac3930c4}{reset\+\_\+stats}} ()
+\item 
+\mbox{\hyperlink{struct_monte_carlo_sampler_a8e1fcbeec59ebf1e67a71161db0e8ac6}{Monte\+Carlo\+Sampler}} ()
+\item 
+\mbox{\hyperlink{struct_monte_carlo_sampler_a48209b8b9b0a2305d4dbb2fe1f6836ef}{Monte\+Carlo\+Sampler}} (const std\+::string \&name\+\_\+, \mbox{\hyperlink{random_8h_ab1fa763976d66d77a7a63f680bfd720b}{Random\+Stream\+Type}} stream\+\_\+id\+\_\+, \mbox{\hyperlink{struct_h5_logger}{H5\+Logger}} \&logger)
+\item 
+virtual void \mbox{\hyperlink{struct_monte_carlo_sampler_a815cb0c94eedf488358d69711b9bcfd5}{propose\+\_\+random\+\_\+move}} (float \texorpdfstring{$\ast$}{*}delta\+\_\+lprob, \mbox{\hyperlink{struct_random_generator}{Random\+Generator}} \&random, \mbox{\hyperlink{struct_vec_array}{Vec\+Array}} pos) const =0
+\item 
+void \mbox{\hyperlink{struct_monte_carlo_sampler_a583b3063ce8f9e0a34474d3c0dbde0f5}{monte\+\_\+carlo\+\_\+step}} (uint32\+\_\+t seed, uint64\+\_\+t round, const float temperature, \mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \&engine)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_monte_carlo_sampler_1_1_move_stats}{Move\+Stats}} \mbox{\hyperlink{struct_monte_carlo_sampler_a387a72d76d0215f8047a726b1604716a}{move\+\_\+stats}}
+\item 
+std\+::string \mbox{\hyperlink{struct_monte_carlo_sampler_a70033be891a2559f03c5d4bc8c851d8e}{name}}
+\item 
+\mbox{\hyperlink{random_8h_ab1fa763976d66d77a7a63f680bfd720b}{Random\+Stream\+Type}} \mbox{\hyperlink{struct_monte_carlo_sampler_a84b6639a52078ee2c6901b01d8d887fc}{stream\+\_\+id}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8h_source_l00012}{12}} of file \mbox{\hyperlink{monte__carlo__sampler_8h_source}{monte\+\_\+carlo\+\_\+sampler.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_monte_carlo_sampler_a8e1fcbeec59ebf1e67a71161db0e8ac6}\label{struct_monte_carlo_sampler_a8e1fcbeec59ebf1e67a71161db0e8ac6} 
+\index{MonteCarloSampler@{MonteCarloSampler}!MonteCarloSampler@{MonteCarloSampler}}
+\index{MonteCarloSampler@{MonteCarloSampler}!MonteCarloSampler@{MonteCarloSampler}}
+\doxysubsubsection{\texorpdfstring{MonteCarloSampler()}{MonteCarloSampler()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Monte\+Carlo\+Sampler\+::\+Monte\+Carlo\+Sampler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8h_source_l00026}{26}} of file \mbox{\hyperlink{monte__carlo__sampler_8h_source}{monte\+\_\+carlo\+\_\+sampler.\+h}}.
+
+\Hypertarget{struct_monte_carlo_sampler_a48209b8b9b0a2305d4dbb2fe1f6836ef}\label{struct_monte_carlo_sampler_a48209b8b9b0a2305d4dbb2fe1f6836ef} 
+\index{MonteCarloSampler@{MonteCarloSampler}!MonteCarloSampler@{MonteCarloSampler}}
+\index{MonteCarloSampler@{MonteCarloSampler}!MonteCarloSampler@{MonteCarloSampler}}
+\doxysubsubsection{\texorpdfstring{MonteCarloSampler()}{MonteCarloSampler()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Monte\+Carlo\+Sampler\+::\+Monte\+Carlo\+Sampler (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name\+\_\+,  }\item[{\mbox{\hyperlink{random_8h_ab1fa763976d66d77a7a63f680bfd720b}{Random\+Stream\+Type}}}]{stream\+\_\+id\+\_\+,  }\item[{\mbox{\hyperlink{struct_h5_logger}{H5\+Logger}} \&}]{logger }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8h_source_l00028}{28}} of file \mbox{\hyperlink{monte__carlo__sampler_8h_source}{monte\+\_\+carlo\+\_\+sampler.\+h}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_monte_carlo_sampler_a583b3063ce8f9e0a34474d3c0dbde0f5}\label{struct_monte_carlo_sampler_a583b3063ce8f9e0a34474d3c0dbde0f5} 
+\index{MonteCarloSampler@{MonteCarloSampler}!monte\_carlo\_step@{monte\_carlo\_step}}
+\index{monte\_carlo\_step@{monte\_carlo\_step}!MonteCarloSampler@{MonteCarloSampler}}
+\doxysubsubsection{\texorpdfstring{monte\_carlo\_step()}{monte\_carlo\_step()}}
+{\footnotesize\ttfamily void Monte\+Carlo\+Sampler\+::monte\+\_\+carlo\+\_\+step (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{seed,  }\item[{uint64\+\_\+t}]{round,  }\item[{const float}]{temperature,  }\item[{\mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \&}]{engine }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8cpp_source_l00255}{255}} of file \mbox{\hyperlink{monte__carlo__sampler_8cpp_source}{monte\+\_\+carlo\+\_\+sampler.\+cpp}}.
+
+\Hypertarget{struct_monte_carlo_sampler_a815cb0c94eedf488358d69711b9bcfd5}\label{struct_monte_carlo_sampler_a815cb0c94eedf488358d69711b9bcfd5} 
+\index{MonteCarloSampler@{MonteCarloSampler}!propose\_random\_move@{propose\_random\_move}}
+\index{propose\_random\_move@{propose\_random\_move}!MonteCarloSampler@{MonteCarloSampler}}
+\doxysubsubsection{\texorpdfstring{propose\_random\_move()}{propose\_random\_move()}}
+{\footnotesize\ttfamily virtual void Monte\+Carlo\+Sampler\+::propose\+\_\+random\+\_\+move (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}}]{delta\+\_\+lprob,  }\item[{\mbox{\hyperlink{struct_random_generator}{Random\+Generator}} \&}]{random,  }\item[{\mbox{\hyperlink{struct_vec_array}{Vec\+Array}}}]{pos }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{struct_pivot_sampler_a8ea47a0214ccbec71ab5acbeee14b797}{Pivot\+Sampler}}, and \mbox{\hyperlink{struct_jump_sampler_acd8c25137839486f38e00b1a9ab6433c}{Jump\+Sampler}}.
+
+\Hypertarget{struct_monte_carlo_sampler_a0289ffe3fa35c97af7438a1aac3930c4}\label{struct_monte_carlo_sampler_a0289ffe3fa35c97af7438a1aac3930c4} 
+\index{MonteCarloSampler@{MonteCarloSampler}!reset\_stats@{reset\_stats}}
+\index{reset\_stats@{reset\_stats}!MonteCarloSampler@{MonteCarloSampler}}
+\doxysubsubsection{\texorpdfstring{reset\_stats()}{reset\_stats()}}
+{\footnotesize\ttfamily void Monte\+Carlo\+Sampler\+::reset\+\_\+stats (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8h_source_l00020}{20}} of file \mbox{\hyperlink{monte__carlo__sampler_8h_source}{monte\+\_\+carlo\+\_\+sampler.\+h}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_monte_carlo_sampler_a387a72d76d0215f8047a726b1604716a}\label{struct_monte_carlo_sampler_a387a72d76d0215f8047a726b1604716a} 
+\index{MonteCarloSampler@{MonteCarloSampler}!move\_stats@{move\_stats}}
+\index{move\_stats@{move\_stats}!MonteCarloSampler@{MonteCarloSampler}}
+\doxysubsubsection{\texorpdfstring{move\_stats}{move\_stats}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_monte_carlo_sampler_1_1_move_stats}{Move\+Stats}} Monte\+Carlo\+Sampler\+::move\+\_\+stats}
+
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8h_source_l00022}{22}} of file \mbox{\hyperlink{monte__carlo__sampler_8h_source}{monte\+\_\+carlo\+\_\+sampler.\+h}}.
+
+\Hypertarget{struct_monte_carlo_sampler_a70033be891a2559f03c5d4bc8c851d8e}\label{struct_monte_carlo_sampler_a70033be891a2559f03c5d4bc8c851d8e} 
+\index{MonteCarloSampler@{MonteCarloSampler}!name@{name}}
+\index{name@{name}!MonteCarloSampler@{MonteCarloSampler}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily std\+::string Monte\+Carlo\+Sampler\+::name}
+
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8h_source_l00023}{23}} of file \mbox{\hyperlink{monte__carlo__sampler_8h_source}{monte\+\_\+carlo\+\_\+sampler.\+h}}.
+
+\Hypertarget{struct_monte_carlo_sampler_a84b6639a52078ee2c6901b01d8d887fc}\label{struct_monte_carlo_sampler_a84b6639a52078ee2c6901b01d8d887fc} 
+\index{MonteCarloSampler@{MonteCarloSampler}!stream\_id@{stream\_id}}
+\index{stream\_id@{stream\_id}!MonteCarloSampler@{MonteCarloSampler}}
+\doxysubsubsection{\texorpdfstring{stream\_id}{stream\_id}}
+{\footnotesize\ttfamily \mbox{\hyperlink{random_8h_ab1fa763976d66d77a7a63f680bfd720b}{Random\+Stream\+Type}} Monte\+Carlo\+Sampler\+::stream\+\_\+id}
+
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8h_source_l00024}{24}} of file \mbox{\hyperlink{monte__carlo__sampler_8h_source}{monte\+\_\+carlo\+\_\+sampler.\+h}}.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{monte__carlo__sampler_8h}{monte\+\_\+carlo\+\_\+sampler.\+h}}\item 
+src/\mbox{\hyperlink{monte__carlo__sampler_8cpp}{monte\+\_\+carlo\+\_\+sampler.\+cpp}}\end{DoxyCompactItemize}

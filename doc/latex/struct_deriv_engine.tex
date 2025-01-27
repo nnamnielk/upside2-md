@@ -1,0 +1,349 @@
+\doxysection{Deriv\+Engine Struct Reference}
+\hypertarget{struct_deriv_engine}{}\label{struct_deriv_engine}\index{DerivEngine@{DerivEngine}}
+
+
+Main class to represent differentiable computational graph.  
+
+
+
+
+{\ttfamily \#include $<$deriv\+\_\+engine.\+h$>$}
+
+
+
+Collaboration diagram for Deriv\+Engine\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{struct_deriv_engine__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_deriv_engine_1_1_node}{Node}}
+\begin{DoxyCompactList}\small\item\em Class for managing the automatic differentiation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{struct_deriv_engine_a4341c8691fc9587b143d9b6bc1cc5d8c}{Integrator\+Type}} \{ \mbox{\hyperlink{struct_deriv_engine_a4341c8691fc9587b143d9b6bc1cc5d8ca7d532e5c46da102c81e5f29f8e8f50e5}{Verlet}} =0
+, \mbox{\hyperlink{struct_deriv_engine_a4341c8691fc9587b143d9b6bc1cc5d8caaa0a78d5ba283b1cfa5ec8167e9538c2}{Predescu}} =1
+ \}
+\begin{DoxyCompactList}\small\item\em Integration scheme (i.\+e. position and velocity update weights) to use. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_deriv_engine_a7b4c39981d430d6f2103ab59cab954b5}{Deriv\+Engine}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor (not used) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_deriv_engine_a4114311e9220a90c0e67889a876b0136}{Deriv\+Engine}} (int n\+\_\+atom)
+\begin{DoxyCompactList}\small\item\em Construct from number of atoms. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_deriv_engine_a41f539c8ff9eea8d3a4de514efb51cc2}{add\+\_\+node}} (const std\+::string \&name, int integrator\+\_\+level, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}} $>$ fcn, std\+::vector$<$ std\+::string $>$ argument\+\_\+names)
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_add}{Add} nodes to computation graph. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_deriv_engine_1_1_node}{Node}} \& \mbox{\hyperlink{struct_deriv_engine_a901059824e3f2efb9f61ad94f76022c6}{get}} (const std\+::string \&name)
+\begin{DoxyCompactList}\small\item\em Get \doxylink{struct_deriv_engine_1_1_node}{Node} by name. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{struct_deriv_engine_a9133b9eadfb1d81d41efb281ccf27b80}{get\+\_\+idx}} (const std\+::string \&name, bool must\+\_\+exist=true)
+\begin{DoxyCompactList}\small\item\em Get node index by name. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\T \& \mbox{\hyperlink{struct_deriv_engine_a764cf2d2c003d24cf91ef4c073090b01}{get\+\_\+computation}} (const std\+::string \&name)
+\begin{DoxyCompactList}\small\item\em Get \doxylink{struct_deriv_computation}{Deriv\+Computation} by name. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_deriv_engine_a6aa1208083a02ae463d4a7aea00389cc}{compute}} (\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{Compute\+Mode}} mode)
+\begin{DoxyCompactList}\small\item\em Execute computational graph. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_deriv_engine_ac8db0e21ead6720d575d47c762399e55}{compute}} (\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{Compute\+Mode}} mode, int integrator\+\_\+level)
+\item 
+void \mbox{\hyperlink{struct_deriv_engine_a641a1609f7af2da3185b625a30ed4ad0}{build\+\_\+exec\+\_\+levels}} ()
+\item 
+void \mbox{\hyperlink{struct_deriv_engine_a500f413e569e0a9885b0237bed0ab063}{build\+\_\+integrator\+\_\+levels}} (bool print\+\_\+info, float dt, int inner\+\_\+step)
+\item 
+void \mbox{\hyperlink{struct_deriv_engine_a82d3306751074d5f0a3b1e699363a201}{integration\+\_\+cycle}} (\mbox{\hyperlink{struct_vec_array}{Vec\+Array}} mom, float dt, float max\+\_\+force, \mbox{\hyperlink{struct_deriv_engine_a4341c8691fc9587b143d9b6bc1cc5d8c}{Integrator\+Type}} type=\mbox{\hyperlink{struct_deriv_engine_a4341c8691fc9587b143d9b6bc1cc5d8ca7d532e5c46da102c81e5f29f8e8f50e5}{Verlet}})
+\begin{DoxyCompactList}\small\item\em Perform a full integration cycle (3 time steps) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_deriv_engine_adceb0190e4fad4f9c043e55aca702388}{integration\+\_\+cycle}} (\mbox{\hyperlink{struct_vec_array}{Vec\+Array}} mom, float dt)
+\item 
+void \mbox{\hyperlink{struct_deriv_engine_a732ca2edd94ca5338a9ecfa1031083c5}{integration\+\_\+cycle}} (\mbox{\hyperlink{struct_vec_array}{Vec\+Array}} mom, float dt, int inner\+\_\+step)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_deriv_engine_1_1_node}{Node}} $>$ \mbox{\hyperlink{struct_deriv_engine_ae31d5294fc3a0bb69d97386e2a204e3b}{nodes}}
+\begin{DoxyCompactList}\small\item\em vector of all \doxylink{struct_deriv_engine_1_1_node}{Node}\textquotesingle{}s in the computation graph \end{DoxyCompactList}\item 
+std\+::vector$<$ int $>$ \mbox{\hyperlink{struct_deriv_engine_a32563c7e40a58003d1b32a10453d746e}{germ\+\_\+exec\+\_\+levels}}
+\item 
+std\+::vector$<$ int $>$ \mbox{\hyperlink{struct_deriv_engine_a3a89d2d44826d331f090354bbc67bc6b}{deriv\+\_\+exec\+\_\+levels}}
+\item 
+\mbox{\hyperlink{struct_pos}{Pos}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_deriv_engine_a4d1eead19c296c11095a8d7ecfa138ae}{pos}}
+\begin{DoxyCompactList}\small\item\em Pointer to pos node (used for position input and derivative output) \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{struct_deriv_engine_a3a0ab62cfd0b13b064466312d4b3f5e8}{potential}}
+\begin{DoxyCompactList}\small\item\em potential energy output of the computation graph \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main class to represent differentiable computational graph. 
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00145}{145}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+
+
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{struct_deriv_engine_a4341c8691fc9587b143d9b6bc1cc5d8c}\label{struct_deriv_engine_a4341c8691fc9587b143d9b6bc1cc5d8c} 
+\index{DerivEngine@{DerivEngine}!IntegratorType@{IntegratorType}}
+\index{IntegratorType@{IntegratorType}!DerivEngine@{DerivEngine}}
+\doxysubsubsection{\texorpdfstring{IntegratorType}{IntegratorType}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{struct_deriv_engine_a4341c8691fc9587b143d9b6bc1cc5d8c}{Deriv\+Engine\+::\+Integrator\+Type}}}
+
+
+
+Integration scheme (i.\+e. position and velocity update weights) to use. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Verlet@{Verlet}!DerivEngine@{DerivEngine}}\index{DerivEngine@{DerivEngine}!Verlet@{Verlet}}}\Hypertarget{struct_deriv_engine_a4341c8691fc9587b143d9b6bc1cc5d8ca7d532e5c46da102c81e5f29f8e8f50e5}\label{struct_deriv_engine_a4341c8691fc9587b143d9b6bc1cc5d8ca7d532e5c46da102c81e5f29f8e8f50e5} 
+Verlet&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Predescu@{Predescu}!DerivEngine@{DerivEngine}}\index{DerivEngine@{DerivEngine}!Predescu@{Predescu}}}\Hypertarget{struct_deriv_engine_a4341c8691fc9587b143d9b6bc1cc5d8caaa0a78d5ba283b1cfa5ec8167e9538c2}\label{struct_deriv_engine_a4341c8691fc9587b143d9b6bc1cc5d8caaa0a78d5ba283b1cfa5ec8167e9538c2} 
+Predescu&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00249}{249}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_deriv_engine_a7b4c39981d430d6f2103ab59cab954b5}\label{struct_deriv_engine_a7b4c39981d430d6f2103ab59cab954b5} 
+\index{DerivEngine@{DerivEngine}!DerivEngine@{DerivEngine}}
+\index{DerivEngine@{DerivEngine}!DerivEngine@{DerivEngine}}
+\doxysubsubsection{\texorpdfstring{DerivEngine()}{DerivEngine()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Deriv\+Engine\+::\+Deriv\+Engine (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Default constructor (not used) 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00203}{203}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+\Hypertarget{struct_deriv_engine_a4114311e9220a90c0e67889a876b0136}\label{struct_deriv_engine_a4114311e9220a90c0e67889a876b0136} 
+\index{DerivEngine@{DerivEngine}!DerivEngine@{DerivEngine}}
+\index{DerivEngine@{DerivEngine}!DerivEngine@{DerivEngine}}
+\doxysubsubsection{\texorpdfstring{DerivEngine()}{DerivEngine()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Deriv\+Engine\+::\+Deriv\+Engine (\begin{DoxyParamCaption}\item[{int}]{n\+\_\+atom }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct from number of atoms. 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00205}{205}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_deriv_engine_a41f539c8ff9eea8d3a4de514efb51cc2}\label{struct_deriv_engine_a41f539c8ff9eea8d3a4de514efb51cc2} 
+\index{DerivEngine@{DerivEngine}!add\_node@{add\_node}}
+\index{add\_node@{add\_node}!DerivEngine@{DerivEngine}}
+\doxysubsubsection{\texorpdfstring{add\_node()}{add\_node()}}
+{\footnotesize\ttfamily void Deriv\+Engine\+::add\+\_\+node (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{int}]{integrator\+\_\+level,  }\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}} $>$}]{fcn,  }\item[{std\+::vector$<$ std\+::string $>$}]{argument\+\_\+names }\end{DoxyParamCaption})}
+
+
+
+\doxylink{struct_add}{Add} nodes to computation graph. 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8cpp_source_l00096}{96}} of file \mbox{\hyperlink{deriv__engine_8cpp_source}{deriv\+\_\+engine.\+cpp}}.
+
+\Hypertarget{struct_deriv_engine_a641a1609f7af2da3185b625a30ed4ad0}\label{struct_deriv_engine_a641a1609f7af2da3185b625a30ed4ad0} 
+\index{DerivEngine@{DerivEngine}!build\_exec\_levels@{build\_exec\_levels}}
+\index{build\_exec\_levels@{build\_exec\_levels}!DerivEngine@{DerivEngine}}
+\doxysubsubsection{\texorpdfstring{build\_exec\_levels()}{build\_exec\_levels()}}
+{\footnotesize\ttfamily void Deriv\+Engine\+::build\+\_\+exec\+\_\+levels (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8cpp_source_l00127}{127}} of file \mbox{\hyperlink{deriv__engine_8cpp_source}{deriv\+\_\+engine.\+cpp}}.
+
+\Hypertarget{struct_deriv_engine_a500f413e569e0a9885b0237bed0ab063}\label{struct_deriv_engine_a500f413e569e0a9885b0237bed0ab063} 
+\index{DerivEngine@{DerivEngine}!build\_integrator\_levels@{build\_integrator\_levels}}
+\index{build\_integrator\_levels@{build\_integrator\_levels}!DerivEngine@{DerivEngine}}
+\doxysubsubsection{\texorpdfstring{build\_integrator\_levels()}{build\_integrator\_levels()}}
+{\footnotesize\ttfamily void Deriv\+Engine\+::build\+\_\+integrator\+\_\+levels (\begin{DoxyParamCaption}\item[{bool}]{print\+\_\+info,  }\item[{float}]{dt,  }\item[{int}]{inner\+\_\+step }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8cpp_source_l00180}{180}} of file \mbox{\hyperlink{deriv__engine_8cpp_source}{deriv\+\_\+engine.\+cpp}}.
+
+\Hypertarget{struct_deriv_engine_a6aa1208083a02ae463d4a7aea00389cc}\label{struct_deriv_engine_a6aa1208083a02ae463d4a7aea00389cc} 
+\index{DerivEngine@{DerivEngine}!compute@{compute}}
+\index{compute@{compute}!DerivEngine@{DerivEngine}}
+\doxysubsubsection{\texorpdfstring{compute()}{compute()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Deriv\+Engine\+::compute (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{Compute\+Mode}}}]{mode }\end{DoxyParamCaption})}
+
+
+
+Execute computational graph. 
+
+See Compute\+Mode for details. 
+
+Definition at line \mbox{\hyperlink{deriv__engine_8cpp_source_l00239}{239}} of file \mbox{\hyperlink{deriv__engine_8cpp_source}{deriv\+\_\+engine.\+cpp}}.
+
+\Hypertarget{struct_deriv_engine_ac8db0e21ead6720d575d47c762399e55}\label{struct_deriv_engine_ac8db0e21ead6720d575d47c762399e55} 
+\index{DerivEngine@{DerivEngine}!compute@{compute}}
+\index{compute@{compute}!DerivEngine@{DerivEngine}}
+\doxysubsubsection{\texorpdfstring{compute()}{compute()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Deriv\+Engine\+::compute (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{Compute\+Mode}}}]{mode,  }\item[{int}]{integrator\+\_\+level }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8cpp_source_l00262}{262}} of file \mbox{\hyperlink{deriv__engine_8cpp_source}{deriv\+\_\+engine.\+cpp}}.
+
+\Hypertarget{struct_deriv_engine_a901059824e3f2efb9f61ad94f76022c6}\label{struct_deriv_engine_a901059824e3f2efb9f61ad94f76022c6} 
+\index{DerivEngine@{DerivEngine}!get@{get}}
+\index{get@{get}!DerivEngine@{DerivEngine}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_deriv_engine_1_1_node}{Deriv\+Engine\+::\+Node}} \& Deriv\+Engine\+::get (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name }\end{DoxyParamCaption})}
+
+
+
+Get \doxylink{struct_deriv_engine_1_1_node}{Node} by name. 
+
+Throws exception if node does not exist get \doxylink{struct_deriv_engine_1_1_node}{Node} by name 
+
+Definition at line \mbox{\hyperlink{deriv__engine_8cpp_source_l00115}{115}} of file \mbox{\hyperlink{deriv__engine_8cpp_source}{deriv\+\_\+engine.\+cpp}}.
+
+\Hypertarget{struct_deriv_engine_a764cf2d2c003d24cf91ef4c073090b01}\label{struct_deriv_engine_a764cf2d2c003d24cf91ef4c073090b01} 
+\index{DerivEngine@{DerivEngine}!get\_computation@{get\_computation}}
+\index{get\_computation@{get\_computation}!DerivEngine@{DerivEngine}}
+\doxysubsubsection{\texorpdfstring{get\_computation()}{get\_computation()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T \& Deriv\+Engine\+::get\+\_\+computation (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get \doxylink{struct_deriv_computation}{Deriv\+Computation} by name. 
+
+Looks up the node by name, then dynamic\+\_\+casts to the template return type. 
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00233}{233}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+\Hypertarget{struct_deriv_engine_a9133b9eadfb1d81d41efb281ccf27b80}\label{struct_deriv_engine_a9133b9eadfb1d81d41efb281ccf27b80} 
+\index{DerivEngine@{DerivEngine}!get\_idx@{get\_idx}}
+\index{get\_idx@{get\_idx}!DerivEngine@{DerivEngine}}
+\doxysubsubsection{\texorpdfstring{get\_idx()}{get\_idx()}}
+{\footnotesize\ttfamily int Deriv\+Engine\+::get\+\_\+idx (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{bool}]{must\+\_\+exist = {\ttfamily true} }\end{DoxyParamCaption})}
+
+
+
+Get node index by name. 
+
+If node name does not exist, if must\+\_\+exist then exception else return -\/1 
+
+Definition at line \mbox{\hyperlink{deriv__engine_8cpp_source_l00121}{121}} of file \mbox{\hyperlink{deriv__engine_8cpp_source}{deriv\+\_\+engine.\+cpp}}.
+
+\Hypertarget{struct_deriv_engine_adceb0190e4fad4f9c043e55aca702388}\label{struct_deriv_engine_adceb0190e4fad4f9c043e55aca702388} 
+\index{DerivEngine@{DerivEngine}!integration\_cycle@{integration\_cycle}}
+\index{integration\_cycle@{integration\_cycle}!DerivEngine@{DerivEngine}}
+\doxysubsubsection{\texorpdfstring{integration\_cycle()}{integration\_cycle()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily void Deriv\+Engine\+::integration\+\_\+cycle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_vec_array}{Vec\+Array}}}]{mom,  }\item[{float}]{dt }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8cpp_source_l00317}{317}} of file \mbox{\hyperlink{deriv__engine_8cpp_source}{deriv\+\_\+engine.\+cpp}}.
+
+\Hypertarget{struct_deriv_engine_a82d3306751074d5f0a3b1e699363a201}\label{struct_deriv_engine_a82d3306751074d5f0a3b1e699363a201} 
+\index{DerivEngine@{DerivEngine}!integration\_cycle@{integration\_cycle}}
+\index{integration\_cycle@{integration\_cycle}!DerivEngine@{DerivEngine}}
+\doxysubsubsection{\texorpdfstring{integration\_cycle()}{integration\_cycle()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily void Deriv\+Engine\+::integration\+\_\+cycle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_vec_array}{Vec\+Array}}}]{mom,  }\item[{float}]{dt,  }\item[{float}]{max\+\_\+force,  }\item[{\mbox{\hyperlink{struct_deriv_engine_a4341c8691fc9587b143d9b6bc1cc5d8c}{Integrator\+Type}}}]{type = {\ttfamily \mbox{\hyperlink{struct_deriv_engine_a4341c8691fc9587b143d9b6bc1cc5d8ca7d532e5c46da102c81e5f29f8e8f50e5}{Verlet}}} }\end{DoxyParamCaption})}
+
+
+
+Perform a full integration cycle (3 time steps) 
+
+See integration\+\_\+stage for details. 
+
+Definition at line \mbox{\hyperlink{deriv__engine_8cpp_source_l00295}{295}} of file \mbox{\hyperlink{deriv__engine_8cpp_source}{deriv\+\_\+engine.\+cpp}}.
+
+\Hypertarget{struct_deriv_engine_a732ca2edd94ca5338a9ecfa1031083c5}\label{struct_deriv_engine_a732ca2edd94ca5338a9ecfa1031083c5} 
+\index{DerivEngine@{DerivEngine}!integration\_cycle@{integration\_cycle}}
+\index{integration\_cycle@{integration\_cycle}!DerivEngine@{DerivEngine}}
+\doxysubsubsection{\texorpdfstring{integration\_cycle()}{integration\_cycle()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily void Deriv\+Engine\+::integration\+\_\+cycle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_vec_array}{Vec\+Array}}}]{mom,  }\item[{float}]{dt,  }\item[{int}]{inner\+\_\+step }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8cpp_source_l00333}{333}} of file \mbox{\hyperlink{deriv__engine_8cpp_source}{deriv\+\_\+engine.\+cpp}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_deriv_engine_a3a89d2d44826d331f090354bbc67bc6b}\label{struct_deriv_engine_a3a89d2d44826d331f090354bbc67bc6b} 
+\index{DerivEngine@{DerivEngine}!deriv\_exec\_levels@{deriv\_exec\_levels}}
+\index{deriv\_exec\_levels@{deriv\_exec\_levels}!DerivEngine@{DerivEngine}}
+\doxysubsubsection{\texorpdfstring{deriv\_exec\_levels}{deriv\_exec\_levels}}
+{\footnotesize\ttfamily std\+::vector$<$int$>$ Deriv\+Engine\+::deriv\+\_\+exec\+\_\+levels}
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00192}{192}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+\Hypertarget{struct_deriv_engine_a32563c7e40a58003d1b32a10453d746e}\label{struct_deriv_engine_a32563c7e40a58003d1b32a10453d746e} 
+\index{DerivEngine@{DerivEngine}!germ\_exec\_levels@{germ\_exec\_levels}}
+\index{germ\_exec\_levels@{germ\_exec\_levels}!DerivEngine@{DerivEngine}}
+\doxysubsubsection{\texorpdfstring{germ\_exec\_levels}{germ\_exec\_levels}}
+{\footnotesize\ttfamily std\+::vector$<$int$>$ Deriv\+Engine\+::germ\+\_\+exec\+\_\+levels}
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00191}{191}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+\Hypertarget{struct_deriv_engine_ae31d5294fc3a0bb69d97386e2a204e3b}\label{struct_deriv_engine_ae31d5294fc3a0bb69d97386e2a204e3b} 
+\index{DerivEngine@{DerivEngine}!nodes@{nodes}}
+\index{nodes@{nodes}!DerivEngine@{DerivEngine}}
+\doxysubsubsection{\texorpdfstring{nodes}{nodes}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{struct_deriv_engine_1_1_node}{Node}}$>$ Deriv\+Engine\+::nodes}
+
+
+
+vector of all \doxylink{struct_deriv_engine_1_1_node}{Node}\textquotesingle{}s in the computation graph 
+
+nodes\mbox{[}0\mbox{]} is guaranteed to be the \doxylink{struct_pos}{Pos} node 
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00189}{189}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+\Hypertarget{struct_deriv_engine_a4d1eead19c296c11095a8d7ecfa138ae}\label{struct_deriv_engine_a4d1eead19c296c11095a8d7ecfa138ae} 
+\index{DerivEngine@{DerivEngine}!pos@{pos}}
+\index{pos@{pos}!DerivEngine@{DerivEngine}}
+\doxysubsubsection{\texorpdfstring{pos}{pos}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_pos}{Pos}}\texorpdfstring{$\ast$}{*} Deriv\+Engine\+::pos}
+
+
+
+Pointer to pos node (used for position input and derivative output) 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00195}{195}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+\Hypertarget{struct_deriv_engine_a3a0ab62cfd0b13b064466312d4b3f5e8}\label{struct_deriv_engine_a3a0ab62cfd0b13b064466312d4b3f5e8} 
+\index{DerivEngine@{DerivEngine}!potential@{potential}}
+\index{potential@{potential}!DerivEngine@{DerivEngine}}
+\doxysubsubsection{\texorpdfstring{potential}{potential}}
+{\footnotesize\ttfamily float Deriv\+Engine\+::potential}
+
+
+
+potential energy output of the computation graph 
+
+The potential should only be read after calling compute(\+Potential\+And\+Deriv\+Mode) and may be any value after the completion of compute(\+Deriv\+Mode) 
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00200}{200}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{deriv__engine_8h}{deriv\+\_\+engine.\+h}}\item 
+src/\mbox{\hyperlink{deriv__engine_8cpp}{deriv\+\_\+engine.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,10 @@
+<map id="EdgeHolder" name="EdgeHolder">
+<area shape="rect" id="Node000001" title=" " alt="" coords="143,259,241,284"/>
+<area shape="rect" id="Node000002" href="$struct_node_holder.html" title=" " alt="" coords="143,139,241,165"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,179,195,258,189,258,189,179"/>
+<area shape="rect" id="Node000003" href="$struct_vec_array_storage.html" title=" " alt="" coords="5,5,136,31"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="64,44,57,73,52,109,53,145,64,180,83,206,108,227,161,256,159,261,105,232,79,210,59,183,47,146,46,108,51,72,59,43"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="93,39,183,137,179,141,89,43"/>
+<area shape="rect" id="Node000004" href="$struct_edge_locator.html" title=" " alt="" coords="266,139,369,165"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="303,178,280,207,251,237,216,261,213,256,248,233,276,204,299,174"/>
+</map>

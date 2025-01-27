@@ -1,0 +1,150 @@
+\doxysection{src/main.cpp File Reference}
+\hypertarget{main_8cpp}{}\label{main_8cpp}\index{src/main.cpp@{src/main.cpp}}
+{\ttfamily \#include "{}main.\+h"{}}\newline
+{\ttfamily \#include "{}monte\+\_\+carlo\+\_\+sampler.\+h"{}}\newline
+{\ttfamily \#include "{}h5\+\_\+support.\+h"{}}\newline
+{\ttfamily \#include $<$tclap/\+Cmd\+Line.\+h$>$}\newline
+{\ttfamily \#include "{}deriv\+\_\+engine.\+h"{}}\newline
+{\ttfamily \#include "{}timing.\+h"{}}\newline
+{\ttfamily \#include "{}thermostat.\+h"{}}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$set$>$}\newline
+{\ttfamily \#include "{}random.\+h"{}}\newline
+{\ttfamily \#include $<$random$>$}\newline
+{\ttfamily \#include "{}state\+\_\+logger.\+h"{}}\newline
+{\ttfamily \#include $<$csignal$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$cstdlib$>$}\newline
+Include dependency graph for main.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_signal_handler_handler}{Signal\+Handler\+Handler}}
+\item 
+struct \mbox{\hyperlink{struct_system}{System}}
+\item 
+struct \mbox{\hyperlink{struct_replica_exchange}{Replica\+Exchange}}
+\item 
+struct \mbox{\hyperlink{struct_replica_exchange_1_1_swap_pair}{Replica\+Exchange\+::\+Swap\+Pair}}
+\item 
+struct \mbox{\hyperlink{struct_curvature_change}{Curvature\+Change}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{main_8cpp_a1fe932afeb6f8c7f8072df654fdfbc10}{stod\+\_\+strict}} (const std\+::string \&s)
+\item 
+int \mbox{\hyperlink{main_8cpp_aacb6cf757c6cf4b47900ae22e9a43472}{stoi\+\_\+strict}} (const std\+::string \&s)
+\item 
+vector$<$ string $>$ \mbox{\hyperlink{main_8cpp_a34ef9474ea8c74fc39f66e0c9202f1a5}{split\+\_\+string}} (const string \&src, const string \&sep)
+\item 
+vector$<$ float $>$ \mbox{\hyperlink{main_8cpp_afcc6dc818684d9b9aa3d86dbe3a419b3}{potential\+\_\+deriv\+\_\+agreement}} (\mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \&engine)
+\item 
+int \mbox{\hyperlink{main_8cpp_a8ea581e416ccc1e9b20216be49daea47}{upside\+\_\+main}} (int argc, const char \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}argv, int verbose=1)
+\item 
+int \mbox{\hyperlink{main_8cpp_a110745d0e996bc19a8c8e8cacbadd525}{main}} (int argc, const char \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}argv)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+constexpr sig\+\_\+atomic\+\_\+t \mbox{\hyperlink{main_8cpp_adcd78db5b884b286f2866691996cd70b}{NO\+\_\+\+SIGNAL}} = -\/1
+\item 
+volatile sig\+\_\+atomic\+\_\+t \mbox{\hyperlink{main_8cpp_a63993ddb4bf1d80b092334fa131aa4cd}{received\+\_\+signal}} = \mbox{\hyperlink{main_8cpp_adcd78db5b884b286f2866691996cd70b}{NO\+\_\+\+SIGNAL}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{main_8cpp_a110745d0e996bc19a8c8e8cacbadd525}\label{main_8cpp_a110745d0e996bc19a8c8e8cacbadd525} 
+\index{main.cpp@{main.cpp}!main@{main}}
+\index{main@{main}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{const char \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}}]{argv }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l01103}{1103}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+\Hypertarget{main_8cpp_afcc6dc818684d9b9aa3d86dbe3a419b3}\label{main_8cpp_afcc6dc818684d9b9aa3d86dbe3a419b3} 
+\index{main.cpp@{main.cpp}!potential\_deriv\_agreement@{potential\_deriv\_agreement}}
+\index{potential\_deriv\_agreement@{potential\_deriv\_agreement}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{potential\_deriv\_agreement()}{potential\_deriv\_agreement()}}
+{\footnotesize\ttfamily vector$<$ float $>$ potential\+\_\+deriv\+\_\+agreement (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \&}]{engine }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00388}{388}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+\Hypertarget{main_8cpp_a34ef9474ea8c74fc39f66e0c9202f1a5}\label{main_8cpp_a34ef9474ea8c74fc39f66e0c9202f1a5} 
+\index{main.cpp@{main.cpp}!split\_string@{split\_string}}
+\index{split\_string@{split\_string}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{split\_string()}{split\_string()}}
+{\footnotesize\ttfamily vector$<$ string $>$ split\+\_\+string (\begin{DoxyParamCaption}\item[{const string \&}]{src,  }\item[{const string \&}]{sep }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00134}{134}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+\Hypertarget{main_8cpp_a1fe932afeb6f8c7f8072df654fdfbc10}\label{main_8cpp_a1fe932afeb6f8c7f8072df654fdfbc10} 
+\index{main.cpp@{main.cpp}!stod\_strict@{stod\_strict}}
+\index{stod\_strict@{stod\_strict}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{stod\_strict()}{stod\_strict()}}
+{\footnotesize\ttfamily double stod\+\_\+strict (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{s }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00121}{121}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+\Hypertarget{main_8cpp_aacb6cf757c6cf4b47900ae22e9a43472}\label{main_8cpp_aacb6cf757c6cf4b47900ae22e9a43472} 
+\index{main.cpp@{main.cpp}!stoi\_strict@{stoi\_strict}}
+\index{stoi\_strict@{stoi\_strict}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{stoi\_strict()}{stoi\_strict()}}
+{\footnotesize\ttfamily int stoi\+\_\+strict (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{s }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00127}{127}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+\Hypertarget{main_8cpp_a8ea581e416ccc1e9b20216be49daea47}\label{main_8cpp_a8ea581e416ccc1e9b20216be49daea47} 
+\index{main.cpp@{main.cpp}!upside\_main@{upside\_main}}
+\index{upside\_main@{upside\_main}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{upside\_main()}{upside\_main()}}
+{\footnotesize\ttfamily int upside\+\_\+main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{const char \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}}]{argv,  }\item[{int}]{verbose = {\ttfamily 1} }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00426}{426}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{main_8cpp_adcd78db5b884b286f2866691996cd70b}\label{main_8cpp_adcd78db5b884b286f2866691996cd70b} 
+\index{main.cpp@{main.cpp}!NO\_SIGNAL@{NO\_SIGNAL}}
+\index{NO\_SIGNAL@{NO\_SIGNAL}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{NO\_SIGNAL}{NO\_SIGNAL}}
+{\footnotesize\ttfamily constexpr sig\+\_\+atomic\+\_\+t NO\+\_\+\+SIGNAL = -\/1\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00030}{30}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+\Hypertarget{main_8cpp_a63993ddb4bf1d80b092334fa131aa4cd}\label{main_8cpp_a63993ddb4bf1d80b092334fa131aa4cd} 
+\index{main.cpp@{main.cpp}!received\_signal@{received\_signal}}
+\index{received\_signal@{received\_signal}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{received\_signal}{received\_signal}}
+{\footnotesize\ttfamily volatile sig\+\_\+atomic\+\_\+t received\+\_\+signal = \mbox{\hyperlink{main_8cpp_adcd78db5b884b286f2866691996cd70b}{NO\+\_\+\+SIGNAL}}}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00031}{31}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+

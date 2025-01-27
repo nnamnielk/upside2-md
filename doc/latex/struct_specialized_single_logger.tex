@@ -1,0 +1,185 @@
+\doxysection{Specialized\+Single\+Logger\texorpdfstring{$<$}{<} T, F \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{struct_specialized_single_logger}{}\label{struct_specialized_single_logger}\index{SpecializedSingleLogger$<$ T, F $>$@{SpecializedSingleLogger$<$ T, F $>$}}
+
+
+{\ttfamily \#include $<$state\+\_\+logger.\+h$>$}
+
+
+
+Inheritance diagram for Specialized\+Single\+Logger\texorpdfstring{$<$}{<} T, F \texorpdfstring{$>$}{>}\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{struct_specialized_single_logger__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Specialized\+Single\+Logger\texorpdfstring{$<$}{<} T, F \texorpdfstring{$>$}{>}\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{struct_specialized_single_logger__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_specialized_single_logger_a0ca9c76216733160281ef29cd278248f}{Specialized\+Single\+Logger}} (hid\+\_\+t logging\+\_\+group, const char \texorpdfstring{$\ast$}{*}loc, F sample\+\_\+function\+\_\+, const std\+::initializer\+\_\+list$<$ int $>$ \&dims\+\_\+)
+\item 
+virtual void \mbox{\hyperlink{struct_specialized_single_logger_aa8da57c7bebf61ac235c7aab9c46699f}{collect\+\_\+samples}} ()
+\item 
+virtual void \mbox{\hyperlink{struct_specialized_single_logger_a3b5761920990446dc0fe0879fdb8bc53}{dump\+\_\+samples}} ()
+\item 
+virtual \mbox{\hyperlink{struct_specialized_single_logger_a30a44aef1eec9276852cf2090c2c67cd}{\texorpdfstring{$\sim$}{\string~}\+Specialized\+Single\+Logger}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_single_logger}{Single\+Logger}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{struct_single_logger_a50d6a49751dd2674eb170ec5b927314c}{\texorpdfstring{$\sim$}{\string~}\+Single\+Logger}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceh5_a020e9a461902cb318328c2dd6d40e1a9}{h5\+::\+H5\+Obj}} \mbox{\hyperlink{struct_specialized_single_logger_a15b51370ba77b82b912bb0826db7df95}{data\+\_\+set}}
+\item 
+std\+::vector$<$ hsize\+\_\+t $>$ \mbox{\hyperlink{struct_specialized_single_logger_ae59cd12d9eab47bb59a319e16244e12f}{dims}}
+\item 
+std\+::vector$<$ T $>$ \mbox{\hyperlink{struct_specialized_single_logger_a01f917bbe646cd112a0bd18900d1dcd8}{data\+\_\+buffer}}
+\item 
+F \mbox{\hyperlink{struct_specialized_single_logger_a43d32559ca4d81a5f013b6074b6712be}{sample\+\_\+function}}
+\item 
+hsize\+\_\+t \mbox{\hyperlink{struct_specialized_single_logger_ac39ea0ae44c357444f03e9a58a5d8f2a}{row\+\_\+size}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T, typename F$>$\newline
+struct Specialized\+Single\+Logger$<$ T, F $>$}
+
+
+Definition at line \mbox{\hyperlink{state__logger_8h_source_l00018}{18}} of file \mbox{\hyperlink{state__logger_8h_source}{state\+\_\+logger.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_specialized_single_logger_a0ca9c76216733160281ef29cd278248f}\label{struct_specialized_single_logger_a0ca9c76216733160281ef29cd278248f} 
+\index{SpecializedSingleLogger$<$ T, F $>$@{SpecializedSingleLogger$<$ T, F $>$}!SpecializedSingleLogger@{SpecializedSingleLogger}}
+\index{SpecializedSingleLogger@{SpecializedSingleLogger}!SpecializedSingleLogger$<$ T, F $>$@{SpecializedSingleLogger$<$ T, F $>$}}
+\doxysubsubsection{\texorpdfstring{SpecializedSingleLogger()}{SpecializedSingleLogger()}}
+{\footnotesize\ttfamily template$<$typename T , typename F $>$ \\
+\mbox{\hyperlink{struct_specialized_single_logger}{Specialized\+Single\+Logger}}$<$ T, F $>$\mbox{\hyperlink{struct_specialized_single_logger}{\+::\+Specialized\+Single\+Logger}} (\begin{DoxyParamCaption}\item[{hid\+\_\+t}]{logging\+\_\+group,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{loc,  }\item[{F}]{sample\+\_\+function\+\_\+,  }\item[{const std\+::initializer\+\_\+list$<$ int $>$ \&}]{dims\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{state__logger_8h_source_l00025}{25}} of file \mbox{\hyperlink{state__logger_8h_source}{state\+\_\+logger.\+h}}.
+
+\Hypertarget{struct_specialized_single_logger_a30a44aef1eec9276852cf2090c2c67cd}\label{struct_specialized_single_logger_a30a44aef1eec9276852cf2090c2c67cd} 
+\index{SpecializedSingleLogger$<$ T, F $>$@{SpecializedSingleLogger$<$ T, F $>$}!````~SpecializedSingleLogger@{\texorpdfstring{$\sim$}{\string~}SpecializedSingleLogger}}
+\index{````~SpecializedSingleLogger@{\texorpdfstring{$\sim$}{\string~}SpecializedSingleLogger}!SpecializedSingleLogger$<$ T, F $>$@{SpecializedSingleLogger$<$ T, F $>$}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}SpecializedSingleLogger()}{\string~SpecializedSingleLogger()}}
+{\footnotesize\ttfamily template$<$typename T , typename F $>$ \\
+virtual \mbox{\hyperlink{struct_specialized_single_logger}{Specialized\+Single\+Logger}}$<$ T, F $>$\+::\texorpdfstring{$\sim$}{\string~}\mbox{\hyperlink{struct_specialized_single_logger}{Specialized\+Single\+Logger}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{state__logger_8h_source_l00051}{51}} of file \mbox{\hyperlink{state__logger_8h_source}{state\+\_\+logger.\+h}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_specialized_single_logger_aa8da57c7bebf61ac235c7aab9c46699f}\label{struct_specialized_single_logger_aa8da57c7bebf61ac235c7aab9c46699f} 
+\index{SpecializedSingleLogger$<$ T, F $>$@{SpecializedSingleLogger$<$ T, F $>$}!collect\_samples@{collect\_samples}}
+\index{collect\_samples@{collect\_samples}!SpecializedSingleLogger$<$ T, F $>$@{SpecializedSingleLogger$<$ T, F $>$}}
+\doxysubsubsection{\texorpdfstring{collect\_samples()}{collect\_samples()}}
+{\footnotesize\ttfamily template$<$typename T , typename F $>$ \\
+virtual void \mbox{\hyperlink{struct_specialized_single_logger}{Specialized\+Single\+Logger}}$<$ T, F $>$\+::collect\+\_\+samples (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{struct_single_logger_aa1e51d9e3cba83423ad8d36d69bebc68}{Single\+Logger}}.
+
+
+
+Definition at line \mbox{\hyperlink{state__logger_8h_source_l00040}{40}} of file \mbox{\hyperlink{state__logger_8h_source}{state\+\_\+logger.\+h}}.
+
+\Hypertarget{struct_specialized_single_logger_a3b5761920990446dc0fe0879fdb8bc53}\label{struct_specialized_single_logger_a3b5761920990446dc0fe0879fdb8bc53} 
+\index{SpecializedSingleLogger$<$ T, F $>$@{SpecializedSingleLogger$<$ T, F $>$}!dump\_samples@{dump\_samples}}
+\index{dump\_samples@{dump\_samples}!SpecializedSingleLogger$<$ T, F $>$@{SpecializedSingleLogger$<$ T, F $>$}}
+\doxysubsubsection{\texorpdfstring{dump\_samples()}{dump\_samples()}}
+{\footnotesize\ttfamily template$<$typename T , typename F $>$ \\
+virtual void \mbox{\hyperlink{struct_specialized_single_logger}{Specialized\+Single\+Logger}}$<$ T, F $>$\+::dump\+\_\+samples (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{struct_single_logger_a297c5d3bc3a0ed5bb9daac12aaba65f9}{Single\+Logger}}.
+
+
+
+Definition at line \mbox{\hyperlink{state__logger_8h_source_l00046}{46}} of file \mbox{\hyperlink{state__logger_8h_source}{state\+\_\+logger.\+h}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_specialized_single_logger_a01f917bbe646cd112a0bd18900d1dcd8}\label{struct_specialized_single_logger_a01f917bbe646cd112a0bd18900d1dcd8} 
+\index{SpecializedSingleLogger$<$ T, F $>$@{SpecializedSingleLogger$<$ T, F $>$}!data\_buffer@{data\_buffer}}
+\index{data\_buffer@{data\_buffer}!SpecializedSingleLogger$<$ T, F $>$@{SpecializedSingleLogger$<$ T, F $>$}}
+\doxysubsubsection{\texorpdfstring{data\_buffer}{data\_buffer}}
+{\footnotesize\ttfamily template$<$typename T , typename F $>$ \\
+std\+::vector$<$T$>$ \mbox{\hyperlink{struct_specialized_single_logger}{Specialized\+Single\+Logger}}$<$ T, F $>$\+::data\+\_\+buffer}
+
+
+
+Definition at line \mbox{\hyperlink{state__logger_8h_source_l00021}{21}} of file \mbox{\hyperlink{state__logger_8h_source}{state\+\_\+logger.\+h}}.
+
+\Hypertarget{struct_specialized_single_logger_a15b51370ba77b82b912bb0826db7df95}\label{struct_specialized_single_logger_a15b51370ba77b82b912bb0826db7df95} 
+\index{SpecializedSingleLogger$<$ T, F $>$@{SpecializedSingleLogger$<$ T, F $>$}!data\_set@{data\_set}}
+\index{data\_set@{data\_set}!SpecializedSingleLogger$<$ T, F $>$@{SpecializedSingleLogger$<$ T, F $>$}}
+\doxysubsubsection{\texorpdfstring{data\_set}{data\_set}}
+{\footnotesize\ttfamily template$<$typename T , typename F $>$ \\
+\mbox{\hyperlink{namespaceh5_a020e9a461902cb318328c2dd6d40e1a9}{h5\+::\+H5\+Obj}} \mbox{\hyperlink{struct_specialized_single_logger}{Specialized\+Single\+Logger}}$<$ T, F $>$\+::data\+\_\+set}
+
+
+
+Definition at line \mbox{\hyperlink{state__logger_8h_source_l00019}{19}} of file \mbox{\hyperlink{state__logger_8h_source}{state\+\_\+logger.\+h}}.
+
+\Hypertarget{struct_specialized_single_logger_ae59cd12d9eab47bb59a319e16244e12f}\label{struct_specialized_single_logger_ae59cd12d9eab47bb59a319e16244e12f} 
+\index{SpecializedSingleLogger$<$ T, F $>$@{SpecializedSingleLogger$<$ T, F $>$}!dims@{dims}}
+\index{dims@{dims}!SpecializedSingleLogger$<$ T, F $>$@{SpecializedSingleLogger$<$ T, F $>$}}
+\doxysubsubsection{\texorpdfstring{dims}{dims}}
+{\footnotesize\ttfamily template$<$typename T , typename F $>$ \\
+std\+::vector$<$hsize\+\_\+t$>$ \mbox{\hyperlink{struct_specialized_single_logger}{Specialized\+Single\+Logger}}$<$ T, F $>$\+::dims}
+
+
+
+Definition at line \mbox{\hyperlink{state__logger_8h_source_l00020}{20}} of file \mbox{\hyperlink{state__logger_8h_source}{state\+\_\+logger.\+h}}.
+
+\Hypertarget{struct_specialized_single_logger_ac39ea0ae44c357444f03e9a58a5d8f2a}\label{struct_specialized_single_logger_ac39ea0ae44c357444f03e9a58a5d8f2a} 
+\index{SpecializedSingleLogger$<$ T, F $>$@{SpecializedSingleLogger$<$ T, F $>$}!row\_size@{row\_size}}
+\index{row\_size@{row\_size}!SpecializedSingleLogger$<$ T, F $>$@{SpecializedSingleLogger$<$ T, F $>$}}
+\doxysubsubsection{\texorpdfstring{row\_size}{row\_size}}
+{\footnotesize\ttfamily template$<$typename T , typename F $>$ \\
+hsize\+\_\+t \mbox{\hyperlink{struct_specialized_single_logger}{Specialized\+Single\+Logger}}$<$ T, F $>$\+::row\+\_\+size}
+
+
+
+Definition at line \mbox{\hyperlink{state__logger_8h_source_l00023}{23}} of file \mbox{\hyperlink{state__logger_8h_source}{state\+\_\+logger.\+h}}.
+
+\Hypertarget{struct_specialized_single_logger_a43d32559ca4d81a5f013b6074b6712be}\label{struct_specialized_single_logger_a43d32559ca4d81a5f013b6074b6712be} 
+\index{SpecializedSingleLogger$<$ T, F $>$@{SpecializedSingleLogger$<$ T, F $>$}!sample\_function@{sample\_function}}
+\index{sample\_function@{sample\_function}!SpecializedSingleLogger$<$ T, F $>$@{SpecializedSingleLogger$<$ T, F $>$}}
+\doxysubsubsection{\texorpdfstring{sample\_function}{sample\_function}}
+{\footnotesize\ttfamily template$<$typename T , typename F $>$ \\
+F \mbox{\hyperlink{struct_specialized_single_logger}{Specialized\+Single\+Logger}}$<$ T, F $>$\+::sample\+\_\+function}
+
+
+
+Definition at line \mbox{\hyperlink{state__logger_8h_source_l00022}{22}} of file \mbox{\hyperlink{state__logger_8h_source}{state\+\_\+logger.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{state__logger_8h}{state\+\_\+logger.\+h}}\end{DoxyCompactItemize}

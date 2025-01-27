@@ -1,0 +1,66 @@
+\doxysection{src/interaction\+\_\+graph.h File Reference}
+\hypertarget{interaction__graph_8h}{}\label{interaction__graph_8h}\index{src/interaction\_graph.h@{src/interaction\_graph.h}}
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include "{}deriv\+\_\+engine.\+h"{}}\newline
+{\ttfamily \#include "{}vector\+\_\+math.\+h"{}}\newline
+{\ttfamily \#include "{}h5\+\_\+support.\+h"{}}\newline
+{\ttfamily \#include "{}timing.\+h"{}}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include "{}Float4.\+h"{}}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$stdexcept$>$}\newline
+Include dependency graph for interaction\+\_\+graph.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{interaction__graph_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{interaction__graph_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation$<$ symmetric $>$}}
+\item 
+struct \mbox{\hyperlink{struct_interaction_graph}{Interaction\+Graph$<$ IType $>$}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\T \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{interaction__graph_8h_ad6933082db90efcc80f082708fff6b0a}{operator+}} (const std\+::unique\+\_\+ptr$<$ T\mbox{[}$\,$\mbox{]}$>$ \&ptr, int i)
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{interaction__graph_8h_a1f9fe1722792b2b18fc07d543563e0f7}{fill\+\_\+n}} (std\+::unique\+\_\+ptr$<$ T\mbox{[}$\,$\mbox{]}$>$ \&ptr, int n\+\_\+elem, const T \&value)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{interaction__graph_8h_a1f9fe1722792b2b18fc07d543563e0f7}\label{interaction__graph_8h_a1f9fe1722792b2b18fc07d543563e0f7} 
+\index{interaction\_graph.h@{interaction\_graph.h}!fill\_n@{fill\_n}}
+\index{fill\_n@{fill\_n}!interaction\_graph.h@{interaction\_graph.h}}
+\doxysubsubsection{\texorpdfstring{fill\_n()}{fill\_n()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void fill\+\_\+n (\begin{DoxyParamCaption}\item[{std\+::unique\+\_\+ptr$<$ T\mbox{[}$\,$\mbox{]}$>$ \&}]{ptr,  }\item[{int}]{n\+\_\+elem,  }\item[{const T \&}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00021}{21}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+
+\Hypertarget{interaction__graph_8h_ad6933082db90efcc80f082708fff6b0a}\label{interaction__graph_8h_ad6933082db90efcc80f082708fff6b0a} 
+\index{interaction\_graph.h@{interaction\_graph.h}!operator+@{operator+}}
+\index{operator+@{operator+}!interaction\_graph.h@{interaction\_graph.h}}
+\doxysubsubsection{\texorpdfstring{operator+()}{operator+()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T \texorpdfstring{$\ast$}{*} operator+ (\begin{DoxyParamCaption}\item[{const std\+::unique\+\_\+ptr$<$ T\mbox{[}$\,$\mbox{]}$>$ \&}]{ptr,  }\item[{int}]{i }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00015}{15}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+

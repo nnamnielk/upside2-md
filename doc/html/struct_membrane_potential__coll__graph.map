@@ -1,0 +1,14 @@
+<map id="MembranePotential" name="MembranePotential">
+<area shape="rect" id="Node000001" title=" " alt="" coords="130,240,281,265"/>
+<area shape="rect" id="Node000002" href="$struct_potential_node.html" title="Specialization of DerivComputation for potential terms." alt="" coords="19,108,133,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,141,196,238,192,242,95,145"/>
+<area shape="rect" id="Node000003" href="$struct_deriv_computation.html" title="Differentiable computation node." alt="" coords="5,5,147,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="79,45,79,108,73,108,73,45"/>
+<area shape="rect" id="Node000004" href="$struct_coord_node.html" title="Specialization of DerivComputation for derived coordinates." alt="" coords="158,108,253,133"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="103,37,192,106,189,110,100,41"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="208,147,208,240,203,240,203,147"/>
+<area shape="rect" id="Node000005" href="$struct_vec_array_storage.html" title=" " alt="" coords="171,5,301,31"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="231,45,211,109,206,107,226,43"/>
+<area shape="rect" id="Node000006" href="$struct_layered_clamped_spline1_d.html" title=" " alt="" coords="277,108,505,133"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="392,148,384,184,376,202,363,218,330,233,281,244,280,239,328,228,360,214,371,199,379,182,387,147"/>
+</map>

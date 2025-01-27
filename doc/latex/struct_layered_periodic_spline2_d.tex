@@ -1,0 +1,131 @@
+\doxysection{Layered\+Periodic\+Spline2D\texorpdfstring{$<$}{<} NDIM\+\_\+\+VALUE \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{struct_layered_periodic_spline2_d}{}\label{struct_layered_periodic_spline2_d}\index{LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$@{LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$}}
+
+
+Old-\/style spline object -- not intended for new code.  
+
+
+
+
+{\ttfamily \#include $<$spline.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_layered_periodic_spline2_d_a635b2d6b7573af5dceb2066349c1861d}{Layered\+Periodic\+Spline2D}} (int n\+\_\+layer\+\_\+, int nx\+\_\+, int ny\+\_\+)
+\item 
+void \mbox{\hyperlink{struct_layered_periodic_spline2_d_a9e5ee88ef894c78ed5dd08363bf0cd2f}{fit\+\_\+spline}} (const double \texorpdfstring{$\ast$}{*}data)
+\item 
+void \mbox{\hyperlink{struct_layered_periodic_spline2_d_a852ee8e6c034abb5df906779ceb26166}{evaluate\+\_\+value\+\_\+and\+\_\+deriv}} (float \texorpdfstring{$\ast$}{*}restrict value, float \texorpdfstring{$\ast$}{*}restrict dx, float \texorpdfstring{$\ast$}{*}restrict dy, int layer, float x, float y) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const int \mbox{\hyperlink{struct_layered_periodic_spline2_d_acd3d587d7d75101cf665c08e99b700d9}{n\+\_\+layer}}
+\item 
+const int \mbox{\hyperlink{struct_layered_periodic_spline2_d_abad15f1977240df20488dca90a58c5c2}{nx}}
+\item 
+const int \mbox{\hyperlink{struct_layered_periodic_spline2_d_ad14d1f13ff098cf74d589a061572407e}{ny}}
+\item 
+std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_layered_periodic_spline2_d_a039f033b0c5556d189d0b73f6e58cd82}{coefficients}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$int NDIM\+\_\+\+VALUE$>$\newline
+struct Layered\+Periodic\+Spline2\+D$<$ NDIM\+\_\+\+VALUE $>$}
+Old-\/style spline object -- not intended for new code. 
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00445}{445}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_layered_periodic_spline2_d_a635b2d6b7573af5dceb2066349c1861d}\label{struct_layered_periodic_spline2_d_a635b2d6b7573af5dceb2066349c1861d} 
+\index{LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$@{LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$}!LayeredPeriodicSpline2D@{LayeredPeriodicSpline2D}}
+\index{LayeredPeriodicSpline2D@{LayeredPeriodicSpline2D}!LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$@{LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$}}
+\doxysubsubsection{\texorpdfstring{LayeredPeriodicSpline2D()}{LayeredPeriodicSpline2D()}}
+{\footnotesize\ttfamily template$<$int NDIM\+\_\+\+VALUE$>$ \\
+\mbox{\hyperlink{struct_layered_periodic_spline2_d}{Layered\+Periodic\+Spline2D}}$<$ NDIM\+\_\+\+VALUE $>$\mbox{\hyperlink{struct_layered_periodic_spline2_d}{\+::\+Layered\+Periodic\+Spline2D}} (\begin{DoxyParamCaption}\item[{int}]{n\+\_\+layer\+\_\+,  }\item[{int}]{nx\+\_\+,  }\item[{int}]{ny\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00451}{451}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_layered_periodic_spline2_d_a852ee8e6c034abb5df906779ceb26166}\label{struct_layered_periodic_spline2_d_a852ee8e6c034abb5df906779ceb26166} 
+\index{LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$@{LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$}!evaluate\_value\_and\_deriv@{evaluate\_value\_and\_deriv}}
+\index{evaluate\_value\_and\_deriv@{evaluate\_value\_and\_deriv}!LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$@{LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$}}
+\doxysubsubsection{\texorpdfstring{evaluate\_value\_and\_deriv()}{evaluate\_value\_and\_deriv()}}
+{\footnotesize\ttfamily template$<$int NDIM\+\_\+\+VALUE$>$ \\
+void \mbox{\hyperlink{struct_layered_periodic_spline2_d}{Layered\+Periodic\+Spline2D}}$<$ NDIM\+\_\+\+VALUE $>$\+::evaluate\+\_\+value\+\_\+and\+\_\+deriv (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}restrict}]{value,  }\item[{float \texorpdfstring{$\ast$}{*}restrict}]{dx,  }\item[{float \texorpdfstring{$\ast$}{*}restrict}]{dy,  }\item[{int}]{layer,  }\item[{float}]{x,  }\item[{float}]{y }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00482}{482}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+\Hypertarget{struct_layered_periodic_spline2_d_a9e5ee88ef894c78ed5dd08363bf0cd2f}\label{struct_layered_periodic_spline2_d_a9e5ee88ef894c78ed5dd08363bf0cd2f} 
+\index{LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$@{LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$}!fit\_spline@{fit\_spline}}
+\index{fit\_spline@{fit\_spline}!LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$@{LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$}}
+\doxysubsubsection{\texorpdfstring{fit\_spline()}{fit\_spline()}}
+{\footnotesize\ttfamily template$<$int NDIM\+\_\+\+VALUE$>$ \\
+void \mbox{\hyperlink{struct_layered_periodic_spline2_d}{Layered\+Periodic\+Spline2D}}$<$ NDIM\+\_\+\+VALUE $>$\+::fit\+\_\+spline (\begin{DoxyParamCaption}\item[{const double \texorpdfstring{$\ast$}{*}}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00455}{455}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_layered_periodic_spline2_d_a039f033b0c5556d189d0b73f6e58cd82}\label{struct_layered_periodic_spline2_d_a039f033b0c5556d189d0b73f6e58cd82} 
+\index{LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$@{LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$}!coefficients@{coefficients}}
+\index{coefficients@{coefficients}!LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$@{LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$}}
+\doxysubsubsection{\texorpdfstring{coefficients}{coefficients}}
+{\footnotesize\ttfamily template$<$int NDIM\+\_\+\+VALUE$>$ \\
+std\+::vector$<$float$>$ \mbox{\hyperlink{struct_layered_periodic_spline2_d}{Layered\+Periodic\+Spline2D}}$<$ NDIM\+\_\+\+VALUE $>$\+::coefficients}
+
+
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00449}{449}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+\Hypertarget{struct_layered_periodic_spline2_d_acd3d587d7d75101cf665c08e99b700d9}\label{struct_layered_periodic_spline2_d_acd3d587d7d75101cf665c08e99b700d9} 
+\index{LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$@{LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$}!n\_layer@{n\_layer}}
+\index{n\_layer@{n\_layer}!LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$@{LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$}}
+\doxysubsubsection{\texorpdfstring{n\_layer}{n\_layer}}
+{\footnotesize\ttfamily template$<$int NDIM\+\_\+\+VALUE$>$ \\
+const int \mbox{\hyperlink{struct_layered_periodic_spline2_d}{Layered\+Periodic\+Spline2D}}$<$ NDIM\+\_\+\+VALUE $>$\+::n\+\_\+layer}
+
+
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00446}{446}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+\Hypertarget{struct_layered_periodic_spline2_d_abad15f1977240df20488dca90a58c5c2}\label{struct_layered_periodic_spline2_d_abad15f1977240df20488dca90a58c5c2} 
+\index{LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$@{LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$}!nx@{nx}}
+\index{nx@{nx}!LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$@{LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$}}
+\doxysubsubsection{\texorpdfstring{nx}{nx}}
+{\footnotesize\ttfamily template$<$int NDIM\+\_\+\+VALUE$>$ \\
+const int \mbox{\hyperlink{struct_layered_periodic_spline2_d}{Layered\+Periodic\+Spline2D}}$<$ NDIM\+\_\+\+VALUE $>$\+::nx}
+
+
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00447}{447}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+\Hypertarget{struct_layered_periodic_spline2_d_ad14d1f13ff098cf74d589a061572407e}\label{struct_layered_periodic_spline2_d_ad14d1f13ff098cf74d589a061572407e} 
+\index{LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$@{LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$}!ny@{ny}}
+\index{ny@{ny}!LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$@{LayeredPeriodicSpline2D$<$ NDIM\_VALUE $>$}}
+\doxysubsubsection{\texorpdfstring{ny}{ny}}
+{\footnotesize\ttfamily template$<$int NDIM\+\_\+\+VALUE$>$ \\
+const int \mbox{\hyperlink{struct_layered_periodic_spline2_d}{Layered\+Periodic\+Spline2D}}$<$ NDIM\+\_\+\+VALUE $>$\+::ny}
+
+
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00448}{448}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{spline_8h}{spline.\+h}}\end{DoxyCompactItemize}

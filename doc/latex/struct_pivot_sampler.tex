@@ -1,0 +1,258 @@
+\doxysection{Pivot\+Sampler Struct Reference}
+\hypertarget{struct_pivot_sampler}{}\label{struct_pivot_sampler}\index{PivotSampler@{PivotSampler}}
+
+
+{\ttfamily \#include $<$pivot\+\_\+sampler.\+h$>$}
+
+
+
+Inheritance diagram for Pivot\+Sampler\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=193pt]{struct_pivot_sampler__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Pivot\+Sampler\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{struct_pivot_sampler__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_pivot_sampler_ad65527c35537711528dc5e5f6b2821cb}{Pivot\+Sampler}} ()
+\item 
+\mbox{\hyperlink{struct_pivot_sampler_aae4c38911f6dc0a3bf102467dd350ae6}{Pivot\+Sampler}} (const std\+::string \&grp\+\_\+name, hid\+\_\+t grp, \mbox{\hyperlink{struct_h5_logger}{H5\+Logger}} \&logger)
+\item 
+void \mbox{\hyperlink{struct_pivot_sampler_a8ea47a0214ccbec71ab5acbeee14b797}{propose\+\_\+random\+\_\+move}} (float \texorpdfstring{$\ast$}{*}delta\+\_\+lprob, \mbox{\hyperlink{struct_random_generator}{Random\+Generator}} \&random, \mbox{\hyperlink{struct_vec_array}{Vec\+Array}} pos) const
+\item 
+\mbox{\hyperlink{struct_pivot_sampler_ad65527c35537711528dc5e5f6b2821cb}{Pivot\+Sampler}} ()
+\item 
+\mbox{\hyperlink{struct_pivot_sampler_a9b3aa64c7e5ace8cf2261dd78e9f7741}{Pivot\+Sampler}} (hid\+\_\+t grp)
+\item 
+void \mbox{\hyperlink{struct_pivot_sampler_a4c2e63a4ec3cdc835f87491fb6af031f}{reset\+\_\+stats}} ()
+\item 
+void \mbox{\hyperlink{struct_pivot_sampler_aa5172496e0ac84da9096d1927a01f3f9}{execute\+\_\+random\+\_\+pivot}} (float \texorpdfstring{$\ast$}{*}delta\+\_\+lprob, uint32\+\_\+t seed, uint64\+\_\+t n\+\_\+round, \mbox{\hyperlink{struct_vec_array}{Vec\+Array}} pos) const
+\item 
+void \mbox{\hyperlink{struct_pivot_sampler_a4d257cb4ff14355ad32ff5c2c8191cee}{pivot\+\_\+monte\+\_\+carlo\+\_\+step}} (uint32\+\_\+t seed, uint64\+\_\+t round, const float temperature, \mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \&engine)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_monte_carlo_sampler}{Monte\+Carlo\+Sampler}}}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{struct_monte_carlo_sampler_a0289ffe3fa35c97af7438a1aac3930c4}{reset\+\_\+stats}} ()
+\item 
+\mbox{\hyperlink{struct_monte_carlo_sampler_a8e1fcbeec59ebf1e67a71161db0e8ac6}{Monte\+Carlo\+Sampler}} ()
+\item 
+\mbox{\hyperlink{struct_monte_carlo_sampler_a48209b8b9b0a2305d4dbb2fe1f6836ef}{Monte\+Carlo\+Sampler}} (const std\+::string \&name\+\_\+, \mbox{\hyperlink{random_8h_ab1fa763976d66d77a7a63f680bfd720b}{Random\+Stream\+Type}} stream\+\_\+id\+\_\+, \mbox{\hyperlink{struct_h5_logger}{H5\+Logger}} \&logger)
+\item 
+void \mbox{\hyperlink{struct_monte_carlo_sampler_a583b3063ce8f9e0a34474d3c0dbde0f5}{monte\+\_\+carlo\+\_\+step}} (uint32\+\_\+t seed, uint64\+\_\+t round, const float temperature, \mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \&engine)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{struct_pivot_sampler_aa5aaa0ac21a42ff37fd3573d8ced7207}{n\+\_\+layer}}
+\item 
+int \mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\+\_\+bin}}
+\item 
+int \mbox{\hyperlink{struct_pivot_sampler_a346e57715fa5f6a6f639ff497e579617}{n\+\_\+pivot\+\_\+loc}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_pivot_location}{Pivot\+Location}} $>$ \mbox{\hyperlink{struct_pivot_sampler_a65226281f8fa2f955c3ea22706c8266b}{pivot\+\_\+loc}}
+\item 
+std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_pivot_sampler_afc826ed4e2f7da7359cd0c09122811d5}{proposal\+\_\+pot}}
+\item 
+std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_pivot_sampler_a6600fd5ae7f81a0f25130769e3415fe8}{proposal\+\_\+prob\+\_\+cdf}}
+\item 
+\mbox{\hyperlink{struct_pivot_stats}{Pivot\+Stats}} \mbox{\hyperlink{struct_pivot_sampler_a8c677a4bf77dbd392a78aa9487260a1e}{pivot\+\_\+stats}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_monte_carlo_sampler}{Monte\+Carlo\+Sampler}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_monte_carlo_sampler_1_1_move_stats}{Move\+Stats}} \mbox{\hyperlink{struct_monte_carlo_sampler_a387a72d76d0215f8047a726b1604716a}{move\+\_\+stats}}
+\item 
+std\+::string \mbox{\hyperlink{struct_monte_carlo_sampler_a70033be891a2559f03c5d4bc8c851d8e}{name}}
+\item 
+\mbox{\hyperlink{random_8h_ab1fa763976d66d77a7a63f680bfd720b}{Random\+Stream\+Type}} \mbox{\hyperlink{struct_monte_carlo_sampler_a84b6639a52078ee2c6901b01d8d887fc}{stream\+\_\+id}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8cpp_source_l00012}{12}} of file \mbox{\hyperlink{monte__carlo__sampler_8cpp_source}{monte\+\_\+carlo\+\_\+sampler.\+cpp}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_pivot_sampler_ad65527c35537711528dc5e5f6b2821cb}\label{struct_pivot_sampler_ad65527c35537711528dc5e5f6b2821cb} 
+\index{PivotSampler@{PivotSampler}!PivotSampler@{PivotSampler}}
+\index{PivotSampler@{PivotSampler}!PivotSampler@{PivotSampler}}
+\doxysubsubsection{\texorpdfstring{PivotSampler()}{PivotSampler()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily Pivot\+Sampler\+::\+Pivot\+Sampler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8cpp_source_l00021}{21}} of file \mbox{\hyperlink{monte__carlo__sampler_8cpp_source}{monte\+\_\+carlo\+\_\+sampler.\+cpp}}.
+
+\Hypertarget{struct_pivot_sampler_aae4c38911f6dc0a3bf102467dd350ae6}\label{struct_pivot_sampler_aae4c38911f6dc0a3bf102467dd350ae6} 
+\index{PivotSampler@{PivotSampler}!PivotSampler@{PivotSampler}}
+\index{PivotSampler@{PivotSampler}!PivotSampler@{PivotSampler}}
+\doxysubsubsection{\texorpdfstring{PivotSampler()}{PivotSampler()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily Pivot\+Sampler\+::\+Pivot\+Sampler (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{grp\+\_\+name,  }\item[{hid\+\_\+t}]{grp,  }\item[{\mbox{\hyperlink{struct_h5_logger}{H5\+Logger}} \&}]{logger }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8cpp_source_l00029}{29}} of file \mbox{\hyperlink{monte__carlo__sampler_8cpp_source}{monte\+\_\+carlo\+\_\+sampler.\+cpp}}.
+
+\Hypertarget{struct_pivot_sampler_ad65527c35537711528dc5e5f6b2821cb}\label{struct_pivot_sampler_ad65527c35537711528dc5e5f6b2821cb} 
+\index{PivotSampler@{PivotSampler}!PivotSampler@{PivotSampler}}
+\index{PivotSampler@{PivotSampler}!PivotSampler@{PivotSampler}}
+\doxysubsubsection{\texorpdfstring{PivotSampler()}{PivotSampler()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily Pivot\+Sampler\+::\+Pivot\+Sampler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{pivot__sampler_8h_source_l00036}{36}} of file \mbox{\hyperlink{pivot__sampler_8h_source}{pivot\+\_\+sampler.\+h}}.
+
+\Hypertarget{struct_pivot_sampler_a9b3aa64c7e5ace8cf2261dd78e9f7741}\label{struct_pivot_sampler_a9b3aa64c7e5ace8cf2261dd78e9f7741} 
+\index{PivotSampler@{PivotSampler}!PivotSampler@{PivotSampler}}
+\index{PivotSampler@{PivotSampler}!PivotSampler@{PivotSampler}}
+\doxysubsubsection{\texorpdfstring{PivotSampler()}{PivotSampler()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily Pivot\+Sampler\+::\+Pivot\+Sampler (\begin{DoxyParamCaption}\item[{hid\+\_\+t}]{grp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{pivot__sampler_8h_source_l00038}{38}} of file \mbox{\hyperlink{pivot__sampler_8h_source}{pivot\+\_\+sampler.\+h}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_pivot_sampler_aa5172496e0ac84da9096d1927a01f3f9}\label{struct_pivot_sampler_aa5172496e0ac84da9096d1927a01f3f9} 
+\index{PivotSampler@{PivotSampler}!execute\_random\_pivot@{execute\_random\_pivot}}
+\index{execute\_random\_pivot@{execute\_random\_pivot}!PivotSampler@{PivotSampler}}
+\doxysubsubsection{\texorpdfstring{execute\_random\_pivot()}{execute\_random\_pivot()}}
+{\footnotesize\ttfamily void Pivot\+Sampler\+::execute\+\_\+random\+\_\+pivot (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}}]{delta\+\_\+lprob,  }\item[{uint32\+\_\+t}]{seed,  }\item[{uint64\+\_\+t}]{n\+\_\+round,  }\item[{\mbox{\hyperlink{struct_vec_array}{Vec\+Array}}}]{pos }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{pivot__sampler_8h_source_l00092}{92}} of file \mbox{\hyperlink{pivot__sampler_8h_source}{pivot\+\_\+sampler.\+h}}.
+
+\Hypertarget{struct_pivot_sampler_a4d257cb4ff14355ad32ff5c2c8191cee}\label{struct_pivot_sampler_a4d257cb4ff14355ad32ff5c2c8191cee} 
+\index{PivotSampler@{PivotSampler}!pivot\_monte\_carlo\_step@{pivot\_monte\_carlo\_step}}
+\index{pivot\_monte\_carlo\_step@{pivot\_monte\_carlo\_step}!PivotSampler@{PivotSampler}}
+\doxysubsubsection{\texorpdfstring{pivot\_monte\_carlo\_step()}{pivot\_monte\_carlo\_step()}}
+{\footnotesize\ttfamily void Pivot\+Sampler\+::pivot\+\_\+monte\+\_\+carlo\+\_\+step (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{seed,  }\item[{uint64\+\_\+t}]{round,  }\item[{const float}]{temperature,  }\item[{\mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \&}]{engine }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{pivot__sampler_8h_source_l00170}{170}} of file \mbox{\hyperlink{pivot__sampler_8h_source}{pivot\+\_\+sampler.\+h}}.
+
+\Hypertarget{struct_pivot_sampler_a8ea47a0214ccbec71ab5acbeee14b797}\label{struct_pivot_sampler_a8ea47a0214ccbec71ab5acbeee14b797} 
+\index{PivotSampler@{PivotSampler}!propose\_random\_move@{propose\_random\_move}}
+\index{propose\_random\_move@{propose\_random\_move}!PivotSampler@{PivotSampler}}
+\doxysubsubsection{\texorpdfstring{propose\_random\_move()}{propose\_random\_move()}}
+{\footnotesize\ttfamily void Pivot\+Sampler\+::propose\+\_\+random\+\_\+move (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}}]{delta\+\_\+lprob,  }\item[{\mbox{\hyperlink{struct_random_generator}{Random\+Generator}} \&}]{random,  }\item[{\mbox{\hyperlink{struct_vec_array}{Vec\+Array}}}]{pos }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{struct_monte_carlo_sampler_a815cb0c94eedf488358d69711b9bcfd5}{Monte\+Carlo\+Sampler}}.
+
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8cpp_source_l00080}{80}} of file \mbox{\hyperlink{monte__carlo__sampler_8cpp_source}{monte\+\_\+carlo\+\_\+sampler.\+cpp}}.
+
+\Hypertarget{struct_pivot_sampler_a4c2e63a4ec3cdc835f87491fb6af031f}\label{struct_pivot_sampler_a4c2e63a4ec3cdc835f87491fb6af031f} 
+\index{PivotSampler@{PivotSampler}!reset\_stats@{reset\_stats}}
+\index{reset\_stats@{reset\_stats}!PivotSampler@{PivotSampler}}
+\doxysubsubsection{\texorpdfstring{reset\_stats()}{reset\_stats()}}
+{\footnotesize\ttfamily void Pivot\+Sampler\+::reset\+\_\+stats (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{pivot__sampler_8h_source_l00088}{88}} of file \mbox{\hyperlink{pivot__sampler_8h_source}{pivot\+\_\+sampler.\+h}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}\label{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef} 
+\index{PivotSampler@{PivotSampler}!n\_bin@{n\_bin}}
+\index{n\_bin@{n\_bin}!PivotSampler@{PivotSampler}}
+\doxysubsubsection{\texorpdfstring{n\_bin}{n\_bin}}
+{\footnotesize\ttfamily int Pivot\+Sampler\+::n\+\_\+bin}
+
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8cpp_source_l00014}{14}} of file \mbox{\hyperlink{monte__carlo__sampler_8cpp_source}{monte\+\_\+carlo\+\_\+sampler.\+cpp}}.
+
+\Hypertarget{struct_pivot_sampler_aa5aaa0ac21a42ff37fd3573d8ced7207}\label{struct_pivot_sampler_aa5aaa0ac21a42ff37fd3573d8ced7207} 
+\index{PivotSampler@{PivotSampler}!n\_layer@{n\_layer}}
+\index{n\_layer@{n\_layer}!PivotSampler@{PivotSampler}}
+\doxysubsubsection{\texorpdfstring{n\_layer}{n\_layer}}
+{\footnotesize\ttfamily int Pivot\+Sampler\+::n\+\_\+layer}
+
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8cpp_source_l00013}{13}} of file \mbox{\hyperlink{monte__carlo__sampler_8cpp_source}{monte\+\_\+carlo\+\_\+sampler.\+cpp}}.
+
+\Hypertarget{struct_pivot_sampler_a346e57715fa5f6a6f639ff497e579617}\label{struct_pivot_sampler_a346e57715fa5f6a6f639ff497e579617} 
+\index{PivotSampler@{PivotSampler}!n\_pivot\_loc@{n\_pivot\_loc}}
+\index{n\_pivot\_loc@{n\_pivot\_loc}!PivotSampler@{PivotSampler}}
+\doxysubsubsection{\texorpdfstring{n\_pivot\_loc}{n\_pivot\_loc}}
+{\footnotesize\ttfamily int Pivot\+Sampler\+::n\+\_\+pivot\+\_\+loc}
+
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8cpp_source_l00015}{15}} of file \mbox{\hyperlink{monte__carlo__sampler_8cpp_source}{monte\+\_\+carlo\+\_\+sampler.\+cpp}}.
+
+\Hypertarget{struct_pivot_sampler_a65226281f8fa2f955c3ea22706c8266b}\label{struct_pivot_sampler_a65226281f8fa2f955c3ea22706c8266b} 
+\index{PivotSampler@{PivotSampler}!pivot\_loc@{pivot\_loc}}
+\index{pivot\_loc@{pivot\_loc}!PivotSampler@{PivotSampler}}
+\doxysubsubsection{\texorpdfstring{pivot\_loc}{pivot\_loc}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{struct_pivot_location}{Pivot\+Location}} $>$ Pivot\+Sampler\+::pivot\+\_\+loc}
+
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8cpp_source_l00017}{17}} of file \mbox{\hyperlink{monte__carlo__sampler_8cpp_source}{monte\+\_\+carlo\+\_\+sampler.\+cpp}}.
+
+\Hypertarget{struct_pivot_sampler_a8c677a4bf77dbd392a78aa9487260a1e}\label{struct_pivot_sampler_a8c677a4bf77dbd392a78aa9487260a1e} 
+\index{PivotSampler@{PivotSampler}!pivot\_stats@{pivot\_stats}}
+\index{pivot\_stats@{pivot\_stats}!PivotSampler@{PivotSampler}}
+\doxysubsubsection{\texorpdfstring{pivot\_stats}{pivot\_stats}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_pivot_stats}{Pivot\+Stats}} Pivot\+Sampler\+::pivot\+\_\+stats}
+
+
+
+Definition at line \mbox{\hyperlink{pivot__sampler_8h_source_l00031}{31}} of file \mbox{\hyperlink{pivot__sampler_8h_source}{pivot\+\_\+sampler.\+h}}.
+
+\Hypertarget{struct_pivot_sampler_afc826ed4e2f7da7359cd0c09122811d5}\label{struct_pivot_sampler_afc826ed4e2f7da7359cd0c09122811d5} 
+\index{PivotSampler@{PivotSampler}!proposal\_pot@{proposal\_pot}}
+\index{proposal\_pot@{proposal\_pot}!PivotSampler@{PivotSampler}}
+\doxysubsubsection{\texorpdfstring{proposal\_pot}{proposal\_pot}}
+{\footnotesize\ttfamily std\+::vector$<$ float $>$ Pivot\+Sampler\+::proposal\+\_\+pot}
+
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8cpp_source_l00018}{18}} of file \mbox{\hyperlink{monte__carlo__sampler_8cpp_source}{monte\+\_\+carlo\+\_\+sampler.\+cpp}}.
+
+\Hypertarget{struct_pivot_sampler_a6600fd5ae7f81a0f25130769e3415fe8}\label{struct_pivot_sampler_a6600fd5ae7f81a0f25130769e3415fe8} 
+\index{PivotSampler@{PivotSampler}!proposal\_prob\_cdf@{proposal\_prob\_cdf}}
+\index{proposal\_prob\_cdf@{proposal\_prob\_cdf}!PivotSampler@{PivotSampler}}
+\doxysubsubsection{\texorpdfstring{proposal\_prob\_cdf}{proposal\_prob\_cdf}}
+{\footnotesize\ttfamily std\+::vector$<$ float $>$ Pivot\+Sampler\+::proposal\+\_\+prob\+\_\+cdf}
+
+
+
+Definition at line \mbox{\hyperlink{monte__carlo__sampler_8cpp_source_l00019}{19}} of file \mbox{\hyperlink{monte__carlo__sampler_8cpp_source}{monte\+\_\+carlo\+\_\+sampler.\+cpp}}.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{monte__carlo__sampler_8cpp}{monte\+\_\+carlo\+\_\+sampler.\+cpp}}\item 
+src/\mbox{\hyperlink{pivot__sampler_8h}{pivot\+\_\+sampler.\+h}}\end{DoxyCompactItemize}

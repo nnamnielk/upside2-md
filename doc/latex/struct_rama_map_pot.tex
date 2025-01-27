@@ -1,0 +1,183 @@
+\doxysection{Rama\+Map\+Pot Struct Reference}
+\hypertarget{struct_rama_map_pot}{}\label{struct_rama_map_pot}\index{RamaMapPot@{RamaMapPot}}
+
+
+Inheritance diagram for Rama\+Map\+Pot\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{struct_rama_map_pot__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Rama\+Map\+Pot\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{struct_rama_map_pot__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_rama_map_pot_a22730a19c5a3285e18ea83756bf0a165}{Rama\+Map\+Pot}} (\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{hid\+\_\+t}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{grp}}, \mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rama\+\_\+}})
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_rama_map_pot_a45305c87b13586d3acb09c2d21c198ed}{compute\+\_\+value}} (\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{Compute\+Mode}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{mode}}) \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{override}}
+\begin{DoxyCompactList}\small\item\em Reads inputs and computes output value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_potential_node}{Potential\+Node}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_potential_node_ae85f3af95266404a37981073878c677b}{Potential\+Node}} ()
+\begin{DoxyCompactList}\small\item\em Trivial constructor. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{struct_potential_node_ab773065a7ed9977bcef687108baa6ef4}{propagate\+\_\+deriv}} ()
+\begin{DoxyCompactList}\small\item\em (unused) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_deriv_computation_ab55a3d270aedc331a7ade09591198c4f}{Deriv\+Computation}} (bool potential\+\_\+term\+\_\+)
+\begin{DoxyCompactList}\small\item\em Construct only noting if node is a potential\+\_\+node. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{struct_deriv_computation_ae61f149a7fc4869f1d053c263fd03657}{\texorpdfstring{$\sim$}{\string~}\+Deriv\+Computation}} ()
+\begin{DoxyCompactList}\small\item\em Trivial destructor. \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_deriv_computation_a5824da52d79ac4ac46e2cee217d8197c}{get\+\_\+param}} () const
+\begin{DoxyCompactList}\small\item\em Return arbitrary subset of parameters. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{struct_deriv_computation_a7c8dbb439e850f9cb4769aac0808d8c6}{set\+\_\+param}} (const std\+::vector$<$ float $>$ \&new\+\_\+params)
+\begin{DoxyCompactList}\small\item\em Set arbitrary subset of parameters (same as get\+\_\+param) \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_deriv_computation_aec2d05db4c36f52f8b7de6922af52494}{get\+\_\+value\+\_\+by\+\_\+name}} (const char \texorpdfstring{$\ast$}{*}log\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Compute a named quantity and return vector of floats (arbitrary behavior) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_rama_map_pot_ab84d2f5cb4fb571941e263e191cefb37}{n\+\_\+residue}}
+\item 
+\mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \& \mbox{\hyperlink{struct_rama_map_pot_ae5c316cdfbda86a37628099ea0064a56}{rama}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{struct_rama_map_params}{Rama\+Map\+Params}} $>$ \mbox{\hyperlink{struct_rama_map_pot_ab4f7db792cb0814874acfb72e2f4bda4}{params}}
+\item 
+\mbox{\hyperlink{struct_layered_periodic_spline2_d}{Layered\+Periodic\+Spline2D}}$<$ 1 $>$ \mbox{\hyperlink{struct_rama_map_pot_a33d93bd74441228db5db2aa089bcd67f}{rama\+\_\+map\+\_\+data}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} $>$ \mbox{\hyperlink{struct_rama_map_pot_ada321ed79462da25d16c08321be64487}{residue\+\_\+potential}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{bool}} \mbox{\hyperlink{struct_rama_map_pot_a65101ce90b3ff1e441ccc47aa5e9289e}{log\+\_\+pot}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_potential_node}{Potential\+Node}}}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{struct_potential_node_ae34531266ff6716a791f3a55edb60015}{potential}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}}}
+\begin{DoxyCompactItemize}
+\item 
+const bool \mbox{\hyperlink{struct_deriv_computation_ab9caf415ec64cd42c99d24545238e691}{potential\+\_\+term}}
+\begin{DoxyCompactList}\small\item\em True if output represents a potential energy rather than a new coordinate. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{rama__map__pot_8cpp_source_l00015}{15}} of file \mbox{\hyperlink{rama__map__pot_8cpp_source}{rama\+\_\+map\+\_\+pot.\+cpp}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_rama_map_pot_a22730a19c5a3285e18ea83756bf0a165}\label{struct_rama_map_pot_a22730a19c5a3285e18ea83756bf0a165} 
+\index{RamaMapPot@{RamaMapPot}!RamaMapPot@{RamaMapPot}}
+\index{RamaMapPot@{RamaMapPot}!RamaMapPot@{RamaMapPot}}
+\doxysubsubsection{\texorpdfstring{RamaMapPot()}{RamaMapPot()}}
+{\footnotesize\ttfamily Rama\+Map\+Pot\+::\+Rama\+Map\+Pot (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{hid\+\_\+t}}}]{grp,  }\item[{\mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&}]{rama\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{rama__map__pot_8cpp_source_l00024}{24}} of file \mbox{\hyperlink{rama__map__pot_8cpp_source}{rama\+\_\+map\+\_\+pot.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_rama_map_pot_a45305c87b13586d3acb09c2d21c198ed}\label{struct_rama_map_pot_a45305c87b13586d3acb09c2d21c198ed} 
+\index{RamaMapPot@{RamaMapPot}!compute\_value@{compute\_value}}
+\index{compute\_value@{compute\_value}!RamaMapPot@{RamaMapPot}}
+\doxysubsubsection{\texorpdfstring{compute\_value()}{compute\_value()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} Rama\+Map\+Pot\+::compute\+\_\+value (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{Compute\+Mode}}}]{mode }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reads inputs and computes output value. 
+
+
+
+Implements \mbox{\hyperlink{struct_deriv_computation_a750d9688cee97b4ab8a6c66c8a739bfc}{Deriv\+Computation}}.
+
+
+
+Definition at line \mbox{\hyperlink{rama__map__pot_8cpp_source_l00057}{57}} of file \mbox{\hyperlink{rama__map__pot_8cpp_source}{rama\+\_\+map\+\_\+pot.\+cpp}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_rama_map_pot_a65101ce90b3ff1e441ccc47aa5e9289e}\label{struct_rama_map_pot_a65101ce90b3ff1e441ccc47aa5e9289e} 
+\index{RamaMapPot@{RamaMapPot}!log\_pot@{log\_pot}}
+\index{log\_pot@{log\_pot}!RamaMapPot@{RamaMapPot}}
+\doxysubsubsection{\texorpdfstring{log\_pot}{log\_pot}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{bool}} Rama\+Map\+Pot\+::log\+\_\+pot}
+
+
+
+Definition at line \mbox{\hyperlink{rama__map__pot_8cpp_source_l00022}{22}} of file \mbox{\hyperlink{rama__map__pot_8cpp_source}{rama\+\_\+map\+\_\+pot.\+cpp}}.
+
+\Hypertarget{struct_rama_map_pot_ab84d2f5cb4fb571941e263e191cefb37}\label{struct_rama_map_pot_ab84d2f5cb4fb571941e263e191cefb37} 
+\index{RamaMapPot@{RamaMapPot}!n\_residue@{n\_residue}}
+\index{n\_residue@{n\_residue}!RamaMapPot@{RamaMapPot}}
+\doxysubsubsection{\texorpdfstring{n\_residue}{n\_residue}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} Rama\+Map\+Pot\+::n\+\_\+residue}
+
+
+
+Definition at line \mbox{\hyperlink{rama__map__pot_8cpp_source_l00017}{17}} of file \mbox{\hyperlink{rama__map__pot_8cpp_source}{rama\+\_\+map\+\_\+pot.\+cpp}}.
+
+\Hypertarget{struct_rama_map_pot_ab4f7db792cb0814874acfb72e2f4bda4}\label{struct_rama_map_pot_ab4f7db792cb0814874acfb72e2f4bda4} 
+\index{RamaMapPot@{RamaMapPot}!params@{params}}
+\index{params@{params}!RamaMapPot@{RamaMapPot}}
+\doxysubsubsection{\texorpdfstring{params}{params}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$\mbox{\hyperlink{struct_rama_map_params}{Rama\+Map\+Params}}$>$ Rama\+Map\+Pot\+::params}
+
+
+
+Definition at line \mbox{\hyperlink{rama__map__pot_8cpp_source_l00019}{19}} of file \mbox{\hyperlink{rama__map__pot_8cpp_source}{rama\+\_\+map\+\_\+pot.\+cpp}}.
+
+\Hypertarget{struct_rama_map_pot_ae5c316cdfbda86a37628099ea0064a56}\label{struct_rama_map_pot_ae5c316cdfbda86a37628099ea0064a56} 
+\index{RamaMapPot@{RamaMapPot}!rama@{rama}}
+\index{rama@{rama}!RamaMapPot@{RamaMapPot}}
+\doxysubsubsection{\texorpdfstring{rama}{rama}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_coord_node}{Coord\+Node}}\& Rama\+Map\+Pot\+::rama}
+
+
+
+Definition at line \mbox{\hyperlink{rama__map__pot_8cpp_source_l00018}{18}} of file \mbox{\hyperlink{rama__map__pot_8cpp_source}{rama\+\_\+map\+\_\+pot.\+cpp}}.
+
+\Hypertarget{struct_rama_map_pot_a33d93bd74441228db5db2aa089bcd67f}\label{struct_rama_map_pot_a33d93bd74441228db5db2aa089bcd67f} 
+\index{RamaMapPot@{RamaMapPot}!rama\_map\_data@{rama\_map\_data}}
+\index{rama\_map\_data@{rama\_map\_data}!RamaMapPot@{RamaMapPot}}
+\doxysubsubsection{\texorpdfstring{rama\_map\_data}{rama\_map\_data}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_layered_periodic_spline2_d}{Layered\+Periodic\+Spline2D}}$<$1$>$ Rama\+Map\+Pot\+::rama\+\_\+map\+\_\+data}
+
+
+
+Definition at line \mbox{\hyperlink{rama__map__pot_8cpp_source_l00020}{20}} of file \mbox{\hyperlink{rama__map__pot_8cpp_source}{rama\+\_\+map\+\_\+pot.\+cpp}}.
+
+\Hypertarget{struct_rama_map_pot_ada321ed79462da25d16c08321be64487}\label{struct_rama_map_pot_ada321ed79462da25d16c08321be64487} 
+\index{RamaMapPot@{RamaMapPot}!residue\_potential@{residue\_potential}}
+\index{residue\_potential@{residue\_potential}!RamaMapPot@{RamaMapPot}}
+\doxysubsubsection{\texorpdfstring{residue\_potential}{residue\_potential}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}}$>$ Rama\+Map\+Pot\+::residue\+\_\+potential}
+
+
+
+Definition at line \mbox{\hyperlink{rama__map__pot_8cpp_source_l00021}{21}} of file \mbox{\hyperlink{rama__map__pot_8cpp_source}{rama\+\_\+map\+\_\+pot.\+cpp}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{rama__map__pot_8cpp}{rama\+\_\+map\+\_\+pot.\+cpp}}\end{DoxyCompactItemize}

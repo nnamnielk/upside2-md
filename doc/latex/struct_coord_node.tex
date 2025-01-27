@@ -1,0 +1,157 @@
+\doxysection{Coord\+Node Struct Reference}
+\hypertarget{struct_coord_node}{}\label{struct_coord_node}\index{CoordNode@{CoordNode}}
+
+
+Specialization of \doxylink{struct_deriv_computation}{Deriv\+Computation} for derived coordinates.  
+
+
+
+
+{\ttfamily \#include $<$deriv\+\_\+engine.\+h$>$}
+
+
+
+Inheritance diagram for Coord\+Node\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{struct_coord_node__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Coord\+Node\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{struct_coord_node__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_coord_node_a9483bd859494380be2d2851e094c453f}{Coord\+Node}} (int n\+\_\+elem\+\_\+, int elem\+\_\+width\+\_\+)
+\begin{DoxyCompactList}\small\item\em Initialize from n\+\_\+elem and elem\+\_\+width. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_deriv_computation_ab55a3d270aedc331a7ade09591198c4f}{Deriv\+Computation}} (bool potential\+\_\+term\+\_\+)
+\begin{DoxyCompactList}\small\item\em Construct only noting if node is a potential\+\_\+node. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{struct_deriv_computation_ae61f149a7fc4869f1d053c263fd03657}{\texorpdfstring{$\sim$}{\string~}\+Deriv\+Computation}} ()
+\begin{DoxyCompactList}\small\item\em Trivial destructor. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{struct_deriv_computation_a750d9688cee97b4ab8a6c66c8a739bfc}{compute\+\_\+value}} (\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{Compute\+Mode}} mode)=0
+\begin{DoxyCompactList}\small\item\em Reads inputs and computes output value. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{struct_deriv_computation_a007700dca1cba2aeb17b27c8a94a3f16}{propagate\+\_\+deriv}} ()=0
+\begin{DoxyCompactList}\small\item\em Uses its sensitivity to its output to add to sensivities of its inputs. \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_deriv_computation_a5824da52d79ac4ac46e2cee217d8197c}{get\+\_\+param}} () const
+\begin{DoxyCompactList}\small\item\em Return arbitrary subset of parameters. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{struct_deriv_computation_a7c8dbb439e850f9cb4769aac0808d8c6}{set\+\_\+param}} (const std\+::vector$<$ float $>$ \&new\+\_\+params)
+\begin{DoxyCompactList}\small\item\em Set arbitrary subset of parameters (same as get\+\_\+param) \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_deriv_computation_aec2d05db4c36f52f8b7de6922af52494}{get\+\_\+value\+\_\+by\+\_\+name}} (const char \texorpdfstring{$\ast$}{*}log\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Compute a named quantity and return vector of floats (arbitrary behavior) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{struct_coord_node_a232a2dcef6925113085311168f3f7700}{n\+\_\+elem}}
+\begin{DoxyCompactList}\small\item\em number of output elements \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{struct_coord_node_ad9ae2976ea3b4379fe00959be6a04721}{elem\+\_\+width}}
+\begin{DoxyCompactList}\small\item\em number of dimensions for each output element \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} \mbox{\hyperlink{struct_coord_node_a678c754ea0a0fdd4e01a23875426d6b5}{output}}
+\begin{DoxyCompactList}\small\item\em output values \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} \mbox{\hyperlink{struct_coord_node_aee777afa72f20aef74cdf071127fb0aa}{sens}}
+\begin{DoxyCompactList}\small\item\em sensitivity of the overall potential to each output value \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}}}
+\begin{DoxyCompactItemize}
+\item 
+const bool \mbox{\hyperlink{struct_deriv_computation_ab9caf415ec64cd42c99d24545238e691}{potential\+\_\+term}}
+\begin{DoxyCompactList}\small\item\em True if output represents a potential energy rather than a new coordinate. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Specialization of \doxylink{struct_deriv_computation}{Deriv\+Computation} for derived coordinates. 
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00083}{83}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_coord_node_a9483bd859494380be2d2851e094c453f}\label{struct_coord_node_a9483bd859494380be2d2851e094c453f} 
+\index{CoordNode@{CoordNode}!CoordNode@{CoordNode}}
+\index{CoordNode@{CoordNode}!CoordNode@{CoordNode}}
+\doxysubsubsection{\texorpdfstring{CoordNode()}{CoordNode()}}
+{\footnotesize\ttfamily Coord\+Node\+::\+Coord\+Node (\begin{DoxyParamCaption}\item[{int}]{n\+\_\+elem\+\_\+,  }\item[{int}]{elem\+\_\+width\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Initialize from n\+\_\+elem and elem\+\_\+width. 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00091}{91}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_coord_node_ad9ae2976ea3b4379fe00959be6a04721}\label{struct_coord_node_ad9ae2976ea3b4379fe00959be6a04721} 
+\index{CoordNode@{CoordNode}!elem\_width@{elem\_width}}
+\index{elem\_width@{elem\_width}!CoordNode@{CoordNode}}
+\doxysubsubsection{\texorpdfstring{elem\_width}{elem\_width}}
+{\footnotesize\ttfamily int Coord\+Node\+::elem\+\_\+width}
+
+
+
+number of dimensions for each output element 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00086}{86}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+\Hypertarget{struct_coord_node_a232a2dcef6925113085311168f3f7700}\label{struct_coord_node_a232a2dcef6925113085311168f3f7700} 
+\index{CoordNode@{CoordNode}!n\_elem@{n\_elem}}
+\index{n\_elem@{n\_elem}!CoordNode@{CoordNode}}
+\doxysubsubsection{\texorpdfstring{n\_elem}{n\_elem}}
+{\footnotesize\ttfamily int Coord\+Node\+::n\+\_\+elem}
+
+
+
+number of output elements 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00085}{85}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+\Hypertarget{struct_coord_node_a678c754ea0a0fdd4e01a23875426d6b5}\label{struct_coord_node_a678c754ea0a0fdd4e01a23875426d6b5} 
+\index{CoordNode@{CoordNode}!output@{output}}
+\index{output@{output}!CoordNode@{CoordNode}}
+\doxysubsubsection{\texorpdfstring{output}{output}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} Coord\+Node\+::output}
+
+
+
+output values 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00087}{87}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+\Hypertarget{struct_coord_node_aee777afa72f20aef74cdf071127fb0aa}\label{struct_coord_node_aee777afa72f20aef74cdf071127fb0aa} 
+\index{CoordNode@{CoordNode}!sens@{sens}}
+\index{sens@{sens}!CoordNode@{CoordNode}}
+\doxysubsubsection{\texorpdfstring{sens}{sens}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} Coord\+Node\+::sens}
+
+
+
+sensitivity of the overall potential to each output value 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00088}{88}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{deriv__engine_8h}{deriv\+\_\+engine.\+h}}\end{DoxyCompactItemize}

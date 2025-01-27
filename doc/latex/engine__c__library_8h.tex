@@ -1,0 +1,205 @@
+\doxysection{src/engine\+\_\+c\+\_\+library.h File Reference}
+\hypertarget{engine__c__library_8h}{}\label{engine__c__library_8h}\index{src/engine\_c\_library.h@{src/engine\_c\_library.h}}
+{\ttfamily \#include "{}main.\+h"{}}\newline
+Include dependency graph for engine\+\_\+c\+\_\+library.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{engine__c__library_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=213pt]{engine__c__library_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{engine__c__library_8h_aa2b30a0352675391af6f5f3a02d98788}{construct\+\_\+deriv\+\_\+engine}} (int n\+\_\+atom, const char \texorpdfstring{$\ast$}{*}potential\+\_\+file, bool quiet)
+\item 
+void \mbox{\hyperlink{engine__c__library_8h_adcc0378f21e270570c1b6738d8c3a19d}{free\+\_\+deriv\+\_\+engine}} (\mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \texorpdfstring{$\ast$}{*}engine)
+\item 
+int \mbox{\hyperlink{engine__c__library_8h_a290278fac24b734d8e1ccba2b61e12a9}{evaluate\+\_\+energy}} (float \texorpdfstring{$\ast$}{*}energy, \mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \texorpdfstring{$\ast$}{*}engine, const float \texorpdfstring{$\ast$}{*}pos)
+\item 
+int \mbox{\hyperlink{engine__c__library_8h_a09b9662d101211f90154e13ac359d977}{evaluate\+\_\+deriv}} (float \texorpdfstring{$\ast$}{*}deriv, \mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \texorpdfstring{$\ast$}{*}engine, const float \texorpdfstring{$\ast$}{*}pos)
+\item 
+int \mbox{\hyperlink{engine__c__library_8h_aa6aa6acaf357a05dbeacc0448c01462e}{set\+\_\+param}} (int n\+\_\+param, const float \texorpdfstring{$\ast$}{*}param, \mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \texorpdfstring{$\ast$}{*}engine, const char \texorpdfstring{$\ast$}{*}node\+\_\+name)
+\item 
+int \mbox{\hyperlink{engine__c__library_8h_ab7235657048c2c66e73ceac889a1ac0a}{get\+\_\+param\+\_\+deriv}} (int n\+\_\+param, float \texorpdfstring{$\ast$}{*}deriv, \mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \texorpdfstring{$\ast$}{*}engine, const char \texorpdfstring{$\ast$}{*}node\+\_\+name)
+\item 
+int \mbox{\hyperlink{engine__c__library_8h_a1769ceb205b05469fd8bf99734333c70}{get\+\_\+param}} (int n\+\_\+param, float \texorpdfstring{$\ast$}{*}param, \mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \texorpdfstring{$\ast$}{*}engine, const char \texorpdfstring{$\ast$}{*}node\+\_\+name)
+\item 
+int \mbox{\hyperlink{engine__c__library_8h_a2e86d2bd7c3f0a8b425ef5f30ce8f98c}{get\+\_\+output\+\_\+dims}} (int \texorpdfstring{$\ast$}{*}n\+\_\+elem, int \texorpdfstring{$\ast$}{*}elem\+\_\+width, \mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \texorpdfstring{$\ast$}{*}engine, const char \texorpdfstring{$\ast$}{*}node\+\_\+name)
+\item 
+int \mbox{\hyperlink{engine__c__library_8h_a4c6221590e189a36f19f3d3f084914ff}{get\+\_\+output}} (int n\+\_\+output, float \texorpdfstring{$\ast$}{*}output, \mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \texorpdfstring{$\ast$}{*}engine, const char \texorpdfstring{$\ast$}{*}node\+\_\+name)
+\item 
+int \mbox{\hyperlink{engine__c__library_8h_aa12f3c04db33348116fe50a36d4cce08}{get\+\_\+sens}} (int n\+\_\+output, float \texorpdfstring{$\ast$}{*}output, \mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \texorpdfstring{$\ast$}{*}engine, const char \texorpdfstring{$\ast$}{*}node\+\_\+name)
+\item 
+int \mbox{\hyperlink{engine__c__library_8h_aef791ebe1fce281d86aabf4b2cf63dc6}{get\+\_\+value\+\_\+by\+\_\+name}} (int n\+\_\+output, float \texorpdfstring{$\ast$}{*}output, \mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \texorpdfstring{$\ast$}{*}engine, const char \texorpdfstring{$\ast$}{*}node\+\_\+name, const char \texorpdfstring{$\ast$}{*}log\+\_\+name)
+\item 
+int \mbox{\hyperlink{engine__c__library_8h_af08b32ac1a858145c6aec01946e1ba55}{clamped\+\_\+spline\+\_\+solve}} (int N, float \texorpdfstring{$\ast$}{*}bspline\+\_\+coeff, const float \texorpdfstring{$\ast$}{*}values)
+\item 
+int \mbox{\hyperlink{engine__c__library_8h_a535227ca430d9ff207a7f1c2e2f98c22}{clamped\+\_\+spline\+\_\+value}} (int N, float \texorpdfstring{$\ast$}{*}result, const float \texorpdfstring{$\ast$}{*}bspline\+\_\+coeff, int nx, float \texorpdfstring{$\ast$}{*}x)
+\item 
+int \mbox{\hyperlink{engine__c__library_8h_ae5ee41aab0e40853aa1682f2fc9808fd}{get\+\_\+clamped\+\_\+value\+\_\+and\+\_\+deriv}} (int N, float \texorpdfstring{$\ast$}{*}result, const float \texorpdfstring{$\ast$}{*}bspline\+\_\+coeff, int nx, float \texorpdfstring{$\ast$}{*}x)
+\item 
+int \mbox{\hyperlink{engine__c__library_8h_a67193eb8bae54ce952911da0fe8f1133}{get\+\_\+clamped\+\_\+coeff\+\_\+deriv}} (int N, float \texorpdfstring{$\ast$}{*}result, const float \texorpdfstring{$\ast$}{*}bspline\+\_\+coeff, float x)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{engine__c__library_8h_af08b32ac1a858145c6aec01946e1ba55}\label{engine__c__library_8h_af08b32ac1a858145c6aec01946e1ba55} 
+\index{engine\_c\_library.h@{engine\_c\_library.h}!clamped\_spline\_solve@{clamped\_spline\_solve}}
+\index{clamped\_spline\_solve@{clamped\_spline\_solve}!engine\_c\_library.h@{engine\_c\_library.h}}
+\doxysubsubsection{\texorpdfstring{clamped\_spline\_solve()}{clamped\_spline\_solve()}}
+{\footnotesize\ttfamily int clamped\+\_\+spline\+\_\+solve (\begin{DoxyParamCaption}\item[{int}]{N,  }\item[{float \texorpdfstring{$\ast$}{*}}]{bspline\+\_\+coeff,  }\item[{const float \texorpdfstring{$\ast$}{*}}]{values }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{engine__c__library_8cpp_source_l00197}{197}} of file \mbox{\hyperlink{engine__c__library_8cpp_source}{engine\+\_\+c\+\_\+library.\+cpp}}.
+
+\Hypertarget{engine__c__library_8h_a535227ca430d9ff207a7f1c2e2f98c22}\label{engine__c__library_8h_a535227ca430d9ff207a7f1c2e2f98c22} 
+\index{engine\_c\_library.h@{engine\_c\_library.h}!clamped\_spline\_value@{clamped\_spline\_value}}
+\index{clamped\_spline\_value@{clamped\_spline\_value}!engine\_c\_library.h@{engine\_c\_library.h}}
+\doxysubsubsection{\texorpdfstring{clamped\_spline\_value()}{clamped\_spline\_value()}}
+{\footnotesize\ttfamily int clamped\+\_\+spline\+\_\+value (\begin{DoxyParamCaption}\item[{int}]{N,  }\item[{float \texorpdfstring{$\ast$}{*}}]{result,  }\item[{const float \texorpdfstring{$\ast$}{*}}]{bspline\+\_\+coeff,  }\item[{int}]{nx,  }\item[{float \texorpdfstring{$\ast$}{*}}]{x }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{engine__c__library_8cpp_source_l00208}{208}} of file \mbox{\hyperlink{engine__c__library_8cpp_source}{engine\+\_\+c\+\_\+library.\+cpp}}.
+
+\Hypertarget{engine__c__library_8h_aa2b30a0352675391af6f5f3a02d98788}\label{engine__c__library_8h_aa2b30a0352675391af6f5f3a02d98788} 
+\index{engine\_c\_library.h@{engine\_c\_library.h}!construct\_deriv\_engine@{construct\_deriv\_engine}}
+\index{construct\_deriv\_engine@{construct\_deriv\_engine}!engine\_c\_library.h@{engine\_c\_library.h}}
+\doxysubsubsection{\texorpdfstring{construct\_deriv\_engine()}{construct\_deriv\_engine()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \texorpdfstring{$\ast$}{*} construct\+\_\+deriv\+\_\+engine (\begin{DoxyParamCaption}\item[{int}]{n\+\_\+atom,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{potential\+\_\+file,  }\item[{bool}]{quiet }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{engine__c__library_8cpp_source_l00009}{9}} of file \mbox{\hyperlink{engine__c__library_8cpp_source}{engine\+\_\+c\+\_\+library.\+cpp}}.
+
+\Hypertarget{engine__c__library_8h_a09b9662d101211f90154e13ac359d977}\label{engine__c__library_8h_a09b9662d101211f90154e13ac359d977} 
+\index{engine\_c\_library.h@{engine\_c\_library.h}!evaluate\_deriv@{evaluate\_deriv}}
+\index{evaluate\_deriv@{evaluate\_deriv}!engine\_c\_library.h@{engine\_c\_library.h}}
+\doxysubsubsection{\texorpdfstring{evaluate\_deriv()}{evaluate\_deriv()}}
+{\footnotesize\ttfamily int evaluate\+\_\+deriv (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}}]{deriv,  }\item[{\mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \texorpdfstring{$\ast$}{*}}]{engine,  }\item[{const float \texorpdfstring{$\ast$}{*}}]{pos }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{engine__c__library_8cpp_source_l00049}{49}} of file \mbox{\hyperlink{engine__c__library_8cpp_source}{engine\+\_\+c\+\_\+library.\+cpp}}.
+
+\Hypertarget{engine__c__library_8h_a290278fac24b734d8e1ccba2b61e12a9}\label{engine__c__library_8h_a290278fac24b734d8e1ccba2b61e12a9} 
+\index{engine\_c\_library.h@{engine\_c\_library.h}!evaluate\_energy@{evaluate\_energy}}
+\index{evaluate\_energy@{evaluate\_energy}!engine\_c\_library.h@{engine\_c\_library.h}}
+\doxysubsubsection{\texorpdfstring{evaluate\_energy()}{evaluate\_energy()}}
+{\footnotesize\ttfamily int evaluate\+\_\+energy (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}}]{energy,  }\item[{\mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \texorpdfstring{$\ast$}{*}}]{engine,  }\item[{const float \texorpdfstring{$\ast$}{*}}]{pos }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{engine__c__library_8cpp_source_l00030}{30}} of file \mbox{\hyperlink{engine__c__library_8cpp_source}{engine\+\_\+c\+\_\+library.\+cpp}}.
+
+\Hypertarget{engine__c__library_8h_adcc0378f21e270570c1b6738d8c3a19d}\label{engine__c__library_8h_adcc0378f21e270570c1b6738d8c3a19d} 
+\index{engine\_c\_library.h@{engine\_c\_library.h}!free\_deriv\_engine@{free\_deriv\_engine}}
+\index{free\_deriv\_engine@{free\_deriv\_engine}!engine\_c\_library.h@{engine\_c\_library.h}}
+\doxysubsubsection{\texorpdfstring{free\_deriv\_engine()}{free\_deriv\_engine()}}
+{\footnotesize\ttfamily void free\+\_\+deriv\+\_\+engine (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \texorpdfstring{$\ast$}{*}}]{engine }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{engine__c__library_8cpp_source_l00024}{24}} of file \mbox{\hyperlink{engine__c__library_8cpp_source}{engine\+\_\+c\+\_\+library.\+cpp}}.
+
+\Hypertarget{engine__c__library_8h_a67193eb8bae54ce952911da0fe8f1133}\label{engine__c__library_8h_a67193eb8bae54ce952911da0fe8f1133} 
+\index{engine\_c\_library.h@{engine\_c\_library.h}!get\_clamped\_coeff\_deriv@{get\_clamped\_coeff\_deriv}}
+\index{get\_clamped\_coeff\_deriv@{get\_clamped\_coeff\_deriv}!engine\_c\_library.h@{engine\_c\_library.h}}
+\doxysubsubsection{\texorpdfstring{get\_clamped\_coeff\_deriv()}{get\_clamped\_coeff\_deriv()}}
+{\footnotesize\ttfamily int get\+\_\+clamped\+\_\+coeff\+\_\+deriv (\begin{DoxyParamCaption}\item[{int}]{N,  }\item[{float \texorpdfstring{$\ast$}{*}}]{result,  }\item[{const float \texorpdfstring{$\ast$}{*}}]{bspline\+\_\+coeff,  }\item[{float}]{x }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{engine__c__library_8cpp_source_l00270}{270}} of file \mbox{\hyperlink{engine__c__library_8cpp_source}{engine\+\_\+c\+\_\+library.\+cpp}}.
+
+\Hypertarget{engine__c__library_8h_ae5ee41aab0e40853aa1682f2fc9808fd}\label{engine__c__library_8h_ae5ee41aab0e40853aa1682f2fc9808fd} 
+\index{engine\_c\_library.h@{engine\_c\_library.h}!get\_clamped\_value\_and\_deriv@{get\_clamped\_value\_and\_deriv}}
+\index{get\_clamped\_value\_and\_deriv@{get\_clamped\_value\_and\_deriv}!engine\_c\_library.h@{engine\_c\_library.h}}
+\doxysubsubsection{\texorpdfstring{get\_clamped\_value\_and\_deriv()}{get\_clamped\_value\_and\_deriv()}}
+{\footnotesize\ttfamily int get\+\_\+clamped\+\_\+value\+\_\+and\+\_\+deriv (\begin{DoxyParamCaption}\item[{int}]{N,  }\item[{float \texorpdfstring{$\ast$}{*}}]{result,  }\item[{const float \texorpdfstring{$\ast$}{*}}]{bspline\+\_\+coeff,  }\item[{int}]{nx,  }\item[{float \texorpdfstring{$\ast$}{*}}]{x }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{engine__c__library_8cpp_source_l00228}{228}} of file \mbox{\hyperlink{engine__c__library_8cpp_source}{engine\+\_\+c\+\_\+library.\+cpp}}.
+
+\Hypertarget{engine__c__library_8h_a4c6221590e189a36f19f3d3f084914ff}\label{engine__c__library_8h_a4c6221590e189a36f19f3d3f084914ff} 
+\index{engine\_c\_library.h@{engine\_c\_library.h}!get\_output@{get\_output}}
+\index{get\_output@{get\_output}!engine\_c\_library.h@{engine\_c\_library.h}}
+\doxysubsubsection{\texorpdfstring{get\_output()}{get\_output()}}
+{\footnotesize\ttfamily int get\+\_\+output (\begin{DoxyParamCaption}\item[{int}]{n\+\_\+output,  }\item[{float \texorpdfstring{$\ast$}{*}}]{output,  }\item[{\mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \texorpdfstring{$\ast$}{*}}]{engine,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{node\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{engine__c__library_8cpp_source_l00137}{137}} of file \mbox{\hyperlink{engine__c__library_8cpp_source}{engine\+\_\+c\+\_\+library.\+cpp}}.
+
+\Hypertarget{engine__c__library_8h_a2e86d2bd7c3f0a8b425ef5f30ce8f98c}\label{engine__c__library_8h_a2e86d2bd7c3f0a8b425ef5f30ce8f98c} 
+\index{engine\_c\_library.h@{engine\_c\_library.h}!get\_output\_dims@{get\_output\_dims}}
+\index{get\_output\_dims@{get\_output\_dims}!engine\_c\_library.h@{engine\_c\_library.h}}
+\doxysubsubsection{\texorpdfstring{get\_output\_dims()}{get\_output\_dims()}}
+{\footnotesize\ttfamily int get\+\_\+output\+\_\+dims (\begin{DoxyParamCaption}\item[{int \texorpdfstring{$\ast$}{*}}]{n\+\_\+elem,  }\item[{int \texorpdfstring{$\ast$}{*}}]{elem\+\_\+width,  }\item[{\mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \texorpdfstring{$\ast$}{*}}]{engine,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{node\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{engine__c__library_8cpp_source_l00161}{161}} of file \mbox{\hyperlink{engine__c__library_8cpp_source}{engine\+\_\+c\+\_\+library.\+cpp}}.
+
+\Hypertarget{engine__c__library_8h_a1769ceb205b05469fd8bf99734333c70}\label{engine__c__library_8h_a1769ceb205b05469fd8bf99734333c70} 
+\index{engine\_c\_library.h@{engine\_c\_library.h}!get\_param@{get\_param}}
+\index{get\_param@{get\_param}!engine\_c\_library.h@{engine\_c\_library.h}}
+\doxysubsubsection{\texorpdfstring{get\_param()}{get\_param()}}
+{\footnotesize\ttfamily int get\+\_\+param (\begin{DoxyParamCaption}\item[{int}]{n\+\_\+param,  }\item[{float \texorpdfstring{$\ast$}{*}}]{param,  }\item[{\mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \texorpdfstring{$\ast$}{*}}]{engine,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{node\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{engine__c__library_8cpp_source_l00080}{80}} of file \mbox{\hyperlink{engine__c__library_8cpp_source}{engine\+\_\+c\+\_\+library.\+cpp}}.
+
+\Hypertarget{engine__c__library_8h_ab7235657048c2c66e73ceac889a1ac0a}\label{engine__c__library_8h_ab7235657048c2c66e73ceac889a1ac0a} 
+\index{engine\_c\_library.h@{engine\_c\_library.h}!get\_param\_deriv@{get\_param\_deriv}}
+\index{get\_param\_deriv@{get\_param\_deriv}!engine\_c\_library.h@{engine\_c\_library.h}}
+\doxysubsubsection{\texorpdfstring{get\_param\_deriv()}{get\_param\_deriv()}}
+{\footnotesize\ttfamily int get\+\_\+param\+\_\+deriv (\begin{DoxyParamCaption}\item[{int}]{n\+\_\+param,  }\item[{float \texorpdfstring{$\ast$}{*}}]{deriv,  }\item[{\mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \texorpdfstring{$\ast$}{*}}]{engine,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{node\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{engine__c__library_8cpp_source_l00094}{94}} of file \mbox{\hyperlink{engine__c__library_8cpp_source}{engine\+\_\+c\+\_\+library.\+cpp}}.
+
+\Hypertarget{engine__c__library_8h_aa12f3c04db33348116fe50a36d4cce08}\label{engine__c__library_8h_aa12f3c04db33348116fe50a36d4cce08} 
+\index{engine\_c\_library.h@{engine\_c\_library.h}!get\_sens@{get\_sens}}
+\index{get\_sens@{get\_sens}!engine\_c\_library.h@{engine\_c\_library.h}}
+\doxysubsubsection{\texorpdfstring{get\_sens()}{get\_sens()}}
+{\footnotesize\ttfamily int get\+\_\+sens (\begin{DoxyParamCaption}\item[{int}]{n\+\_\+output,  }\item[{float \texorpdfstring{$\ast$}{*}}]{output,  }\item[{\mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \texorpdfstring{$\ast$}{*}}]{engine,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{node\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{engine__c__library_8cpp_source_l00113}{113}} of file \mbox{\hyperlink{engine__c__library_8cpp_source}{engine\+\_\+c\+\_\+library.\+cpp}}.
+
+\Hypertarget{engine__c__library_8h_aef791ebe1fce281d86aabf4b2cf63dc6}\label{engine__c__library_8h_aef791ebe1fce281d86aabf4b2cf63dc6} 
+\index{engine\_c\_library.h@{engine\_c\_library.h}!get\_value\_by\_name@{get\_value\_by\_name}}
+\index{get\_value\_by\_name@{get\_value\_by\_name}!engine\_c\_library.h@{engine\_c\_library.h}}
+\doxysubsubsection{\texorpdfstring{get\_value\_by\_name()}{get\_value\_by\_name()}}
+{\footnotesize\ttfamily int get\+\_\+value\+\_\+by\+\_\+name (\begin{DoxyParamCaption}\item[{int}]{n\+\_\+output,  }\item[{float \texorpdfstring{$\ast$}{*}}]{output,  }\item[{\mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \texorpdfstring{$\ast$}{*}}]{engine,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{node\+\_\+name,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{log\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{engine__c__library_8cpp_source_l00181}{181}} of file \mbox{\hyperlink{engine__c__library_8cpp_source}{engine\+\_\+c\+\_\+library.\+cpp}}.
+
+\Hypertarget{engine__c__library_8h_aa6aa6acaf357a05dbeacc0448c01462e}\label{engine__c__library_8h_aa6aa6acaf357a05dbeacc0448c01462e} 
+\index{engine\_c\_library.h@{engine\_c\_library.h}!set\_param@{set\_param}}
+\index{set\_param@{set\_param}!engine\_c\_library.h@{engine\_c\_library.h}}
+\doxysubsubsection{\texorpdfstring{set\_param()}{set\_param()}}
+{\footnotesize\ttfamily int set\+\_\+param (\begin{DoxyParamCaption}\item[{int}]{n\+\_\+param,  }\item[{const float \texorpdfstring{$\ast$}{*}}]{param,  }\item[{\mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \texorpdfstring{$\ast$}{*}}]{engine,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{node\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{engine__c__library_8cpp_source_l00068}{68}} of file \mbox{\hyperlink{engine__c__library_8cpp_source}{engine\+\_\+c\+\_\+library.\+cpp}}.
+

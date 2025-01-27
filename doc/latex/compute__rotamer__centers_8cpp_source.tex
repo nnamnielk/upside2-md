@@ -1,0 +1,629 @@
+\doxysection{compute\+\_\+rotamer\+\_\+centers.\+cpp}
+\hypertarget{compute__rotamer__centers_8cpp_source}{}\label{compute__rotamer__centers_8cpp_source}\index{src/compute\_rotamer\_centers.cpp@{src/compute\_rotamer\_centers.cpp}}
+\mbox{\hyperlink{compute__rotamer__centers_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{generate__from__rotamer_8h}{generate\_from\_rotamer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <Eigen/Dense>}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <Eigen/LU>}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{h5__support_8h}{h5\_support.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <Eigen/SVD>}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <Eigen/Geometry>}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <iomanip>}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00015}00015\ \textcolor{keyword}{using\ namespace\ }Eigen;}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00016}00016\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00017}00017\ \textcolor{keyword}{using\ namespace\ }\mbox{\hyperlink{namespaceh5}{h5}};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00019}\mbox{\hyperlink{compute__rotamer__centers_8cpp_a10eed9dbd8803e4acfbfc3432fc48b08}{00019}}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_a10eed9dbd8803e4acfbfc3432fc48b08}{M\_PI\_F}}\ =\ 4.f*\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{atanf}}(1.f);}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00021}00021\ \textcolor{comment}{//static\ const\ float\ M\_PI\_F\ =\ 4.*atan(1.);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00022}00022\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ deg\ =\ 4.*\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{atan}}(1.)/180.;}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00024}00024\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ dihedral(}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00025}00025\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Vector3f}}\ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{r1}},\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Vector3f}}\ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{r2}},\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Vector3f}}\ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{r3}},\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Vector3f}}\ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{r4}})}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00026}00026\ \ \ \ \ \textcolor{comment}{//\ Formulas\ and\ notation\ taken\ from\ Blondel\ and\ Karplus,\ 1995}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00027}00027\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00028}00028\ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Vector3f}}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{F}}\ =\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{r1}}-\/\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{r2}};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00029}00029\ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Vector3f}}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{G}}\ =\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{r2}}-\/\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{r3}};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00030}00030\ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Vector3f}}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{H}}\ =\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{r4}}-\/\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{r3}};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00032}00032\ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Vector3f}}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{A}}\ =\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{F}}.cross(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{G}});}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00033}00033\ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Vector3f}}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{B}}\ =\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{H}}.cross(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{G}});}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00034}00034\ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Vector3f}}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{C}}\ =\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{B}}.cross(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{A}});}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00036}00036\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{atan2}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{C}}.dot(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{G}}),\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{A}}.dot(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{B}})\ *\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{G}}.norm());}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00037}00037\ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00039}00039\ \textcolor{comment}{//\ static\ float\ dihedral(}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00040}00040\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ RowVector3f\ \ r1,\ RowVector3f\ \ r2,\ RowVector3f\ \ r3,\ RowVector3f\ \ r4)\ \{}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00041}00041\ \textcolor{comment}{//\ \ \ \ \ return\ dihedral(r1.transpose(),\ r2.transpose(),\ r3.transpose(),\ r4.transpose());}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00042}00042\ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00043}00043\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00044}00044\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ dihedral(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{MatrixX3f}}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{r}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00045}00045\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{r}}.rows()\ !=\ 4)\ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{string}}(\textcolor{stringliteral}{"{}impossible"{}});}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00046}00046\ \ \ \ \ \textcolor{keywordflow}{return}\ dihedral(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{r}}.row(0),\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{r}}.row(1),\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{r}}.row(2),\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{r}}.row(3));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00047}00047\ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00049}\mbox{\hyperlink{compute__rotamer__centers_8cpp_a5ae3afcaf87dfab3a1f80e33f679b7f1}{00049}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_a5ae3afcaf87dfab3a1f80e33f679b7f1}{get\_rotamer}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&name,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{MatrixX3f}}\ \&pos,\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{array<float,4>}}\ \&\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00050}00050\ \ \ \ \ \textcolor{keywordflow}{if}(name\ ==\ \textcolor{stringliteral}{"{}ALA"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00051}00051\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00053}00053\ \ \ \ \ \textcolor{keywordflow}{if}(name\ ==\ \textcolor{stringliteral}{"{}ARG"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00054}00054\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[0]\ =\ dihedral(pos.row(0),\ pos.row(1),\ pos.row(4),\ pos.row(5));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[1]\ =\ dihedral(pos.row(1),\ pos.row(4),\ pos.row(5),\ pos.row(6));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00056}00056\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[2]\ =\ dihedral(pos.row(4),\ pos.row(5),\ pos.row(6),\ pos.row(7));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00057}00057\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[3]\ =\ dihedral(pos.row(5),\ pos.row(6),\ pos.row(7),\ pos.row(8));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00058}00058\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00060}00060\ \ \ \ \ \textcolor{keywordflow}{if}(name\ ==\ \textcolor{stringliteral}{"{}ASN"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[0]\ =\ dihedral(pos.row(0),\ pos.row(1),\ pos.row(4),\ pos.row(5));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[1]\ =\ dihedral(pos.row(1),\ pos.row(4),\ pos.row(5),\ pos.row(6));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00063}00063\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00065}00065\ \ \ \ \ \textcolor{keywordflow}{if}(name\ ==\ \textcolor{stringliteral}{"{}ASP"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[0]\ =\ dihedral(pos.row(0),\ pos.row(1),\ pos.row(4),\ pos.row(5));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[1]\ =\ dihedral(pos.row(1),\ pos.row(4),\ pos.row(5),\ pos.row(6));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00068}00068\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00070}00070\ \ \ \ \ \textcolor{keywordflow}{if}(name\ ==\ \textcolor{stringliteral}{"{}CYS"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[0]\ =\ dihedral(pos.row(0),\ pos.row(1),\ pos.row(4),\ pos.row(5));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00072}00072\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00074}00074\ \ \ \ \ \textcolor{keywordflow}{if}(name\ ==\ \textcolor{stringliteral}{"{}GLN"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00075}00075\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[0]\ =\ dihedral(pos.row(0),\ pos.row(1),\ pos.row(4),\ pos.row(5));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00076}00076\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[1]\ =\ dihedral(pos.row(1),\ pos.row(4),\ pos.row(5),\ pos.row(6));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00077}00077\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[2]\ =\ dihedral(pos.row(4),\ pos.row(5),\ pos.row(6),\ pos.row(7));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00078}00078\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00080}00080\ \ \ \ \ \textcolor{keywordflow}{if}(name\ ==\ \textcolor{stringliteral}{"{}GLU"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00081}00081\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[0]\ =\ dihedral(pos.row(0),\ pos.row(1),\ pos.row(4),\ pos.row(5));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00082}00082\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[1]\ =\ dihedral(pos.row(1),\ pos.row(4),\ pos.row(5),\ pos.row(6));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00083}00083\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[2]\ =\ dihedral(pos.row(4),\ pos.row(5),\ pos.row(6),\ pos.row(7));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00084}00084\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00086}00086\ \ \ \ \ \textcolor{keywordflow}{if}(name\ ==\ \textcolor{stringliteral}{"{}GLY"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00087}00087\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00089}00089\ \ \ \ \ \textcolor{keywordflow}{if}(name\ ==\ \textcolor{stringliteral}{"{}HIS"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00090}00090\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[0]\ =\ dihedral(pos.row(0),\ pos.row(1),\ pos.row(4),\ pos.row(5));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[1]\ =\ dihedral(pos.row(1),\ pos.row(4),\ pos.row(5),\ pos.row(6));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00092}00092\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00094}00094\ \ \ \ \ \textcolor{keywordflow}{if}(name\ ==\ \textcolor{stringliteral}{"{}ILE"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00095}00095\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[0]\ =\ dihedral(pos.row(0),\ pos.row(1),\ pos.row(4),\ pos.row(5));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00096}00096\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[1]\ =\ dihedral(pos.row(1),\ pos.row(4),\ pos.row(5),\ pos.row(7));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00097}00097\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00099}00099\ \ \ \ \ \textcolor{keywordflow}{if}(name\ ==\ \textcolor{stringliteral}{"{}LEU"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00100}00100\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[0]\ =\ dihedral(pos.row(0),\ pos.row(1),\ pos.row(4),\ pos.row(5));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00101}00101\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[1]\ =\ dihedral(pos.row(1),\ pos.row(4),\ pos.row(5),\ pos.row(6));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00102}00102\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00104}00104\ \ \ \ \ \textcolor{keywordflow}{if}(name\ ==\ \textcolor{stringliteral}{"{}LYS"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00105}00105\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[0]\ =\ dihedral(pos.row(0),\ pos.row(1),\ pos.row(4),\ pos.row(5));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00106}00106\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[1]\ =\ dihedral(pos.row(1),\ pos.row(4),\ pos.row(5),\ pos.row(6));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00107}00107\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[2]\ =\ dihedral(pos.row(4),\ pos.row(5),\ pos.row(6),\ pos.row(7));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00108}00108\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[3]\ =\ dihedral(pos.row(5),\ pos.row(6),\ pos.row(7),\ pos.row(8));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00109}00109\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00111}00111\ \ \ \ \ \textcolor{keywordflow}{if}(name\ ==\ \textcolor{stringliteral}{"{}MET"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00112}00112\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[0]\ =\ dihedral(pos.row(0),\ pos.row(1),\ pos.row(4),\ pos.row(5));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00113}00113\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[1]\ =\ dihedral(pos.row(1),\ pos.row(4),\ pos.row(5),\ pos.row(6));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00114}00114\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[2]\ =\ dihedral(pos.row(4),\ pos.row(5),\ pos.row(6),\ pos.row(7));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00115}00115\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00117}00117\ \ \ \ \ \textcolor{keywordflow}{if}(name\ ==\ \textcolor{stringliteral}{"{}PHE"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00118}00118\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[0]\ =\ dihedral(pos.row(0),\ pos.row(1),\ pos.row(4),\ pos.row(5));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00119}00119\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[1]\ =\ dihedral(pos.row(1),\ pos.row(4),\ pos.row(5),\ pos.row(6));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00120}00120\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00122}00122\ \ \ \ \ \textcolor{keywordflow}{if}(name\ ==\ \textcolor{stringliteral}{"{}PRO"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00123}00123\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[0]\ =\ dihedral(pos.row(0),\ pos.row(1),\ pos.row(4),\ pos.row(5));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00124}00124\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[1]\ =\ dihedral(pos.row(1),\ pos.row(4),\ pos.row(5),\ pos.row(6));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00125}00125\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00127}00127\ \ \ \ \ \textcolor{keywordflow}{if}(name\ ==\ \textcolor{stringliteral}{"{}SER"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00128}00128\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[0]\ =\ dihedral(pos.row(0),\ pos.row(1),\ pos.row(4),\ pos.row(5));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00129}00129\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00131}00131\ \ \ \ \ \textcolor{keywordflow}{if}(name\ ==\ \textcolor{stringliteral}{"{}THR"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00132}00132\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[0]\ =\ dihedral(pos.row(0),\ pos.row(1),\ pos.row(4),\ pos.row(5));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00133}00133\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00135}00135\ \ \ \ \ \textcolor{keywordflow}{if}(name\ ==\ \textcolor{stringliteral}{"{}TRP"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00136}00136\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[0]\ =\ dihedral(pos.row(0),\ pos.row(1),\ pos.row(4),\ pos.row(5));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00137}00137\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[1]\ =\ dihedral(pos.row(1),\ pos.row(4),\ pos.row(5),\ pos.row(6));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00138}00138\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00140}00140\ \ \ \ \ \textcolor{keywordflow}{if}(name\ ==\ \textcolor{stringliteral}{"{}TYR"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00141}00141\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[0]\ =\ dihedral(pos.row(0),\ pos.row(1),\ pos.row(4),\ pos.row(5));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00142}00142\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[1]\ =\ dihedral(pos.row(1),\ pos.row(4),\ pos.row(5),\ pos.row(6));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00143}00143\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00145}00145\ \ \ \ \ \textcolor{keywordflow}{if}(name\ ==\ \textcolor{stringliteral}{"{}VAL"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00146}00146\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[0]\ =\ dihedral(pos.row(0),\ pos.row(1),\ pos.row(4),\ pos.row(5));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00147}00147\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00148}00148\ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00149}00149\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00150}\mbox{\hyperlink{compute__rotamer__centers_8cpp_ace893e4e56f9c025d8a51be7d7b6e365}{00150}}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_ace893e4e56f9c025d8a51be7d7b6e365}{to\_string}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{RowVector3f}}\ x)\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00151}00151\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{string}}(\textcolor{stringliteral}{"{}["{}})\ +\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_ace893e4e56f9c025d8a51be7d7b6e365}{to\_string}}(x[0])\ +\ \textcolor{stringliteral}{"{}\ "{}}\ +\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_ace893e4e56f9c025d8a51be7d7b6e365}{to\_string}}(x[1])\ +\ \textcolor{stringliteral}{"{}\ "{}}\ +\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_ace893e4e56f9c025d8a51be7d7b6e365}{to\_string}}(x[2])\ +\ \textcolor{stringliteral}{"{}]"{}};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00152}00152\ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00153}\mbox{\hyperlink{compute__rotamer__centers_8cpp_a05d0c3b7963fe88b086142b2f30297b0}{00153}}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_ace893e4e56f9c025d8a51be7d7b6e365}{to\_string}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Matrix3f}}\ x)\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00154}00154\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{string}}(\textcolor{stringliteral}{"{}\(\backslash\)n[["{}})\ +\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_ace893e4e56f9c025d8a51be7d7b6e365}{to\_string}}(x(0,0))\ +\ \textcolor{stringliteral}{"{},\ "{}}\ +\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_ace893e4e56f9c025d8a51be7d7b6e365}{to\_string}}(x(0,1))\ +\ \textcolor{stringliteral}{"{},\ "{}}\ +\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_ace893e4e56f9c025d8a51be7d7b6e365}{to\_string}}(x(0,2))\ +\textcolor{stringliteral}{"{}],\(\backslash\)n"{}}\ +}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{string}}(\textcolor{stringliteral}{"{}\ ["{}})\ +\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_ace893e4e56f9c025d8a51be7d7b6e365}{to\_string}}(x(1,0))\ +\ \textcolor{stringliteral}{"{},\ "{}}\ +\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_ace893e4e56f9c025d8a51be7d7b6e365}{to\_string}}(x(1,1))\ +\ \textcolor{stringliteral}{"{},\ "{}}\ +\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_ace893e4e56f9c025d8a51be7d7b6e365}{to\_string}}(x(1,2))\ +\textcolor{stringliteral}{"{}],\(\backslash\)n"{}}\ \ +}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{string}}(\textcolor{stringliteral}{"{}\ ["{}})\ +\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_ace893e4e56f9c025d8a51be7d7b6e365}{to\_string}}(x(2,0))\ +\ \textcolor{stringliteral}{"{},\ "{}}\ +\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_ace893e4e56f9c025d8a51be7d7b6e365}{to\_string}}(x(2,1))\ +\ \textcolor{stringliteral}{"{},\ "{}}\ +\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_ace893e4e56f9c025d8a51be7d7b6e365}{to\_string}}(x(2,2))\ +\textcolor{stringliteral}{"{}]]\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00157}00157\ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00159}\mbox{\hyperlink{compute__rotamer__centers_8cpp_a28c664e80128b9bfeac027011b29dda6}{00159}}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_a28c664e80128b9bfeac027011b29dda6}{np\_string}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{MatrixX3f}}\ \&x)\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00160}00160\ \ \ \ \ \textcolor{comment}{//\ WARNING\ not\ efficient\ for\ large\ matrices\ because\ of\ the\ string\ concatenation}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00161}00161\ \ \ \ \ \textcolor{keywordtype}{string}\ s\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00162}00162\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nr}}=0;\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nr}}<x.rows();\ ++\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nr}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00163}00163\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{ln}}\ =\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nr}}\ ?\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ \ \ ["{}}\ :\ \textcolor{stringliteral}{"{}np.array([["{}};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00164}00164\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nc}}=0;\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nc}}<x.cols();\ ++\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nc}})}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{ln}}\ +=\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_ace893e4e56f9c025d8a51be7d7b6e365}{to\_string}}(x(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nr}},\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nc}}))\ +\ \textcolor{stringliteral}{"{},\ "{}};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00166}00166\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{ln}}\ +=\ (\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nr}}<x.rows()-\/1)\ ?\ \textcolor{stringliteral}{"{}],\(\backslash\)n"{}}\ :\ \textcolor{stringliteral}{"{}]])\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00167}00167\ \ \ \ \ \ \ \ \ s\ +=\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{ln}};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00168}00168\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00169}00169\ \ \ \ \ \textcolor{keywordflow}{return}\ s;}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00170}00170\ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00171}00171\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00172}\mbox{\hyperlink{compute__rotamer__centers_8cpp_a148ebfa814e10dc46c280b8a661f4367}{00172}}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{MatrixXf}}\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_a148ebfa814e10dc46c280b8a661f4367}{dmat}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{MatrixX3f}}\&\ x)\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00173}00173\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{n}}=x.rows();}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00174}00174\ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{MatrixXf}}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{ret}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{n}},\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{n}});}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00175}00175\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i}}=0;\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i}}<\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{n}};\ ++\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i}})\ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j=0;\ j<\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{n}};\ ++j)\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{ret}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i}},j)\ =\ (x.row(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i}})-\/x.row(j)).\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{norm}}();}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00176}00176\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{ret}};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00177}00177\ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00178}00178\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00179}00179\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00180}\mbox{\hyperlink{compute__rotamer__centers_8cpp_a3f295e5ffbcd79049f041b8ec252aa76}{00180}}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_a3f295e5ffbcd79049f041b8ec252aa76}{angle\_wrap}}(\textcolor{keywordtype}{float}\ x)\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00181}00181\ \ \ \ \ \textcolor{keywordflow}{while}(x>\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_a10eed9dbd8803e4acfbfc3432fc48b08}{M\_PI\_F}})\ x-\/=2.f*\mbox{\hyperlink{compute__rotamer__centers_8cpp_a10eed9dbd8803e4acfbfc3432fc48b08}{M\_PI\_F}};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00182}00182\ \ \ \ \ \textcolor{keywordflow}{while}(x<-\/\mbox{\hyperlink{compute__rotamer__centers_8cpp_a10eed9dbd8803e4acfbfc3432fc48b08}{M\_PI\_F}})\ x+=2.f*\mbox{\hyperlink{compute__rotamer__centers_8cpp_a10eed9dbd8803e4acfbfc3432fc48b08}{M\_PI\_F}};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00183}00183\ \ \ \ \ \textcolor{keywordflow}{return}\ x;}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00184}00184\ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00185}00185\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00186}00186\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00187}\mbox{\hyperlink{compute__rotamer__centers_8cpp_a548660edaa5ee6bb8c0b62a10f512784}{00187}}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_a548660edaa5ee6bb8c0b62a10f512784}{rmsd}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{MatrixX3f}}\&\ x)\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00188}00188\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{_float4_8h_a71bff4a4d976cf10c637579a0fd58ae5}{sqrtf}}(x.squaredNorm()/x.rows());}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00189}00189\ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00191}\mbox{\hyperlink{compute__rotamer__centers_8cpp_a0f9f3c0beb1ff3e878af326648f5cd0a}{00191}}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Vector4d}}\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_a0f9f3c0beb1ff3e878af326648f5cd0a}{quat2vec}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Quaterniond}}\ \&\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{q}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00192}00192\ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Vector4d}}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{ret}};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00193}00193\ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{ret}}[0]\ =\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{q}}.x();}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00194}00194\ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{ret}}[1]\ =\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{q}}.y();}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00195}00195\ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{ret}}[2]\ =\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{q}}.z();}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00196}00196\ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{ret}}[3]\ =\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{q}}.w();}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00197}00197\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{ret}};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00198}00198\ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00200}00200\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00201}\mbox{\hyperlink{compute__rotamer__centers_8cpp_a3d67ce3a9347f5383b49af2b18f2010f}{00201}}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Affine3f}}\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_a3d67ce3a9347f5383b49af2b18f2010f}{rigid\_alignment}}(}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00202}00202\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{MatrixX3f}}\ \&\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{model}},}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00203}00203\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{MatrixX3f}}\ \&ref)\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00204}00204\ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Matrix4f}}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{transform}}\ =\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{umeyama}}(ref.transpose(),\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{model}}.transpose(),\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00205}00205\ \ \ \ \ \textcolor{comment}{//\ cout\ <<\ "{}transform:\ "{}\ <<\ transform\ <<"{}\(\backslash\)n\(\backslash\)n"{};}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00206}00206\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Affine3f}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{Matrix4f}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{transform}}));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00207}00207\ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00208}00208\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00209}00209\ \textcolor{comment}{//\ int\ main\_CoM(int\ argc,\ char**\ argv)\ try\ \{}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00210}00210\ \textcolor{comment}{//\ \ \ \ \ auto\ config\ =\ h5\_obj(H5Fclose,\ H5Fopen("{}/home/jumper/Dropbox/code/upside-\/parameters/Dunbrack-\/Rotamer-\/Simple1-\/5.h5"{},\ H5F\_ACC\_RDONLY,\ H5P\_DEFAULT));}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00211}00211\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00212}00212\ \textcolor{comment}{//\ \ \ \ \ auto\ output\ =\ h5\_obj(H5Fclose,\ H5Fcreate("{}backbone-\/dependent-\/CoM.h5"{},\ H5F\_ACC\_TRUNC,\ H5P\_DEFAULT,\ H5P\_DEFAULT));}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00213}00213\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00214}00214\ \textcolor{comment}{//\ \ \ \ \ const\ int\ n\_bin\ =\ 37;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00215}00215\ \textcolor{comment}{//\ \ \ \ \ const\ float\ bin\_size\ =\ (2*M\_PI\_F)\ /\ (n\_bin-\/1);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00216}00216\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00217}00217\ \textcolor{comment}{//\ \ \ \ \ for(auto\ \&rf:\ res\_func\_map())\ \{}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00218}00218\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ string\ rname\ \ \ =\ rf.first;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00219}00219\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ auto\ \&res\_func\ =\ *rf.second;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00220}00220\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ printf("{}\%s\(\backslash\)n"{},\ rname.c\_str());}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00221}00221\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00222}00222\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ std::vector<float>\ centers;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00223}00223\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ auto\ out\_grp\ =\ ensure\_group(output.get(),\ rname.c\_str());}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00224}00224\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00225}00225\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ if(rname\ ==\ "{}ALA"{}\ ||\ rname\ ==\ "{}GLY"{})\ \{}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00226}00226\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ for(int\ i1=0;\ i1<n\_bin;\ ++i1)\ \{}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00227}00227\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ for(int\ i2=0;\ i2<n\_bin;\ ++i2)\ \{}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00228}00228\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float\ psi\ =\ i2*bin\_size\ -\/\ M\_PI\_F;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00229}00229\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MatrixX3f\ pos;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00230}00230\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ array<float,4>\ chi\ =\ \{\{0.f,\ 0.f,\ 0.f,\ 0.f\}\};}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00231}00231\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ res\_func(pos,\ psi,\ chi);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00232}00232\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RowVector3f\ curr\_center\ =\ pos.row((rname\ ==\ "{}GLY"{})\ ?\ \ 1\ :\ 4);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00233}00233\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vector3d\ center\ =\ curr\_center.transpose().cast<double>();}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00234}00234\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ centers.push\_back(center[0]);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00235}00235\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ centers.push\_back(center[1]);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00236}00236\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ centers.push\_back(center[2]);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00237}00237\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //\ cout\ <<\ rname\ <<\ "{}\ "{}\ <<\ center.transpose()\ <<\ "{}\(\backslash\)n"{};}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00238}00238\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00239}00239\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00240}00240\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \}\ else\ \{}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00241}00241\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ auto\ grp\ \ \ \ \ =\ open\_group\ \ (config.get(),\ rname.c\_str());}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00242}00242\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00243}00243\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ //\ int\ n\_bin\ =\ get\_dset\_size(3,\ grp.get(),\ "{}rama\_index\_range"{})[0];}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00244}00244\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ int\ n\_res\_total\ =\ get\_dset\_size(2,\ grp.get(),\ "{}chi"{})[0];}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00245}00245\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00246}00246\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ check\_size(grp.get(),\ "{}rama\_index\_range"{},\ n\_bin,\ n\_bin,\ 2);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00247}00247\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ check\_size(grp.get(),\ "{}chi"{},\ \ n\_res\_total,\ 4);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00248}00248\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ check\_size(grp.get(),\ "{}prob"{},\ n\_res\_total);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00249}00249\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00250}00250\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ MatrixXi\ starts(n\_bin,n\_bin);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00251}00251\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ MatrixXi\ stops\ (n\_bin,n\_bin);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00252}00252\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ traverse\_dset<3,int>(grp.get(),\ "{}rama\_index\_range"{},\ [\&](size\_t\ nb1,\ size\_t\ nb2,\ size\_t\ ss,\ int\ x)\ \{}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00253}00253\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if(ss==0)\ starts(nb1,nb2)\ =\ x;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00254}00254\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ else\ \ \ \ \ \ stops\ (nb1,nb2)\ =\ x;\ \});}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00255}00255\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00256}00256\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ MatrixXf\ chis(n\_res\_total,4);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00257}00257\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ traverse\_dset<2,float>(grp.get(),\ "{}chi"{},\ [\&](size\_t\ nr,\ size\_t\ nchi,\ float\ x)\ \{\ chis(nr,nchi)=x;\ \});}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00258}00258\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00259}00259\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ VectorXf\ prob(n\_res\_total);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00260}00260\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ traverse\_dset<1,float>(grp.get(),\ "{}prob"{},\ [\&](size\_t\ nr,\ float\ x)\ \{\ prob[nr]=x;\ \});}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00261}00261\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00262}00262\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ for(int\ i1=0;\ i1<n\_bin;\ ++i1)\ \{}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00263}00263\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ for(int\ i2=0;\ i2<n\_bin;\ ++i2)\ \{}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00264}00264\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vector3d\ center\ =\ Vector3d::Zero();}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00265}00265\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MatrixX3f\ pos;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00266}00266\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00267}00267\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float\ psi\ =\ i2*bin\_size\ -\/\ M\_PI\_F;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00268}00268\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00269}00269\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ double\ total\_prob\ =\ 0.;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00270}00270\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ for(int\ nr=starts(i1,i2);\ nr<stops(i1,i2);\ ++nr)\ \{}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00271}00271\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ array<float,4>\ chi\ =\ \{\{0.f,\ 0.f,\ 0.f,\ 0.f\}\};}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00272}00272\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ for(int\ nchi=0;\ nchi<4;\ ++nchi)\ chi[nchi]\ =\ chis(nr,nchi);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00273}00273\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ res\_func(pos,\ psi,\ chi);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00274}00274\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00275}00275\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RowVector3f\ curr\_center\ =\ pos.bottomRows(pos.rows()-\/5).colwise().mean();}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00276}00276\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ center\ +=\ (prob[nr]*curr\_center).transpose().cast<double>();}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00277}00277\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ total\_prob\ +=\ prob[nr];}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00278}00278\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00279}00279\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ center\ *=\ 1./total\_prob;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00280}00280\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ centers.push\_back(center[0]);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00281}00281\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ centers.push\_back(center[1]);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00282}00282\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ centers.push\_back(center[2]);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00283}00283\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //\ cout\ <<\ rname\ <<\ "{}\ "{}\ <<\ center.transpose()\ <<\ "{}\(\backslash\)n"{};}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00284}00284\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00285}00285\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00286}00286\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00287}00287\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00288}00288\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ auto\ center\_array\ =\ create\_earray(out\_grp.get(),\ "{}center"{},\ H5T\_NATIVE\_FLOAT,}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00289}00289\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{-\/1,n\_bin,3\},\ \{1,n\_bin,3\});}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00290}00290\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ append\_to\_dset(center\_array.get(),\ centers,\ 0);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00291}00291\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00292}00292\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ vector<float>\ bin\_vals(n\_bin);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00293}00293\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ for(int\ nb=0;\ nb<n\_bin;\ ++nb)\ bin\_vals[nb]\ =\ nb*bin\_size\ -\/\ M\_PI\_F;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00294}00294\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ auto\ bin\_array\ =\ create\_earray(out\_grp.get(),\ "{}bin\_values"{},\ H5T\_NATIVE\_FLOAT,}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00295}00295\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{-\/1\},\ \{n\_bin\});}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00296}00296\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ append\_to\_dset(bin\_array.get(),\ bin\_vals,\ 0);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00297}00297\ \textcolor{comment}{//\ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00298}00298\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00299}00299\ \textcolor{comment}{//\ \ \ \ \ return\ 0;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00300}00300\ \textcolor{comment}{//\ \}\ catch\ (const\ string\ \&e)\ \{}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00301}00301\ \textcolor{comment}{//\ \ \ \ \ fprintf(stderr,\ "{}\(\backslash\)n\(\backslash\)nERROR:\ \%s\(\backslash\)n"{},\ e.c\_str());}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00302}00302\ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00303}00303\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00304}\mbox{\hyperlink{compute__rotamer__centers_8cpp_ab247e109e73b04d1bb7cbdbd8b0e35e7}{00304}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_ab247e109e73b04d1bb7cbdbd8b0e35e7}{push\_vector}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector<float>}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{RowVector3f}}\&\ \mbox{\hyperlink{eig_8cpp_a8632be35f000cadfa136fc7d22eabac5}{v}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00305}00305\ \ \ \ \ a.push\_back(\mbox{\hyperlink{eig_8cpp_a8632be35f000cadfa136fc7d22eabac5}{v}}[0]);\ a.push\_back(\mbox{\hyperlink{eig_8cpp_a8632be35f000cadfa136fc7d22eabac5}{v}}[1]);\ a.push\_back(\mbox{\hyperlink{eig_8cpp_a8632be35f000cadfa136fc7d22eabac5}{v}}[2]);}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00306}00306\ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00307}00307\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00308}\mbox{\hyperlink{compute__rotamer__centers_8cpp_a071fdaf97cff9b287c65b77e33214ef0}{00308}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_a071fdaf97cff9b287c65b77e33214ef0}{get\_beads}}(\textcolor{keyword}{const}\ std::string\&\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rname}},\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector<float>}}\&\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{centers}},\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector<float>}}\&\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{direcs}},\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{MatrixX3f}}\ \&pos)\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00309}00309\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{n\_bead}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00310}00310\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pc}}\ =\ [\&](\textcolor{keyword}{const}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{RowVector3f}}\&\ \mbox{\hyperlink{eig_8cpp_a8632be35f000cadfa136fc7d22eabac5}{v}})\ \{\mbox{\hyperlink{compute__rotamer__centers_8cpp_ab247e109e73b04d1bb7cbdbd8b0e35e7}{push\_vector}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{centers}},\ \mbox{\hyperlink{eig_8cpp_a8632be35f000cadfa136fc7d22eabac5}{v}});\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{n\_bead}}++;\};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00311}00311\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pd}}\ =\ [\&](\textcolor{keyword}{const}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{RowVector3f}}\&\ \mbox{\hyperlink{eig_8cpp_a8632be35f000cadfa136fc7d22eabac5}{v}})\ \{\mbox{\hyperlink{compute__rotamer__centers_8cpp_ab247e109e73b04d1bb7cbdbd8b0e35e7}{push\_vector}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{direcs}},\ \ \mbox{\hyperlink{eig_8cpp_a8632be35f000cadfa136fc7d22eabac5}{v}}.normalized());\};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00312}00312\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00313}00313\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rname}}\ ==\ \textcolor{stringliteral}{"{}GLY"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00314}00314\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pc}}(pos.row(1));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00315}00315\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pd}}(pos.row(1)\ \ -\/\ 0.5f*(pos.row(0)\ +\ pos.row(2)));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00316}00316\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rname}}\ ==\ \textcolor{stringliteral}{"{}ALA"{}})\{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00317}00317\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pc}}(pos.row(4));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00318}00318\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pd}}(pos.row(4)\ -\/\ pos.row(1));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00319}00319\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rname}}\ ==\ \textcolor{stringliteral}{"{}GLU"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00320}00320\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pc}}(pos.bottomRows(pos.rows()-\/6).colwise().mean());}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00321}00321\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pd}}(pos.row(5)-\/pos.row(4));\ \textcolor{comment}{//\ CB-\/>CG\ bond\ vector}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00322}00322\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rname}}\ ==\ \textcolor{stringliteral}{"{}LYS"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00323}00323\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pc}}(pos.row(8));\ \textcolor{comment}{//\ NZ\ atom}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00324}00324\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pc}}(pos.row(6));\ \textcolor{comment}{//\ CD\ atom}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00325}00325\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pd}}(pos.row(5)-\/pos.row(4));\ \textcolor{comment}{//\ CB-\/>CG\ bond\ vector}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00326}00326\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pd}}(pos.row(5)-\/pos.row(4));\ \textcolor{comment}{//\ CB-\/>CG\ bond\ vector}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00327}00327\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rname}}\ ==\ \textcolor{stringliteral}{"{}ARG"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00328}00328\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pc}}((1.f/3.f)*(pos.row(7)+pos.row(9)+pos.row(10)));\ \textcolor{comment}{//\ center\ of\ nitrogens}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00329}00329\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pd}}(pos.row(5)-\/pos.row(4));\ \textcolor{comment}{//\ CB-\/>CG\ bond\ vector}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00330}00330\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rname}}\ ==\ \textcolor{stringliteral}{"{}ASP"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00331}00331\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pc}}(pos.row(5));\ \textcolor{comment}{//\ CG\ atom}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00332}00332\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pd}}(pos.row(5)-\/pos.row(4));\ \textcolor{comment}{//\ CB-\/>CG\ bond\ vector}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00333}00333\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rname}}\ ==\ \textcolor{stringliteral}{"{}THR"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00334}00334\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pc}}(pos.row(5));\ \textcolor{comment}{//\ atom\ 5\ is\ OG1\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00335}00335\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pc}}(pos.row(6));\ \textcolor{comment}{//\ atom\ 6\ is\ CG1}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00336}00336\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pd}}(pos.row(5)-\/pos.row(4));\ \textcolor{comment}{//\ CB-\/>OG1\ bond\ vector}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00337}00337\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pd}}(pos.row(6)-\/pos.row(4));\ \textcolor{comment}{//\ CB-\/>CG1\ bond\ vector}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00338}00338\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rname}}\ ==\ \textcolor{stringliteral}{"{}TRP"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00339}00339\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pc}}((1.f/6.f)*(pos.row(7)+pos.row(9)+pos.row(10)+pos.row(11)+pos.row(12)+pos.row(13)));\ \textcolor{comment}{//\ 2nd\ aromatic\ ring}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00340}00340\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pc}}(pos.row(8));\ \textcolor{comment}{//\ atom\ 8\ is\ NE1}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00341}00341\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pd}}(pos.row(5)-\/pos.row(4));\ \textcolor{comment}{//\ CB-\/>CG\ bond\ vector}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00342}00342\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pd}}(pos.row(8)-\/pos.row(4));\ \textcolor{comment}{//\ CB-\/>NE1\ bond\ vector}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00343}00343\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rname}}\ ==\ \textcolor{stringliteral}{"{}TYR"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00344}00344\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pc}}((1.f/6.f)*(pos.row(5)+pos.row(6)+pos.row(7)+pos.row(8)+pos.row(9)+pos.row(10)));\ \textcolor{comment}{//\ aromatic\ ring}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00345}00345\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pc}}(pos.row(11));\ \textcolor{comment}{//\ atom\ 11\ is\ OH}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00346}00346\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pd}}(pos.row(\ 5)-\/pos.row(4));\ \textcolor{comment}{//\ CB-\/>CG\ bond\ vector}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00347}00347\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pd}}(pos.row(11)-\/pos.row(4));\ \textcolor{comment}{//\ CB-\/>OH\ bond\ vector}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00348}00348\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00349}00349\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{RowVector3f}}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rest}}\ =\ pos.bottomRows(pos.rows()-\/5).colwise().mean();}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00350}00350\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pc}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rest}});}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00351}00351\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pd}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rest}}-\/pos.row(4));\ \textcolor{comment}{//\ CB-\/>rest\ bond\ vector}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00352}00352\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00353}00353\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{n\_bead}};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00354}00354\ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00355}00355\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00356}\mbox{\hyperlink{compute__rotamer__centers_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{00356}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{argc}},\ \textcolor{keywordtype}{char}**\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{argv}})\ \textcolor{keyword}{try}\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00357}00357\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{argc}}!=2)\ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{string}}(\textcolor{stringliteral}{"{}wrong\ number\ of\ arguments"{}});}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00358}00358\ \ \ \ \ \textcolor{keyword}{auto}\ config\ =\ \mbox{\hyperlink{namespaceh5_ad4bf22eb2fbeff99e2d39b998e2672ae}{h5\_obj}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{H5Fclose}},\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00359}00359\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{H5Fopen}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{argv}}[1],}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00360}00360\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{H5F\_ACC\_RDWR}},\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{H5P\_DEFAULT}}));}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00361}00361\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00362}00362\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n\_bin\ =\ 37;}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00363}00363\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{bin\_size}}\ =\ (2*\mbox{\hyperlink{compute__rotamer__centers_8cpp_a10eed9dbd8803e4acfbfc3432fc48b08}{M\_PI\_F}})\ /\ (n\_bin-\/1);}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00364}00364\ \ \ \ \ \mbox{\hyperlink{namespaceh5_a020e9a461902cb318328c2dd6d40e1a9}{H5Obj}}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{out\_grp}};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00365}00365\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00366}00366\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ \&\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rf}}:\ \mbox{\hyperlink{generate__from__rotamer_8cpp_a0283ace17e9d1257bf60034cae86bfc7}{res\_func\_map}}())\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00367}00367\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rname}}\ \ \ =\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rf}}.first;}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00368}00368\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \&\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{res\_func}}\ =\ *\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rf}}.second;}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00369}00369\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{printf}}(\textcolor{stringliteral}{"{}\%s\(\backslash\)n"{}},\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rname}}.c\_str());}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00370}00370\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{n\_bead}}\ =\ -\/1;}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00371}00371\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00372}00372\ \ \ \ \ \ \ \ \ std::vector<float>\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{centers}};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00373}00373\ \ \ \ \ \ \ \ \ std::vector<float>\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{direcs}};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00374}00374\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{grp}}\ =\ \mbox{\hyperlink{namespaceh5_a2ed40b6258c2bfcb83e0560e1c6a371f}{ensure\_group}}(config.get(),\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rname}}.c\_str());}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00375}00375\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00376}00376\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rname}}\ ==\ \textcolor{stringliteral}{"{}ALA"{}}\ ||\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rname}}\ ==\ \textcolor{stringliteral}{"{}GLY"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00377}00377\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rir\_array}}\ =\ \mbox{\hyperlink{namespaceh5_a9b3dd58909d40fa3b00efb6d305e9eec}{create\_earray}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{grp}}.get(),\ \textcolor{stringliteral}{"{}rama\_index\_range"{}},\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{H5T\_NATIVE\_INT}},}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00378}00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{-\/1,n\_bin,2\},\ \{n\_bin,n\_bin,2\});}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00379}00379\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<float>\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rir}};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00380}00380\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i}}=0;\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i}}<n\_bin*n\_bin;\ ++\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00381}00381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rir}}.push\_back(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i}});}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00382}00382\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rir}}.push\_back(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i}}+1);}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00383}00383\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00384}00384\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_a0fd323ab6bb833c7490ebd702c7c2874}{append\_to\_dset}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rir\_array}}.get(),\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rir}},\ 0);}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00385}00385\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00386}00386\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{prob\_array}}\ =\ \mbox{\hyperlink{namespaceh5_a9b3dd58909d40fa3b00efb6d305e9eec}{create\_earray}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{grp}}.get(),\ \textcolor{stringliteral}{"{}prob"{}},\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{H5T\_NATIVE\_INT}},\ \{-\/1\},\ \{n\_bin*n\_bin\});}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00387}00387\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<float>\ prob(n\_bin*n\_bin,1.f);}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00388}00388\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_a0fd323ab6bb833c7490ebd702c7c2874}{append\_to\_dset}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{prob\_array}}.get(),\ prob,\ 0);}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00389}00389\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00390}00390\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i1}}=0;\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i1}}<n\_bin;\ ++\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i1}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00391}00391\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i2}}=0;\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i2}}<n\_bin;\ ++\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i2}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00392}00392\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{MatrixX3f}}\ pos;}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00393}00393\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{psi}}\ =\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i2}}*\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{bin\_size}}\ -\/\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_a10eed9dbd8803e4acfbfc3432fc48b08}{M\_PI\_F}};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00394}00394\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{array<float,4>}}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}\ =\ \{\{0.f,\ 0.f,\ 0.f,\ 0.f\}\};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00395}00395\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{res\_func}}(pos,\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{psi}},\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}});}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00396}00396\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{n\_bead}}\ =\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_a071fdaf97cff9b287c65b77e33214ef0}{get\_beads}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rname}},\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{centers}},\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{direcs}},\ pos);}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00397}00397\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00398}00398\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00399}00399\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00400}00400\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{n\_res\_total}}\ =\ \mbox{\hyperlink{namespaceh5_adea8f964f41982607227040fd61a6696}{get\_dset\_size}}(2,\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{grp}}.get(),\ \textcolor{stringliteral}{"{}chi"{}})[0];}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00401}00401\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_a758a2178b5cebcb4929ec2b6a440c6e2}{check\_size}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{grp}}.get(),\ \textcolor{stringliteral}{"{}chi"{}},\ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{n\_res\_total}},\ 4);}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00402}00402\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00403}00403\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{MatrixXf}}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chis}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{n\_res\_total}},4);}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00404}00404\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{traverse\_dset<2,float>}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{grp}}.get(),\ \textcolor{stringliteral}{"{}chi"{}},\ [\&](\textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nr}},\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nchi}},\ \textcolor{keywordtype}{float}\ x)\ \{\ chis(nr,nchi)=x;\ \});}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00405}00405\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00406}00406\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{MatrixXi}}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{starts}}(n\_bin,n\_bin);}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00407}00407\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{MatrixXi}}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{stops}}\ (n\_bin,n\_bin);}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00408}00408\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{traverse\_dset<3,int>}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{grp}}.get(),\ \textcolor{stringliteral}{"{}rama\_index\_range"{}},\ [\&](\textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nb1}},\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nb2}},\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{ss}},\ \textcolor{keywordtype}{int}\ x)\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00409}00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if(ss==0)\ starts(nb1,nb2)\ =\ x;}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00410}00410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ else\ \ \ \ \ \ stops\ (nb1,nb2)\ =\ x;\ \});}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00411}00411\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00412}00412\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i1}}=0;\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i1}}<n\_bin;\ ++\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i1}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00413}00413\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i2}}=0;\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i2}}<n\_bin;\ ++\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i2}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00414}00414\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{MatrixX3f}}\ pos;}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00415}00415\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{psi}}\ =\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i2}}*\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{bin\_size}}\ -\/\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_a10eed9dbd8803e4acfbfc3432fc48b08}{M\_PI\_F}};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00416}00416\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00417}00417\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nr}}=\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{starts}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i1}},\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i2}});\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nr}}<\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{stops}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i1}},\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i2}});\ ++\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nr}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00418}00418\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{array<float,4>}}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}\ =\ \{\{0.f,\ 0.f,\ 0.f,\ 0.f\}\};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00419}00419\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nchi}}=0;\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nchi}}<4;\ ++\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nchi}})\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}}[\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nchi}}]\ =\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chis}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nr}},\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nchi}});}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00420}00420\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{res\_func}}(pos,\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{psi}},\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{chi}});}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00421}00421\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{n\_bead}}\ =\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_a071fdaf97cff9b287c65b77e33214ef0}{get\_beads}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rname}},\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{centers}},\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{direcs}},\ pos);}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00422}00422\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00423}00423\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00424}00424\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00425}00425\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00426}00426\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00427}00427\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{center\_array}}\ =\ \mbox{\hyperlink{namespaceh5_a9b3dd58909d40fa3b00efb6d305e9eec}{create\_earray}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{grp}}.get(),\ \textcolor{stringliteral}{"{}center"{}},\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{H5T\_NATIVE\_FLOAT}},\ \{-\/1,n\_bead,3\},\ \{8,n\_bead,3\});}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00428}00428\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_a0fd323ab6bb833c7490ebd702c7c2874}{append\_to\_dset}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{center\_array}}.get(),\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{centers}},\ 0);}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00429}00429\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00430}00430\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{direc\_array}}\ =\ \mbox{\hyperlink{namespaceh5_a9b3dd58909d40fa3b00efb6d305e9eec}{create\_earray}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{grp}}.get(),\ \textcolor{stringliteral}{"{}direc"{}},\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{H5T\_NATIVE\_FLOAT}},\ \{-\/1,n\_bead,3\},\ \{8,n\_bead,3\});}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00431}00431\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_a0fd323ab6bb833c7490ebd702c7c2874}{append\_to\_dset}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{direc\_array}}.get(),\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{direcs}},\ 0);}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00432}00432\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00433}00433\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector<float>}}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{bin\_vals}}(n\_bin);}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00434}00434\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nb}}=0;\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nb}}<n\_bin;\ ++\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nb}})\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{bin\_vals}}[\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nb}}]\ =\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nb}}*\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{bin\_size}}\ -\/\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_a10eed9dbd8803e4acfbfc3432fc48b08}{M\_PI\_F}};}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00435}00435\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{bin\_array}}\ =\ \mbox{\hyperlink{namespaceh5_a9b3dd58909d40fa3b00efb6d305e9eec}{create\_earray}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{grp}}.get(),\ \textcolor{stringliteral}{"{}bin\_values"{}},\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{H5T\_NATIVE\_FLOAT}},\ \{-\/1\},\ \{n\_bin\});}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00436}00436\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceh5_a0fd323ab6bb833c7490ebd702c7c2874}{append\_to\_dset}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{bin\_array}}.get(),\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{bin\_vals}},\ 0);}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00437}00437\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00438}00438\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00439}00439\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00440}00440\ \}\ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{e}})\ \{}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00441}00441\ \ \ \ \ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{fprintf}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{stderr}},\ \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)nERROR:\ \%s\(\backslash\)n"{}},\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{e}}.c\_str());}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00442}00442\ \}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00443}00443\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00444}00444\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00445}00445\ \textcolor{comment}{//\ void\ align\_to\_ref(}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00446}00446\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ Vector3f\ \&trans,}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00447}00447\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ Matrix3f\ \&rot,}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00448}00448\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ const\ RowVector3f\ atom1,}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00449}00449\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ const\ RowVector3f\ atom2,}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00450}00450\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ const\ RowVector3f\ atom3,}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00451}00451\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ const\ VectorXf\ ref)\ \{\ //\ only\ first\ 9\ components\ will\ be\ used}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00452}00452\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00453}00453\ \textcolor{comment}{//\ \ \ \ \ auto\ ref1\ =\ Vector3f(ref.segment<3>(0));}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00454}00454\ \textcolor{comment}{//\ \ \ \ \ auto\ ref2\ =\ Vector3f(ref.segment<3>(3));}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00455}00455\ \textcolor{comment}{//\ \ \ \ \ auto\ ref3\ =\ Vector3f(ref.segment<3>(6));}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00456}00456\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00457}00457\ \textcolor{comment}{//\ \ \ \ \ trans\ =\ (1.f/3.f)\ *\ (atom1+atom2+atom3).transpose();}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00458}00458\ \textcolor{comment}{//\ \ \ \ \ Matrix3f\ R\ =\ ref1\ *\ (atom1-\/trans.transpose())\ +\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00459}00459\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ref2\ *\ (atom2-\/trans.transpose())\ +\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00460}00460\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ref3\ *\ (atom3-\/trans.transpose());}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00461}00461\ \textcolor{comment}{//\ \ \ \ \ JacobiSVD<Matrix3f>\ svd(R,\ ComputeFullU\ |\ ComputeFullV);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00462}00462\ \textcolor{comment}{//\ \ \ \ \ Matrix3f\ U\ =\ svd.matrixU();}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00463}00463\ \textcolor{comment}{//\ \ \ \ \ Matrix3f\ V\ =\ svd.matrixV();}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00464}00464\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00465}00465\ \textcolor{comment}{//\ \ \ \ \ if(U.determinant()*V.determinant()<0.f)\ V.col(2)\ *=\ -\/1.f;\ \ //\ fix\ improper\ rotation}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00466}00466\ \textcolor{comment}{//\ \ \ \ \ rot\ =\ V\ *\ U.transpose();}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00467}00467\ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00468}00468\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00469}00469\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00470}00470\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00471}00471\ \textcolor{comment}{//\ \ \ \ \ map<string,RefGeom>\ ref\ =\ compute\_reference\_geometry("{}/rust/work/residues.h5"{});}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00472}00472\ \textcolor{comment}{//\ \ \ \ \ if(argc!=3)\ throw\ string("{}require\ 2\ arguments\ but\ "{})\ +\ to\_string(argc-\/1)\ +\ "{}\ given"{};}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00473}00473\ \textcolor{comment}{//\ \ \ \ \ string\ file\_path\ =\ argv[1];}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00474}00474\ \textcolor{comment}{//\ \ \ \ \ string\ inference\_alg\ =\ argv[2];}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00475}00475\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00476}00476\ \textcolor{comment}{//\ \ \ \ \ auto\ prot\ =\ h5\_obj(H5Fclose,\ H5Fopen(file\_path.c\_str(),\ H5F\_ACC\_RDONLY,\ H5P\_DEFAULT));}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00477}00477\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00478}00478\ \textcolor{comment}{//\ \ \ \ \ int\ n\_res\ =\ get\_dset\_size(1,\ prot.get(),\ "{}fasta"{})[0];}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00479}00479\ \textcolor{comment}{//\ \ \ \ \ printf("{}found\ \%i\ residues\(\backslash\)n"{},\ n\_res);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00480}00480\ \textcolor{comment}{//\ \ \ \ \ vector<string>\ fasta(n\_res);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00481}00481\ \textcolor{comment}{//\ \ \ \ \ MatrixXf\ \ \ \ \ \ \ atom\_pos(3*n\_res,3);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00482}00482\ \textcolor{comment}{//\ \ \ \ \ vector<size\_t>\ rotamer(n\_res);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00483}00483\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00484}00484\ \textcolor{comment}{//\ \ \ \ \ check\_size(prot.get(),\ "{}pos"{},\ \ 3*n\_res,\ 3);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00485}00485\ \textcolor{comment}{//\ \ \ \ \ check\_size(prot.get(),\ "{}fasta"{},\ \ n\_res);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00486}00486\ \textcolor{comment}{//\ \ \ \ \ check\_size(prot.get(),\ "{}chi1"{},\ \ \ n\_res);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00487}00487\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00488}00488\ \textcolor{comment}{//\ \ \ \ \ traverse\_string\_dset<1>(prot.get(),"{}fasta"{},\ [\&](size\_t\ i,\ string\ \&s)\ \{fasta[i]\ =\ s;\});}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00489}00489\ \textcolor{comment}{//\ \ \ \ \ traverse\_dset<2,float>(prot.get(),"{}pos"{},\ [\&](size\_t\ i,\ size\_t\ j,\ float\ x)\{atom\_pos(i,j)=x;\});}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00490}00490\ \textcolor{comment}{//\ \ \ \ \ traverse\_dset<1,float>(prot.get(),"{}chi1"{},\ [\&](size\_t\ i,\ float\ x)\{}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00491}00491\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ rotamer[i]\ =\ (x\ <\ -\/M\_PI\_F/3.f)\ ?\ 0\ :\ ((x\ <\ M\_PI\_F/3.f)\ ?\ 1\ :2);;\});}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00492}00492\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00493}00493\ \textcolor{comment}{//\ \ \ \ \ //for(auto\ \&a:\ dai::builtinInfAlgNames())\ printf("{}\%s\(\backslash\)n"{},\ a.c\_str());}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00494}00494\ \textcolor{comment}{//\ \ \ \ \ printf("{}building\(\backslash\)n"{});}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00495}00495\ \textcolor{comment}{//\ \ \ \ \ vector<Matrix3d>\ imats\ =\ interaction\_matrices(atom\_pos,\ fasta,\ ref);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00496}00496\ \textcolor{comment}{//\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00497}00497\ \textcolor{comment}{//\ \ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00498}00498\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ auto\ output\ =\ h5\_obj(H5Fclose,\ H5Fcreate("{}/rust/work/imats.h5"{},\ H5F\_ACC\_TRUNC,\ H5P\_DEFAULT,\ H5P\_DEFAULT));}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00499}00499\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ auto\ imat\_tbl\ =\ create\_earray(output.get(),\ "{}interaction\_matrices"{},\ H5T\_NATIVE\_FLOAT,}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00500}00500\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{-\/1,n\_res,3,3\},\ \{1,n\_res,3,3\});}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00501}00501\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ auto\ imat\_buffer\ =\ vector<float>(n\_res*n\_res*3*3);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00502}00502\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ int\ loc=0;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00503}00503\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ for(int\ nr1=0;\ nr1<n\_res;\ ++nr1)}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00504}00504\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ for(int\ nr2=0;\ nr2<n\_res;\ ++nr2)\ \{}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00505}00505\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ for(int\ r1=0;\ r1<3;\ ++r1)}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00506}00506\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ for(int\ r2=0;\ r2<3;\ ++r2)}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00507}00507\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ imat\_buffer[loc++]\ =\ imats[nr1*n\_res+nr2](r1,r2);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00508}00508\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00509}00509\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ append\_to\_dset(imat\_tbl.get(),\ imat\_buffer,\ 0);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00510}00510\ \textcolor{comment}{//\ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00511}00511\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00512}00512\ \textcolor{comment}{//\ \ \ \ \ for(auto\ \&m:\ imats)\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00513}00513\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ if(m.maxCoeff()\ ==\ 0.f)\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00514}00514\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ m\ =\ Matrix3d::Ones();}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00515}00515\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00516}00516\ \textcolor{comment}{//\ \ \ \ \ printf("{}\(\backslash\)nbuilding2\(\backslash\)n"{});}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00517}00517\ \textcolor{comment}{//\ \ \ \ \ auto\ fg\ =\ build\_residue\_factor\_graph(n\_res,\ imats);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00518}00518\ \textcolor{comment}{//\ \ \ \ \ printf("{}solving\(\backslash\)n"{});}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00519}00519\ \textcolor{comment}{//\ \ \ \ \ auto\ marginals\ =\ solve\_factor\_graph(fg,\ inference\_alg);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00520}00520\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00521}00521\ \textcolor{comment}{//\ \ \ \ \ int\ n\_hit\ =\ 0;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00522}00522\ \textcolor{comment}{//\ \ \ \ \ int\ n\_poss\ =\ 0;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00523}00523\ \textcolor{comment}{//\ \ \ \ \ for(int\ nr=0;\ nr<n\_res;\ ++nr)\ \{}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00524}00524\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ size\_t\ prediction\ =\ 10;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00525}00525\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ marginals.row(nr).maxCoeff(\&prediction);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00526}00526\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00527}00527\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ printf("{}\%4i\ \%s\ \%lu\ \%lu\ \%4s\ \ \ \ \%.2f\ \%.2f\ \%.2f\(\backslash\)n"{},\ nr,\ fasta[nr].c\_str(),}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00528}00528\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rotamer[nr],\ prediction,\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00529}00529\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (rotamer[nr]==prediction\ ?\ "{}HIT"{}\ :\ "{}MISS"{}),}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00530}00530\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ marginals(nr,0),\ marginals(nr,1),\ marginals(nr,2));}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00531}00531\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ if(fasta[nr]\ !=\ "{}GLY"{}\ \&\&\ fasta[nr]\ !=\ "{}ALA"{})\ \{}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00532}00532\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ n\_poss++;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00533}00533\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ n\_hit\ +=\ rotamer[nr]==prediction;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00534}00534\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00535}00535\ \textcolor{comment}{//\ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00536}00536\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00537}00537\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00538}00538\ \textcolor{comment}{//\ \ \ \ \ printf("{}\(\backslash\)ntotal\_score:\ \%i/\%i\ (\%.1f\%\%)\(\backslash\)n"{},\ n\_hit,\ n\_poss,\ n\_hit*100./n\_poss);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00539}00539\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00540}00540\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00541}00541\ \textcolor{comment}{//\ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00542}00542\ \textcolor{comment}{//\ \ \ \ \ return\ 0;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00543}00543\ \textcolor{comment}{//\ \}\ catch\ (const\ string\ \&e)\ \{}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00544}00544\ \textcolor{comment}{//\ \ \ \ \ fprintf(stderr,\ "{}\(\backslash\)n\(\backslash\)nERROR:\ \%s\(\backslash\)n"{},\ e.c\_str());}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00545}00545\ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00546}00546\ }
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00547}00547\ \textcolor{comment}{//\ map<string,\ RefGeom>\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00548}00548\ \textcolor{comment}{//\ compute\_reference\_geometry(const\ string\ \&file\_path)\ \{}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00549}00549\ \textcolor{comment}{//\ \ \ \ \ map<string,\ RefGeom>\ ret;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00550}00550\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00551}00551\ \textcolor{comment}{//\ \ \ \ \ auto\ config\ =\ h5\_obj(H5Fclose,\ H5Fopen(file\_path.c\_str(),\ H5F\_ACC\_RDONLY,\ H5P\_DEFAULT));}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00552}00552\ \textcolor{comment}{//\ \ \ \ \ auto\ residues\ =\ open\_group(config.get(),\ "{}residues"{});}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00553}00553\ \textcolor{comment}{//\ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00554}00554\ \textcolor{comment}{//\ \ \ \ \ vector<string>\ residue\_names\ =\ node\_names\_in\_group(residues.get(),\ "{}."{});}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00555}00555\ \textcolor{comment}{//\ \ \ \ \ for(auto\ \&nm:\ residue\_names)\ \{}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00556}00556\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ auto\ pos\_shape\ =\ get\_dset\_size(3,\ residues.get(),\ (nm+"{}/pos"{}).c\_str());}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00557}00557\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ int\ n\_atom\ =\ pos\_shape[1]\ -\/\ 1;\ //\ don't\ count\ oxygen\ atom}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00558}00558\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00559}00559\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ MatrixXf\ atom\_pos\ =\ MatrixXf::Zero(pos\_shape[0],\ n\_atom*3);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00560}00560\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ traverse\_dset<3,float>(residues.get(),\ (nm+"{}/pos"{}).c\_str(),\ [\&](size\_t\ nr,\ size\_t\ na,\ size\_t\ d,\ float\ v)\ \{}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00561}00561\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //\ when\ computing\ location,\ ignore\ the\ oxygen\ (index=3)}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00562}00562\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //\ if(nr==0)\ printf("{}idx\ \%lu\ \%lu\ \%lu\ (\%i)\(\backslash\)n"{},\ nr,na,d,n\_atom);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00563}00563\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if(na==3)\ return;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00564}00564\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int\ loc\ =\ (na<3\ ?\ na\ :\ na-\/1)*3\ +\ d;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00565}00565\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ atom\_pos(nr,\ loc)\ =\ v;\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00566}00566\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \});}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00567}00567\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00568}00568\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00569}00569\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ //\ now\ we\ need\ to\ compute\ the\ chi1\ dihedral}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00570}00570\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ VectorXi\ chi1\_rotamer\ =\ VectorXi::Zero(atom\_pos.rows());}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00571}00571\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ int\ rotamer\_counts[3]\ =\ \{0,0,0\};}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00572}00572\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ for(int\ nr=0;\ nr<atom\_pos.rows();\ ++nr)\ \{}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00573}00573\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ float3\ d1,d2,d3,d4;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00574}00574\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00575}00575\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ auto\ read\_pos\ =\ [\&](int\ nr,\ int\ na)\ \{}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00576}00576\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ float3(atom\_pos(nr,3*na+0),\ atom\_pos(nr,3*na+1),\ atom\_pos(nr,3*na+2));\};}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00577}00577\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00578}00578\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ //\ atom\ order\ is\ N,CA,C,CB,CG\ since\ O\ is\ excluded}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00579}00579\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ float\ chi1\ =\ (nm=="{}PRO"{}\ ||\ nm=="{}ALA"{}\ ||\ nm=="{}GLY"{})\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00580}00580\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ?\ (nr\%3\ -\/\ 1)*\ 2.f*M\_PI\_F/3.f\ \ //\ fake\ value\ for\ GLY\ and\ ALA}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00581}00581\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ dihedral\_germ(}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00582}00582\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ read\_pos(nr,0),\ \ //\ N}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00583}00583\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ read\_pos(nr,1),\ \ //\ CA}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00584}00584\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ read\_pos(nr,3),\ \ //\ CB}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00585}00585\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ read\_pos(nr,4),\ \ //\ CG}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00586}00586\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ d1,d2,d3,d4);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00587}00587\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ //\ printf("{}\%.2f\ \%.2f\ \%.2f\(\backslash\)n"{},\ mag(read\_pos(nr,0)-\/read\_pos(nr,1)),\ mag(read\_pos(nr,1)-\/read\_pos(nr,2)),\ mag(read\_pos(nr,0)-\/read\_pos(nr,2)));}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00588}00588\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00589}00589\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ chi1\_rotamer[nr]\ =\ (chi1\ <\ -\/M\_PI\_F/3.f)\ ?\ 0\ :\ ((chi1\ <\ M\_PI\_F/3.f)\ ?\ 1\ :2);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00590}00590\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ rotamer\_counts[chi1\_rotamer[nr]]++;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00591}00591\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00592}00592\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00593}00593\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ RefGeom\ item;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00594}00594\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ for(int\ rot=0;\ rot<3;\ ++rot)\ \{}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00595}00595\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ MatrixXd\ atom\_pos\_with\_rotamer(rotamer\_counts[rot],\ n\_atom*3);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00596}00596\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00597}00597\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ //\ populate\ pos\ array}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00598}00598\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ for(int\ nr=0,\ sc\_idx=0;\ nr<atom\_pos.rows();\ ++nr)}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00599}00599\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if(chi1\_rotamer[nr]\ ==\ rot)\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00600}00600\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ atom\_pos\_with\_rotamer.row(sc\_idx++)\ =\ atom\_pos.row(nr).cast<double>();}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00601}00601\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00602}00602\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ RowVectorXd\ mean\_pos\ =\ atom\_pos\_with\_rotamer.colwise().mean();}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00603}00603\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ atom\_pos\_with\_rotamer.rowwise()\ -\/=\ mean\_pos;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00604}00604\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ MatrixXd\ covariances\ =\ (1./atom\_pos\_with\_rotamer.rows())\ *\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00605}00605\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (atom\_pos\_with\_rotamer.transpose()\ *\ atom\_pos\_with\_rotamer);}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00606}00606\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ //\ add\ small\ diagonal\ bias\ to\ avoid\ exact\ zero\ determinant}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00607}00607\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ covariances\ +=\ VectorXd::Constant(n\_atom*3,\ 0.01*0.01).asDiagonal();}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00608}00608\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00609}00609\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ //\ shift\ mean\_pos\ so\ that\ the\ origin\ is\ at\ the\ center\ of\ the\ backbone\ positions\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00610}00610\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ Vector3d\ old\_center\ =\ (1./3.)\ *\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00611}00611\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (mean\_pos.segment<3>(3*0)\ +\ mean\_pos.segment<3>(3*1)\ +\ mean\_pos.segment<3>(3*2));}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00612}00612\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ for(int\ i=0;\ i<mean\_pos.size();\ ++i)\ mean\_pos[i]\ -\/=\ old\_center[i\%3];}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00613}00613\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00614}00614\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ item.mean\_pos\ \ \ [rot]\ =\ mean\_pos\ \ \ .cast<float>();}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00615}00615\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ item.covariances[rot]\ =\ covariances.cast<float>();}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00616}00616\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ //\ printf("{}\%s\ mean\_pos\_shape\ \%li\ covariance\ log10(det)/3n\ \%f\(\backslash\)n"{},\ nm.c\_str(),}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00617}00617\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ //\ \ \ \ \ \ \ \ \ mean\_pos.cols(),\ covariances.householderQr().logAbsDeterminant()/(3*n\_atom)/log(10.));}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00618}00618\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00619}00619\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ ret[nm]\ =\ item;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00620}00620\ \textcolor{comment}{//\ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00621}00621\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00622}00622\ \textcolor{comment}{//\ \ \ \ \ return\ ret;}}
+\DoxyCodeLine{\Hypertarget{compute__rotamer__centers_8cpp_source_l00623}00623\ \textcolor{comment}{//\ \}}}
+
+\end{DoxyCode}

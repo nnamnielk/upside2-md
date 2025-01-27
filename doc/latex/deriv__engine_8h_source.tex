@@ -1,0 +1,313 @@
+\doxysection{deriv\+\_\+engine.\+h}
+\hypertarget{deriv__engine_8h_source}{}\label{deriv__engine_8h_source}\index{src/deriv\_engine.h@{src/deriv\_engine.h}}
+\mbox{\hyperlink{deriv__engine_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ DERIV\_ENGINE\_H}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00002}00002\ \textcolor{preprocessor}{\#define\ DERIV\_ENGINE\_H}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{h5__support_8h}{h5\_support.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <initializer\_list>}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{vector__math_8h}{vector\_math.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00013}\mbox{\hyperlink{deriv__engine_8h_a25a30bcdf45181488ab5432421063ef8}{00013}}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{deriv__engine_8h_a25a30bcdf45181488ab5432421063ef8}{copy\_vec\_array\_to\_buffer}}(\mbox{\hyperlink{struct_vec_array}{VecArray}}\ arr,\ \textcolor{keywordtype}{int}\ n\_elem,\ \textcolor{keywordtype}{int}\ n\_dim,\ \textcolor{keywordtype}{float}*\ buffer)\ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00014}00014\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<n\_elem;\ ++i)}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00015}00015\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ d=0;\ d<n\_dim;\ ++d)\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ buffer[i*n\_dim+d]\ =\ arr(d,i);}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00017}00017\ \}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00019}\mbox{\hyperlink{deriv__engine_8h_ad00905ffdfaf63b7c9ee72e0f698d699}{00019}}\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{deriv__engine_8h_ad00905ffdfaf63b7c9ee72e0f698d699}{index\_t}};\ \ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00022}00022\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00023}00023\ \mbox{\hyperlink{deriv__engine_8h_a2c1c035cdb9bb33d6bcd9d1a9af35c28}{integration\_stage}}(}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00024}00024\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec_array}{VecArray}}\ mom,\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00025}00025\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec_array}{VecArray}}\ pos,\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00026}00026\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_vec_array}{VecArray}}\ deriv,\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ vel\_factor,\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ pos\_factor,}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00029}00029\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ max\_force,\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n\_atom\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00031}00031\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00034}00034\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00035}00035\ \mbox{\hyperlink{deriv__engine_8h_ae2f2d7768ef23ec7bcc291629d04595d}{recenter}}(}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00036}00036\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec_array}{VecArray}}\ pos,\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00037}00037\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ xy\_recenter\_only,\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n\_atom\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00039}00039\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00042}\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{00042}}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{ComputeMode}}\ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00043}\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4ad36a4e48ca04945e0fe81af7269e2dda}{00043}}\ \ \ \ \ \mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4ad36a4e48ca04945e0fe81af7269e2dda}{DerivMode}}\ =\ 0,\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00044}00044\ \ \ \ \ \mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4a08446ed6520358b5446fcd916b65610c}{PotentialAndDerivMode}}\ =\ 1\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00045}\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4a08446ed6520358b5446fcd916b65610c}{00045}}\ \};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00048}\mbox{\hyperlink{struct_deriv_computation}{00048}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_deriv_computation}{DerivComputation}}\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00049}00049\ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00051}\mbox{\hyperlink{struct_deriv_computation_ab9caf415ec64cd42c99d24545238e691}{00051}}\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_deriv_computation_ab9caf415ec64cd42c99d24545238e691}{potential\_term}};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00054}\mbox{\hyperlink{struct_deriv_computation_ab55a3d270aedc331a7ade09591198c4f}{00054}}\ \ \ \ \ \mbox{\hyperlink{struct_deriv_computation_ab55a3d270aedc331a7ade09591198c4f}{DerivComputation}}(\textcolor{keywordtype}{bool}\ potential\_term\_):}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00055}00055\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_deriv_computation_ab9caf415ec64cd42c99d24545238e691}{potential\_term}}(potential\_term\_)\ \{\}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00058}\mbox{\hyperlink{struct_deriv_computation_ae61f149a7fc4869f1d053c263fd03657}{00058}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{struct_deriv_computation_ae61f149a7fc4869f1d053c263fd03657}{\string~DerivComputation}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00061}\mbox{\hyperlink{struct_deriv_computation_a750d9688cee97b4ab8a6c66c8a739bfc}{00061}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_deriv_computation_a750d9688cee97b4ab8a6c66c8a739bfc}{compute\_value}}(\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{ComputeMode}}\ mode)=0;}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00064}\mbox{\hyperlink{struct_deriv_computation_a007700dca1cba2aeb17b27c8a94a3f16}{00064}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_deriv_computation_a007700dca1cba2aeb17b27c8a94a3f16}{propagate\_deriv}}()\ =0;}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00067}\mbox{\hyperlink{struct_deriv_computation_a5824da52d79ac4ac46e2cee217d8197c}{00067}}\ \ \ \ \ \textcolor{keyword}{virtual}\ std::vector<float>\ \mbox{\hyperlink{struct_deriv_computation_a5824da52d79ac4ac46e2cee217d8197c}{get\_param}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ std::vector<float>();\}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00070}\mbox{\hyperlink{struct_deriv_computation_a7c8dbb439e850f9cb4769aac0808d8c6}{00070}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_deriv_computation_a7c8dbb439e850f9cb4769aac0808d8c6}{set\_param}}(\textcolor{keyword}{const}\ std::vector<float>\&\ new\_params)\ \{\}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00071}00071\ \textcolor{preprocessor}{\#ifdef\ PARAM\_DERIV}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00073}00073\ \ \ \ \ \textcolor{keyword}{virtual}\ std::vector<float>\ \mbox{\hyperlink{engine__c__library_8cpp_ab7235657048c2c66e73ceac889a1ac0a}{get\_param\_deriv}}()\ \{\textcolor{keywordflow}{return}\ std::vector<float>();\}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00074}00074\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00077}\mbox{\hyperlink{struct_deriv_computation_aec2d05db4c36f52f8b7de6922af52494}{00077}}\ \ \ \ \ \textcolor{keyword}{virtual}\ std::vector<float>\ \mbox{\hyperlink{struct_deriv_computation_aec2d05db4c36f52f8b7de6922af52494}{get\_value\_by\_name}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ log\_name)\ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00078}00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::string(\textcolor{stringliteral}{"{}No\ values\ implemented"{}});}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00079}00079\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00080}00080\ \};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00083}\mbox{\hyperlink{struct_coord_node}{00083}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_coord_node}{CoordNode}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{struct_deriv_computation}{DerivComputation}}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00084}00084\ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00085}\mbox{\hyperlink{struct_coord_node_a232a2dcef6925113085311168f3f7700}{00085}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_coord_node_a232a2dcef6925113085311168f3f7700}{n\_elem}};\ \ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00086}\mbox{\hyperlink{struct_coord_node_ad9ae2976ea3b4379fe00959be6a04721}{00086}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_coord_node_ad9ae2976ea3b4379fe00959be6a04721}{elem\_width}};\ \ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00087}\mbox{\hyperlink{struct_coord_node_a678c754ea0a0fdd4e01a23875426d6b5}{00087}}\ \ \ \ \ \mbox{\hyperlink{struct_vec_array_storage}{VecArrayStorage}}\ \mbox{\hyperlink{struct_coord_node_a678c754ea0a0fdd4e01a23875426d6b5}{output}};\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00088}\mbox{\hyperlink{struct_coord_node_aee777afa72f20aef74cdf071127fb0aa}{00088}}\ \ \ \ \ \mbox{\hyperlink{struct_vec_array_storage}{VecArrayStorage}}\ \mbox{\hyperlink{struct_coord_node_aee777afa72f20aef74cdf071127fb0aa}{sens}};\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00091}\mbox{\hyperlink{struct_coord_node_a9483bd859494380be2d2851e094c453f}{00091}}\ \ \ \ \ \mbox{\hyperlink{struct_coord_node_a9483bd859494380be2d2851e094c453f}{CoordNode}}(\textcolor{keywordtype}{int}\ n\_elem\_,\ \textcolor{keywordtype}{int}\ elem\_width\_):}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00092}00092\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_deriv_computation}{DerivComputation}}(false),}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00093}00093\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_coord_node_a232a2dcef6925113085311168f3f7700}{n\_elem}}(n\_elem\_),\ \mbox{\hyperlink{struct_coord_node_ad9ae2976ea3b4379fe00959be6a04721}{elem\_width}}(elem\_width\_),\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00094}00094\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_coord_node_a678c754ea0a0fdd4e01a23875426d6b5}{output}}(\mbox{\hyperlink{struct_coord_node_ad9ae2976ea3b4379fe00959be6a04721}{elem\_width}},\ \mbox{\hyperlink{vector__math_8h_a14921fcd20cbc1b551faae059b182043}{round\_up}}(\mbox{\hyperlink{struct_coord_node_a232a2dcef6925113085311168f3f7700}{n\_elem}},4)),}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00095}00095\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_coord_node_aee777afa72f20aef74cdf071127fb0aa}{sens}}\ \ (\mbox{\hyperlink{struct_coord_node_ad9ae2976ea3b4379fe00959be6a04721}{elem\_width}},\ \mbox{\hyperlink{vector__math_8h_a14921fcd20cbc1b551faae059b182043}{round\_up}}(\mbox{\hyperlink{struct_coord_node_a232a2dcef6925113085311168f3f7700}{n\_elem}},4))\ \{\}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00096}00096\ \};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00100}\mbox{\hyperlink{struct_potential_node}{00100}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_potential_node}{PotentialNode}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{struct_deriv_computation}{DerivComputation}}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00101}00101\ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00102}\mbox{\hyperlink{struct_potential_node_ae34531266ff6716a791f3a55edb60015}{00102}}\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_potential_node_ae34531266ff6716a791f3a55edb60015}{potential}};\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00104}\mbox{\hyperlink{struct_potential_node_ae85f3af95266404a37981073878c677b}{00104}}\ \ \ \ \ \mbox{\hyperlink{struct_potential_node_ae85f3af95266404a37981073878c677b}{PotentialNode}}():}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00105}00105\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_deriv_computation}{DerivComputation}}(true)\ \{\}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00109}\mbox{\hyperlink{struct_potential_node_ab773065a7ed9977bcef687108baa6ef4}{00109}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_potential_node_ab773065a7ed9977bcef687108baa6ef4}{propagate\_deriv}}()\ \{\};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00110}00110\ \};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00111}00111\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00114}\mbox{\hyperlink{struct_h_bond_counter}{00114}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_h_bond_counter}{HBondCounter}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{struct_potential_node}{PotentialNode}}\ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00115}\mbox{\hyperlink{struct_h_bond_counter_a25b9b7487ca509d6bcd2f6806386f72c}{00115}}\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_h_bond_counter_a25b9b7487ca509d6bcd2f6806386f72c}{n\_hbond}};\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00117}\mbox{\hyperlink{struct_h_bond_counter_a8fba387ba46bcf63abc39df5a699ec60}{00117}}\ \ \ \ \ \mbox{\hyperlink{struct_h_bond_counter_a8fba387ba46bcf63abc39df5a699ec60}{HBondCounter}}():\ \mbox{\hyperlink{struct_potential_node}{PotentialNode}}(),\ \mbox{\hyperlink{struct_h_bond_counter_a25b9b7487ca509d6bcd2f6806386f72c}{n\_hbond}}(-\/1.f)\ \{\};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00118}00118\ \};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00122}\mbox{\hyperlink{struct_pos}{00122}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_pos}{Pos}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{struct_coord_node}{CoordNode}}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00123}00123\ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00124}\mbox{\hyperlink{struct_pos_ab6757614fe36d224a7c27efcf66b53c4}{00124}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_pos_ab6757614fe36d224a7c27efcf66b53c4}{n\_atom}};\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00125}00125\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00127}\mbox{\hyperlink{struct_pos_a6e804cf58a793b81bcf6fa7384420761}{00127}}\ \ \ \ \ \mbox{\hyperlink{struct_pos_a6e804cf58a793b81bcf6fa7384420761}{Pos}}(\textcolor{keywordtype}{int}\ n\_atom\_):}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00128}00128\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_coord_node}{CoordNode}}(n\_atom\_,\ 3),\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00129}00129\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_pos_ab6757614fe36d224a7c27efcf66b53c4}{n\_atom}}(n\_atom\_)}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00130}00130\ \ \ \ \ \{\}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00135}\mbox{\hyperlink{struct_pos_a9b9336fdb273020f5d193588cb839519}{00135}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_pos_a9b9336fdb273020f5d193588cb839519}{compute\_value}}(\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{ComputeMode}}\ mode)\ \{\};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00140}\mbox{\hyperlink{struct_pos_a3ea6aacc79146a239fc7ec38819df5f3}{00140}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_pos_a3ea6aacc79146a239fc7ec38819df5f3}{propagate\_deriv}}()\ \{\};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00141}00141\ \};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00145}\mbox{\hyperlink{struct_deriv_engine}{00145}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_deriv_engine}{DerivEngine}}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00146}00146\ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00148}\mbox{\hyperlink{struct_deriv_engine_1_1_node}{00148}}\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_deriv_engine_1_1_node}{Node}}\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00149}00149\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00150}\mbox{\hyperlink{struct_deriv_engine_1_1_node_a8009f24e8a8858d91dd83263f6ac09ef}{00150}}\ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a8009f24e8a8858d91dd83263f6ac09ef}{name}};\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00151}\mbox{\hyperlink{struct_deriv_engine_1_1_node_a9f32b31d5c591b68812b8724e26277ab}{00151}}\ \ \ \ \ \ \ \ \ std::unique\_ptr<DerivComputation>\ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a9f32b31d5c591b68812b8724e26277ab}{computation}};\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00152}\mbox{\hyperlink{struct_deriv_engine_1_1_node_a5e34f08eb4ea8fd0e9e844129a65411f}{00152}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a5e34f08eb4ea8fd0e9e844129a65411f}{integrator\_level}};\textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00153}\mbox{\hyperlink{struct_deriv_engine_1_1_node_a08877bb98e3b90d4626293e6da3e05a4}{00153}}\ \ \ \ \ \ \ \ \ std::vector<size\_t>\ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a08877bb98e3b90d4626293e6da3e05a4}{parents}};\ \ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00154}\mbox{\hyperlink{struct_deriv_engine_1_1_node_a7b39c8b4dee66a2e0ceabe95f6c49c4a}{00154}}\ \ \ \ \ \ \ \ \ std::vector<size\_t>\ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a7b39c8b4dee66a2e0ceabe95f6c49c4a}{children}};\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00155}00155\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00156}\mbox{\hyperlink{struct_deriv_engine_1_1_node_a31a35817671107fd3a17776f04ce693d}{00156}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a31a35817671107fd3a17776f04ce693d}{germ\_exec\_level}};\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00157}\mbox{\hyperlink{struct_deriv_engine_1_1_node_a6050051182d32323499cd9d50518c14b}{00157}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a6050051182d32323499cd9d50518c14b}{deriv\_exec\_level}};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00160}\mbox{\hyperlink{struct_deriv_engine_1_1_node_a27561237dd0c6541a270938c912ca96f}{00160}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a27561237dd0c6541a270938c912ca96f}{Node}}(std::string\ name\_,\ std::unique\_ptr<DerivComputation>\ computation\_):}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a8009f24e8a8858d91dd83263f6ac09ef}{name}}(name\_),\ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a9f32b31d5c591b68812b8724e26277ab}{computation}}(std::move(computation\_))\ \{\};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00162}00162\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00163}\mbox{\hyperlink{struct_deriv_engine_1_1_node_ac9c2109567bc854e722b908584895062}{00163}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_deriv_engine_1_1_node_ac9c2109567bc854e722b908584895062}{Node}}(std::string\ name\_,\ std::unique\_ptr<DerivComputation>\ computation\_,\ \textcolor{keywordtype}{int}\ integrator\_level\_):}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a8009f24e8a8858d91dd83263f6ac09ef}{name}}(name\_),\ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a9f32b31d5c591b68812b8724e26277ab}{computation}}(std::move(computation\_)),\ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a5e34f08eb4ea8fd0e9e844129a65411f}{integrator\_level}}(integrator\_level\_)\ \{\};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00165}00165\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00167}\mbox{\hyperlink{struct_deriv_engine_1_1_node_ae82bdd396c364aa839fd6ca261979581}{00167}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_deriv_engine_1_1_node_ae82bdd396c364aa839fd6ca261979581}{Node}}(std::string\ name\_,\ \mbox{\hyperlink{struct_deriv_computation}{DerivComputation}}*\ computation\_):}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a8009f24e8a8858d91dd83263f6ac09ef}{name}}(name\_),\ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a9f32b31d5c591b68812b8724e26277ab}{computation}}(computation\_)\ \{\};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00170}\mbox{\hyperlink{struct_deriv_engine_1_1_node_a2a29b48d4e9aa448dca5d578675556dc}{00170}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a2a29b48d4e9aa448dca5d578675556dc}{Node}}(std::string\ name\_,\ \mbox{\hyperlink{struct_deriv_computation}{DerivComputation}}*\ computation\_,\ \textcolor{keywordtype}{int}\ integrator\_level\_):}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a8009f24e8a8858d91dd83263f6ac09ef}{name}}(name\_),\ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a9f32b31d5c591b68812b8724e26277ab}{computation}}(computation\_),\ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a5e34f08eb4ea8fd0e9e844129a65411f}{integrator\_level}}(integrator\_level\_)\ \{\};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00172}00172\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00173}\mbox{\hyperlink{struct_deriv_engine_1_1_node_a74cd969b1462e7c8221ac61927677437}{00173}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a74cd969b1462e7c8221ac61927677437}{Node}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_deriv_engine_1_1_node}{Node}}\&\ other)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00175}\mbox{\hyperlink{struct_deriv_engine_1_1_node_aaae7d5d0ec694c6d63e3e740016ab54e}{00175}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_deriv_engine_1_1_node_aaae7d5d0ec694c6d63e3e740016ab54e}{Node}}(\mbox{\hyperlink{struct_deriv_engine_1_1_node}{Node}}\&\&\ other):}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a8009f24e8a8858d91dd83263f6ac09ef}{name}}(std::move(other.\mbox{\hyperlink{struct_deriv_engine_1_1_node_a8009f24e8a8858d91dd83263f6ac09ef}{name}})),}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a9f32b31d5c591b68812b8724e26277ab}{computation}}(std::move(other.\mbox{\hyperlink{struct_deriv_engine_1_1_node_a9f32b31d5c591b68812b8724e26277ab}{computation}})),}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a5e34f08eb4ea8fd0e9e844129a65411f}{integrator\_level}}(other.\mbox{\hyperlink{struct_deriv_engine_1_1_node_a5e34f08eb4ea8fd0e9e844129a65411f}{integrator\_level}}),}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a08877bb98e3b90d4626293e6da3e05a4}{parents}}(std::move(other.\mbox{\hyperlink{struct_deriv_engine_1_1_node_a08877bb98e3b90d4626293e6da3e05a4}{parents}})),}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a7b39c8b4dee66a2e0ceabe95f6c49c4a}{children}}(std::move(other.\mbox{\hyperlink{struct_deriv_engine_1_1_node_a7b39c8b4dee66a2e0ceabe95f6c49c4a}{children}})),}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00181}00181\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a31a35817671107fd3a17776f04ce693d}{germ\_exec\_level}}(other.\mbox{\hyperlink{struct_deriv_engine_1_1_node_a31a35817671107fd3a17776f04ce693d}{germ\_exec\_level}}),}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00182}00182\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_deriv_engine_1_1_node_a6050051182d32323499cd9d50518c14b}{deriv\_exec\_level}}(other.\mbox{\hyperlink{struct_deriv_engine_1_1_node_a6050051182d32323499cd9d50518c14b}{deriv\_exec\_level}})}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00183}00183\ \ \ \ \ \ \ \ \ \{\}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00184}00184\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00185}00185\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00189}\mbox{\hyperlink{struct_deriv_engine_ae31d5294fc3a0bb69d97386e2a204e3b}{00189}}\ \ \ \ \ std::vector<Node>\ \mbox{\hyperlink{struct_deriv_engine_ae31d5294fc3a0bb69d97386e2a204e3b}{nodes}};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00191}\mbox{\hyperlink{struct_deriv_engine_a32563c7e40a58003d1b32a10453d746e}{00191}}\ \ \ \ \ std::vector<int>\ \mbox{\hyperlink{struct_deriv_engine_a32563c7e40a58003d1b32a10453d746e}{germ\_exec\_levels}};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00192}\mbox{\hyperlink{struct_deriv_engine_a3a89d2d44826d331f090354bbc67bc6b}{00192}}\ \ \ \ \ std::vector<int>\ \mbox{\hyperlink{struct_deriv_engine_a3a89d2d44826d331f090354bbc67bc6b}{deriv\_exec\_levels}};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00193}00193\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00195}\mbox{\hyperlink{struct_deriv_engine_a4d1eead19c296c11095a8d7ecfa138ae}{00195}}\ \ \ \ \ \mbox{\hyperlink{struct_pos}{Pos}}*\ \mbox{\hyperlink{struct_deriv_engine_a4d1eead19c296c11095a8d7ecfa138ae}{pos}};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00200}\mbox{\hyperlink{struct_deriv_engine_a3a0ab62cfd0b13b064466312d4b3f5e8}{00200}}\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_deriv_engine_a3a0ab62cfd0b13b064466312d4b3f5e8}{potential}};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00201}00201\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00203}\mbox{\hyperlink{struct_deriv_engine_a7b4c39981d430d6f2103ab59cab954b5}{00203}}\ \ \ \ \ \mbox{\hyperlink{struct_deriv_engine_a7b4c39981d430d6f2103ab59cab954b5}{DerivEngine}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00205}\mbox{\hyperlink{struct_deriv_engine_a4114311e9220a90c0e67889a876b0136}{00205}}\ \ \ \ \ \mbox{\hyperlink{struct_deriv_engine_a4114311e9220a90c0e67889a876b0136}{DerivEngine}}(\textcolor{keywordtype}{int}\ n\_atom):\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00206}00206\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_deriv_engine_a3a0ab62cfd0b13b064466312d4b3f5e8}{potential}}(0.f)}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00207}00207\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00208}00208\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_deriv_engine_ae31d5294fc3a0bb69d97386e2a204e3b}{nodes}}.emplace\_back(\textcolor{stringliteral}{"{}pos"{}},\ \textcolor{keyword}{new}\ \mbox{\hyperlink{struct_pos}{Pos}}(n\_atom));}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00209}00209\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_deriv_engine_a4d1eead19c296c11095a8d7ecfa138ae}{pos}}\ =\ \textcolor{keyword}{dynamic\_cast<}\mbox{\hyperlink{struct_pos}{Pos}}*\textcolor{keyword}{>}(\mbox{\hyperlink{struct_deriv_engine_ae31d5294fc3a0bb69d97386e2a204e3b}{nodes}}[0].computation.get());}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00210}00210\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00211}00211\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00213}00213\ \ \ \ \ \textcolor{keywordtype}{void}\ add\_node(}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00214}00214\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ name,\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00215}00215\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ integrator\_level,\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00216}00216\ \ \ \ \ \ \ \ \ \ \ \ \ std::unique\_ptr<DerivComputation>\ fcn,\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00217}00217\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<std::string>\ argument\_names);}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00218}00218\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00222}00222\ \ \ \ \ Node\&\ \mbox{\hyperlink{struct_deriv_engine_a901059824e3f2efb9f61ad94f76022c6}{get}}(\textcolor{keyword}{const}\ std::string\&\ name);\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00223}00223\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00227}00227\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_deriv_engine_a9133b9eadfb1d81d41efb281ccf27b80}{get\_idx}}(\textcolor{keyword}{const}\ std::string\&\ name,\ \textcolor{keywordtype}{bool}\ must\_exist=\textcolor{keyword}{true});\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00228}00228\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00232}00232\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00233}\mbox{\hyperlink{struct_deriv_engine_a764cf2d2c003d24cf91ef4c073090b01}{00233}}\ \ \ \ \ T\&\ \mbox{\hyperlink{struct_deriv_engine_a764cf2d2c003d24cf91ef4c073090b01}{get\_computation}}(\textcolor{keyword}{const}\ std::string\&\ name)\ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00234}00234\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ computation\ =\ \mbox{\hyperlink{struct_deriv_engine_a901059824e3f2efb9f61ad94f76022c6}{get}}(name).\mbox{\hyperlink{struct_deriv_engine_1_1_node_a9f32b31d5c591b68812b8724e26277ab}{computation}}.get();}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00235}00235\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!computation)\ \textcolor{keywordflow}{throw}\ std::string(\textcolor{stringliteral}{"{}impossible\ pointer\ value"{}});}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00236}00236\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{dynamic\_cast<}T\&\textcolor{keyword}{>}(*computation);}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00237}00237\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00238}00238\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00242}00242\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_deriv_engine_a6aa1208083a02ae463d4a7aea00389cc}{compute}}(\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{ComputeMode}}\ mode);}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00243}00243\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_deriv_engine_a6aa1208083a02ae463d4a7aea00389cc}{compute}}(\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{ComputeMode}}\ mode,\ \textcolor{keywordtype}{int}\ integrator\_level);}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00244}00244\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00245}00245\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_deriv_engine_a641a1609f7af2da3185b625a30ed4ad0}{build\_exec\_levels}}();}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00246}00246\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_deriv_engine_a500f413e569e0a9885b0237bed0ab063}{build\_integrator\_levels}}(\textcolor{keywordtype}{bool}\ print\_info,\ \textcolor{keywordtype}{float}\ dt,\ \textcolor{keywordtype}{int}\ inner\_step);}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00247}00247\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00249}\mbox{\hyperlink{struct_deriv_engine_a4341c8691fc9587b143d9b6bc1cc5d8c}{00249}}\ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{struct_deriv_engine_a4341c8691fc9587b143d9b6bc1cc5d8c}{IntegratorType}}\ \{\mbox{\hyperlink{struct_deriv_engine_a4341c8691fc9587b143d9b6bc1cc5d8ca7d532e5c46da102c81e5f29f8e8f50e5}{Verlet}}=0,\ \mbox{\hyperlink{struct_deriv_engine_a4341c8691fc9587b143d9b6bc1cc5d8caaa0a78d5ba283b1cfa5ec8167e9538c2}{Predescu}}=1\};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00250}00250\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00254}00254\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_deriv_engine_a82d3306751074d5f0a3b1e699363a201}{integration\_cycle}}(\mbox{\hyperlink{struct_vec_array}{VecArray}}\ mom,\ \textcolor{keywordtype}{float}\ dt,\ \textcolor{keywordtype}{float}\ max\_force,\ \mbox{\hyperlink{struct_deriv_engine_a4341c8691fc9587b143d9b6bc1cc5d8c}{IntegratorType}}\ type\ =\ \mbox{\hyperlink{struct_deriv_engine_a4341c8691fc9587b143d9b6bc1cc5d8ca7d532e5c46da102c81e5f29f8e8f50e5}{Verlet}});}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00255}00255\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_deriv_engine_a82d3306751074d5f0a3b1e699363a201}{integration\_cycle}}(\mbox{\hyperlink{struct_vec_array}{VecArray}}\ mom,\ \textcolor{keywordtype}{float}\ dt);}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00256}00256\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_deriv_engine_a82d3306751074d5f0a3b1e699363a201}{integration\_cycle}}(\mbox{\hyperlink{struct_vec_array}{VecArray}}\ mom,\ \textcolor{keywordtype}{float}\ dt,\ \textcolor{keywordtype}{int}\ inner\_step);}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00257}00257\ \};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00258}00258\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00260}00260\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{deriv__engine_8h_a4df5955570609adf059a2cbd0b486ca9}{get\_n\_hbond}}(\mbox{\hyperlink{struct_deriv_engine}{DerivEngine}}\ \&engine);}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00261}00261\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00263}00263\ \mbox{\hyperlink{struct_deriv_engine}{DerivEngine}}\ \mbox{\hyperlink{deriv__engine_8h_a3ccc3fda25b9b092920b09180a270f4d}{initialize\_engine\_from\_hdf5}}(\textcolor{keywordtype}{int}\ n\_atom,\ hid\_t\ potential\_group);}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00264}00264\ \textcolor{comment}{//DerivEngine\ initialize\_engine\_from\_hdf5(int\ n\_atom,\ hid\_t\ potential\_group,\ bool\ quiet=false);}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00265}00265\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00267}\mbox{\hyperlink{deriv__engine_8h_a66baf88634d70b3bf8b21b359e16b284}{00267}}\ \textcolor{keyword}{typedef}\ std::vector<CoordNode*>\ \mbox{\hyperlink{deriv__engine_8h_a66baf88634d70b3bf8b21b359e16b284}{ArgList}};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00268}00268\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00273}\mbox{\hyperlink{deriv__engine_8h_a6d31eabd14ac92d3ce80cec13ec215dd}{00273}}\ \textcolor{keyword}{typedef}\ std::function<\mbox{\hyperlink{struct_deriv_computation}{DerivComputation}}*(hid\_t,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{deriv__engine_8h_a66baf88634d70b3bf8b21b359e16b284}{ArgList}}\&)>\ \mbox{\hyperlink{deriv__engine_8h_a6d31eabd14ac92d3ce80cec13ec215dd}{NodeCreationFunction}};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00274}00274\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00276}\mbox{\hyperlink{deriv__engine_8h_a9743319e0412b1147ec0121fc87321d3}{00276}}\ \textcolor{keyword}{typedef}\ std::map<std::string,\ NodeCreationFunction>\ \mbox{\hyperlink{deriv__engine_8h_a9743319e0412b1147ec0121fc87321d3}{NodeCreationMap}};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00277}00277\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00279}00279\ \mbox{\hyperlink{deriv__engine_8h_a9743319e0412b1147ec0121fc87321d3}{NodeCreationMap}}\&\ \mbox{\hyperlink{deriv__engine_8h_a840962efde8660375c18e135b11f93f2}{node\_creation\_map}}();\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00280}00280\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00282}00282\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{deriv__engine_8h_a82c21db8735d3846779816d11da5731a}{is\_prefix}}(\textcolor{keyword}{const}\ std::string\&\ s1,\ \textcolor{keyword}{const}\ std::string\&\ s2);}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00283}00283\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00285}00285\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{deriv__engine_8h_a9511a901ba7c14aca4bc9b997dfecdf8}{add\_node\_creation\_function}}(std::string\ name\_prefix,\ \mbox{\hyperlink{deriv__engine_8h_a6d31eabd14ac92d3ce80cec13ec215dd}{NodeCreationFunction}}\ fcn);}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00286}00286\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00288}00288\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{deriv__engine_8h_aeb27b4cc65704a1fa19bdc6bd51d5fda}{check\_elem\_width}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_coord_node}{CoordNode}}\&\ node,\ \textcolor{keywordtype}{int}\ expected\_elem\_width);}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00289}00289\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00291}00291\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{deriv__engine_8h_ab000e086918b4f5948c7da22bca773e8}{check\_elem\_width\_lower\_bound}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_coord_node}{CoordNode}}\&\ node,\ \textcolor{keywordtype}{int}\ elem\_width\_lower\_bound);}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00292}00292\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00294}00294\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{deriv__engine_8h_a85b4a2b23391ba93a4a3fe5b60441b96}{check\_arguments\_length}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{deriv__engine_8h_a66baf88634d70b3bf8b21b359e16b284}{ArgList}}\&\ arguments,\ \textcolor{keywordtype}{int}\ n\_expected);}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00295}00295\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00297}00297\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ NodeClass,\ \textcolor{keywordtype}{int}\ n\_args>}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00298}\mbox{\hyperlink{struct_register_node_type}{00298}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_register_node_type}{RegisterNodeType}}\ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00299}\mbox{\hyperlink{struct_register_node_type_aa06f6dfaf8d4aa585085956243b9b482}{00299}}\ \ \ \ \ \mbox{\hyperlink{struct_register_node_type_aa06f6dfaf8d4aa585085956243b9b482}{RegisterNodeType}}(std::string\ name\_prefix);}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00300}00300\ \};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00301}00301\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00302}00302\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00304}00304\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ NodeClass>}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00305}\mbox{\hyperlink{struct_register_node_type_3_01_node_class_00-1_01_4}{00305}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_register_node_type}{RegisterNodeType}}<NodeClass,-\/1>\ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00306}\mbox{\hyperlink{struct_register_node_type_3_01_node_class_00-1_01_4_a40c51c2209363b07790006fb62537d5e}{00306}}\ \ \ \ \ \mbox{\hyperlink{struct_register_node_type_3_01_node_class_00-1_01_4_a40c51c2209363b07790006fb62537d5e}{RegisterNodeType}}(std::string\ name\_prefix)\{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00307}00307\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{deriv__engine_8h_a6d31eabd14ac92d3ce80cec13ec215dd}{NodeCreationFunction}}\ f\ =\ [](hid\_t\ grp,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{deriv__engine_8h_a66baf88634d70b3bf8b21b359e16b284}{ArgList}}\&\ args)\ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00308}00308\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!args.size())\ \textcolor{keywordflow}{throw}\ std::string(\textcolor{stringliteral}{"{}Expected\ at\ least\ 1\ arg"{}});}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00309}00309\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ NodeClass(grp,\ args);\};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00310}00310\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{deriv__engine_8h_a9511a901ba7c14aca4bc9b997dfecdf8}{add\_node\_creation\_function}}(name\_prefix,\ f);}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00311}00311\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00312}00312\ \};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00313}00313\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00315}00315\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ NodeClass>}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00316}\mbox{\hyperlink{struct_register_node_type_3_01_node_class_00_010_01_4}{00316}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_register_node_type}{RegisterNodeType}}<NodeClass,0>\ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00317}\mbox{\hyperlink{struct_register_node_type_3_01_node_class_00_010_01_4_a8e6e80e192b88c8ba847722625af30a2}{00317}}\ \ \ \ \ \mbox{\hyperlink{struct_register_node_type_3_01_node_class_00_010_01_4_a8e6e80e192b88c8ba847722625af30a2}{RegisterNodeType}}(std::string\ name\_prefix)\{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00318}00318\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{deriv__engine_8h_a6d31eabd14ac92d3ce80cec13ec215dd}{NodeCreationFunction}}\ f\ =\ [](hid\_t\ grp,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{deriv__engine_8h_a66baf88634d70b3bf8b21b359e16b284}{ArgList}}\&\ args)\ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00319}00319\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{deriv__engine_8h_a85b4a2b23391ba93a4a3fe5b60441b96}{check\_arguments\_length}}(args,0);\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00320}00320\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ NodeClass(grp);\};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00321}00321\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{deriv__engine_8h_a9511a901ba7c14aca4bc9b997dfecdf8}{add\_node\_creation\_function}}(name\_prefix,\ f);}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00322}00322\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00323}00323\ \};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00324}00324\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00326}00326\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ NodeClass>}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00327}\mbox{\hyperlink{struct_register_node_type_3_01_node_class_00_011_01_4}{00327}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_register_node_type}{RegisterNodeType}}<NodeClass,1>\ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00328}\mbox{\hyperlink{struct_register_node_type_3_01_node_class_00_011_01_4_a437c9eb2dd93e1b893b220ffd13786f4}{00328}}\ \ \ \ \ \mbox{\hyperlink{struct_register_node_type_3_01_node_class_00_011_01_4_a437c9eb2dd93e1b893b220ffd13786f4}{RegisterNodeType}}(std::string\ name\_prefix)\{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00329}00329\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{deriv__engine_8h_a6d31eabd14ac92d3ce80cec13ec215dd}{NodeCreationFunction}}\ f\ =\ [](hid\_t\ grp,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{deriv__engine_8h_a66baf88634d70b3bf8b21b359e16b284}{ArgList}}\&\ args)\ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00330}00330\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{deriv__engine_8h_a85b4a2b23391ba93a4a3fe5b60441b96}{check\_arguments\_length}}(args,1);\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00331}00331\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ NodeClass(grp,\ *args[0]);\};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00332}00332\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{deriv__engine_8h_a9511a901ba7c14aca4bc9b997dfecdf8}{add\_node\_creation\_function}}(name\_prefix,\ f);}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00333}00333\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00334}00334\ \};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00335}00335\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00337}00337\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ NodeClass>}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00338}\mbox{\hyperlink{struct_register_node_type_3_01_node_class_00_012_01_4}{00338}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_register_node_type}{RegisterNodeType}}<NodeClass,2>\ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00339}\mbox{\hyperlink{struct_register_node_type_3_01_node_class_00_012_01_4_acc751ef3ffcf203d47fe73d8f4dd9294}{00339}}\ \ \ \ \ \mbox{\hyperlink{struct_register_node_type_3_01_node_class_00_012_01_4_acc751ef3ffcf203d47fe73d8f4dd9294}{RegisterNodeType}}(std::string\ name\_prefix)\{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00340}00340\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{deriv__engine_8h_a6d31eabd14ac92d3ce80cec13ec215dd}{NodeCreationFunction}}\ f\ =\ [](hid\_t\ grp,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{deriv__engine_8h_a66baf88634d70b3bf8b21b359e16b284}{ArgList}}\&\ args)\ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00341}00341\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{deriv__engine_8h_a85b4a2b23391ba93a4a3fe5b60441b96}{check\_arguments\_length}}(args,2);\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00342}00342\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ NodeClass(grp,\ *args[0],\ *args[1]);\};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00343}00343\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{deriv__engine_8h_a9511a901ba7c14aca4bc9b997dfecdf8}{add\_node\_creation\_function}}(name\_prefix,\ f);}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00344}00344\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00345}00345\ \};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00346}00346\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00348}00348\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ NodeClass>}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00349}\mbox{\hyperlink{struct_register_node_type_3_01_node_class_00_013_01_4}{00349}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_register_node_type}{RegisterNodeType}}<NodeClass,3>\ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00350}\mbox{\hyperlink{struct_register_node_type_3_01_node_class_00_013_01_4_a2210e8ae6d2fd8ae93a9a7e83924cfb5}{00350}}\ \ \ \ \ \mbox{\hyperlink{struct_register_node_type_3_01_node_class_00_013_01_4_a2210e8ae6d2fd8ae93a9a7e83924cfb5}{RegisterNodeType}}(std::string\ name\_prefix)\{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00351}00351\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{deriv__engine_8h_a6d31eabd14ac92d3ce80cec13ec215dd}{NodeCreationFunction}}\ f\ =\ [](hid\_t\ grp,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{deriv__engine_8h_a66baf88634d70b3bf8b21b359e16b284}{ArgList}}\&\ args)\ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00352}00352\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{deriv__engine_8h_a85b4a2b23391ba93a4a3fe5b60441b96}{check\_arguments\_length}}(args,3);\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00353}00353\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ NodeClass(grp,\ *args[0],\ *args[1],\ *args[2]);\};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00354}00354\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{deriv__engine_8h_a9511a901ba7c14aca4bc9b997dfecdf8}{add\_node\_creation\_function}}(name\_prefix,\ f);}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00355}00355\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00356}00356\ \};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00357}00357\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00359}00359\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ NodeClass>}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00360}\mbox{\hyperlink{struct_register_node_type_3_01_node_class_00_014_01_4}{00360}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_register_node_type}{RegisterNodeType}}<NodeClass,4>\ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00361}\mbox{\hyperlink{struct_register_node_type_3_01_node_class_00_014_01_4_a1e2ce81d435f00cd991dacba3a0d8b19}{00361}}\ \ \ \ \ \mbox{\hyperlink{struct_register_node_type_3_01_node_class_00_014_01_4_a1e2ce81d435f00cd991dacba3a0d8b19}{RegisterNodeType}}(std::string\ name\_prefix)\{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00362}00362\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{deriv__engine_8h_a6d31eabd14ac92d3ce80cec13ec215dd}{NodeCreationFunction}}\ f\ =\ [](hid\_t\ grp,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{deriv__engine_8h_a66baf88634d70b3bf8b21b359e16b284}{ArgList}}\&\ args)\ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00363}00363\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{deriv__engine_8h_a85b4a2b23391ba93a4a3fe5b60441b96}{check\_arguments\_length}}(args,4);\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00364}00364\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ NodeClass(grp,\ *args[0],\ *args[1],\ *args[2],\ *args[3]);\};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00365}00365\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{deriv__engine_8h_a9511a901ba7c14aca4bc9b997dfecdf8}{add\_node\_creation\_function}}(name\_prefix,\ f);}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00366}00366\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00367}00367\ \};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00368}00368\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00369}\mbox{\hyperlink{deriv__engine_8h_ad9971b6ef33e02ba2c75d19c1d2518a1a09797f32f3e9bceddca27a54dde88f19}{00369}}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{deriv__engine_8h_ad9971b6ef33e02ba2c75d19c1d2518a1}{ValueType}}\ \{\mbox{\hyperlink{deriv__engine_8h_ad9971b6ef33e02ba2c75d19c1d2518a1a63cf8547c1467b1bcf99a2c315d2ca35}{CARTESIAN\_VALUE}}=0,\ \mbox{\hyperlink{deriv__engine_8h_ad9971b6ef33e02ba2c75d19c1d2518a1a09797f32f3e9bceddca27a54dde88f19}{ANGULAR\_VALUE}}=1,\ \mbox{\hyperlink{deriv__engine_8h_ad9971b6ef33e02ba2c75d19c1d2518a1ad30c56d44c97cd5aa0e1258ec8525074}{BODY\_VALUE}}=2\};}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00370}00370\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00372}\mbox{\hyperlink{deriv__engine_8h_a69d0a960ca21a4a0801080e30c2712d3}{00372}}\ std::vector<float>\ \mbox{\hyperlink{deriv__engine_8h_a69d0a960ca21a4a0801080e30c2712d3}{central\_difference\_deriviative}}(}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00373}00373\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::function<\textcolor{keywordtype}{void}()>\ \&compute\_value,\ std::vector<float>\ \&input,\ std::vector<float>\ \&output,}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00374}00374\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ eps=1e-\/2f,\ \mbox{\hyperlink{deriv__engine_8h_ad9971b6ef33e02ba2c75d19c1d2518a1}{ValueType}}\ value\_type\ =\ \mbox{\hyperlink{deriv__engine_8h_ad9971b6ef33e02ba2c75d19c1d2518a1a63cf8547c1467b1bcf99a2c315d2ca35}{CARTESIAN\_VALUE}});}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00375}00375\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00376}00376\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00377}00377\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ relative\_rms\_deviation(}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00378}00378\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<float>\ \&reference,\ \textcolor{keyword}{const}\ std::vector<float>\ \&actual)\ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00379}00379\ \ \ \ \ \textcolor{keywordflow}{if}(reference.size()\ !=\ actual.size())\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00380}00380\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::string(\textcolor{stringliteral}{"{}impossible\ size\ mismatch\ "{}})\ +\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00381}00381\ \ \ \ \ \ \ \ \ \ \ \ \ std::to\_string(reference.size())\ +\ \textcolor{stringliteral}{"{}\ "{}}\ +\ std::to\_string(actual.size());}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00382}00382\ \ \ \ \ \textcolor{keywordtype}{double}\ diff\_mag2\ \ =\ 0.;}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00383}00383\ \ \ \ \ \textcolor{keywordtype}{double}\ value1\_mag2\ =\ 0.;}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00384}00384\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ i=0;\ i<reference.size();\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00385}00385\ \ \ \ \ \ \ \ \ diff\_mag2\ \ +=\ \mbox{\hyperlink{vector__math_8h_ac2cc70fa5aef0642281b678f84c029ae}{sqr}}(reference[i]-\/actual[i]);}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00386}00386\ \ \ \ \ \ \ \ \ value1\_mag2\ +=\ \mbox{\hyperlink{vector__math_8h_ac2cc70fa5aef0642281b678f84c029ae}{sqr}}(reference[i]);}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00387}00387\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00388}00388\ \ \ \ \ \textcolor{keywordflow}{return}\ sqrt(diff\_mag2/value1\_mag2);}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00389}00389\ \}}
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00390}00390\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00391}00391\ }
+\DoxyCodeLine{\Hypertarget{deriv__engine_8h_source_l00392}00392\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

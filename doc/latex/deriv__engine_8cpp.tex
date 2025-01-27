@@ -1,0 +1,221 @@
+\doxysection{src/deriv\+\_\+engine.cpp File Reference}
+\hypertarget{deriv__engine_8cpp}{}\label{deriv__engine_8cpp}\index{src/deriv\_engine.cpp@{src/deriv\_engine.cpp}}
+{\ttfamily \#include "{}deriv\+\_\+engine.\+h"{}}\newline
+{\ttfamily \#include "{}timing.\+h"{}}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$cassert$>$}\newline
+Include dependency graph for deriv\+\_\+engine.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{deriv__engine_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{deriv__engine_8cpp_a2c1c035cdb9bb33d6bcd9d1a9af35c28}{integration\+\_\+stage}} (\mbox{\hyperlink{struct_vec_array}{Vec\+Array}} mom, \mbox{\hyperlink{struct_vec_array}{Vec\+Array}} pos, const \mbox{\hyperlink{struct_vec_array}{Vec\+Array}} deriv, float vel\+\_\+factor, float pos\+\_\+factor, float max\+\_\+force, int n\+\_\+atom)
+\begin{DoxyCompactList}\small\item\em Update position and momentum. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{deriv__engine_8cpp_ae2f2d7768ef23ec7bcc291629d04595d}{recenter}} (\mbox{\hyperlink{struct_vec_array}{Vec\+Array}} pos, bool xy\+\_\+recenter\+\_\+only, int n\+\_\+atom)
+\begin{DoxyCompactList}\small\item\em Recenter position array to origin. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{deriv__engine_8cpp_a9511a901ba7c14aca4bc9b997dfecdf8}{add\+\_\+node\+\_\+creation\+\_\+function}} (std\+::string name\+\_\+prefix, \mbox{\hyperlink{deriv__engine_8h_a6d31eabd14ac92d3ce80cec13ec215dd}{Node\+Creation\+Function}} fcn)
+\begin{DoxyCompactList}\small\item\em Register a Node\+Creation\+Function with node\+\_\+creation\+\_\+map. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{deriv__engine_8cpp_a82c21db8735d3846779816d11da5731a}{is\+\_\+prefix}} (const std\+::string \&s1, const std\+::string \&s2)
+\begin{DoxyCompactList}\small\item\em Returns true if string s1 is prefix of s2. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{deriv__engine_8cpp_ab000e086918b4f5948c7da22bca773e8}{check\+\_\+elem\+\_\+width\+\_\+lower\+\_\+bound}} (const \mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&node, int elem\+\_\+width\+\_\+lower\+\_\+bound)
+\begin{DoxyCompactList}\small\item\em Throw exception if elem\+\_\+width of node is not at least elem\+\_\+width\+\_\+lower\+\_\+bound. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{deriv__engine_8cpp_aeb27b4cc65704a1fa19bdc6bd51d5fda}{check\+\_\+elem\+\_\+width}} (const \mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&node, int expected\+\_\+elem\+\_\+width)
+\begin{DoxyCompactList}\small\item\em Throw exception if elem\+\_\+width of node is not expected\+\_\+elem\+\_\+width. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{deriv__engine_8cpp_a85b4a2b23391ba93a4a3fe5b60441b96}{check\+\_\+arguments\+\_\+length}} (const \mbox{\hyperlink{deriv__engine_8h_a66baf88634d70b3bf8b21b359e16b284}{Arg\+List}} \&arguments, int n\+\_\+expected)
+\begin{DoxyCompactList}\small\item\em Throw except if Arg\+List is not length n\+\_\+expected. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \mbox{\hyperlink{deriv__engine_8cpp_a3ccc3fda25b9b092920b09180a270f4d}{initialize\+\_\+engine\+\_\+from\+\_\+hdf5}} (int n\+\_\+atom, hid\+\_\+t potential\+\_\+group)
+\begin{DoxyCompactList}\small\item\em Construct \doxylink{struct_deriv_engine}{Deriv\+Engine} from potential group. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{deriv__engine_8h_a9743319e0412b1147ec0121fc87321d3}{Node\+Creation\+Map}} \& \mbox{\hyperlink{deriv__engine_8cpp_a840962efde8660375c18e135b11f93f2}{node\+\_\+creation\+\_\+map}} ()
+\begin{DoxyCompactList}\small\item\em Obtain the dynamically-\/registered node creation map. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{deriv__engine_8cpp_a4df5955570609adf059a2cbd0b486ca9}{get\+\_\+n\+\_\+hbond}} (\mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \&engine)
+\begin{DoxyCompactList}\small\item\em Count the number hbonds for a system. \end{DoxyCompactList}\item 
+vector$<$ float $>$ \mbox{\hyperlink{deriv__engine_8cpp_a09b9ed0364c595e2d336e78ad7664941}{central\+\_\+difference\+\_\+deriviative}} (const function$<$ void()$>$ \&compute\+\_\+value, vector$<$ float $>$ \&input, vector$<$ float $>$ \&output, float eps, \mbox{\hyperlink{deriv__engine_8h_ad9971b6ef33e02ba2c75d19c1d2518a1}{Value\+Type}} value\+\_\+type)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{deriv__engine_8cpp_a9511a901ba7c14aca4bc9b997dfecdf8}\label{deriv__engine_8cpp_a9511a901ba7c14aca4bc9b997dfecdf8} 
+\index{deriv\_engine.cpp@{deriv\_engine.cpp}!add\_node\_creation\_function@{add\_node\_creation\_function}}
+\index{add\_node\_creation\_function@{add\_node\_creation\_function}!deriv\_engine.cpp@{deriv\_engine.cpp}}
+\doxysubsubsection{\texorpdfstring{add\_node\_creation\_function()}{add\_node\_creation\_function()}}
+{\footnotesize\ttfamily void add\+\_\+node\+\_\+creation\+\_\+function (\begin{DoxyParamCaption}\item[{std\+::string}]{name\+\_\+prefix,  }\item[{\mbox{\hyperlink{deriv__engine_8h_a6d31eabd14ac92d3ce80cec13ec215dd}{Node\+Creation\+Function}}}]{fcn }\end{DoxyParamCaption})}
+
+
+
+Register a Node\+Creation\+Function with node\+\_\+creation\+\_\+map. 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8cpp_source_l00052}{52}} of file \mbox{\hyperlink{deriv__engine_8cpp_source}{deriv\+\_\+engine.\+cpp}}.
+
+\Hypertarget{deriv__engine_8cpp_a09b9ed0364c595e2d336e78ad7664941}\label{deriv__engine_8cpp_a09b9ed0364c595e2d336e78ad7664941} 
+\index{deriv\_engine.cpp@{deriv\_engine.cpp}!central\_difference\_deriviative@{central\_difference\_deriviative}}
+\index{central\_difference\_deriviative@{central\_difference\_deriviative}!deriv\_engine.cpp@{deriv\_engine.cpp}}
+\doxysubsubsection{\texorpdfstring{central\_difference\_deriviative()}{central\_difference\_deriviative()}}
+{\footnotesize\ttfamily vector$<$ float $>$ central\+\_\+difference\+\_\+deriviative (\begin{DoxyParamCaption}\item[{const function$<$ void()$>$ \&}]{compute\+\_\+value,  }\item[{vector$<$ float $>$ \&}]{input,  }\item[{vector$<$ float $>$ \&}]{output,  }\item[{float}]{eps,  }\item[{\mbox{\hyperlink{deriv__engine_8h_ad9971b6ef33e02ba2c75d19c1d2518a1}{Value\+Type}}}]{value\+\_\+type }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8cpp_source_l00447}{447}} of file \mbox{\hyperlink{deriv__engine_8cpp_source}{deriv\+\_\+engine.\+cpp}}.
+
+\Hypertarget{deriv__engine_8cpp_a85b4a2b23391ba93a4a3fe5b60441b96}\label{deriv__engine_8cpp_a85b4a2b23391ba93a4a3fe5b60441b96} 
+\index{deriv\_engine.cpp@{deriv\_engine.cpp}!check\_arguments\_length@{check\_arguments\_length}}
+\index{check\_arguments\_length@{check\_arguments\_length}!deriv\_engine.cpp@{deriv\_engine.cpp}}
+\doxysubsubsection{\texorpdfstring{check\_arguments\_length()}{check\_arguments\_length()}}
+{\footnotesize\ttfamily void check\+\_\+arguments\+\_\+length (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{deriv__engine_8h_a66baf88634d70b3bf8b21b359e16b284}{Arg\+List}} \&}]{arguments,  }\item[{int}]{n\+\_\+expected }\end{DoxyParamCaption})}
+
+
+
+Throw except if Arg\+List is not length n\+\_\+expected. 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8cpp_source_l00090}{90}} of file \mbox{\hyperlink{deriv__engine_8cpp_source}{deriv\+\_\+engine.\+cpp}}.
+
+\Hypertarget{deriv__engine_8cpp_aeb27b4cc65704a1fa19bdc6bd51d5fda}\label{deriv__engine_8cpp_aeb27b4cc65704a1fa19bdc6bd51d5fda} 
+\index{deriv\_engine.cpp@{deriv\_engine.cpp}!check\_elem\_width@{check\_elem\_width}}
+\index{check\_elem\_width@{check\_elem\_width}!deriv\_engine.cpp@{deriv\_engine.cpp}}
+\doxysubsubsection{\texorpdfstring{check\_elem\_width()}{check\_elem\_width()}}
+{\footnotesize\ttfamily void check\+\_\+elem\+\_\+width (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&}]{node,  }\item[{int}]{expected\+\_\+elem\+\_\+width }\end{DoxyParamCaption})}
+
+
+
+Throw exception if elem\+\_\+width of node is not expected\+\_\+elem\+\_\+width. 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8cpp_source_l00084}{84}} of file \mbox{\hyperlink{deriv__engine_8cpp_source}{deriv\+\_\+engine.\+cpp}}.
+
+\Hypertarget{deriv__engine_8cpp_ab000e086918b4f5948c7da22bca773e8}\label{deriv__engine_8cpp_ab000e086918b4f5948c7da22bca773e8} 
+\index{deriv\_engine.cpp@{deriv\_engine.cpp}!check\_elem\_width\_lower\_bound@{check\_elem\_width\_lower\_bound}}
+\index{check\_elem\_width\_lower\_bound@{check\_elem\_width\_lower\_bound}!deriv\_engine.cpp@{deriv\_engine.cpp}}
+\doxysubsubsection{\texorpdfstring{check\_elem\_width\_lower\_bound()}{check\_elem\_width\_lower\_bound()}}
+{\footnotesize\ttfamily void check\+\_\+elem\+\_\+width\+\_\+lower\+\_\+bound (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&}]{node,  }\item[{int}]{elem\+\_\+width\+\_\+lower\+\_\+bound }\end{DoxyParamCaption})}
+
+
+
+Throw exception if elem\+\_\+width of node is not at least elem\+\_\+width\+\_\+lower\+\_\+bound. 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8cpp_source_l00078}{78}} of file \mbox{\hyperlink{deriv__engine_8cpp_source}{deriv\+\_\+engine.\+cpp}}.
+
+\Hypertarget{deriv__engine_8cpp_a4df5955570609adf059a2cbd0b486ca9}\label{deriv__engine_8cpp_a4df5955570609adf059a2cbd0b486ca9} 
+\index{deriv\_engine.cpp@{deriv\_engine.cpp}!get\_n\_hbond@{get\_n\_hbond}}
+\index{get\_n\_hbond@{get\_n\_hbond}!deriv\_engine.cpp@{deriv\_engine.cpp}}
+\doxysubsubsection{\texorpdfstring{get\_n\_hbond()}{get\_n\_hbond()}}
+{\footnotesize\ttfamily double get\+\_\+n\+\_\+hbond (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \&}]{engine }\end{DoxyParamCaption})}
+
+
+
+Count the number hbonds for a system. 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8cpp_source_l00440}{440}} of file \mbox{\hyperlink{deriv__engine_8cpp_source}{deriv\+\_\+engine.\+cpp}}.
+
+\Hypertarget{deriv__engine_8cpp_a3ccc3fda25b9b092920b09180a270f4d}\label{deriv__engine_8cpp_a3ccc3fda25b9b092920b09180a270f4d} 
+\index{deriv\_engine.cpp@{deriv\_engine.cpp}!initialize\_engine\_from\_hdf5@{initialize\_engine\_from\_hdf5}}
+\index{initialize\_engine\_from\_hdf5@{initialize\_engine\_from\_hdf5}!deriv\_engine.cpp@{deriv\_engine.cpp}}
+\doxysubsubsection{\texorpdfstring{initialize\_engine\_from\_hdf5()}{initialize\_engine\_from\_hdf5()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} initialize\+\_\+engine\+\_\+from\+\_\+hdf5 (\begin{DoxyParamCaption}\item[{int}]{n\+\_\+atom,  }\item[{hid\+\_\+t}]{potential\+\_\+group }\end{DoxyParamCaption})}
+
+
+
+Construct \doxylink{struct_deriv_engine}{Deriv\+Engine} from potential group. 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8cpp_source_l00353}{353}} of file \mbox{\hyperlink{deriv__engine_8cpp_source}{deriv\+\_\+engine.\+cpp}}.
+
+\Hypertarget{deriv__engine_8cpp_a2c1c035cdb9bb33d6bcd9d1a9af35c28}\label{deriv__engine_8cpp_a2c1c035cdb9bb33d6bcd9d1a9af35c28} 
+\index{deriv\_engine.cpp@{deriv\_engine.cpp}!integration\_stage@{integration\_stage}}
+\index{integration\_stage@{integration\_stage}!deriv\_engine.cpp@{deriv\_engine.cpp}}
+\doxysubsubsection{\texorpdfstring{integration\_stage()}{integration\_stage()}}
+{\footnotesize\ttfamily void integration\+\_\+stage (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_vec_array}{Vec\+Array}}}]{mom,  }\item[{\mbox{\hyperlink{struct_vec_array}{Vec\+Array}}}]{pos,  }\item[{const \mbox{\hyperlink{struct_vec_array}{Vec\+Array}}}]{deriv,  }\item[{float}]{vel\+\_\+factor,  }\item[{float}]{pos\+\_\+factor,  }\item[{float}]{max\+\_\+force,  }\item[{int}]{n\+\_\+atom }\end{DoxyParamCaption})}
+
+
+
+Update position and momentum. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em mom} & momentum  \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em pos} & position  \\
+\hline
+\mbox{\texttt{ in}}  & {\em deriv} & derivative of potential with respect to position  \\
+\hline
+\mbox{\texttt{ in}}  & {\em vel\+\_\+factor} & fraction of force to add to momentum (integration dependent)  \\
+\hline
+\mbox{\texttt{ in}}  & {\em pos\+\_\+factor} & fraction of momentum to add to position (integration dependent)  \\
+\hline
+\mbox{\texttt{ in}}  & {\em max\+\_\+force} & clip forces so that they do not exceed maxforce (increase stability)  \\
+\hline
+\mbox{\texttt{ in}}  & {\em n\+\_\+atom} & number of atoms \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8cpp_source_l00014}{14}} of file \mbox{\hyperlink{deriv__engine_8cpp_source}{deriv\+\_\+engine.\+cpp}}.
+
+\Hypertarget{deriv__engine_8cpp_a82c21db8735d3846779816d11da5731a}\label{deriv__engine_8cpp_a82c21db8735d3846779816d11da5731a} 
+\index{deriv\_engine.cpp@{deriv\_engine.cpp}!is\_prefix@{is\_prefix}}
+\index{is\_prefix@{is\_prefix}!deriv\_engine.cpp@{deriv\_engine.cpp}}
+\doxysubsubsection{\texorpdfstring{is\_prefix()}{is\_prefix()}}
+{\footnotesize\ttfamily bool is\+\_\+prefix (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{s1,  }\item[{const std\+::string \&}]{s2 }\end{DoxyParamCaption})}
+
+
+
+Returns true if string s1 is prefix of s2. 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8cpp_source_l00074}{74}} of file \mbox{\hyperlink{deriv__engine_8cpp_source}{deriv\+\_\+engine.\+cpp}}.
+
+\Hypertarget{deriv__engine_8cpp_a840962efde8660375c18e135b11f93f2}\label{deriv__engine_8cpp_a840962efde8660375c18e135b11f93f2} 
+\index{deriv\_engine.cpp@{deriv\_engine.cpp}!node\_creation\_map@{node\_creation\_map}}
+\index{node\_creation\_map@{node\_creation\_map}!deriv\_engine.cpp@{deriv\_engine.cpp}}
+\doxysubsubsection{\texorpdfstring{node\_creation\_map()}{node\_creation\_map()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{deriv__engine_8h_a9743319e0412b1147ec0121fc87321d3}{Node\+Creation\+Map}} \& node\+\_\+creation\+\_\+map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Obtain the dynamically-\/registered node creation map. 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8cpp_source_l00428}{428}} of file \mbox{\hyperlink{deriv__engine_8cpp_source}{deriv\+\_\+engine.\+cpp}}.
+
+\Hypertarget{deriv__engine_8cpp_ae2f2d7768ef23ec7bcc291629d04595d}\label{deriv__engine_8cpp_ae2f2d7768ef23ec7bcc291629d04595d} 
+\index{deriv\_engine.cpp@{deriv\_engine.cpp}!recenter@{recenter}}
+\index{recenter@{recenter}!deriv\_engine.cpp@{deriv\_engine.cpp}}
+\doxysubsubsection{\texorpdfstring{recenter()}{recenter()}}
+{\footnotesize\ttfamily void recenter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_vec_array}{Vec\+Array}}}]{pos,  }\item[{bool}]{xy\+\_\+recenter\+\_\+only,  }\item[{int}]{n\+\_\+atom }\end{DoxyParamCaption})}
+
+
+
+Recenter position array to origin. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em pos} & position  \\
+\hline
+ & {\em xy\+\_\+recenter\+\_\+only} & if true, do not recenter in z-\/direction (useful for membrane)  \\
+\hline
+ & {\em n\+\_\+atom} & number of atoms \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8cpp_source_l00040}{40}} of file \mbox{\hyperlink{deriv__engine_8cpp_source}{deriv\+\_\+engine.\+cpp}}.
+

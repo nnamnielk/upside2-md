@@ -1,0 +1,151 @@
+\doxysection{r123 Namespace Reference}
+\hypertarget{namespacer123}{}\label{namespacer123}\index{r123@{r123}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structr123_1_1double2}{double2}}
+\item 
+struct \mbox{\hyperlink{structr123_1_1float2}{float2}}
+\item 
+struct \mbox{\hyperlink{structr123_1_1make__signed}{make\+\_\+signed}}
+\item 
+struct \mbox{\hyperlink{structr123_1_1make__unsigned}{make\+\_\+unsigned}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+R123\+\_\+\+CUDA\+\_\+\+DEVICE R123\+\_\+\+STATIC\+\_\+\+INLINE void \mbox{\hyperlink{namespacer123_a44c7b96d6943ef6f07a688c976fae5c4}{sincospif}} (float x, float \texorpdfstring{$\ast$}{*}s, float \texorpdfstring{$\ast$}{*}c)
+\item 
+R123\+\_\+\+CUDA\+\_\+\+DEVICE R123\+\_\+\+STATIC\+\_\+\+INLINE void \mbox{\hyperlink{namespacer123_a603446b853f885a101ec6752f5da9e47}{sincospi}} (double x, double \texorpdfstring{$\ast$}{*}s, double \texorpdfstring{$\ast$}{*}c)
+\item 
+R123\+\_\+\+CUDA\+\_\+\+DEVICE R123\+\_\+\+STATIC\+\_\+\+INLINE \mbox{\hyperlink{structr123_1_1float2}{float2}} \mbox{\hyperlink{namespacer123_afe781081ff63812582c2f02af778a1f5}{boxmuller}} (uint32\+\_\+t u0, uint32\+\_\+t u1)
+\item 
+R123\+\_\+\+CUDA\+\_\+\+DEVICE R123\+\_\+\+STATIC\+\_\+\+INLINE \mbox{\hyperlink{structr123_1_1double2}{double2}} \mbox{\hyperlink{namespacer123_a641db790ccf468913483f1d23bb009c0}{boxmuller}} (uint64\+\_\+t u0, uint64\+\_\+t u1)
+\item 
+\mbox{\hyperlink{namespacer123_a8c0d8906be4027e32f8c968fdfeed73b}{R123\+\_\+\+MK\+\_\+\+SIGNED\+\_\+\+UNSIGNED}} (int8\+\_\+t, uint8\+\_\+t)
+\item 
+\mbox{\hyperlink{namespacer123_afe0be8c3a6acfa31f37c7d4aece04903}{R123\+\_\+\+MK\+\_\+\+SIGNED\+\_\+\+UNSIGNED}} (int16\+\_\+t, uint16\+\_\+t)
+\item 
+\mbox{\hyperlink{namespacer123_a16158cf2528d01b0a6eb0c305bb3164c}{R123\+\_\+\+MK\+\_\+\+SIGNED\+\_\+\+UNSIGNED}} (int32\+\_\+t, uint32\+\_\+t)
+\item 
+\mbox{\hyperlink{namespacer123_a7ad1ca2e311d5091fe12d9c360e5693e}{R123\+\_\+\+MK\+\_\+\+SIGNED\+\_\+\+UNSIGNED}} (int64\+\_\+t, uint64\+\_\+t)
+\item 
+{\footnotesize template$<$typename T $>$ }\\R123\+\_\+\+CONSTEXPR R123\+\_\+\+STATIC\+\_\+\+INLINE T \mbox{\hyperlink{namespacer123_a7f7e853ac6707b1f17c73e27fd9f8ded}{max\+Tvalue}} ()
+\item 
+{\footnotesize template$<$typename Ftype , typename Itype $>$ }\\R123\+\_\+\+CUDA\+\_\+\+DEVICE R123\+\_\+\+STATIC\+\_\+\+INLINE Ftype \mbox{\hyperlink{namespacer123_afc96ad616364743e209c836450cc4107}{u01}} (Itype in)
+\item 
+{\footnotesize template$<$typename Ftype , typename Itype $>$ }\\R123\+\_\+\+CUDA\+\_\+\+DEVICE R123\+\_\+\+STATIC\+\_\+\+INLINE Ftype \mbox{\hyperlink{namespacer123_a49eb4e2f3522f1b5e22b66bdc86345ce}{uneg11}} (Itype in)
+\item 
+{\footnotesize template$<$typename Ftype , typename Itype $>$ }\\R123\+\_\+\+CUDA\+\_\+\+DEVICE R123\+\_\+\+STATIC\+\_\+\+INLINE Ftype \mbox{\hyperlink{namespacer123_a6d75b90f162a67226c8044c6f3198b96}{u01fixedpt}} (Itype in)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacer123_afe781081ff63812582c2f02af778a1f5}\label{namespacer123_afe781081ff63812582c2f02af778a1f5} 
+\index{r123@{r123}!boxmuller@{boxmuller}}
+\index{boxmuller@{boxmuller}!r123@{r123}}
+\doxysubsubsection{\texorpdfstring{boxmuller()}{boxmuller()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily R123\+\_\+\+CUDA\+\_\+\+DEVICE R123\+\_\+\+STATIC\+\_\+\+INLINE \mbox{\hyperlink{structr123_1_1float2}{float2}} r123\+::boxmuller (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{u0,  }\item[{uint32\+\_\+t}]{u1 }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{boxmuller_8hpp_source_l00109}{109}} of file \mbox{\hyperlink{boxmuller_8hpp_source}{boxmuller.\+hpp}}.
+
+\Hypertarget{namespacer123_a641db790ccf468913483f1d23bb009c0}\label{namespacer123_a641db790ccf468913483f1d23bb009c0} 
+\index{r123@{r123}!boxmuller@{boxmuller}}
+\index{boxmuller@{boxmuller}!r123@{r123}}
+\doxysubsubsection{\texorpdfstring{boxmuller()}{boxmuller()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily R123\+\_\+\+CUDA\+\_\+\+DEVICE R123\+\_\+\+STATIC\+\_\+\+INLINE \mbox{\hyperlink{structr123_1_1double2}{double2}} r123\+::boxmuller (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{u0,  }\item[{uint64\+\_\+t}]{u1 }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{boxmuller_8hpp_source_l00123}{123}} of file \mbox{\hyperlink{boxmuller_8hpp_source}{boxmuller.\+hpp}}.
+
+\Hypertarget{namespacer123_a7f7e853ac6707b1f17c73e27fd9f8ded}\label{namespacer123_a7f7e853ac6707b1f17c73e27fd9f8ded} 
+\index{r123@{r123}!maxTvalue@{maxTvalue}}
+\index{maxTvalue@{maxTvalue}!r123@{r123}}
+\doxysubsubsection{\texorpdfstring{maxTvalue()}{maxTvalue()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+R123\+\_\+\+CONSTEXPR R123\+\_\+\+STATIC\+\_\+\+INLINE T r123\+::max\+Tvalue (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uniform_8hpp_source_l00126}{126}} of file \mbox{\hyperlink{uniform_8hpp_source}{uniform.\+hpp}}.
+
+\Hypertarget{namespacer123_afe0be8c3a6acfa31f37c7d4aece04903}\label{namespacer123_afe0be8c3a6acfa31f37c7d4aece04903} 
+\index{r123@{r123}!R123\_MK\_SIGNED\_UNSIGNED@{R123\_MK\_SIGNED\_UNSIGNED}}
+\index{R123\_MK\_SIGNED\_UNSIGNED@{R123\_MK\_SIGNED\_UNSIGNED}!r123@{r123}}
+\doxysubsubsection{\texorpdfstring{R123\_MK\_SIGNED\_UNSIGNED()}{R123\_MK\_SIGNED\_UNSIGNED()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily r123\+::\+R123\+\_\+\+MK\+\_\+\+SIGNED\+\_\+\+UNSIGNED (\begin{DoxyParamCaption}\item[{int16\+\_\+t}]{,  }\item[{uint16\+\_\+t}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{namespacer123_a16158cf2528d01b0a6eb0c305bb3164c}\label{namespacer123_a16158cf2528d01b0a6eb0c305bb3164c} 
+\index{r123@{r123}!R123\_MK\_SIGNED\_UNSIGNED@{R123\_MK\_SIGNED\_UNSIGNED}}
+\index{R123\_MK\_SIGNED\_UNSIGNED@{R123\_MK\_SIGNED\_UNSIGNED}!r123@{r123}}
+\doxysubsubsection{\texorpdfstring{R123\_MK\_SIGNED\_UNSIGNED()}{R123\_MK\_SIGNED\_UNSIGNED()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily r123\+::\+R123\+\_\+\+MK\+\_\+\+SIGNED\+\_\+\+UNSIGNED (\begin{DoxyParamCaption}\item[{int32\+\_\+t}]{,  }\item[{uint32\+\_\+t}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{namespacer123_a7ad1ca2e311d5091fe12d9c360e5693e}\label{namespacer123_a7ad1ca2e311d5091fe12d9c360e5693e} 
+\index{r123@{r123}!R123\_MK\_SIGNED\_UNSIGNED@{R123\_MK\_SIGNED\_UNSIGNED}}
+\index{R123\_MK\_SIGNED\_UNSIGNED@{R123\_MK\_SIGNED\_UNSIGNED}!r123@{r123}}
+\doxysubsubsection{\texorpdfstring{R123\_MK\_SIGNED\_UNSIGNED()}{R123\_MK\_SIGNED\_UNSIGNED()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily r123\+::\+R123\+\_\+\+MK\+\_\+\+SIGNED\+\_\+\+UNSIGNED (\begin{DoxyParamCaption}\item[{int64\+\_\+t}]{,  }\item[{uint64\+\_\+t}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{namespacer123_a8c0d8906be4027e32f8c968fdfeed73b}\label{namespacer123_a8c0d8906be4027e32f8c968fdfeed73b} 
+\index{r123@{r123}!R123\_MK\_SIGNED\_UNSIGNED@{R123\_MK\_SIGNED\_UNSIGNED}}
+\index{R123\_MK\_SIGNED\_UNSIGNED@{R123\_MK\_SIGNED\_UNSIGNED}!r123@{r123}}
+\doxysubsubsection{\texorpdfstring{R123\_MK\_SIGNED\_UNSIGNED()}{R123\_MK\_SIGNED\_UNSIGNED()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily r123\+::\+R123\+\_\+\+MK\+\_\+\+SIGNED\+\_\+\+UNSIGNED (\begin{DoxyParamCaption}\item[{int8\+\_\+t}]{,  }\item[{uint8\+\_\+t}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{namespacer123_a603446b853f885a101ec6752f5da9e47}\label{namespacer123_a603446b853f885a101ec6752f5da9e47} 
+\index{r123@{r123}!sincospi@{sincospi}}
+\index{sincospi@{sincospi}!r123@{r123}}
+\doxysubsubsection{\texorpdfstring{sincospi()}{sincospi()}}
+{\footnotesize\ttfamily R123\+\_\+\+CUDA\+\_\+\+DEVICE R123\+\_\+\+STATIC\+\_\+\+INLINE void r123\+::sincospi (\begin{DoxyParamCaption}\item[{double}]{x,  }\item[{double \texorpdfstring{$\ast$}{*}}]{s,  }\item[{double \texorpdfstring{$\ast$}{*}}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{boxmuller_8hpp_source_l00099}{99}} of file \mbox{\hyperlink{boxmuller_8hpp_source}{boxmuller.\+hpp}}.
+
+\Hypertarget{namespacer123_a44c7b96d6943ef6f07a688c976fae5c4}\label{namespacer123_a44c7b96d6943ef6f07a688c976fae5c4} 
+\index{r123@{r123}!sincospif@{sincospif}}
+\index{sincospif@{sincospif}!r123@{r123}}
+\doxysubsubsection{\texorpdfstring{sincospif()}{sincospif()}}
+{\footnotesize\ttfamily R123\+\_\+\+CUDA\+\_\+\+DEVICE R123\+\_\+\+STATIC\+\_\+\+INLINE void r123\+::sincospif (\begin{DoxyParamCaption}\item[{float}]{x,  }\item[{float \texorpdfstring{$\ast$}{*}}]{s,  }\item[{float \texorpdfstring{$\ast$}{*}}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{boxmuller_8hpp_source_l00094}{94}} of file \mbox{\hyperlink{boxmuller_8hpp_source}{boxmuller.\+hpp}}.
+
+\Hypertarget{namespacer123_afc96ad616364743e209c836450cc4107}\label{namespacer123_afc96ad616364743e209c836450cc4107} 
+\index{r123@{r123}!u01@{u01}}
+\index{u01@{u01}!r123@{r123}}
+\doxysubsubsection{\texorpdfstring{u01()}{u01()}}
+{\footnotesize\ttfamily template$<$typename Ftype , typename Itype $>$ \\
+R123\+\_\+\+CUDA\+\_\+\+DEVICE R123\+\_\+\+STATIC\+\_\+\+INLINE Ftype r123\+::u01 (\begin{DoxyParamCaption}\item[{Itype}]{in }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uniform_8hpp_source_l00145}{145}} of file \mbox{\hyperlink{uniform_8hpp_source}{uniform.\+hpp}}.
+
+\Hypertarget{namespacer123_a6d75b90f162a67226c8044c6f3198b96}\label{namespacer123_a6d75b90f162a67226c8044c6f3198b96} 
+\index{r123@{r123}!u01fixedpt@{u01fixedpt}}
+\index{u01fixedpt@{u01fixedpt}!r123@{r123}}
+\doxysubsubsection{\texorpdfstring{u01fixedpt()}{u01fixedpt()}}
+{\footnotesize\ttfamily template$<$typename Ftype , typename Itype $>$ \\
+R123\+\_\+\+CUDA\+\_\+\+DEVICE R123\+\_\+\+STATIC\+\_\+\+INLINE Ftype r123\+::u01fixedpt (\begin{DoxyParamCaption}\item[{Itype}]{in }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uniform_8hpp_source_l00196}{196}} of file \mbox{\hyperlink{uniform_8hpp_source}{uniform.\+hpp}}.
+
+\Hypertarget{namespacer123_a49eb4e2f3522f1b5e22b66bdc86345ce}\label{namespacer123_a49eb4e2f3522f1b5e22b66bdc86345ce} 
+\index{r123@{r123}!uneg11@{uneg11}}
+\index{uneg11@{uneg11}!r123@{r123}}
+\doxysubsubsection{\texorpdfstring{uneg11()}{uneg11()}}
+{\footnotesize\ttfamily template$<$typename Ftype , typename Itype $>$ \\
+R123\+\_\+\+CUDA\+\_\+\+DEVICE R123\+\_\+\+STATIC\+\_\+\+INLINE Ftype r123\+::uneg11 (\begin{DoxyParamCaption}\item[{Itype}]{in }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uniform_8hpp_source_l00171}{171}} of file \mbox{\hyperlink{uniform_8hpp_source}{uniform.\+hpp}}.
+

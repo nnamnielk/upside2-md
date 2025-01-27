@@ -1,0 +1,130 @@
+\doxysection{Replica\+Exchange Struct Reference}
+\hypertarget{struct_replica_exchange}{}\label{struct_replica_exchange}\index{ReplicaExchange@{ReplicaExchange}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_replica_exchange_1_1_swap_pair}{Swap\+Pair}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_replica_exchange_adef07a339da422a558e8b5434dd1f4e3}{Replica\+Exchange}} (\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{struct_system}{System}} $>$ \&\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{systems}}, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{string}} $>$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{swap\+\_\+sets\+\_\+strings}})
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_replica_exchange_a43cafaff6ba0f05d6c981997655bdce3}{reset\+\_\+stats}} ()
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_replica_exchange_aec88857a986b99965c38ffaccd66ebc6}{attempt\+\_\+swaps}} (\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{uint32\+\_\+t}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{seed}}, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{uint64\+\_\+t}} round, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{struct_system}{System}} $>$ \&\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{systems}}, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{exchange\+\_\+criterion}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{struct_replica_exchange_1_1_swap_pair}{Swap\+Pair}} $>$ $>$ \mbox{\hyperlink{struct_replica_exchange_a556a9d6a0fe0e7523457ba08cc03e45d}{swap\+\_\+sets}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} $>$ \mbox{\hyperlink{struct_replica_exchange_ad4359f1308cd2b1feb96c44ef4859ffa}{replica\+\_\+indices}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{struct_replica_exchange_1_1_swap_pair}{Swap\+Pair}} \texorpdfstring{$\ast$}{*} $>$ $>$ \mbox{\hyperlink{struct_replica_exchange_ac6fa23ef699f51fbe93e8129b5fdba40}{participating\+\_\+swaps}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_replica_exchange_a0a18efbe706966439f4548cd6a5efee5}{n\+\_\+swap\+\_\+sets}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_replica_exchange_a029a10ba27f07f5f0f077d6a6907bd81}{n\+\_\+attempt\+\_\+swaps}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00147}{147}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_replica_exchange_adef07a339da422a558e8b5434dd1f4e3}\label{struct_replica_exchange_adef07a339da422a558e8b5434dd1f4e3} 
+\index{ReplicaExchange@{ReplicaExchange}!ReplicaExchange@{ReplicaExchange}}
+\index{ReplicaExchange@{ReplicaExchange}!ReplicaExchange@{ReplicaExchange}}
+\doxysubsubsection{\texorpdfstring{ReplicaExchange()}{ReplicaExchange()}}
+{\footnotesize\ttfamily Replica\+Exchange\+::\+Replica\+Exchange (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{struct_system}{System}} $>$ \&}]{systems,  }\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{string}} $>$}]{swap\+\_\+sets\+\_\+strings }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00155}{155}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_replica_exchange_aec88857a986b99965c38ffaccd66ebc6}\label{struct_replica_exchange_aec88857a986b99965c38ffaccd66ebc6} 
+\index{ReplicaExchange@{ReplicaExchange}!attempt\_swaps@{attempt\_swaps}}
+\index{attempt\_swaps@{attempt\_swaps}!ReplicaExchange@{ReplicaExchange}}
+\doxysubsubsection{\texorpdfstring{attempt\_swaps()}{attempt\_swaps()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} Replica\+Exchange\+::attempt\+\_\+swaps (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{uint32\+\_\+t}}}]{seed,  }\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{uint64\+\_\+t}}}]{round,  }\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{struct_system}{System}} $>$ \&}]{systems,  }\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}}}]{exchange\+\_\+criterion }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00243}{243}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+\Hypertarget{struct_replica_exchange_a43cafaff6ba0f05d6c981997655bdce3}\label{struct_replica_exchange_a43cafaff6ba0f05d6c981997655bdce3} 
+\index{ReplicaExchange@{ReplicaExchange}!reset\_stats@{reset\_stats}}
+\index{reset\_stats@{reset\_stats}!ReplicaExchange@{ReplicaExchange}}
+\doxysubsubsection{\texorpdfstring{reset\_stats()}{reset\_stats()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} Replica\+Exchange\+::reset\+\_\+stats (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00237}{237}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_replica_exchange_a029a10ba27f07f5f0f077d6a6907bd81}\label{struct_replica_exchange_a029a10ba27f07f5f0f077d6a6907bd81} 
+\index{ReplicaExchange@{ReplicaExchange}!n\_attempt\_swaps@{n\_attempt\_swaps}}
+\index{n\_attempt\_swaps@{n\_attempt\_swaps}!ReplicaExchange@{ReplicaExchange}}
+\doxysubsubsection{\texorpdfstring{n\_attempt\_swaps}{n\_attempt\_swaps}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} Replica\+Exchange\+::n\+\_\+attempt\+\_\+swaps}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00153}{153}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+\Hypertarget{struct_replica_exchange_a0a18efbe706966439f4548cd6a5efee5}\label{struct_replica_exchange_a0a18efbe706966439f4548cd6a5efee5} 
+\index{ReplicaExchange@{ReplicaExchange}!n\_swap\_sets@{n\_swap\_sets}}
+\index{n\_swap\_sets@{n\_swap\_sets}!ReplicaExchange@{ReplicaExchange}}
+\doxysubsubsection{\texorpdfstring{n\_swap\_sets}{n\_swap\_sets}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} Replica\+Exchange\+::n\+\_\+swap\+\_\+sets}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00152}{152}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+\Hypertarget{struct_replica_exchange_ac6fa23ef699f51fbe93e8129b5fdba40}\label{struct_replica_exchange_ac6fa23ef699f51fbe93e8129b5fdba40} 
+\index{ReplicaExchange@{ReplicaExchange}!participating\_swaps@{participating\_swaps}}
+\index{participating\_swaps@{participating\_swaps}!ReplicaExchange@{ReplicaExchange}}
+\doxysubsubsection{\texorpdfstring{participating\_swaps}{participating\_swaps}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$\mbox{\hyperlink{struct_replica_exchange_1_1_swap_pair}{Swap\+Pair}}\texorpdfstring{$\ast$}{*}$>$ $>$ Replica\+Exchange\+::participating\+\_\+swaps}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00151}{151}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+\Hypertarget{struct_replica_exchange_ad4359f1308cd2b1feb96c44ef4859ffa}\label{struct_replica_exchange_ad4359f1308cd2b1feb96c44ef4859ffa} 
+\index{ReplicaExchange@{ReplicaExchange}!replica\_indices@{replica\_indices}}
+\index{replica\_indices@{replica\_indices}!ReplicaExchange@{ReplicaExchange}}
+\doxysubsubsection{\texorpdfstring{replica\_indices}{replica\_indices}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}}$>$ Replica\+Exchange\+::replica\+\_\+indices}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00150}{150}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+\Hypertarget{struct_replica_exchange_a556a9d6a0fe0e7523457ba08cc03e45d}\label{struct_replica_exchange_a556a9d6a0fe0e7523457ba08cc03e45d} 
+\index{ReplicaExchange@{ReplicaExchange}!swap\_sets@{swap\_sets}}
+\index{swap\_sets@{swap\_sets}!ReplicaExchange@{ReplicaExchange}}
+\doxysubsubsection{\texorpdfstring{swap\_sets}{swap\_sets}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$\mbox{\hyperlink{struct_replica_exchange_1_1_swap_pair}{Swap\+Pair}}$>$ $>$ Replica\+Exchange\+::swap\+\_\+sets}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00149}{149}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{main_8cpp}{main.\+cpp}}\end{DoxyCompactItemize}

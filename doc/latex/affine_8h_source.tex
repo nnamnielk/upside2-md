@@ -1,0 +1,98 @@
+\doxysection{affine.\+h}
+\hypertarget{affine_8h_source}{}\label{affine_8h_source}\index{src/affine.h@{src/affine.h}}
+\mbox{\hyperlink{affine_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ AFFINE\_H}}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00002}00002\ \textcolor{preprocessor}{\#define\ AFFINE\_H}}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{vector__math_8h}{vector\_math.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00008}\mbox{\hyperlink{affine_8h_a4898ef1f196b90dec831946aa0171167}{00008}}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{struct_vec}{float3}}\ \mbox{\hyperlink{affine_8h_a4898ef1f196b90dec831946aa0171167}{apply\_rotation}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}*\ restrict\ U,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_vec}{float3}}\ \&r)}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00009}00009\ \{}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00010}00010\ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ ret;}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00011}00011\ \ \ \ \ ret.\mbox{\hyperlink{struct_vec_a053cf7422a55ce5bd20f5e14ad1c85bd}{x}}()\ =\ U[0]*r.\mbox{\hyperlink{struct_vec_a053cf7422a55ce5bd20f5e14ad1c85bd}{x}}()\ +\ U[1]*r.\mbox{\hyperlink{struct_vec_a35750631386ec744b20299992d2b2fe9}{y}}()\ +\ U[2]*r.\mbox{\hyperlink{struct_vec_ad85da573f2248ee25c5c0219be221e40}{z}}();}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00012}00012\ \ \ \ \ ret.\mbox{\hyperlink{struct_vec_a35750631386ec744b20299992d2b2fe9}{y}}()\ =\ U[3]*r.\mbox{\hyperlink{struct_vec_a053cf7422a55ce5bd20f5e14ad1c85bd}{x}}()\ +\ U[4]*r.\mbox{\hyperlink{struct_vec_a35750631386ec744b20299992d2b2fe9}{y}}()\ +\ U[5]*r.\mbox{\hyperlink{struct_vec_ad85da573f2248ee25c5c0219be221e40}{z}}();}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00013}00013\ \ \ \ \ ret.\mbox{\hyperlink{struct_vec_ad85da573f2248ee25c5c0219be221e40}{z}}()\ =\ U[6]*r.\mbox{\hyperlink{struct_vec_a053cf7422a55ce5bd20f5e14ad1c85bd}{x}}()\ +\ U[7]*r.\mbox{\hyperlink{struct_vec_a35750631386ec744b20299992d2b2fe9}{y}}()\ +\ U[8]*r.\mbox{\hyperlink{struct_vec_ad85da573f2248ee25c5c0219be221e40}{z}}();}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00014}00014\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00015}00015\ \}}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00021}\mbox{\hyperlink{affine_8h_a4986bb39b374f95fa90bafd03c496eea}{00021}}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{struct_vec}{float3}}\ \mbox{\hyperlink{affine_8h_a4986bb39b374f95fa90bafd03c496eea}{apply\_inverse\_rotation}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}*\ restrict\ U,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_vec}{float3}}\ \&r)}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00022}00022\ \{}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00023}00023\ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ ret;}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00024}00024\ \ \ \ \ ret.\mbox{\hyperlink{struct_vec_a053cf7422a55ce5bd20f5e14ad1c85bd}{x}}()\ =\ U[0]*r.\mbox{\hyperlink{struct_vec_a053cf7422a55ce5bd20f5e14ad1c85bd}{x}}()\ +\ U[3]*r.\mbox{\hyperlink{struct_vec_a35750631386ec744b20299992d2b2fe9}{y}}()\ +\ U[6]*r.\mbox{\hyperlink{struct_vec_ad85da573f2248ee25c5c0219be221e40}{z}}();}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00025}00025\ \ \ \ \ ret.\mbox{\hyperlink{struct_vec_a35750631386ec744b20299992d2b2fe9}{y}}()\ =\ U[1]*r.\mbox{\hyperlink{struct_vec_a053cf7422a55ce5bd20f5e14ad1c85bd}{x}}()\ +\ U[4]*r.\mbox{\hyperlink{struct_vec_a35750631386ec744b20299992d2b2fe9}{y}}()\ +\ U[7]*r.\mbox{\hyperlink{struct_vec_ad85da573f2248ee25c5c0219be221e40}{z}}();}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00026}00026\ \ \ \ \ ret.\mbox{\hyperlink{struct_vec_ad85da573f2248ee25c5c0219be221e40}{z}}()\ =\ U[2]*r.\mbox{\hyperlink{struct_vec_a053cf7422a55ce5bd20f5e14ad1c85bd}{x}}()\ +\ U[5]*r.\mbox{\hyperlink{struct_vec_a35750631386ec744b20299992d2b2fe9}{y}}()\ +\ U[8]*r.\mbox{\hyperlink{struct_vec_ad85da573f2248ee25c5c0219be221e40}{z}}();}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00027}00027\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00028}00028\ \}}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00034}\mbox{\hyperlink{affine_8h_a2c6e374eeb0887c78582bae50d283bd6}{00034}}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{struct_vec}{float3}}\ \mbox{\hyperlink{affine_8h_a2c6e374eeb0887c78582bae50d283bd6}{apply\_affine}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}*\ restrict\ U,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_vec}{float3}}\&\ \mbox{\hyperlink{eig_8cpp_aa16a375e07c61fbc631be63ccf48a9dd}{t}},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_vec}{float3}}\&\ r)\ \{}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00035}00035\ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ ret;}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00036}00036\ \ \ \ \ ret.\mbox{\hyperlink{struct_vec_a053cf7422a55ce5bd20f5e14ad1c85bd}{x}}()\ =\ U[0]*r.\mbox{\hyperlink{struct_vec_a053cf7422a55ce5bd20f5e14ad1c85bd}{x}}()\ +\ U[1]*r.\mbox{\hyperlink{struct_vec_a35750631386ec744b20299992d2b2fe9}{y}}()\ +\ U[2]*r.\mbox{\hyperlink{struct_vec_ad85da573f2248ee25c5c0219be221e40}{z}}()\ +\ \mbox{\hyperlink{eig_8cpp_aa16a375e07c61fbc631be63ccf48a9dd}{t}}[0];}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00037}00037\ \ \ \ \ ret.\mbox{\hyperlink{struct_vec_a35750631386ec744b20299992d2b2fe9}{y}}()\ =\ U[3]*r.\mbox{\hyperlink{struct_vec_a053cf7422a55ce5bd20f5e14ad1c85bd}{x}}()\ +\ U[4]*r.\mbox{\hyperlink{struct_vec_a35750631386ec744b20299992d2b2fe9}{y}}()\ +\ U[5]*r.\mbox{\hyperlink{struct_vec_ad85da573f2248ee25c5c0219be221e40}{z}}()\ +\ \mbox{\hyperlink{eig_8cpp_aa16a375e07c61fbc631be63ccf48a9dd}{t}}[1];}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00038}00038\ \ \ \ \ ret.\mbox{\hyperlink{struct_vec_ad85da573f2248ee25c5c0219be221e40}{z}}()\ =\ U[6]*r.\mbox{\hyperlink{struct_vec_a053cf7422a55ce5bd20f5e14ad1c85bd}{x}}()\ +\ U[7]*r.\mbox{\hyperlink{struct_vec_a35750631386ec744b20299992d2b2fe9}{y}}()\ +\ U[8]*r.\mbox{\hyperlink{struct_vec_ad85da573f2248ee25c5c0219be221e40}{z}}()\ +\ \mbox{\hyperlink{eig_8cpp_aa16a375e07c61fbc631be63ccf48a9dd}{t}}[2];}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00039}00039\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00040}00040\ \}}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00049}\mbox{\hyperlink{affine_8h_a73b199010f781e87af84f95d8ef4eada}{00049}}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{affine_8h_a73b199010f781e87af84f95d8ef4eada}{axis\_angle\_to\_rot}}(}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00050}00050\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}*\ U,}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00051}00051\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ angle,}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00052}00052\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ axis)\ \{\ \textcolor{comment}{//\ must\ be\ normalized}}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00053}00053\ \ \ \ \ \textcolor{keywordtype}{float}\ x\ =\ axis.\mbox{\hyperlink{struct_vec_a053cf7422a55ce5bd20f5e14ad1c85bd}{x}}();}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00054}00054\ \ \ \ \ \textcolor{keywordtype}{float}\ y\ =\ axis.\mbox{\hyperlink{struct_vec_a35750631386ec744b20299992d2b2fe9}{y}}();}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00055}00055\ \ \ \ \ \textcolor{keywordtype}{float}\ z\ =\ axis.\mbox{\hyperlink{struct_vec_ad85da573f2248ee25c5c0219be221e40}{z}}();}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00057}00057\ \ \ \ \ \textcolor{keywordtype}{float}\ c\ =\ std::cos(angle);}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00058}00058\ \ \ \ \ \textcolor{keywordtype}{float}\ s\ =\ std::sin(angle);}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00059}00059\ \ \ \ \ \textcolor{keywordtype}{float}\ C\ =\ 1.f-\/c;}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00061}00061\ \ \ \ \ U[0*3+0]\ =\ x*x*C+c;\ \ \ U[0*3+1]\ =\ x*y*C-\/z*s;\ U[0*3+2]\ =\ x*z*C+y*s;}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00062}00062\ \ \ \ \ U[1*3+0]\ =\ y*x*C+z*s;\ U[1*3+1]\ =\ y*y*C+c;\ \ \ U[1*3+2]\ =\ y*z*C-\/x*s;}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00063}00063\ \ \ \ \ U[2*3+0]\ =\ z*x*C-\/y*s;\ U[2*3+1]\ =\ z*y*C+x*s;\ U[2*3+2]\ =\ z*z*C+c;}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00064}00064\ \}}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00072}\mbox{\hyperlink{affine_8h_a2f85f8ad9c8a4f35d708087aad449848}{00072}}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{affine_8h_a2f85f8ad9c8a4f35d708087aad449848}{relative\_rotation}}(}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00073}00073\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}*\ restrict\ V,}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00074}00074\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}*\ U1,}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00075}00075\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}*\ U2)\ \textcolor{comment}{//\ V\ =\ transpose(U1)\ *\ U2}}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00076}00076\ \{}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00078}00078\ \ \ \ \ V[0]\ =\ U1[0]*U2[0]\ +\ U1[3]*U2[3]\ +\ U1[6]*U2[6];}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00079}00079\ \ \ \ \ V[1]\ =\ U1[0]*U2[1]\ +\ U1[3]*U2[4]\ +\ U1[6]*U2[7];}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00080}00080\ \ \ \ \ V[2]\ =\ U1[0]*U2[2]\ +\ U1[3]*U2[5]\ +\ U1[6]*U2[8];}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00081}00081\ \ \ \ \ V[3]\ =\ U1[1]*U2[0]\ +\ U1[4]*U2[3]\ +\ U1[7]*U2[6];}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00082}00082\ \ \ \ \ V[4]\ =\ U1[1]*U2[1]\ +\ U1[4]*U2[4]\ +\ U1[7]*U2[7];}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00083}00083\ \ \ \ \ V[5]\ =\ U1[1]*U2[2]\ +\ U1[4]*U2[5]\ +\ U1[7]*U2[8];}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00084}00084\ \ \ \ \ V[6]\ =\ U1[2]*U2[0]\ +\ U1[5]*U2[3]\ +\ U1[8]*U2[6];}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00085}00085\ \ \ \ \ V[7]\ =\ U1[2]*U2[1]\ +\ U1[5]*U2[4]\ +\ U1[8]*U2[7];}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00086}00086\ \ \ \ \ V[8]\ =\ U1[2]*U2[2]\ +\ U1[5]*U2[5]\ +\ U1[8]*U2[8];}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00087}00087\ \}}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00098}00098\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ }
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00099}\mbox{\hyperlink{affine_8h_a61bdccfc639814336b4c7cf70bcd35fd}{00099}}\ \mbox{\hyperlink{affine_8h_a61bdccfc639814336b4c7cf70bcd35fd}{quat\_to\_rot}}(}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}*\ \ \ \ \ \ \ restrict\ U,\ \ \ \ \textcolor{comment}{//\ length\ 9\ (row-\/major\ order)}}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00101}00101\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}*\ restrict\ quat)\ \textcolor{comment}{//\ length\ 4\ (must\ be\ normalized)}}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00102}00102\ \{}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00103}00103\ \ \ \ \ \textcolor{keywordtype}{float}\ a=quat[0],\ b=quat[1],\ c=quat[2],\ d=quat[3];}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00105}00105\ \ \ \ \ U[0*3+0]\ =\ a*a+b*b-\/c*c-\/d*d;\ U[0*3+1]\ =\ 2.f*b*c-\/2.f*a*d;\ U[0*3+2]\ =\ 2.f*b*d+2.f*a*c;}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00106}00106\ \ \ \ \ U[1*3+0]\ =\ 2.f*b*c+2.f*a*d;\ U[1*3+1]\ =\ a*a-\/b*b+c*c-\/d*d;\ U[1*3+2]\ =\ 2.f*c*d-\/2.f*a*b;}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00107}00107\ \ \ \ \ U[2*3+0]\ =\ 2.f*b*d-\/2.f*a*c;\ U[2*3+1]\ =\ 2.f*c*d+2.f*a*b;\ U[2*3+2]\ =\ a*a-\/b*b-\/c*c+d*d;}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00108}00108\ \}}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00115}00115\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00116}\mbox{\hyperlink{affine_8h_a1cb150ab26afd73e20272b58e413e05d}{00116}}\ \mbox{\hyperlink{affine_8h_a1cb150ab26afd73e20272b58e413e05d}{relative\_quat}}(\textcolor{keywordtype}{float}*\ restrict\ ret,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}*\ q1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}*\ q2)}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00117}00117\ \textcolor{comment}{//\ ret\ =\ conjugate(p)\ *\ q\ \ -\/-\/\ it\ takes\ you\ from\ the\ right\ reference\ frame\ to\ the\ left}}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00118}00118\ \{}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00119}00119\ \ \ \ \ ret[0]\ =\ \ q1[0]*q2[0]\ +\ q1[1]*q2[1]\ +\ q1[2]*q2[2]\ +\ q1[3]*q2[3];}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00120}00120\ \ \ \ \ ret[1]\ =\ -\/q1[1]*q2[0]\ +\ q1[0]*q2[1]\ +\ q1[3]*q2[2]\ -\/\ q1[2]*q2[3];}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00121}00121\ \ \ \ \ ret[2]\ =\ -\/q1[2]*q2[0]\ -\/\ q1[3]*q2[1]\ +\ q1[0]*q2[2]\ +\ q1[1]*q2[3];}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00122}00122\ \ \ \ \ ret[3]\ =\ -\/q1[3]*q2[0]\ +\ q1[2]*q2[1]\ -\/\ q1[1]*q2[2]\ +\ q1[0]*q2[3];}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00123}00123\ \}}
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{affine_8h_source_l00125}00125\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

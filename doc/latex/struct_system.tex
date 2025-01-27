@@ -1,0 +1,219 @@
+\doxysection{System Struct Reference}
+\hypertarget{struct_system}{}\label{struct_system}\index{System@{System}}
+
+
+Collaboration diagram for System\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{struct_system__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_system_ae317936c9bcf1374d61745572e0f2f8a}{System}} ()
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_system_a25bde451988fe06b9db985c92d21bc53}{set\+\_\+temperature}} (\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{new\+\_\+temp}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_system_a49ba7a0569791c0489c5613d14d6e5c3}{n\+\_\+atom}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{uint32\+\_\+t}} \mbox{\hyperlink{struct_system_a7bdc5c1f075099314281b45412d55b30}{random\+\_\+seed}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{struct_system_a85a5b56e8fcba5b52315e4a8ff201ebe}{initial\+\_\+temperature}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{struct_system_a20470adf37a06e8e924d12f8d902d35a}{temperature}}
+\item 
+\mbox{\hyperlink{namespaceh5_a020e9a461902cb318328c2dd6d40e1a9}{H5\+Obj}} \mbox{\hyperlink{struct_system_ac5da0ecfe76818908a2e07ba0c5267dd}{config}}
+\item 
+\mbox{\hyperlink{namespaceh5_a020e9a461902cb318328c2dd6d40e1a9}{H5\+Obj}} \mbox{\hyperlink{struct_system_af2f02e1f98ecceb7c5194b08fc191fee}{input}}
+\item 
+\mbox{\hyperlink{namespaceh5_a020e9a461902cb318328c2dd6d40e1a9}{H5\+Obj}} \mbox{\hyperlink{struct_system_a55aa5d06cdaf317e9dc76e54cd04829f}{output}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{shared\+\_\+ptr}}$<$ \mbox{\hyperlink{struct_h5_logger}{H5\+Logger}} $>$ \mbox{\hyperlink{struct_system_a2d226296142724365dbb6e83cb4adf07}{logger}}
+\item 
+\mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} \mbox{\hyperlink{struct_system_a4d360c6506aa637ba8a6c84ba65b2bc3}{engine}}
+\item 
+\mbox{\hyperlink{struct_multiple_monte_carlo_sampler}{Multiple\+Monte\+Carlo\+Sampler}} \mbox{\hyperlink{struct_system_aaf0ce2010312b643f1d9543177bde51f}{mc\+\_\+samplers}}
+\item 
+\mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} \mbox{\hyperlink{struct_system_a7f64eaee75b0e075884991c451958f51}{mom}}
+\item 
+\mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat}{Ornstein\+Uhlenbeck\+Thermostat}} \mbox{\hyperlink{struct_system_a540a15d1c6fd2ead71abe155a987c68c}{thermostat}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{uint64\+\_\+t}} \mbox{\hyperlink{struct_system_ab1ce4c49ff6341374d6beeaaa753e530}{round\+\_\+num}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00098}{98}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_system_ae317936c9bcf1374d61745572e0f2f8a}\label{struct_system_ae317936c9bcf1374d61745572e0f2f8a} 
+\index{System@{System}!System@{System}}
+\index{System@{System}!System@{System}}
+\doxysubsubsection{\texorpdfstring{System()}{System()}}
+{\footnotesize\ttfamily System\+::\+System (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00112}{112}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_system_a25bde451988fe06b9db985c92d21bc53}\label{struct_system_a25bde451988fe06b9db985c92d21bc53} 
+\index{System@{System}!set\_temperature@{set\_temperature}}
+\index{set\_temperature@{set\_temperature}!System@{System}}
+\doxysubsubsection{\texorpdfstring{set\_temperature()}{set\_temperature()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} System\+::set\+\_\+temperature (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}}}]{new\+\_\+temp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00114}{114}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_system_ac5da0ecfe76818908a2e07ba0c5267dd}\label{struct_system_ac5da0ecfe76818908a2e07ba0c5267dd} 
+\index{System@{System}!config@{config}}
+\index{config@{config}!System@{System}}
+\doxysubsubsection{\texorpdfstring{config}{config}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_a020e9a461902cb318328c2dd6d40e1a9}{H5\+Obj}} System\+::config}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00103}{103}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+\Hypertarget{struct_system_a4d360c6506aa637ba8a6c84ba65b2bc3}\label{struct_system_a4d360c6506aa637ba8a6c84ba65b2bc3} 
+\index{System@{System}!engine@{engine}}
+\index{engine@{engine}!System@{System}}
+\doxysubsubsection{\texorpdfstring{engine}{engine}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_deriv_engine}{Deriv\+Engine}} System\+::engine}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00107}{107}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+\Hypertarget{struct_system_a85a5b56e8fcba5b52315e4a8ff201ebe}\label{struct_system_a85a5b56e8fcba5b52315e4a8ff201ebe} 
+\index{System@{System}!initial\_temperature@{initial\_temperature}}
+\index{initial\_temperature@{initial\_temperature}!System@{System}}
+\doxysubsubsection{\texorpdfstring{initial\_temperature}{initial\_temperature}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} System\+::initial\+\_\+temperature}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00101}{101}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+\Hypertarget{struct_system_af2f02e1f98ecceb7c5194b08fc191fee}\label{struct_system_af2f02e1f98ecceb7c5194b08fc191fee} 
+\index{System@{System}!input@{input}}
+\index{input@{input}!System@{System}}
+\doxysubsubsection{\texorpdfstring{input}{input}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_a020e9a461902cb318328c2dd6d40e1a9}{H5\+Obj}} System\+::input}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00104}{104}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+\Hypertarget{struct_system_a2d226296142724365dbb6e83cb4adf07}\label{struct_system_a2d226296142724365dbb6e83cb4adf07} 
+\index{System@{System}!logger@{logger}}
+\index{logger@{logger}!System@{System}}
+\doxysubsubsection{\texorpdfstring{logger}{logger}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{shared\+\_\+ptr}}$<$\mbox{\hyperlink{struct_h5_logger}{H5\+Logger}}$>$ System\+::logger}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00106}{106}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+\Hypertarget{struct_system_aaf0ce2010312b643f1d9543177bde51f}\label{struct_system_aaf0ce2010312b643f1d9543177bde51f} 
+\index{System@{System}!mc\_samplers@{mc\_samplers}}
+\index{mc\_samplers@{mc\_samplers}!System@{System}}
+\doxysubsubsection{\texorpdfstring{mc\_samplers}{mc\_samplers}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_multiple_monte_carlo_sampler}{Multiple\+Monte\+Carlo\+Sampler}} System\+::mc\+\_\+samplers}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00108}{108}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+\Hypertarget{struct_system_a7f64eaee75b0e075884991c451958f51}\label{struct_system_a7f64eaee75b0e075884991c451958f51} 
+\index{System@{System}!mom@{mom}}
+\index{mom@{mom}!System@{System}}
+\doxysubsubsection{\texorpdfstring{mom}{mom}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} System\+::mom}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00109}{109}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+\Hypertarget{struct_system_a49ba7a0569791c0489c5613d14d6e5c3}\label{struct_system_a49ba7a0569791c0489c5613d14d6e5c3} 
+\index{System@{System}!n\_atom@{n\_atom}}
+\index{n\_atom@{n\_atom}!System@{System}}
+\doxysubsubsection{\texorpdfstring{n\_atom}{n\_atom}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} System\+::n\+\_\+atom}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00099}{99}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+\Hypertarget{struct_system_a55aa5d06cdaf317e9dc76e54cd04829f}\label{struct_system_a55aa5d06cdaf317e9dc76e54cd04829f} 
+\index{System@{System}!output@{output}}
+\index{output@{output}!System@{System}}
+\doxysubsubsection{\texorpdfstring{output}{output}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_a020e9a461902cb318328c2dd6d40e1a9}{H5\+Obj}} System\+::output}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00105}{105}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+\Hypertarget{struct_system_a7bdc5c1f075099314281b45412d55b30}\label{struct_system_a7bdc5c1f075099314281b45412d55b30} 
+\index{System@{System}!random\_seed@{random\_seed}}
+\index{random\_seed@{random\_seed}!System@{System}}
+\doxysubsubsection{\texorpdfstring{random\_seed}{random\_seed}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{uint32\+\_\+t}} System\+::random\+\_\+seed}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00100}{100}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+\Hypertarget{struct_system_ab1ce4c49ff6341374d6beeaaa753e530}\label{struct_system_ab1ce4c49ff6341374d6beeaaa753e530} 
+\index{System@{System}!round\_num@{round\_num}}
+\index{round\_num@{round\_num}!System@{System}}
+\doxysubsubsection{\texorpdfstring{round\_num}{round\_num}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{uint64\+\_\+t}} System\+::round\+\_\+num}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00111}{111}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+\Hypertarget{struct_system_a20470adf37a06e8e924d12f8d902d35a}\label{struct_system_a20470adf37a06e8e924d12f8d902d35a} 
+\index{System@{System}!temperature@{temperature}}
+\index{temperature@{temperature}!System@{System}}
+\doxysubsubsection{\texorpdfstring{temperature}{temperature}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} System\+::temperature}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00102}{102}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+\Hypertarget{struct_system_a540a15d1c6fd2ead71abe155a987c68c}\label{struct_system_a540a15d1c6fd2ead71abe155a987c68c} 
+\index{System@{System}!thermostat@{thermostat}}
+\index{thermostat@{thermostat}!System@{System}}
+\doxysubsubsection{\texorpdfstring{thermostat}{thermostat}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat}{Ornstein\+Uhlenbeck\+Thermostat}} System\+::thermostat}
+
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00110}{110}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{main_8cpp}{main.\+cpp}}\end{DoxyCompactItemize}

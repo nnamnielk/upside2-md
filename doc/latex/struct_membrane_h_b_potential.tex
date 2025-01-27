@@ -1,0 +1,315 @@
+\doxysection{Membrane\+HBPotential Struct Reference}
+\hypertarget{struct_membrane_h_b_potential}{}\label{struct_membrane_h_b_potential}\index{MembraneHBPotential@{MembraneHBPotential}}
+
+
+Inheritance diagram for Membrane\+HBPotential\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=207pt]{struct_membrane_h_b_potential__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Membrane\+HBPotential\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=313pt]{struct_membrane_h_b_potential__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_membrane_h_b_potential_abded26adde5f9f692f487759711b13f3}{Membrane\+HBPotential}} (\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{hid\+\_\+t}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{grp}}, \mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{protein\+\_\+hbond\+\_\+}}, \mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{center\+\_\+of\+\_\+curvature\+\_\+}})
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_membrane_h_b_potential_aaeadca950fa5780e241a53674c8e6938}{compute\+\_\+value}} (\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{Compute\+Mode}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{mode}})
+\begin{DoxyCompactList}\small\item\em Reads inputs and computes output value. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} std\+::vector$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} $>$ \mbox{\hyperlink{struct_membrane_h_b_potential_ae8a66537322ef42d821d4e31c0767828}{get\+\_\+param}} () \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{const}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{override}}
+\begin{DoxyCompactList}\small\item\em Return arbitrary subset of parameters. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_membrane_h_b_potential_a5f5f4f290d7036f0f0c4245adea915d4}{set\+\_\+param}} (\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{const}} std\+::vector$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} $>$ \&\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{new\+\_\+params}}) \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{override}}
+\begin{DoxyCompactList}\small\item\em Set arbitrary subset of parameters (same as get\+\_\+param) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_potential_node}{Potential\+Node}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_potential_node_ae85f3af95266404a37981073878c677b}{Potential\+Node}} ()
+\begin{DoxyCompactList}\small\item\em Trivial constructor. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{struct_potential_node_ab773065a7ed9977bcef687108baa6ef4}{propagate\+\_\+deriv}} ()
+\begin{DoxyCompactList}\small\item\em (unused) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_deriv_computation_ab55a3d270aedc331a7ade09591198c4f}{Deriv\+Computation}} (bool potential\+\_\+term\+\_\+)
+\begin{DoxyCompactList}\small\item\em Construct only noting if node is a potential\+\_\+node. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{struct_deriv_computation_ae61f149a7fc4869f1d053c263fd03657}{\texorpdfstring{$\sim$}{\string~}\+Deriv\+Computation}} ()
+\begin{DoxyCompactList}\small\item\em Trivial destructor. \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_deriv_computation_aec2d05db4c36f52f8b7de6922af52494}{get\+\_\+value\+\_\+by\+\_\+name}} (const char \texorpdfstring{$\ast$}{*}log\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Compute a named quantity and return vector of floats (arbitrary behavior) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_membrane_h_b_potential_a5115eefa6bd6b029593c4ecdbe747c24}{n\+\_\+elem}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} $>$ \mbox{\hyperlink{struct_membrane_h_b_potential_a504ba0bd4ec69eb21a8959a9c5b42737}{hb\+\_\+index}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} $>$ \mbox{\hyperlink{struct_membrane_h_b_potential_a07ddaccc153d2bae2c9e4a5c6fed4802}{hb\+\_\+type}}
+\item 
+\mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \& \mbox{\hyperlink{struct_membrane_h_b_potential_ac66e14c1abaf69c5a0674c76717cc611}{protein\+\_\+hbond}}
+\item 
+\mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \& \mbox{\hyperlink{struct_membrane_h_b_potential_af7c3e132515b66e3ebc7188b4991c80f}{center\+\_\+of\+\_\+curvature}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_membrane_h_b_potential_a2c7f7debb6c8b25a9231ed7ea957e508}{n\+\_\+node}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{struct_membrane_h_b_potential_ac4279ce96ec86ce5527fc5d47c53f1a7}{zstart}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{struct_membrane_h_b_potential_a227e0a05bb8e3b71f545edda9e75a96f}{zscale}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{struct_membrane_h_b_potential_a820b49922b550ae166e16ae452cad3ba}{left\+\_\+right\+\_\+node}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{struct_membrane_h_b_potential_a0255caf3881e650cc8e10b939d6bf214}{left\+\_\+right\+\_\+sharpness}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{bool}} \mbox{\hyperlink{struct_membrane_h_b_potential_afb858f3db68064425fa9c7a7d55e9017}{use\+\_\+curvature}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{struct_membrane_h_b_potential_aac4a5242eafd690f89ee45b23c666381}{curvature\+\_\+radius}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{struct_membrane_h_b_potential_a8a750e6287cf97881ad6fa9ba12614c1}{curvature\+\_\+sign}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} $>$ \mbox{\hyperlink{struct_membrane_h_b_potential_aabd24e5854b9cfb9afdd76a559b6fd32}{coeff}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_potential_node}{Potential\+Node}}}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{struct_potential_node_ae34531266ff6716a791f3a55edb60015}{potential}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}}}
+\begin{DoxyCompactItemize}
+\item 
+const bool \mbox{\hyperlink{struct_deriv_computation_ab9caf415ec64cd42c99d24545238e691}{potential\+\_\+term}}
+\begin{DoxyCompactList}\small\item\em True if output represents a potential energy rather than a new coordinate. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{membrane__potential_8cpp_source_l00488}{488}} of file \mbox{\hyperlink{membrane__potential_8cpp_source}{membrane\+\_\+potential.\+cpp}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_membrane_h_b_potential_abded26adde5f9f692f487759711b13f3}\label{struct_membrane_h_b_potential_abded26adde5f9f692f487759711b13f3} 
+\index{MembraneHBPotential@{MembraneHBPotential}!MembraneHBPotential@{MembraneHBPotential}}
+\index{MembraneHBPotential@{MembraneHBPotential}!MembraneHBPotential@{MembraneHBPotential}}
+\doxysubsubsection{\texorpdfstring{MembraneHBPotential()}{MembraneHBPotential()}}
+{\footnotesize\ttfamily Membrane\+HBPotential\+::\+Membrane\+HBPotential (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{hid\+\_\+t}}}]{grp,  }\item[{\mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&}]{protein\+\_\+hbond\+\_\+,  }\item[{\mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&}]{center\+\_\+of\+\_\+curvature\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{membrane__potential_8cpp_source_l00510}{510}} of file \mbox{\hyperlink{membrane__potential_8cpp_source}{membrane\+\_\+potential.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_membrane_h_b_potential_aaeadca950fa5780e241a53674c8e6938}\label{struct_membrane_h_b_potential_aaeadca950fa5780e241a53674c8e6938} 
+\index{MembraneHBPotential@{MembraneHBPotential}!compute\_value@{compute\_value}}
+\index{compute\_value@{compute\_value}!MembraneHBPotential@{MembraneHBPotential}}
+\doxysubsubsection{\texorpdfstring{compute\_value()}{compute\_value()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} Membrane\+HBPotential\+::compute\+\_\+value (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{Compute\+Mode}}}]{mode }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reads inputs and computes output value. 
+
+
+
+Implements \mbox{\hyperlink{struct_deriv_computation_a750d9688cee97b4ab8a6c66c8a739bfc}{Deriv\+Computation}}.
+
+
+
+Definition at line \mbox{\hyperlink{membrane__potential_8cpp_source_l00536}{536}} of file \mbox{\hyperlink{membrane__potential_8cpp_source}{membrane\+\_\+potential.\+cpp}}.
+
+\Hypertarget{struct_membrane_h_b_potential_ae8a66537322ef42d821d4e31c0767828}\label{struct_membrane_h_b_potential_ae8a66537322ef42d821d4e31c0767828} 
+\index{MembraneHBPotential@{MembraneHBPotential}!get\_param@{get\_param}}
+\index{get\_param@{get\_param}!MembraneHBPotential@{MembraneHBPotential}}
+\doxysubsubsection{\texorpdfstring{get\_param()}{get\_param()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} std\+::vector$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} $>$ Membrane\+HBPotential\+::get\+\_\+param (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Return arbitrary subset of parameters. 
+
+
+
+Reimplemented from \mbox{\hyperlink{struct_deriv_computation_a5824da52d79ac4ac46e2cee217d8197c}{Deriv\+Computation}}.
+
+
+
+Definition at line \mbox{\hyperlink{membrane__potential_8cpp_source_l00609}{609}} of file \mbox{\hyperlink{membrane__potential_8cpp_source}{membrane\+\_\+potential.\+cpp}}.
+
+\Hypertarget{struct_membrane_h_b_potential_a5f5f4f290d7036f0f0c4245adea915d4}\label{struct_membrane_h_b_potential_a5f5f4f290d7036f0f0c4245adea915d4} 
+\index{MembraneHBPotential@{MembraneHBPotential}!set\_param@{set\_param}}
+\index{set\_param@{set\_param}!MembraneHBPotential@{MembraneHBPotential}}
+\doxysubsubsection{\texorpdfstring{set\_param()}{set\_param()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} Membrane\+HBPotential\+::set\+\_\+param (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{const}} std\+::vector$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} $>$ \&}]{new\+\_\+params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Set arbitrary subset of parameters (same as get\+\_\+param) 
+
+
+
+Reimplemented from \mbox{\hyperlink{struct_deriv_computation_a7c8dbb439e850f9cb4769aac0808d8c6}{Deriv\+Computation}}.
+
+
+
+Definition at line \mbox{\hyperlink{membrane__potential_8cpp_source_l00618}{618}} of file \mbox{\hyperlink{membrane__potential_8cpp_source}{membrane\+\_\+potential.\+cpp}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_membrane_h_b_potential_af7c3e132515b66e3ebc7188b4991c80f}\label{struct_membrane_h_b_potential_af7c3e132515b66e3ebc7188b4991c80f} 
+\index{MembraneHBPotential@{MembraneHBPotential}!center\_of\_curvature@{center\_of\_curvature}}
+\index{center\_of\_curvature@{center\_of\_curvature}!MembraneHBPotential@{MembraneHBPotential}}
+\doxysubsubsection{\texorpdfstring{center\_of\_curvature}{center\_of\_curvature}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_coord_node}{Coord\+Node}}\& Membrane\+HBPotential\+::center\+\_\+of\+\_\+curvature}
+
+
+
+Definition at line \mbox{\hyperlink{membrane__potential_8cpp_source_l00496}{496}} of file \mbox{\hyperlink{membrane__potential_8cpp_source}{membrane\+\_\+potential.\+cpp}}.
+
+\Hypertarget{struct_membrane_h_b_potential_aabd24e5854b9cfb9afdd76a559b6fd32}\label{struct_membrane_h_b_potential_aabd24e5854b9cfb9afdd76a559b6fd32} 
+\index{MembraneHBPotential@{MembraneHBPotential}!coeff@{coeff}}
+\index{coeff@{coeff}!MembraneHBPotential@{MembraneHBPotential}}
+\doxysubsubsection{\texorpdfstring{coeff}{coeff}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}}$>$ Membrane\+HBPotential\+::coeff}
+
+
+
+Definition at line \mbox{\hyperlink{membrane__potential_8cpp_source_l00508}{508}} of file \mbox{\hyperlink{membrane__potential_8cpp_source}{membrane\+\_\+potential.\+cpp}}.
+
+\Hypertarget{struct_membrane_h_b_potential_aac4a5242eafd690f89ee45b23c666381}\label{struct_membrane_h_b_potential_aac4a5242eafd690f89ee45b23c666381} 
+\index{MembraneHBPotential@{MembraneHBPotential}!curvature\_radius@{curvature\_radius}}
+\index{curvature\_radius@{curvature\_radius}!MembraneHBPotential@{MembraneHBPotential}}
+\doxysubsubsection{\texorpdfstring{curvature\_radius}{curvature\_radius}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} Membrane\+HBPotential\+::curvature\+\_\+radius}
+
+
+
+Definition at line \mbox{\hyperlink{membrane__potential_8cpp_source_l00505}{505}} of file \mbox{\hyperlink{membrane__potential_8cpp_source}{membrane\+\_\+potential.\+cpp}}.
+
+\Hypertarget{struct_membrane_h_b_potential_a8a750e6287cf97881ad6fa9ba12614c1}\label{struct_membrane_h_b_potential_a8a750e6287cf97881ad6fa9ba12614c1} 
+\index{MembraneHBPotential@{MembraneHBPotential}!curvature\_sign@{curvature\_sign}}
+\index{curvature\_sign@{curvature\_sign}!MembraneHBPotential@{MembraneHBPotential}}
+\doxysubsubsection{\texorpdfstring{curvature\_sign}{curvature\_sign}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} Membrane\+HBPotential\+::curvature\+\_\+sign}
+
+
+
+Definition at line \mbox{\hyperlink{membrane__potential_8cpp_source_l00506}{506}} of file \mbox{\hyperlink{membrane__potential_8cpp_source}{membrane\+\_\+potential.\+cpp}}.
+
+\Hypertarget{struct_membrane_h_b_potential_a504ba0bd4ec69eb21a8959a9c5b42737}\label{struct_membrane_h_b_potential_a504ba0bd4ec69eb21a8959a9c5b42737} 
+\index{MembraneHBPotential@{MembraneHBPotential}!hb\_index@{hb\_index}}
+\index{hb\_index@{hb\_index}!MembraneHBPotential@{MembraneHBPotential}}
+\doxysubsubsection{\texorpdfstring{hb\_index}{hb\_index}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}}$>$ Membrane\+HBPotential\+::hb\+\_\+index}
+
+
+
+Definition at line \mbox{\hyperlink{membrane__potential_8cpp_source_l00492}{492}} of file \mbox{\hyperlink{membrane__potential_8cpp_source}{membrane\+\_\+potential.\+cpp}}.
+
+\Hypertarget{struct_membrane_h_b_potential_a07ddaccc153d2bae2c9e4a5c6fed4802}\label{struct_membrane_h_b_potential_a07ddaccc153d2bae2c9e4a5c6fed4802} 
+\index{MembraneHBPotential@{MembraneHBPotential}!hb\_type@{hb\_type}}
+\index{hb\_type@{hb\_type}!MembraneHBPotential@{MembraneHBPotential}}
+\doxysubsubsection{\texorpdfstring{hb\_type}{hb\_type}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}}$>$ Membrane\+HBPotential\+::hb\+\_\+type}
+
+
+
+Definition at line \mbox{\hyperlink{membrane__potential_8cpp_source_l00493}{493}} of file \mbox{\hyperlink{membrane__potential_8cpp_source}{membrane\+\_\+potential.\+cpp}}.
+
+\Hypertarget{struct_membrane_h_b_potential_a820b49922b550ae166e16ae452cad3ba}\label{struct_membrane_h_b_potential_a820b49922b550ae166e16ae452cad3ba} 
+\index{MembraneHBPotential@{MembraneHBPotential}!left\_right\_node@{left\_right\_node}}
+\index{left\_right\_node@{left\_right\_node}!MembraneHBPotential@{MembraneHBPotential}}
+\doxysubsubsection{\texorpdfstring{left\_right\_node}{left\_right\_node}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} Membrane\+HBPotential\+::left\+\_\+right\+\_\+node}
+
+
+
+Definition at line \mbox{\hyperlink{membrane__potential_8cpp_source_l00501}{501}} of file \mbox{\hyperlink{membrane__potential_8cpp_source}{membrane\+\_\+potential.\+cpp}}.
+
+\Hypertarget{struct_membrane_h_b_potential_a0255caf3881e650cc8e10b939d6bf214}\label{struct_membrane_h_b_potential_a0255caf3881e650cc8e10b939d6bf214} 
+\index{MembraneHBPotential@{MembraneHBPotential}!left\_right\_sharpness@{left\_right\_sharpness}}
+\index{left\_right\_sharpness@{left\_right\_sharpness}!MembraneHBPotential@{MembraneHBPotential}}
+\doxysubsubsection{\texorpdfstring{left\_right\_sharpness}{left\_right\_sharpness}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} Membrane\+HBPotential\+::left\+\_\+right\+\_\+sharpness}
+
+
+
+Definition at line \mbox{\hyperlink{membrane__potential_8cpp_source_l00502}{502}} of file \mbox{\hyperlink{membrane__potential_8cpp_source}{membrane\+\_\+potential.\+cpp}}.
+
+\Hypertarget{struct_membrane_h_b_potential_a5115eefa6bd6b029593c4ecdbe747c24}\label{struct_membrane_h_b_potential_a5115eefa6bd6b029593c4ecdbe747c24} 
+\index{MembraneHBPotential@{MembraneHBPotential}!n\_elem@{n\_elem}}
+\index{n\_elem@{n\_elem}!MembraneHBPotential@{MembraneHBPotential}}
+\doxysubsubsection{\texorpdfstring{n\_elem}{n\_elem}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} Membrane\+HBPotential\+::n\+\_\+elem}
+
+
+
+Definition at line \mbox{\hyperlink{membrane__potential_8cpp_source_l00490}{490}} of file \mbox{\hyperlink{membrane__potential_8cpp_source}{membrane\+\_\+potential.\+cpp}}.
+
+\Hypertarget{struct_membrane_h_b_potential_a2c7f7debb6c8b25a9231ed7ea957e508}\label{struct_membrane_h_b_potential_a2c7f7debb6c8b25a9231ed7ea957e508} 
+\index{MembraneHBPotential@{MembraneHBPotential}!n\_node@{n\_node}}
+\index{n\_node@{n\_node}!MembraneHBPotential@{MembraneHBPotential}}
+\doxysubsubsection{\texorpdfstring{n\_node}{n\_node}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} Membrane\+HBPotential\+::n\+\_\+node}
+
+
+
+Definition at line \mbox{\hyperlink{membrane__potential_8cpp_source_l00498}{498}} of file \mbox{\hyperlink{membrane__potential_8cpp_source}{membrane\+\_\+potential.\+cpp}}.
+
+\Hypertarget{struct_membrane_h_b_potential_ac66e14c1abaf69c5a0674c76717cc611}\label{struct_membrane_h_b_potential_ac66e14c1abaf69c5a0674c76717cc611} 
+\index{MembraneHBPotential@{MembraneHBPotential}!protein\_hbond@{protein\_hbond}}
+\index{protein\_hbond@{protein\_hbond}!MembraneHBPotential@{MembraneHBPotential}}
+\doxysubsubsection{\texorpdfstring{protein\_hbond}{protein\_hbond}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_coord_node}{Coord\+Node}}\& Membrane\+HBPotential\+::protein\+\_\+hbond}
+
+
+
+Definition at line \mbox{\hyperlink{membrane__potential_8cpp_source_l00495}{495}} of file \mbox{\hyperlink{membrane__potential_8cpp_source}{membrane\+\_\+potential.\+cpp}}.
+
+\Hypertarget{struct_membrane_h_b_potential_afb858f3db68064425fa9c7a7d55e9017}\label{struct_membrane_h_b_potential_afb858f3db68064425fa9c7a7d55e9017} 
+\index{MembraneHBPotential@{MembraneHBPotential}!use\_curvature@{use\_curvature}}
+\index{use\_curvature@{use\_curvature}!MembraneHBPotential@{MembraneHBPotential}}
+\doxysubsubsection{\texorpdfstring{use\_curvature}{use\_curvature}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{bool}} Membrane\+HBPotential\+::use\+\_\+curvature}
+
+
+
+Definition at line \mbox{\hyperlink{membrane__potential_8cpp_source_l00504}{504}} of file \mbox{\hyperlink{membrane__potential_8cpp_source}{membrane\+\_\+potential.\+cpp}}.
+
+\Hypertarget{struct_membrane_h_b_potential_a227e0a05bb8e3b71f545edda9e75a96f}\label{struct_membrane_h_b_potential_a227e0a05bb8e3b71f545edda9e75a96f} 
+\index{MembraneHBPotential@{MembraneHBPotential}!zscale@{zscale}}
+\index{zscale@{zscale}!MembraneHBPotential@{MembraneHBPotential}}
+\doxysubsubsection{\texorpdfstring{zscale}{zscale}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} Membrane\+HBPotential\+::zscale}
+
+
+
+Definition at line \mbox{\hyperlink{membrane__potential_8cpp_source_l00500}{500}} of file \mbox{\hyperlink{membrane__potential_8cpp_source}{membrane\+\_\+potential.\+cpp}}.
+
+\Hypertarget{struct_membrane_h_b_potential_ac4279ce96ec86ce5527fc5d47c53f1a7}\label{struct_membrane_h_b_potential_ac4279ce96ec86ce5527fc5d47c53f1a7} 
+\index{MembraneHBPotential@{MembraneHBPotential}!zstart@{zstart}}
+\index{zstart@{zstart}!MembraneHBPotential@{MembraneHBPotential}}
+\doxysubsubsection{\texorpdfstring{zstart}{zstart}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} Membrane\+HBPotential\+::zstart}
+
+
+
+Definition at line \mbox{\hyperlink{membrane__potential_8cpp_source_l00499}{499}} of file \mbox{\hyperlink{membrane__potential_8cpp_source}{membrane\+\_\+potential.\+cpp}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{membrane__potential_8cpp}{membrane\+\_\+potential.\+cpp}}\end{DoxyCompactItemize}

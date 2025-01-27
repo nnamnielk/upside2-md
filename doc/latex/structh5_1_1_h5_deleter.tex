@@ -1,0 +1,104 @@
+\doxysection{h5\+::H5\+Deleter Struct Reference}
+\hypertarget{structh5_1_1_h5_deleter}{}\label{structh5_1_1_h5_deleter}\index{h5::H5Deleter@{h5::H5Deleter}}
+
+
+Custom deleter for hid\+\_\+t references.  
+
+
+
+
+{\ttfamily \#include $<$h5\+\_\+support.\+h$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{typedef}} \mbox{\hyperlink{structh5_1_1_hid__t}{Hid\+\_\+t}} \mbox{\hyperlink{structh5_1_1_h5_deleter_ae740f295a525aa48c4cd1e8034a2b043}{pointer}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structh5_1_1_h5_deleter_a297ad26b84ad7f21ba4a73a2ac9dc6a0}{H5\+Deleter}} ()
+\item 
+\mbox{\hyperlink{structh5_1_1_h5_deleter_a749448f0435b0bdd60dd19c032386d8b}{H5\+Deleter}} (\mbox{\hyperlink{namespaceh5_a735aef730f6bf4dcdee45ec9bf1cf808}{H5\+Deleter\+Func}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{deleter\+\_\+}})
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{structh5_1_1_h5_deleter_a1583ce138dee2a52e512753a2131a841}{operator()}} (\mbox{\hyperlink{structh5_1_1_h5_deleter_ae740f295a525aa48c4cd1e8034a2b043}{pointer}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{p}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceh5_a735aef730f6bf4dcdee45ec9bf1cf808}{H5\+Deleter\+Func}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structh5_1_1_h5_deleter_a2d7a6855bd94433e558fe9a4d1d6391e}{deleter}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Custom deleter for hid\+\_\+t references. 
+
+Definition at line \mbox{\hyperlink{h5__support_8h_source_l00048}{48}} of file \mbox{\hyperlink{h5__support_8h_source}{h5\+\_\+support.\+h}}.
+
+
+
+\doxysubsection{Member Typedef Documentation}
+\Hypertarget{structh5_1_1_h5_deleter_ae740f295a525aa48c4cd1e8034a2b043}\label{structh5_1_1_h5_deleter_ae740f295a525aa48c4cd1e8034a2b043} 
+\index{h5::H5Deleter@{h5::H5Deleter}!pointer@{pointer}}
+\index{pointer@{pointer}!h5::H5Deleter@{h5::H5Deleter}}
+\doxysubsubsection{\texorpdfstring{pointer}{pointer}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{typedef}} \mbox{\hyperlink{structh5_1_1_hid__t}{Hid\+\_\+t}} \mbox{\hyperlink{structh5_1_1_h5_deleter_ae740f295a525aa48c4cd1e8034a2b043}{h5\+::\+H5\+Deleter\+::pointer}}}
+
+
+
+Definition at line \mbox{\hyperlink{h5__support_8h_source_l00050}{50}} of file \mbox{\hyperlink{h5__support_8h_source}{h5\+\_\+support.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{structh5_1_1_h5_deleter_a297ad26b84ad7f21ba4a73a2ac9dc6a0}\label{structh5_1_1_h5_deleter_a297ad26b84ad7f21ba4a73a2ac9dc6a0} 
+\index{h5::H5Deleter@{h5::H5Deleter}!H5Deleter@{H5Deleter}}
+\index{H5Deleter@{H5Deleter}!h5::H5Deleter@{h5::H5Deleter}}
+\doxysubsubsection{\texorpdfstring{H5Deleter()}{H5Deleter()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily h5\+::\+H5\+Deleter\+::\+H5\+Deleter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{h5__support_8h_source_l00053}{53}} of file \mbox{\hyperlink{h5__support_8h_source}{h5\+\_\+support.\+h}}.
+
+\Hypertarget{structh5_1_1_h5_deleter_a749448f0435b0bdd60dd19c032386d8b}\label{structh5_1_1_h5_deleter_a749448f0435b0bdd60dd19c032386d8b} 
+\index{h5::H5Deleter@{h5::H5Deleter}!H5Deleter@{H5Deleter}}
+\index{H5Deleter@{H5Deleter}!h5::H5Deleter@{h5::H5Deleter}}
+\doxysubsubsection{\texorpdfstring{H5Deleter()}{H5Deleter()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily h5\+::\+H5\+Deleter\+::\+H5\+Deleter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceh5_a735aef730f6bf4dcdee45ec9bf1cf808}{H5\+Deleter\+Func}} \texorpdfstring{$\ast$}{*}}]{deleter\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{h5__support_8h_source_l00054}{54}} of file \mbox{\hyperlink{h5__support_8h_source}{h5\+\_\+support.\+h}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structh5_1_1_h5_deleter_a1583ce138dee2a52e512753a2131a841}\label{structh5_1_1_h5_deleter_a1583ce138dee2a52e512753a2131a841} 
+\index{h5::H5Deleter@{h5::H5Deleter}!operator()@{operator()}}
+\index{operator()@{operator()}!h5::H5Deleter@{h5::H5Deleter}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} h5\+::\+H5\+Deleter\+::operator() (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structh5_1_1_h5_deleter_ae740f295a525aa48c4cd1e8034a2b043}{pointer}}}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{h5__support_8h_source_l00055}{55}} of file \mbox{\hyperlink{h5__support_8h_source}{h5\+\_\+support.\+h}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structh5_1_1_h5_deleter_a2d7a6855bd94433e558fe9a4d1d6391e}\label{structh5_1_1_h5_deleter_a2d7a6855bd94433e558fe9a4d1d6391e} 
+\index{h5::H5Deleter@{h5::H5Deleter}!deleter@{deleter}}
+\index{deleter@{deleter}!h5::H5Deleter@{h5::H5Deleter}}
+\doxysubsubsection{\texorpdfstring{deleter}{deleter}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_a735aef730f6bf4dcdee45ec9bf1cf808}{H5\+Deleter\+Func}}\texorpdfstring{$\ast$}{*} h5\+::\+H5\+Deleter\+::deleter}
+
+
+
+Definition at line \mbox{\hyperlink{h5__support_8h_source_l00051}{51}} of file \mbox{\hyperlink{h5__support_8h_source}{h5\+\_\+support.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{h5__support_8h}{h5\+\_\+support.\+h}}\end{DoxyCompactItemize}

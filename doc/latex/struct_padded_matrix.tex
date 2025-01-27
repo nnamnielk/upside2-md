@@ -1,0 +1,139 @@
+\doxysection{Padded\+Matrix\texorpdfstring{$<$}{<} D1, D2 \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{struct_padded_matrix}{}\label{struct_padded_matrix}\index{PaddedMatrix$<$ D1, D2 $>$@{PaddedMatrix$<$ D1, D2 $>$}}
+
+
+Collaboration diagram for Padded\+Matrix\texorpdfstring{$<$}{<} D1, D2 \texorpdfstring{$>$}{>}\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{struct_padded_matrix__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_padded_matrix_a804499c8b50fc3c2d23014511152a2cc}{Padded\+Matrix}} (\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{address}})
+\item 
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ \mbox{\hyperlink{struct_padded_matrix_a1313c3efb736c0859e0eaa236afad05c}{w1}}, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \mbox{\hyperlink{struct_padded_matrix_a0a55df035b09f5239978b6fe62cb837e}{apply\+\_\+left}} (\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{const}} \mbox{\hyperlink{struct_vec}{Vec}}$<$ \mbox{\hyperlink{struct_padded_matrix_a3966a4c996f94bac03d0f2ec2daeed51}{w2}}, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \&\mbox{\hyperlink{eig_8cpp_a8632be35f000cadfa136fc7d22eabac5}{v}})
+\item 
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ \mbox{\hyperlink{struct_padded_matrix_a3966a4c996f94bac03d0f2ec2daeed51}{w2}}, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \mbox{\hyperlink{struct_padded_matrix_a3cc1b20ee6a68c66b3aec75c793277fa}{apply\+\_\+right}} (\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{const}} \mbox{\hyperlink{struct_vec}{Vec}}$<$ \mbox{\hyperlink{struct_padded_matrix_a1313c3efb736c0859e0eaa236afad05c}{w1}}, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \&\mbox{\hyperlink{eig_8cpp_a8632be35f000cadfa136fc7d22eabac5}{v}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} i\+\_\+bcast$>$ }\\\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{static}} \mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{struct_padded_matrix_ab7005c4c1d7abd47ea1c0f1296c6455a}{bcast}} (\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{const}} \mbox{\hyperlink{struct_float4}{Float4}} \&\mbox{\hyperlink{eig_8cpp_a8632be35f000cadfa136fc7d22eabac5}{v}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{struct_padded_matrix_a786449267ef9cc515fa4f15d7af88127}{row}} \mbox{[}\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{D1}}\mbox{]}\mbox{[}\mbox{\hyperlink{struct_padded_matrix_a3966a4c996f94bac03d0f2ec2daeed51}{w2}}\mbox{]}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{static}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{constexpr}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_padded_matrix_a1313c3efb736c0859e0eaa236afad05c}{w1}} =(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{D1}}+3)/4
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{static}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{constexpr}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_padded_matrix_a3966a4c996f94bac03d0f2ec2daeed51}{w2}} =(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{D2}}+3)/4
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} D1, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} D2$>$\newline
+struct Padded\+Matrix$<$ D1, D2 $>$}
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00038}{38}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_padded_matrix_a804499c8b50fc3c2d23014511152a2cc}\label{struct_padded_matrix_a804499c8b50fc3c2d23014511152a2cc} 
+\index{PaddedMatrix$<$ D1, D2 $>$@{PaddedMatrix$<$ D1, D2 $>$}!PaddedMatrix@{PaddedMatrix}}
+\index{PaddedMatrix@{PaddedMatrix}!PaddedMatrix$<$ D1, D2 $>$@{PaddedMatrix$<$ D1, D2 $>$}}
+\doxysubsubsection{\texorpdfstring{PaddedMatrix()}{PaddedMatrix()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} D1, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} D2$>$ \\
+\mbox{\hyperlink{struct_padded_matrix}{Padded\+Matrix}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{D1}}, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{D2}} $>$\mbox{\hyperlink{struct_padded_matrix}{\+::\+Padded\+Matrix}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \texorpdfstring{$\ast$}{*}}]{address }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00051}{51}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_padded_matrix_a0a55df035b09f5239978b6fe62cb837e}\label{struct_padded_matrix_a0a55df035b09f5239978b6fe62cb837e} 
+\index{PaddedMatrix$<$ D1, D2 $>$@{PaddedMatrix$<$ D1, D2 $>$}!apply\_left@{apply\_left}}
+\index{apply\_left@{apply\_left}!PaddedMatrix$<$ D1, D2 $>$@{PaddedMatrix$<$ D1, D2 $>$}}
+\doxysubsubsection{\texorpdfstring{apply\_left()}{apply\_left()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} D1, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} D2$>$ \\
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ \mbox{\hyperlink{struct_padded_matrix_a1313c3efb736c0859e0eaa236afad05c}{w1}}, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \mbox{\hyperlink{struct_padded_matrix}{Padded\+Matrix}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{D1}}, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{D2}} $>$\+::apply\+\_\+left (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{const}} \mbox{\hyperlink{struct_vec}{Vec}}$<$ \mbox{\hyperlink{struct_padded_matrix_a3966a4c996f94bac03d0f2ec2daeed51}{w2}}, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \&}]{v }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00057}{57}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+\Hypertarget{struct_padded_matrix_a3cc1b20ee6a68c66b3aec75c793277fa}\label{struct_padded_matrix_a3cc1b20ee6a68c66b3aec75c793277fa} 
+\index{PaddedMatrix$<$ D1, D2 $>$@{PaddedMatrix$<$ D1, D2 $>$}!apply\_right@{apply\_right}}
+\index{apply\_right@{apply\_right}!PaddedMatrix$<$ D1, D2 $>$@{PaddedMatrix$<$ D1, D2 $>$}}
+\doxysubsubsection{\texorpdfstring{apply\_right()}{apply\_right()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} D1, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} D2$>$ \\
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ \mbox{\hyperlink{struct_padded_matrix_a3966a4c996f94bac03d0f2ec2daeed51}{w2}}, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \mbox{\hyperlink{struct_padded_matrix}{Padded\+Matrix}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{D1}}, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{D2}} $>$\+::apply\+\_\+right (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{const}} \mbox{\hyperlink{struct_vec}{Vec}}$<$ \mbox{\hyperlink{struct_padded_matrix_a1313c3efb736c0859e0eaa236afad05c}{w1}}, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \&}]{v }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00093}{93}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+\Hypertarget{struct_padded_matrix_ab7005c4c1d7abd47ea1c0f1296c6455a}\label{struct_padded_matrix_ab7005c4c1d7abd47ea1c0f1296c6455a} 
+\index{PaddedMatrix$<$ D1, D2 $>$@{PaddedMatrix$<$ D1, D2 $>$}!bcast@{bcast}}
+\index{bcast@{bcast}!PaddedMatrix$<$ D1, D2 $>$@{PaddedMatrix$<$ D1, D2 $>$}}
+\doxysubsubsection{\texorpdfstring{bcast()}{bcast()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} D1, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} D2$>$ \\
+template$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} i\+\_\+bcast$>$ \\
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{static}} \mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{struct_padded_matrix}{Padded\+Matrix}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{D1}}, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{D2}} $>$\+::bcast (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{const}} \mbox{\hyperlink{struct_float4}{Float4}} \&}]{v }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00047}{47}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_padded_matrix_a786449267ef9cc515fa4f15d7af88127}\label{struct_padded_matrix_a786449267ef9cc515fa4f15d7af88127} 
+\index{PaddedMatrix$<$ D1, D2 $>$@{PaddedMatrix$<$ D1, D2 $>$}!row@{row}}
+\index{row@{row}!PaddedMatrix$<$ D1, D2 $>$@{PaddedMatrix$<$ D1, D2 $>$}}
+\doxysubsubsection{\texorpdfstring{row}{row}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} D1, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} D2$>$ \\
+\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{struct_padded_matrix}{Padded\+Matrix}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{D1}}, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{D2}} $>$\+::row\mbox{[}\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{D1}}\mbox{]}\mbox{[}\mbox{\hyperlink{struct_padded_matrix_a3966a4c996f94bac03d0f2ec2daeed51}{w2}}\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00049}{49}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+\Hypertarget{struct_padded_matrix_a1313c3efb736c0859e0eaa236afad05c}\label{struct_padded_matrix_a1313c3efb736c0859e0eaa236afad05c} 
+\index{PaddedMatrix$<$ D1, D2 $>$@{PaddedMatrix$<$ D1, D2 $>$}!w1@{w1}}
+\index{w1@{w1}!PaddedMatrix$<$ D1, D2 $>$@{PaddedMatrix$<$ D1, D2 $>$}}
+\doxysubsubsection{\texorpdfstring{w1}{w1}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} D1, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} D2$>$ \\
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{constexpr}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_padded_matrix}{Padded\+Matrix}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{D1}}, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{D2}} $>$\+::w1 =(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{D1}}+3)/4\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00039}{39}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+\Hypertarget{struct_padded_matrix_a3966a4c996f94bac03d0f2ec2daeed51}\label{struct_padded_matrix_a3966a4c996f94bac03d0f2ec2daeed51} 
+\index{PaddedMatrix$<$ D1, D2 $>$@{PaddedMatrix$<$ D1, D2 $>$}!w2@{w2}}
+\index{w2@{w2}!PaddedMatrix$<$ D1, D2 $>$@{PaddedMatrix$<$ D1, D2 $>$}}
+\doxysubsubsection{\texorpdfstring{w2}{w2}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} D1, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} D2$>$ \\
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{constexpr}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_padded_matrix}{Padded\+Matrix}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{D1}}, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{D2}} $>$\+::w2 =(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{D2}}+3)/4\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00040}{40}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{rotamer_8cpp}{rotamer.\+cpp}}\end{DoxyCompactItemize}

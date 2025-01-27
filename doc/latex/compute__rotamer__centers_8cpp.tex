@@ -1,0 +1,191 @@
+\doxysection{src/compute\+\_\+rotamer\+\_\+centers.cpp File Reference}
+\hypertarget{compute__rotamer__centers_8cpp}{}\label{compute__rotamer__centers_8cpp}\index{src/compute\_rotamer\_centers.cpp@{src/compute\_rotamer\_centers.cpp}}
+{\ttfamily \#include "{}generate\+\_\+from\+\_\+rotamer.\+h"{}}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$Eigen/\+Dense$>$}\newline
+{\ttfamily \#include $<$Eigen/\+LU$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include "{}h5\+\_\+support.\+h"{}}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$Eigen/\+SVD$>$}\newline
+{\ttfamily \#include $<$Eigen/\+Geometry$>$}\newline
+{\ttfamily \#include $<$functional$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$iomanip$>$}\newline
+Include dependency graph for compute\+\_\+rotamer\+\_\+centers.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compute__rotamer__centers_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{compute__rotamer__centers_8cpp_a5ae3afcaf87dfab3a1f80e33f679b7f1}{get\+\_\+rotamer}} (const string \&name, const Matrix\+X3f \&pos, array$<$ float, 4 $>$ \&chi)
+\item 
+string \mbox{\hyperlink{compute__rotamer__centers_8cpp_ace893e4e56f9c025d8a51be7d7b6e365}{to\+\_\+string}} (Row\+Vector3f x)
+\item 
+string \mbox{\hyperlink{compute__rotamer__centers_8cpp_a05d0c3b7963fe88b086142b2f30297b0}{to\+\_\+string}} (Matrix3f x)
+\item 
+string \mbox{\hyperlink{compute__rotamer__centers_8cpp_a28c664e80128b9bfeac027011b29dda6}{np\+\_\+string}} (const Matrix\+X3f \&x)
+\item 
+Matrix\+Xf \mbox{\hyperlink{compute__rotamer__centers_8cpp_a148ebfa814e10dc46c280b8a661f4367}{dmat}} (Matrix\+X3f \&x)
+\item 
+float \mbox{\hyperlink{compute__rotamer__centers_8cpp_a3f295e5ffbcd79049f041b8ec252aa76}{angle\+\_\+wrap}} (float x)
+\item 
+float \mbox{\hyperlink{compute__rotamer__centers_8cpp_a548660edaa5ee6bb8c0b62a10f512784}{rmsd}} (const Matrix\+X3f \&x)
+\item 
+Vector4d \mbox{\hyperlink{compute__rotamer__centers_8cpp_a0f9f3c0beb1ff3e878af326648f5cd0a}{quat2vec}} (const Quaterniond \&q)
+\item 
+Affine3f \mbox{\hyperlink{compute__rotamer__centers_8cpp_a3d67ce3a9347f5383b49af2b18f2010f}{rigid\+\_\+alignment}} (const Matrix\+X3f \&model, const Matrix\+X3f \&ref)
+\item 
+void \mbox{\hyperlink{compute__rotamer__centers_8cpp_ab247e109e73b04d1bb7cbdbd8b0e35e7}{push\+\_\+vector}} (vector$<$ float $>$ \&a, const Row\+Vector3f \&\mbox{\hyperlink{eig_8cpp_a8632be35f000cadfa136fc7d22eabac5}{v}})
+\item 
+int \mbox{\hyperlink{compute__rotamer__centers_8cpp_a071fdaf97cff9b287c65b77e33214ef0}{get\+\_\+beads}} (const std\+::string \&rname, vector$<$ float $>$ \&centers, vector$<$ float $>$ \&direcs, Matrix\+X3f \&pos)
+\item 
+int \mbox{\hyperlink{compute__rotamer__centers_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+constexpr float \mbox{\hyperlink{compute__rotamer__centers_8cpp_a10eed9dbd8803e4acfbfc3432fc48b08}{M\+\_\+\+PI\+\_\+F}} = 4.f\texorpdfstring{$\ast$}{*}atanf(1.f)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{compute__rotamer__centers_8cpp_a3f295e5ffbcd79049f041b8ec252aa76}\label{compute__rotamer__centers_8cpp_a3f295e5ffbcd79049f041b8ec252aa76} 
+\index{compute\_rotamer\_centers.cpp@{compute\_rotamer\_centers.cpp}!angle\_wrap@{angle\_wrap}}
+\index{angle\_wrap@{angle\_wrap}!compute\_rotamer\_centers.cpp@{compute\_rotamer\_centers.cpp}}
+\doxysubsubsection{\texorpdfstring{angle\_wrap()}{angle\_wrap()}}
+{\footnotesize\ttfamily float angle\+\_\+wrap (\begin{DoxyParamCaption}\item[{float}]{x }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{compute__rotamer__centers_8cpp_source_l00180}{180}} of file \mbox{\hyperlink{compute__rotamer__centers_8cpp_source}{compute\+\_\+rotamer\+\_\+centers.\+cpp}}.
+
+\Hypertarget{compute__rotamer__centers_8cpp_a148ebfa814e10dc46c280b8a661f4367}\label{compute__rotamer__centers_8cpp_a148ebfa814e10dc46c280b8a661f4367} 
+\index{compute\_rotamer\_centers.cpp@{compute\_rotamer\_centers.cpp}!dmat@{dmat}}
+\index{dmat@{dmat}!compute\_rotamer\_centers.cpp@{compute\_rotamer\_centers.cpp}}
+\doxysubsubsection{\texorpdfstring{dmat()}{dmat()}}
+{\footnotesize\ttfamily Matrix\+Xf dmat (\begin{DoxyParamCaption}\item[{Matrix\+X3f \&}]{x }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{compute__rotamer__centers_8cpp_source_l00172}{172}} of file \mbox{\hyperlink{compute__rotamer__centers_8cpp_source}{compute\+\_\+rotamer\+\_\+centers.\+cpp}}.
+
+\Hypertarget{compute__rotamer__centers_8cpp_a071fdaf97cff9b287c65b77e33214ef0}\label{compute__rotamer__centers_8cpp_a071fdaf97cff9b287c65b77e33214ef0} 
+\index{compute\_rotamer\_centers.cpp@{compute\_rotamer\_centers.cpp}!get\_beads@{get\_beads}}
+\index{get\_beads@{get\_beads}!compute\_rotamer\_centers.cpp@{compute\_rotamer\_centers.cpp}}
+\doxysubsubsection{\texorpdfstring{get\_beads()}{get\_beads()}}
+{\footnotesize\ttfamily int get\+\_\+beads (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{rname,  }\item[{vector$<$ float $>$ \&}]{centers,  }\item[{vector$<$ float $>$ \&}]{direcs,  }\item[{Matrix\+X3f \&}]{pos }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{compute__rotamer__centers_8cpp_source_l00308}{308}} of file \mbox{\hyperlink{compute__rotamer__centers_8cpp_source}{compute\+\_\+rotamer\+\_\+centers.\+cpp}}.
+
+\Hypertarget{compute__rotamer__centers_8cpp_a5ae3afcaf87dfab3a1f80e33f679b7f1}\label{compute__rotamer__centers_8cpp_a5ae3afcaf87dfab3a1f80e33f679b7f1} 
+\index{compute\_rotamer\_centers.cpp@{compute\_rotamer\_centers.cpp}!get\_rotamer@{get\_rotamer}}
+\index{get\_rotamer@{get\_rotamer}!compute\_rotamer\_centers.cpp@{compute\_rotamer\_centers.cpp}}
+\doxysubsubsection{\texorpdfstring{get\_rotamer()}{get\_rotamer()}}
+{\footnotesize\ttfamily void get\+\_\+rotamer (\begin{DoxyParamCaption}\item[{const string \&}]{name,  }\item[{const Matrix\+X3f \&}]{pos,  }\item[{array$<$ float, 4 $>$ \&}]{chi }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{compute__rotamer__centers_8cpp_source_l00049}{49}} of file \mbox{\hyperlink{compute__rotamer__centers_8cpp_source}{compute\+\_\+rotamer\+\_\+centers.\+cpp}}.
+
+\Hypertarget{compute__rotamer__centers_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{compute__rotamer__centers_8cpp_a3c04138a5bfe5d72780bb7e82a18e627} 
+\index{compute\_rotamer\_centers.cpp@{compute\_rotamer\_centers.cpp}!main@{main}}
+\index{main@{main}!compute\_rotamer\_centers.cpp@{compute\_rotamer\_centers.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{argv }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{compute__rotamer__centers_8cpp_source_l00356}{356}} of file \mbox{\hyperlink{compute__rotamer__centers_8cpp_source}{compute\+\_\+rotamer\+\_\+centers.\+cpp}}.
+
+\Hypertarget{compute__rotamer__centers_8cpp_a28c664e80128b9bfeac027011b29dda6}\label{compute__rotamer__centers_8cpp_a28c664e80128b9bfeac027011b29dda6} 
+\index{compute\_rotamer\_centers.cpp@{compute\_rotamer\_centers.cpp}!np\_string@{np\_string}}
+\index{np\_string@{np\_string}!compute\_rotamer\_centers.cpp@{compute\_rotamer\_centers.cpp}}
+\doxysubsubsection{\texorpdfstring{np\_string()}{np\_string()}}
+{\footnotesize\ttfamily string np\+\_\+string (\begin{DoxyParamCaption}\item[{const Matrix\+X3f \&}]{x }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{compute__rotamer__centers_8cpp_source_l00159}{159}} of file \mbox{\hyperlink{compute__rotamer__centers_8cpp_source}{compute\+\_\+rotamer\+\_\+centers.\+cpp}}.
+
+\Hypertarget{compute__rotamer__centers_8cpp_ab247e109e73b04d1bb7cbdbd8b0e35e7}\label{compute__rotamer__centers_8cpp_ab247e109e73b04d1bb7cbdbd8b0e35e7} 
+\index{compute\_rotamer\_centers.cpp@{compute\_rotamer\_centers.cpp}!push\_vector@{push\_vector}}
+\index{push\_vector@{push\_vector}!compute\_rotamer\_centers.cpp@{compute\_rotamer\_centers.cpp}}
+\doxysubsubsection{\texorpdfstring{push\_vector()}{push\_vector()}}
+{\footnotesize\ttfamily void push\+\_\+vector (\begin{DoxyParamCaption}\item[{vector$<$ float $>$ \&}]{a,  }\item[{const Row\+Vector3f \&}]{v }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{compute__rotamer__centers_8cpp_source_l00304}{304}} of file \mbox{\hyperlink{compute__rotamer__centers_8cpp_source}{compute\+\_\+rotamer\+\_\+centers.\+cpp}}.
+
+\Hypertarget{compute__rotamer__centers_8cpp_a0f9f3c0beb1ff3e878af326648f5cd0a}\label{compute__rotamer__centers_8cpp_a0f9f3c0beb1ff3e878af326648f5cd0a} 
+\index{compute\_rotamer\_centers.cpp@{compute\_rotamer\_centers.cpp}!quat2vec@{quat2vec}}
+\index{quat2vec@{quat2vec}!compute\_rotamer\_centers.cpp@{compute\_rotamer\_centers.cpp}}
+\doxysubsubsection{\texorpdfstring{quat2vec()}{quat2vec()}}
+{\footnotesize\ttfamily Vector4d quat2vec (\begin{DoxyParamCaption}\item[{const Quaterniond \&}]{q }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{compute__rotamer__centers_8cpp_source_l00191}{191}} of file \mbox{\hyperlink{compute__rotamer__centers_8cpp_source}{compute\+\_\+rotamer\+\_\+centers.\+cpp}}.
+
+\Hypertarget{compute__rotamer__centers_8cpp_a3d67ce3a9347f5383b49af2b18f2010f}\label{compute__rotamer__centers_8cpp_a3d67ce3a9347f5383b49af2b18f2010f} 
+\index{compute\_rotamer\_centers.cpp@{compute\_rotamer\_centers.cpp}!rigid\_alignment@{rigid\_alignment}}
+\index{rigid\_alignment@{rigid\_alignment}!compute\_rotamer\_centers.cpp@{compute\_rotamer\_centers.cpp}}
+\doxysubsubsection{\texorpdfstring{rigid\_alignment()}{rigid\_alignment()}}
+{\footnotesize\ttfamily Affine3f rigid\+\_\+alignment (\begin{DoxyParamCaption}\item[{const Matrix\+X3f \&}]{model,  }\item[{const Matrix\+X3f \&}]{ref }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{compute__rotamer__centers_8cpp_source_l00201}{201}} of file \mbox{\hyperlink{compute__rotamer__centers_8cpp_source}{compute\+\_\+rotamer\+\_\+centers.\+cpp}}.
+
+\Hypertarget{compute__rotamer__centers_8cpp_a548660edaa5ee6bb8c0b62a10f512784}\label{compute__rotamer__centers_8cpp_a548660edaa5ee6bb8c0b62a10f512784} 
+\index{compute\_rotamer\_centers.cpp@{compute\_rotamer\_centers.cpp}!rmsd@{rmsd}}
+\index{rmsd@{rmsd}!compute\_rotamer\_centers.cpp@{compute\_rotamer\_centers.cpp}}
+\doxysubsubsection{\texorpdfstring{rmsd()}{rmsd()}}
+{\footnotesize\ttfamily float rmsd (\begin{DoxyParamCaption}\item[{const Matrix\+X3f \&}]{x }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{compute__rotamer__centers_8cpp_source_l00187}{187}} of file \mbox{\hyperlink{compute__rotamer__centers_8cpp_source}{compute\+\_\+rotamer\+\_\+centers.\+cpp}}.
+
+\Hypertarget{compute__rotamer__centers_8cpp_a05d0c3b7963fe88b086142b2f30297b0}\label{compute__rotamer__centers_8cpp_a05d0c3b7963fe88b086142b2f30297b0} 
+\index{compute\_rotamer\_centers.cpp@{compute\_rotamer\_centers.cpp}!to\_string@{to\_string}}
+\index{to\_string@{to\_string}!compute\_rotamer\_centers.cpp@{compute\_rotamer\_centers.cpp}}
+\doxysubsubsection{\texorpdfstring{to\_string()}{to\_string()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily string to\+\_\+string (\begin{DoxyParamCaption}\item[{Matrix3f}]{x }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{compute__rotamer__centers_8cpp_source_l00153}{153}} of file \mbox{\hyperlink{compute__rotamer__centers_8cpp_source}{compute\+\_\+rotamer\+\_\+centers.\+cpp}}.
+
+\Hypertarget{compute__rotamer__centers_8cpp_ace893e4e56f9c025d8a51be7d7b6e365}\label{compute__rotamer__centers_8cpp_ace893e4e56f9c025d8a51be7d7b6e365} 
+\index{compute\_rotamer\_centers.cpp@{compute\_rotamer\_centers.cpp}!to\_string@{to\_string}}
+\index{to\_string@{to\_string}!compute\_rotamer\_centers.cpp@{compute\_rotamer\_centers.cpp}}
+\doxysubsubsection{\texorpdfstring{to\_string()}{to\_string()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily string to\+\_\+string (\begin{DoxyParamCaption}\item[{Row\+Vector3f}]{x }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{compute__rotamer__centers_8cpp_source_l00150}{150}} of file \mbox{\hyperlink{compute__rotamer__centers_8cpp_source}{compute\+\_\+rotamer\+\_\+centers.\+cpp}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{compute__rotamer__centers_8cpp_a10eed9dbd8803e4acfbfc3432fc48b08}\label{compute__rotamer__centers_8cpp_a10eed9dbd8803e4acfbfc3432fc48b08} 
+\index{compute\_rotamer\_centers.cpp@{compute\_rotamer\_centers.cpp}!M\_PI\_F@{M\_PI\_F}}
+\index{M\_PI\_F@{M\_PI\_F}!compute\_rotamer\_centers.cpp@{compute\_rotamer\_centers.cpp}}
+\doxysubsubsection{\texorpdfstring{M\_PI\_F}{M\_PI\_F}}
+{\footnotesize\ttfamily constexpr float M\+\_\+\+PI\+\_\+F = 4.f\texorpdfstring{$\ast$}{*}atanf(1.f)\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{compute__rotamer__centers_8cpp_source_l00019}{19}} of file \mbox{\hyperlink{compute__rotamer__centers_8cpp_source}{compute\+\_\+rotamer\+\_\+centers.\+cpp}}.
+

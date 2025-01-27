@@ -1,0 +1,212 @@
+\doxysection{Angle\+Coord Struct Reference}
+\hypertarget{struct_angle_coord}{}\label{struct_angle_coord}\index{AngleCoord@{AngleCoord}}
+
+
+Inheritance diagram for Angle\+Coord\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{struct_angle_coord__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Angle\+Coord\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{struct_angle_coord__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_angle_coord_1_1_params}{Params}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_angle_coord_a2c1aa4eddb3cd066b3623b1018f30330}{Angle\+Coord}} (\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{hid\+\_\+t}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{grp}}, \mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pos\+\_\+}})
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_angle_coord_a71f6fb5cf3258bfced38218bca81519f}{compute\+\_\+value}} (\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{Compute\+Mode}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{mode}})
+\begin{DoxyCompactList}\small\item\em Reads inputs and computes output value. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_angle_coord_ab3171fedeb4313a9ae17691a790c3453}{propagate\+\_\+deriv}} ()
+\begin{DoxyCompactList}\small\item\em Uses its sensitivity to its output to add to sensivities of its inputs. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_coord_node}{Coord\+Node}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_coord_node_a9483bd859494380be2d2851e094c453f}{Coord\+Node}} (int n\+\_\+elem\+\_\+, int elem\+\_\+width\+\_\+)
+\begin{DoxyCompactList}\small\item\em Initialize from n\+\_\+elem and elem\+\_\+width. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_deriv_computation_ab55a3d270aedc331a7ade09591198c4f}{Deriv\+Computation}} (bool potential\+\_\+term\+\_\+)
+\begin{DoxyCompactList}\small\item\em Construct only noting if node is a potential\+\_\+node. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{struct_deriv_computation_ae61f149a7fc4869f1d053c263fd03657}{\texorpdfstring{$\sim$}{\string~}\+Deriv\+Computation}} ()
+\begin{DoxyCompactList}\small\item\em Trivial destructor. \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_deriv_computation_a5824da52d79ac4ac46e2cee217d8197c}{get\+\_\+param}} () const
+\begin{DoxyCompactList}\small\item\em Return arbitrary subset of parameters. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{struct_deriv_computation_a7c8dbb439e850f9cb4769aac0808d8c6}{set\+\_\+param}} (const std\+::vector$<$ float $>$ \&new\+\_\+params)
+\begin{DoxyCompactList}\small\item\em Set arbitrary subset of parameters (same as get\+\_\+param) \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_deriv_computation_aec2d05db4c36f52f8b7de6922af52494}{get\+\_\+value\+\_\+by\+\_\+name}} (const char \texorpdfstring{$\ast$}{*}log\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Compute a named quantity and return vector of floats (arbitrary behavior) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_angle_coord_ab33d4096602804396f4342cac96c1a0e}{n\+\_\+elem}}
+\item 
+\mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \& \mbox{\hyperlink{struct_angle_coord_a3844dad24d57de23a454ed3cd194a970}{pos}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{struct_angle_coord_1_1_params}{Params}} $>$ \mbox{\hyperlink{struct_angle_coord_ad773e32dfbf25757dec2871ecbb68982}{params}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}} $>$ \mbox{\hyperlink{struct_angle_coord_acaa42a124cede17097798757470558e5}{deriv1}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}} $>$ \mbox{\hyperlink{struct_angle_coord_af9646c110aa1f9f26156199bf5dc51bb}{deriv2}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}} $>$ \mbox{\hyperlink{struct_angle_coord_a0c944536b94a9cbae2ecd2a72ff96dd0}{deriv3}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_coord_node}{Coord\+Node}}}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{struct_coord_node_a232a2dcef6925113085311168f3f7700}{n\+\_\+elem}}
+\begin{DoxyCompactList}\small\item\em number of output elements \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{struct_coord_node_ad9ae2976ea3b4379fe00959be6a04721}{elem\+\_\+width}}
+\begin{DoxyCompactList}\small\item\em number of dimensions for each output element \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} \mbox{\hyperlink{struct_coord_node_a678c754ea0a0fdd4e01a23875426d6b5}{output}}
+\begin{DoxyCompactList}\small\item\em output values \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} \mbox{\hyperlink{struct_coord_node_aee777afa72f20aef74cdf071127fb0aa}{sens}}
+\begin{DoxyCompactList}\small\item\em sensitivity of the overall potential to each output value \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}}}
+\begin{DoxyCompactItemize}
+\item 
+const bool \mbox{\hyperlink{struct_deriv_computation_ab9caf415ec64cd42c99d24545238e691}{potential\+\_\+term}}
+\begin{DoxyCompactList}\small\item\em True if output represents a potential energy rather than a new coordinate. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{coord__basic_8cpp_source_l00183}{183}} of file \mbox{\hyperlink{coord__basic_8cpp_source}{coord\+\_\+basic.\+cpp}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_angle_coord_a2c1aa4eddb3cd066b3623b1018f30330}\label{struct_angle_coord_a2c1aa4eddb3cd066b3623b1018f30330} 
+\index{AngleCoord@{AngleCoord}!AngleCoord@{AngleCoord}}
+\index{AngleCoord@{AngleCoord}!AngleCoord@{AngleCoord}}
+\doxysubsubsection{\texorpdfstring{AngleCoord()}{AngleCoord()}}
+{\footnotesize\ttfamily Angle\+Coord\+::\+Angle\+Coord (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{hid\+\_\+t}}}]{grp,  }\item[{\mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&}]{pos\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{coord__basic_8cpp_source_l00196}{196}} of file \mbox{\hyperlink{coord__basic_8cpp_source}{coord\+\_\+basic.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_angle_coord_a71f6fb5cf3258bfced38218bca81519f}\label{struct_angle_coord_a71f6fb5cf3258bfced38218bca81519f} 
+\index{AngleCoord@{AngleCoord}!compute\_value@{compute\_value}}
+\index{compute\_value@{compute\_value}!AngleCoord@{AngleCoord}}
+\doxysubsubsection{\texorpdfstring{compute\_value()}{compute\_value()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} Angle\+Coord\+::compute\+\_\+value (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{Compute\+Mode}}}]{mode }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reads inputs and computes output value. 
+
+
+
+Implements \mbox{\hyperlink{struct_deriv_computation_a750d9688cee97b4ab8a6c66c8a739bfc}{Deriv\+Computation}}.
+
+
+
+Definition at line \mbox{\hyperlink{coord__basic_8cpp_source_l00211}{211}} of file \mbox{\hyperlink{coord__basic_8cpp_source}{coord\+\_\+basic.\+cpp}}.
+
+\Hypertarget{struct_angle_coord_ab3171fedeb4313a9ae17691a790c3453}\label{struct_angle_coord_ab3171fedeb4313a9ae17691a790c3453} 
+\index{AngleCoord@{AngleCoord}!propagate\_deriv@{propagate\_deriv}}
+\index{propagate\_deriv@{propagate\_deriv}!AngleCoord@{AngleCoord}}
+\doxysubsubsection{\texorpdfstring{propagate\_deriv()}{propagate\_deriv()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} Angle\+Coord\+::propagate\+\_\+deriv (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Uses its sensitivity to its output to add to sensivities of its inputs. 
+
+
+
+Implements \mbox{\hyperlink{struct_deriv_computation_a007700dca1cba2aeb17b27c8a94a3f16}{Deriv\+Computation}}.
+
+
+
+Definition at line \mbox{\hyperlink{coord__basic_8cpp_source_l00232}{232}} of file \mbox{\hyperlink{coord__basic_8cpp_source}{coord\+\_\+basic.\+cpp}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_angle_coord_acaa42a124cede17097798757470558e5}\label{struct_angle_coord_acaa42a124cede17097798757470558e5} 
+\index{AngleCoord@{AngleCoord}!deriv1@{deriv1}}
+\index{deriv1@{deriv1}!AngleCoord@{AngleCoord}}
+\doxysubsubsection{\texorpdfstring{deriv1}{deriv1}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$\mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}}$>$ Angle\+Coord\+::deriv1}
+
+
+
+Definition at line \mbox{\hyperlink{coord__basic_8cpp_source_l00192}{192}} of file \mbox{\hyperlink{coord__basic_8cpp_source}{coord\+\_\+basic.\+cpp}}.
+
+\Hypertarget{struct_angle_coord_af9646c110aa1f9f26156199bf5dc51bb}\label{struct_angle_coord_af9646c110aa1f9f26156199bf5dc51bb} 
+\index{AngleCoord@{AngleCoord}!deriv2@{deriv2}}
+\index{deriv2@{deriv2}!AngleCoord@{AngleCoord}}
+\doxysubsubsection{\texorpdfstring{deriv2}{deriv2}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$\mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}}$>$ Angle\+Coord\+::deriv2}
+
+
+
+Definition at line \mbox{\hyperlink{coord__basic_8cpp_source_l00193}{193}} of file \mbox{\hyperlink{coord__basic_8cpp_source}{coord\+\_\+basic.\+cpp}}.
+
+\Hypertarget{struct_angle_coord_a0c944536b94a9cbae2ecd2a72ff96dd0}\label{struct_angle_coord_a0c944536b94a9cbae2ecd2a72ff96dd0} 
+\index{AngleCoord@{AngleCoord}!deriv3@{deriv3}}
+\index{deriv3@{deriv3}!AngleCoord@{AngleCoord}}
+\doxysubsubsection{\texorpdfstring{deriv3}{deriv3}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$\mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}}$>$ Angle\+Coord\+::deriv3}
+
+
+
+Definition at line \mbox{\hyperlink{coord__basic_8cpp_source_l00194}{194}} of file \mbox{\hyperlink{coord__basic_8cpp_source}{coord\+\_\+basic.\+cpp}}.
+
+\Hypertarget{struct_angle_coord_ab33d4096602804396f4342cac96c1a0e}\label{struct_angle_coord_ab33d4096602804396f4342cac96c1a0e} 
+\index{AngleCoord@{AngleCoord}!n\_elem@{n\_elem}}
+\index{n\_elem@{n\_elem}!AngleCoord@{AngleCoord}}
+\doxysubsubsection{\texorpdfstring{n\_elem}{n\_elem}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} Angle\+Coord\+::n\+\_\+elem}
+
+
+
+Definition at line \mbox{\hyperlink{coord__basic_8cpp_source_l00188}{188}} of file \mbox{\hyperlink{coord__basic_8cpp_source}{coord\+\_\+basic.\+cpp}}.
+
+\Hypertarget{struct_angle_coord_ad773e32dfbf25757dec2871ecbb68982}\label{struct_angle_coord_ad773e32dfbf25757dec2871ecbb68982} 
+\index{AngleCoord@{AngleCoord}!params@{params}}
+\index{params@{params}!AngleCoord@{AngleCoord}}
+\doxysubsubsection{\texorpdfstring{params}{params}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$\mbox{\hyperlink{struct_angle_coord_1_1_params}{Params}}$>$ Angle\+Coord\+::params}
+
+
+
+Definition at line \mbox{\hyperlink{coord__basic_8cpp_source_l00190}{190}} of file \mbox{\hyperlink{coord__basic_8cpp_source}{coord\+\_\+basic.\+cpp}}.
+
+\Hypertarget{struct_angle_coord_a3844dad24d57de23a454ed3cd194a970}\label{struct_angle_coord_a3844dad24d57de23a454ed3cd194a970} 
+\index{AngleCoord@{AngleCoord}!pos@{pos}}
+\index{pos@{pos}!AngleCoord@{AngleCoord}}
+\doxysubsubsection{\texorpdfstring{pos}{pos}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_coord_node}{Coord\+Node}}\& Angle\+Coord\+::pos}
+
+
+
+Definition at line \mbox{\hyperlink{coord__basic_8cpp_source_l00189}{189}} of file \mbox{\hyperlink{coord__basic_8cpp_source}{coord\+\_\+basic.\+cpp}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{coord__basic_8cpp}{coord\+\_\+basic.\+cpp}}\end{DoxyCompactItemize}

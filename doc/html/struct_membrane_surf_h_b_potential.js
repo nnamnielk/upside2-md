@@ -1,0 +1,28 @@
+var struct_membrane_surf_h_b_potential =
+[
+    [ "MembraneSurfHBPotential", "struct_membrane_surf_h_b_potential.html#aa69a67c089f0c943be24aff1c47aee51", null ],
+    [ "compute_value", "struct_membrane_surf_h_b_potential.html#aea29266468aaeba40bc057075f2f254b", null ],
+    [ "get_param", "struct_membrane_surf_h_b_potential.html#a20554a7f72899a01aa123e8dcec9ef5e", null ],
+    [ "set_param", "struct_membrane_surf_h_b_potential.html#a4d2f3a49e1d5af68b55d9c9896bcfe9a", null ],
+    [ "center_of_curvature", "struct_membrane_surf_h_b_potential.html#abd4f85b1f43c08aff76fb92b4ea0ad6b", null ],
+    [ "coeff", "struct_membrane_surf_h_b_potential.html#a5dba125049269e16557b65bd0490cc90", null ],
+    [ "coeff_inner", "struct_membrane_surf_h_b_potential.html#afcfe056a9f1f4f60bd8f94d4b5d69244", null ],
+    [ "curvature_radius", "struct_membrane_surf_h_b_potential.html#ac12e4cbb322d98e11b9869349f5fd018", null ],
+    [ "curvature_sign", "struct_membrane_surf_h_b_potential.html#a746f002fe10f5187f45775c2eb2f0f8d", null ],
+    [ "environment_coverage", "struct_membrane_surf_h_b_potential.html#a2805ceb176defda981a75849733cf6f7", null ],
+    [ "half_thickness", "struct_membrane_surf_h_b_potential.html#a48e4b208c2264fed8745327974da0e7e", null ],
+    [ "hb_index", "struct_membrane_surf_h_b_potential.html#a0f8cf1a43465c7048081a4e7348b977f", null ],
+    [ "hb_res", "struct_membrane_surf_h_b_potential.html#ae791af65239ad30063ed0d19faa61161", null ],
+    [ "hb_type", "struct_membrane_surf_h_b_potential.html#a1cdc46cbe1a78d399fefcc6d75669862", null ],
+    [ "left_right_node", "struct_membrane_surf_h_b_potential.html#a8d55754e9fa02a60668c4dcfe777caa4", null ],
+    [ "left_right_sharpness", "struct_membrane_surf_h_b_potential.html#a512a38ab04ecc4c4e476a7a7010792e0", null ],
+    [ "n_elem", "struct_membrane_surf_h_b_potential.html#ae30f5d54abdabfbe47b3f3ee6524d865", null ],
+    [ "n_node", "struct_membrane_surf_h_b_potential.html#aaec2a5c72f0a5e1882206016c4690dd0", null ],
+    [ "n_restype", "struct_membrane_surf_h_b_potential.html#a6b3dc13e68b7aed17d1007e50d2d273f", null ],
+    [ "protein_hbond", "struct_membrane_surf_h_b_potential.html#afe325f9177ff358a29fe10fc19ef1fde", null ],
+    [ "surface", "struct_membrane_surf_h_b_potential.html#a1559d6d0d593e2114b44ce8ea0f5a449", null ],
+    [ "use_curvature", "struct_membrane_surf_h_b_potential.html#af065ad752aa7a064ec274ea9d7d6b2cb", null ],
+    [ "weights", "struct_membrane_surf_h_b_potential.html#ab89e6f9024e69c0d4081d054c6f0cac2", null ],
+    [ "zscale", "struct_membrane_surf_h_b_potential.html#abe5dd764c87e3bb39a2ac5c458830302", null ],
+    [ "zstart", "struct_membrane_surf_h_b_potential.html#a4448360fea2645a10fb6bb32e3c07cfb", null ]
+];
