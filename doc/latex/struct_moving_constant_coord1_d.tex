@@ -1,0 +1,260 @@
+\doxysection{Moving\+Constant\+Coord1D Struct Reference}
+\hypertarget{struct_moving_constant_coord1_d}{}\label{struct_moving_constant_coord1_d}\index{MovingConstantCoord1D@{MovingConstantCoord1D}}
+
+
+Inheritance diagram for Moving\+Constant\+Coord1D\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{struct_moving_constant_coord1_d__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Moving\+Constant\+Coord1D\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{struct_moving_constant_coord1_d__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_moving_constant_coord1_d_1_1_params}{Params}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_moving_constant_coord1_d_a76af73f897acad8d8e03fb0ed2294765}{Moving\+Constant\+Coord1D}} (\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{hid\+\_\+t}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{grp}}, \mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pos\+\_\+}})
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_moving_constant_coord1_d_aa6f4d3b7abd902a166e1daa63b721138}{compute\+\_\+value}} (\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{Compute\+Mode}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{mode}})
+\begin{DoxyCompactList}\small\item\em Reads inputs and computes output value. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_moving_constant_coord1_d_abc4c9a836077f68fbde3d10e63a99bf5}{propagate\+\_\+deriv}} ()
+\begin{DoxyCompactList}\small\item\em Uses its sensitivity to its output to add to sensivities of its inputs. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_coord_node}{Coord\+Node}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_coord_node_a9483bd859494380be2d2851e094c453f}{Coord\+Node}} (int n\+\_\+elem\+\_\+, int elem\+\_\+width\+\_\+)
+\begin{DoxyCompactList}\small\item\em Initialize from n\+\_\+elem and elem\+\_\+width. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_deriv_computation_ab55a3d270aedc331a7ade09591198c4f}{Deriv\+Computation}} (bool potential\+\_\+term\+\_\+)
+\begin{DoxyCompactList}\small\item\em Construct only noting if node is a potential\+\_\+node. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{struct_deriv_computation_ae61f149a7fc4869f1d053c263fd03657}{\texorpdfstring{$\sim$}{\string~}\+Deriv\+Computation}} ()
+\begin{DoxyCompactList}\small\item\em Trivial destructor. \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_deriv_computation_a5824da52d79ac4ac46e2cee217d8197c}{get\+\_\+param}} () const
+\begin{DoxyCompactList}\small\item\em Return arbitrary subset of parameters. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{struct_deriv_computation_a7c8dbb439e850f9cb4769aac0808d8c6}{set\+\_\+param}} (const std\+::vector$<$ float $>$ \&new\+\_\+params)
+\begin{DoxyCompactList}\small\item\em Set arbitrary subset of parameters (same as get\+\_\+param) \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_deriv_computation_aec2d05db4c36f52f8b7de6922af52494}{get\+\_\+value\+\_\+by\+\_\+name}} (const char \texorpdfstring{$\ast$}{*}log\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Compute a named quantity and return vector of floats (arbitrary behavior) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_moving_constant_coord1_d_a0df2e51d712c27bf4b1e3b06cbc7a39e}{n\+\_\+elem}}
+\item 
+\mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \& \mbox{\hyperlink{struct_moving_constant_coord1_d_a35efcb4ba6f00ae9afa2d48c0f0497dc}{pos}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{struct_moving_constant_coord1_d_1_1_params}{Params}} $>$ \mbox{\hyperlink{struct_moving_constant_coord1_d_a84b7229a2cf1c6dd99ff7aa4a1773b15}{params}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{bool}} \mbox{\hyperlink{struct_moving_constant_coord1_d_a5f5e5aedcdd456785e76f110b45a0619}{initialized\+\_\+by\+\_\+coord}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{bool}} \mbox{\hyperlink{struct_moving_constant_coord1_d_a74b229c471407fa2433e0162fdac5951}{initialized}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_moving_constant_coord1_d_ad553742c9e30543298732c642e383ff1}{dim}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{struct_moving_constant_coord1_d_ab364225c703c48f3c1a4183aa4510a9b}{time\+\_\+initial}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{struct_moving_constant_coord1_d_a46cdc7206af7f004c16a225bae11c18d}{time\+\_\+step}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{struct_moving_constant_coord1_d_a28f59505e41133cd4323eb5b4e9777a6}{time\+\_\+estimate}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_moving_constant_coord1_d_aea5dd0630c1d19dbbb6db8444abdd584}{round\+\_\+num}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_coord_node}{Coord\+Node}}}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{struct_coord_node_a232a2dcef6925113085311168f3f7700}{n\+\_\+elem}}
+\begin{DoxyCompactList}\small\item\em number of output elements \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{struct_coord_node_ad9ae2976ea3b4379fe00959be6a04721}{elem\+\_\+width}}
+\begin{DoxyCompactList}\small\item\em number of dimensions for each output element \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} \mbox{\hyperlink{struct_coord_node_a678c754ea0a0fdd4e01a23875426d6b5}{output}}
+\begin{DoxyCompactList}\small\item\em output values \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} \mbox{\hyperlink{struct_coord_node_aee777afa72f20aef74cdf071127fb0aa}{sens}}
+\begin{DoxyCompactList}\small\item\em sensitivity of the overall potential to each output value \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}}}
+\begin{DoxyCompactItemize}
+\item 
+const bool \mbox{\hyperlink{struct_deriv_computation_ab9caf415ec64cd42c99d24545238e691}{potential\+\_\+term}}
+\begin{DoxyCompactList}\small\item\em True if output represents a potential energy rather than a new coordinate. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{coord__const_8cpp_source_l00181}{181}} of file \mbox{\hyperlink{coord__const_8cpp_source}{coord\+\_\+const.\+cpp}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_moving_constant_coord1_d_a76af73f897acad8d8e03fb0ed2294765}\label{struct_moving_constant_coord1_d_a76af73f897acad8d8e03fb0ed2294765} 
+\index{MovingConstantCoord1D@{MovingConstantCoord1D}!MovingConstantCoord1D@{MovingConstantCoord1D}}
+\index{MovingConstantCoord1D@{MovingConstantCoord1D}!MovingConstantCoord1D@{MovingConstantCoord1D}}
+\doxysubsubsection{\texorpdfstring{MovingConstantCoord1D()}{MovingConstantCoord1D()}}
+{\footnotesize\ttfamily Moving\+Constant\+Coord1\+D\+::\+Moving\+Constant\+Coord1D (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{hid\+\_\+t}}}]{grp,  }\item[{\mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&}]{pos\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{coord__const_8cpp_source_l00201}{201}} of file \mbox{\hyperlink{coord__const_8cpp_source}{coord\+\_\+const.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_moving_constant_coord1_d_aa6f4d3b7abd902a166e1daa63b721138}\label{struct_moving_constant_coord1_d_aa6f4d3b7abd902a166e1daa63b721138} 
+\index{MovingConstantCoord1D@{MovingConstantCoord1D}!compute\_value@{compute\_value}}
+\index{compute\_value@{compute\_value}!MovingConstantCoord1D@{MovingConstantCoord1D}}
+\doxysubsubsection{\texorpdfstring{compute\_value()}{compute\_value()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} Moving\+Constant\+Coord1\+D\+::compute\+\_\+value (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{Compute\+Mode}}}]{mode }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reads inputs and computes output value. 
+
+
+
+Implements \mbox{\hyperlink{struct_deriv_computation_a750d9688cee97b4ab8a6c66c8a739bfc}{Deriv\+Computation}}.
+
+
+
+Definition at line \mbox{\hyperlink{coord__const_8cpp_source_l00232}{232}} of file \mbox{\hyperlink{coord__const_8cpp_source}{coord\+\_\+const.\+cpp}}.
+
+\Hypertarget{struct_moving_constant_coord1_d_abc4c9a836077f68fbde3d10e63a99bf5}\label{struct_moving_constant_coord1_d_abc4c9a836077f68fbde3d10e63a99bf5} 
+\index{MovingConstantCoord1D@{MovingConstantCoord1D}!propagate\_deriv@{propagate\_deriv}}
+\index{propagate\_deriv@{propagate\_deriv}!MovingConstantCoord1D@{MovingConstantCoord1D}}
+\doxysubsubsection{\texorpdfstring{propagate\_deriv()}{propagate\_deriv()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} Moving\+Constant\+Coord1\+D\+::propagate\+\_\+deriv (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Uses its sensitivity to its output to add to sensivities of its inputs. 
+
+
+
+Implements \mbox{\hyperlink{struct_deriv_computation_a007700dca1cba2aeb17b27c8a94a3f16}{Deriv\+Computation}}.
+
+
+
+Definition at line \mbox{\hyperlink{coord__const_8cpp_source_l00250}{250}} of file \mbox{\hyperlink{coord__const_8cpp_source}{coord\+\_\+const.\+cpp}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_moving_constant_coord1_d_ad553742c9e30543298732c642e383ff1}\label{struct_moving_constant_coord1_d_ad553742c9e30543298732c642e383ff1} 
+\index{MovingConstantCoord1D@{MovingConstantCoord1D}!dim@{dim}}
+\index{dim@{dim}!MovingConstantCoord1D@{MovingConstantCoord1D}}
+\doxysubsubsection{\texorpdfstring{dim}{dim}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} Moving\+Constant\+Coord1\+D\+::dim}
+
+
+
+Definition at line \mbox{\hyperlink{coord__const_8cpp_source_l00194}{194}} of file \mbox{\hyperlink{coord__const_8cpp_source}{coord\+\_\+const.\+cpp}}.
+
+\Hypertarget{struct_moving_constant_coord1_d_a74b229c471407fa2433e0162fdac5951}\label{struct_moving_constant_coord1_d_a74b229c471407fa2433e0162fdac5951} 
+\index{MovingConstantCoord1D@{MovingConstantCoord1D}!initialized@{initialized}}
+\index{initialized@{initialized}!MovingConstantCoord1D@{MovingConstantCoord1D}}
+\doxysubsubsection{\texorpdfstring{initialized}{initialized}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{bool}} Moving\+Constant\+Coord1\+D\+::initialized}
+
+
+
+Definition at line \mbox{\hyperlink{coord__const_8cpp_source_l00193}{193}} of file \mbox{\hyperlink{coord__const_8cpp_source}{coord\+\_\+const.\+cpp}}.
+
+\Hypertarget{struct_moving_constant_coord1_d_a5f5e5aedcdd456785e76f110b45a0619}\label{struct_moving_constant_coord1_d_a5f5e5aedcdd456785e76f110b45a0619} 
+\index{MovingConstantCoord1D@{MovingConstantCoord1D}!initialized\_by\_coord@{initialized\_by\_coord}}
+\index{initialized\_by\_coord@{initialized\_by\_coord}!MovingConstantCoord1D@{MovingConstantCoord1D}}
+\doxysubsubsection{\texorpdfstring{initialized\_by\_coord}{initialized\_by\_coord}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{bool}} Moving\+Constant\+Coord1\+D\+::initialized\+\_\+by\+\_\+coord}
+
+
+
+Definition at line \mbox{\hyperlink{coord__const_8cpp_source_l00192}{192}} of file \mbox{\hyperlink{coord__const_8cpp_source}{coord\+\_\+const.\+cpp}}.
+
+\Hypertarget{struct_moving_constant_coord1_d_a0df2e51d712c27bf4b1e3b06cbc7a39e}\label{struct_moving_constant_coord1_d_a0df2e51d712c27bf4b1e3b06cbc7a39e} 
+\index{MovingConstantCoord1D@{MovingConstantCoord1D}!n\_elem@{n\_elem}}
+\index{n\_elem@{n\_elem}!MovingConstantCoord1D@{MovingConstantCoord1D}}
+\doxysubsubsection{\texorpdfstring{n\_elem}{n\_elem}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} Moving\+Constant\+Coord1\+D\+::n\+\_\+elem}
+
+
+
+Definition at line \mbox{\hyperlink{coord__const_8cpp_source_l00189}{189}} of file \mbox{\hyperlink{coord__const_8cpp_source}{coord\+\_\+const.\+cpp}}.
+
+\Hypertarget{struct_moving_constant_coord1_d_a84b7229a2cf1c6dd99ff7aa4a1773b15}\label{struct_moving_constant_coord1_d_a84b7229a2cf1c6dd99ff7aa4a1773b15} 
+\index{MovingConstantCoord1D@{MovingConstantCoord1D}!params@{params}}
+\index{params@{params}!MovingConstantCoord1D@{MovingConstantCoord1D}}
+\doxysubsubsection{\texorpdfstring{params}{params}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$\mbox{\hyperlink{struct_moving_constant_coord1_d_1_1_params}{Params}}$>$ Moving\+Constant\+Coord1\+D\+::params}
+
+
+
+Definition at line \mbox{\hyperlink{coord__const_8cpp_source_l00191}{191}} of file \mbox{\hyperlink{coord__const_8cpp_source}{coord\+\_\+const.\+cpp}}.
+
+\Hypertarget{struct_moving_constant_coord1_d_a35efcb4ba6f00ae9afa2d48c0f0497dc}\label{struct_moving_constant_coord1_d_a35efcb4ba6f00ae9afa2d48c0f0497dc} 
+\index{MovingConstantCoord1D@{MovingConstantCoord1D}!pos@{pos}}
+\index{pos@{pos}!MovingConstantCoord1D@{MovingConstantCoord1D}}
+\doxysubsubsection{\texorpdfstring{pos}{pos}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_coord_node}{Coord\+Node}}\& Moving\+Constant\+Coord1\+D\+::pos}
+
+
+
+Definition at line \mbox{\hyperlink{coord__const_8cpp_source_l00190}{190}} of file \mbox{\hyperlink{coord__const_8cpp_source}{coord\+\_\+const.\+cpp}}.
+
+\Hypertarget{struct_moving_constant_coord1_d_aea5dd0630c1d19dbbb6db8444abdd584}\label{struct_moving_constant_coord1_d_aea5dd0630c1d19dbbb6db8444abdd584} 
+\index{MovingConstantCoord1D@{MovingConstantCoord1D}!round\_num@{round\_num}}
+\index{round\_num@{round\_num}!MovingConstantCoord1D@{MovingConstantCoord1D}}
+\doxysubsubsection{\texorpdfstring{round\_num}{round\_num}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} Moving\+Constant\+Coord1\+D\+::round\+\_\+num}
+
+
+
+Definition at line \mbox{\hyperlink{coord__const_8cpp_source_l00199}{199}} of file \mbox{\hyperlink{coord__const_8cpp_source}{coord\+\_\+const.\+cpp}}.
+
+\Hypertarget{struct_moving_constant_coord1_d_a28f59505e41133cd4323eb5b4e9777a6}\label{struct_moving_constant_coord1_d_a28f59505e41133cd4323eb5b4e9777a6} 
+\index{MovingConstantCoord1D@{MovingConstantCoord1D}!time\_estimate@{time\_estimate}}
+\index{time\_estimate@{time\_estimate}!MovingConstantCoord1D@{MovingConstantCoord1D}}
+\doxysubsubsection{\texorpdfstring{time\_estimate}{time\_estimate}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} Moving\+Constant\+Coord1\+D\+::time\+\_\+estimate}
+
+
+
+Definition at line \mbox{\hyperlink{coord__const_8cpp_source_l00198}{198}} of file \mbox{\hyperlink{coord__const_8cpp_source}{coord\+\_\+const.\+cpp}}.
+
+\Hypertarget{struct_moving_constant_coord1_d_ab364225c703c48f3c1a4183aa4510a9b}\label{struct_moving_constant_coord1_d_ab364225c703c48f3c1a4183aa4510a9b} 
+\index{MovingConstantCoord1D@{MovingConstantCoord1D}!time\_initial@{time\_initial}}
+\index{time\_initial@{time\_initial}!MovingConstantCoord1D@{MovingConstantCoord1D}}
+\doxysubsubsection{\texorpdfstring{time\_initial}{time\_initial}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} Moving\+Constant\+Coord1\+D\+::time\+\_\+initial}
+
+
+
+Definition at line \mbox{\hyperlink{coord__const_8cpp_source_l00196}{196}} of file \mbox{\hyperlink{coord__const_8cpp_source}{coord\+\_\+const.\+cpp}}.
+
+\Hypertarget{struct_moving_constant_coord1_d_a46cdc7206af7f004c16a225bae11c18d}\label{struct_moving_constant_coord1_d_a46cdc7206af7f004c16a225bae11c18d} 
+\index{MovingConstantCoord1D@{MovingConstantCoord1D}!time\_step@{time\_step}}
+\index{time\_step@{time\_step}!MovingConstantCoord1D@{MovingConstantCoord1D}}
+\doxysubsubsection{\texorpdfstring{time\_step}{time\_step}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} Moving\+Constant\+Coord1\+D\+::time\+\_\+step}
+
+
+
+Definition at line \mbox{\hyperlink{coord__const_8cpp_source_l00197}{197}} of file \mbox{\hyperlink{coord__const_8cpp_source}{coord\+\_\+const.\+cpp}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{coord__const_8cpp}{coord\+\_\+const.\+cpp}}\end{DoxyCompactItemize}

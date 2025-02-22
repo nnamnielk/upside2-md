@@ -1,0 +1,137 @@
+\doxysection{src/affine.h File Reference}
+\hypertarget{affine_8h}{}\label{affine_8h}\index{src/affine.h@{src/affine.h}}
+{\ttfamily \#include "{}vector\+\_\+math.\+h"{}}\newline
+Include dependency graph for affine.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{affine_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{affine_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}} \mbox{\hyperlink{affine_8h_a4898ef1f196b90dec831946aa0171167}{apply\+\_\+rotation}} (const float \texorpdfstring{$\ast$}{*}restrict U, const \mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}} \&r)
+\begin{DoxyCompactList}\small\item\em Apply a 3x3 rotation matrix U to 3d vector r. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}} \mbox{\hyperlink{affine_8h_a4986bb39b374f95fa90bafd03c496eea}{apply\+\_\+inverse\+\_\+rotation}} (const float \texorpdfstring{$\ast$}{*}restrict U, const \mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}} \&r)
+\begin{DoxyCompactList}\small\item\em Apply a 3x3 rotation matrix U\texorpdfstring{$^\wedge$}{\string^}\{-\/1\} to 3d vector r. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}} \mbox{\hyperlink{affine_8h_a2c6e374eeb0887c78582bae50d283bd6}{apply\+\_\+affine}} (const float \texorpdfstring{$\ast$}{*}restrict U, const \mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}} \&\mbox{\hyperlink{eig_8cpp_aa16a375e07c61fbc631be63ccf48a9dd}{t}}, const \mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}} \&r)
+\begin{DoxyCompactList}\small\item\em Apply an affine transformation to r. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{affine_8h_a73b199010f781e87af84f95d8ef4eada}{axis\+\_\+angle\+\_\+to\+\_\+rot}} (float \texorpdfstring{$\ast$}{*}U, float angle, \mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}} axis)
+\begin{DoxyCompactList}\small\item\em Convert a rotation from axis-\/angle format to a rotation matrix. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{affine_8h_a2f85f8ad9c8a4f35d708087aad449848}{relative\+\_\+rotation}} (float \texorpdfstring{$\ast$}{*}restrict V, const float \texorpdfstring{$\ast$}{*}U1, const float \texorpdfstring{$\ast$}{*}U2)
+\begin{DoxyCompactList}\small\item\em Compute the relative rotation between two reference frames (U1\texorpdfstring{$^\wedge$}{\string^}\{-\/1\}\texorpdfstring{$\ast$}{*}\+U2) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{affine_8h_a61bdccfc639814336b4c7cf70bcd35fd}{quat\+\_\+to\+\_\+rot}} (float \texorpdfstring{$\ast$}{*}restrict U, const float \texorpdfstring{$\ast$}{*}restrict quat)
+\begin{DoxyCompactList}\small\item\em Convert rotation from unit quaternion representation to 3x3 matrix. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{affine_8h_a1cb150ab26afd73e20272b58e413e05d}{relative\+\_\+quat}} (float \texorpdfstring{$\ast$}{*}restrict ret, const float \texorpdfstring{$\ast$}{*}q1, const float \texorpdfstring{$\ast$}{*}q2)
+\begin{DoxyCompactList}\small\item\em Compute the relative rotation between two reference frames for quaternions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{affine_8h_a2c6e374eeb0887c78582bae50d283bd6}\label{affine_8h_a2c6e374eeb0887c78582bae50d283bd6} 
+\index{affine.h@{affine.h}!apply\_affine@{apply\_affine}}
+\index{apply\_affine@{apply\_affine}!affine.h@{affine.h}}
+\doxysubsubsection{\texorpdfstring{apply\_affine()}{apply\_affine()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}} apply\+\_\+affine (\begin{DoxyParamCaption}\item[{const float \texorpdfstring{$\ast$}{*}restrict}]{U,  }\item[{const \mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}} \&}]{t,  }\item[{const \mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}} \&}]{r }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Apply an affine transformation to r. 
+
+A affine transformation is the combination of rotation and translation so that output = U\texorpdfstring{$\ast$}{*}r + t. 
+
+Definition at line \mbox{\hyperlink{affine_8h_source_l00034}{34}} of file \mbox{\hyperlink{affine_8h_source}{affine.\+h}}.
+
+\Hypertarget{affine_8h_a4986bb39b374f95fa90bafd03c496eea}\label{affine_8h_a4986bb39b374f95fa90bafd03c496eea} 
+\index{affine.h@{affine.h}!apply\_inverse\_rotation@{apply\_inverse\_rotation}}
+\index{apply\_inverse\_rotation@{apply\_inverse\_rotation}!affine.h@{affine.h}}
+\doxysubsubsection{\texorpdfstring{apply\_inverse\_rotation()}{apply\_inverse\_rotation()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}} apply\+\_\+inverse\+\_\+rotation (\begin{DoxyParamCaption}\item[{const float \texorpdfstring{$\ast$}{*}restrict}]{U,  }\item[{const \mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}} \&}]{r }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Apply a 3x3 rotation matrix U\texorpdfstring{$^\wedge$}{\string^}\{-\/1\} to 3d vector r. 
+
+Given a rotation matrix U, this applies the transpose/inverse of U so that it "{}undoes"{} a rotation by U 
+
+Definition at line \mbox{\hyperlink{affine_8h_source_l00021}{21}} of file \mbox{\hyperlink{affine_8h_source}{affine.\+h}}.
+
+\Hypertarget{affine_8h_a4898ef1f196b90dec831946aa0171167}\label{affine_8h_a4898ef1f196b90dec831946aa0171167} 
+\index{affine.h@{affine.h}!apply\_rotation@{apply\_rotation}}
+\index{apply\_rotation@{apply\_rotation}!affine.h@{affine.h}}
+\doxysubsubsection{\texorpdfstring{apply\_rotation()}{apply\_rotation()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}} apply\+\_\+rotation (\begin{DoxyParamCaption}\item[{const float \texorpdfstring{$\ast$}{*}restrict}]{U,  }\item[{const \mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}} \&}]{r }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Apply a 3x3 rotation matrix U to 3d vector r. 
+
+
+
+Definition at line \mbox{\hyperlink{affine_8h_source_l00008}{8}} of file \mbox{\hyperlink{affine_8h_source}{affine.\+h}}.
+
+\Hypertarget{affine_8h_a73b199010f781e87af84f95d8ef4eada}\label{affine_8h_a73b199010f781e87af84f95d8ef4eada} 
+\index{affine.h@{affine.h}!axis\_angle\_to\_rot@{axis\_angle\_to\_rot}}
+\index{axis\_angle\_to\_rot@{axis\_angle\_to\_rot}!affine.h@{affine.h}}
+\doxysubsubsection{\texorpdfstring{axis\_angle\_to\_rot()}{axis\_angle\_to\_rot()}}
+{\footnotesize\ttfamily void axis\+\_\+angle\+\_\+to\+\_\+rot (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}}]{U,  }\item[{float}]{angle,  }\item[{\mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}}}]{axis }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Convert a rotation from axis-\/angle format to a rotation matrix. 
+
+Rotations may be expressed in a couple of formats. Every rotation in 3d can be expressed as a rotation by a specified angle about an single axis. This function converts rotations specified by a axis and an angle into a 3x3 rotation matrix. The axis must be a unit-\/vector. 
+
+Definition at line \mbox{\hyperlink{affine_8h_source_l00049}{49}} of file \mbox{\hyperlink{affine_8h_source}{affine.\+h}}.
+
+\Hypertarget{affine_8h_a61bdccfc639814336b4c7cf70bcd35fd}\label{affine_8h_a61bdccfc639814336b4c7cf70bcd35fd} 
+\index{affine.h@{affine.h}!quat\_to\_rot@{quat\_to\_rot}}
+\index{quat\_to\_rot@{quat\_to\_rot}!affine.h@{affine.h}}
+\doxysubsubsection{\texorpdfstring{quat\_to\_rot()}{quat\_to\_rot()}}
+{\footnotesize\ttfamily void quat\+\_\+to\+\_\+rot (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}restrict}]{U,  }\item[{const float \texorpdfstring{$\ast$}{*}restrict}]{quat }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Convert rotation from unit quaternion representation to 3x3 matrix. 
+
+The unit quaternion representation of rotations is a 4-\/dimensional unit vector q, where ! q and -\/q map to the same rotation (and choosing a random normalized ! 4-\/vector chooses a uniformly random rotation). This format is convenient for constructing and combining rotations but annoying for applying rotations to specific vectors. Use this function to convert to an appropriate format for applying the rotations (see Wikipedia for details). 
+
+Definition at line \mbox{\hyperlink{affine_8h_source_l00099}{99}} of file \mbox{\hyperlink{affine_8h_source}{affine.\+h}}.
+
+\Hypertarget{affine_8h_a1cb150ab26afd73e20272b58e413e05d}\label{affine_8h_a1cb150ab26afd73e20272b58e413e05d} 
+\index{affine.h@{affine.h}!relative\_quat@{relative\_quat}}
+\index{relative\_quat@{relative\_quat}!affine.h@{affine.h}}
+\doxysubsubsection{\texorpdfstring{relative\_quat()}{relative\_quat()}}
+{\footnotesize\ttfamily void relative\+\_\+quat (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}restrict}]{ret,  }\item[{const float \texorpdfstring{$\ast$}{*}}]{q1,  }\item[{const float \texorpdfstring{$\ast$}{*}}]{q2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Compute the relative rotation between two reference frames for quaternions. 
+
+The relative rotation of two rotations with respect to a common reference frame is the result of undoing rotation q1 then apply rotation q2, hence ret=q1\texorpdfstring{$^\wedge$}{\string^}\{-\/1\}\texorpdfstring{$\ast$}{*}q2. The inverse rotation for a quaternion is its quaternion complex-\/conjugate. 
+
+Definition at line \mbox{\hyperlink{affine_8h_source_l00116}{116}} of file \mbox{\hyperlink{affine_8h_source}{affine.\+h}}.
+
+\Hypertarget{affine_8h_a2f85f8ad9c8a4f35d708087aad449848}\label{affine_8h_a2f85f8ad9c8a4f35d708087aad449848} 
+\index{affine.h@{affine.h}!relative\_rotation@{relative\_rotation}}
+\index{relative\_rotation@{relative\_rotation}!affine.h@{affine.h}}
+\doxysubsubsection{\texorpdfstring{relative\_rotation()}{relative\_rotation()}}
+{\footnotesize\ttfamily void relative\+\_\+rotation (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}restrict}]{V,  }\item[{const float \texorpdfstring{$\ast$}{*}}]{U1,  }\item[{const float \texorpdfstring{$\ast$}{*}}]{U2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Compute the relative rotation between two reference frames (U1\texorpdfstring{$^\wedge$}{\string^}\{-\/1\}\texorpdfstring{$\ast$}{*}\+U2) 
+
+The relative rotation of two rotations with respect to a common reference frame is the result of undoing rotation U1 then apply rotation U2, hence V=U1\texorpdfstring{$^\wedge$}{\string^}\{-\/1\}\texorpdfstring{$\ast$}{*}\+U2. 
+
+Definition at line \mbox{\hyperlink{affine_8h_source_l00072}{72}} of file \mbox{\hyperlink{affine_8h_source}{affine.\+h}}.
+

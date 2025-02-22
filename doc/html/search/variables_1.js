@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['b_0',['b',['../struct_sigmoid_l_energy_1_1_params.html#a6d03d0bfc0c562b092f8826e3c71134f',1,'SigmoidLEnergy::Params::b'],['../struct_sigmoid_energy_1_1_params.html#a56b976b133c8cf5619618d8f9eeff40a',1,'SigmoidEnergy::Params::b']]],
+  ['basin_5fparam_1',['basin_param',['../struct_torus_d_b_n___emission.html#a254c93e081906a47291a1ca6d727fc83',1,'TorusDBN_Emission']]],
+  ['bb_2',['bb',['../struct_c_ter_h_bond.html#a2f86409e3ea06f008685c95bcb687733',1,'CTerHBond']]],
+  ['bbx_3',['bbx',['../struct_surface.html#a290fd25c2ba7aeb43032fd960aeb4ac7',1,'Surface']]],
+  ['bby_4',['bby',['../struct_surface.html#ac05dd5a832e97dba52dfe792ef73954b',1,'Surface']]],
+  ['bbz_5',['bbz',['../struct_surface.html#a581cd8da24105fc3f309c8c52dc8ba2a',1,'Surface']]],
+  ['bias_6',['bias',['../struct_conv1_d.html#aa3ee2e53f91a4d01c59aa2f113894718',1,'Conv1D']]],
+  ['bl_7',['BL',['../struct_membrane_lateral_potential.html#a714b19e7de96c184e47b535f0dbeb10e',1,'MembraneLateralPotential']]],
+  ['bl_5fnodes_8',['bl_nodes',['../struct_membrane_c_b_potential.html#ac7dead01cbde31645ca0438c3e9f680d',1,'MembraneCBPotential::bl_nodes'],['../struct_membrane_surf_c_b_potential.html#a3434aea79b0a40a0e17a26dc592a26df',1,'MembraneSurfCBPotential::bl_nodes']]],
+  ['bl_5frange_5fsharpness_9',['bl_range_sharpness',['../struct_membrane_c_b_potential.html#ae57db759ab849d827e04d7b93881f096',1,'MembraneCBPotential::bl_range_sharpness'],['../struct_membrane_surf_c_b_potential.html#a600c00d4384fd16b360b2b8fa0daa055',1,'MembraneSurfCBPotential::bl_range_sharpness']]],
+  ['bond_5flength_10',['bond_length',['../struct_infer___h___o_1_1_params.html#adbbd44a37f31fd867477149ff34c6862',1,'Infer_H_O::Params']]],
+  ['border_11',['border',['../struct_pos_center.html#a5eeb60c361cd3124ddf6798c76684517',1,'PosCenter']]],
+  ['boundary_5fhelix1_12',['boundary_helix1',['../struct_h_bond_energy.html#a18900f0d6917c37f304f18fa76f138f2',1,'HBondEnergy']]],
+  ['boundary_5fhelix2_13',['boundary_helix2',['../struct_h_bond_energy.html#aa0b1dad1ecd36602166aa767da7ea635',1,'HBondEnergy']]],
+  ['boundary_5fturn1_14',['boundary_turn1',['../struct_h_bond_energy.html#a6c3a3099c1e82268e07d8db78aca1444',1,'HBondEnergy']]],
+  ['boundary_5fturn2_15',['boundary_turn2',['../struct_h_bond_energy.html#ac20a8356ccdc3c423a8fdfa0dae0c3fb',1,'HBondEnergy']]],
+  ['box_5flen_16',['box_len',['../struct_spring.html#a509a92d6aec5a9aae83f85c11d01d992',1,'Spring']]],
+  ['bp_17',['bp',['../struct_torus_d_b_n___emission.html#a9bb3b10f18f503aa44ad0dfe475d057c',1,'TorusDBN_Emission']]],
+  ['bspline_5fcoeffs_18',['bspline_coeffs',['../spline_8cpp.html#a1b981da51a405ec41e9a2accc4d7e098',1,'spline.cpp']]]
+];

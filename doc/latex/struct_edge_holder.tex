@@ -1,0 +1,312 @@
+\doxysection{Edge\+Holder Struct Reference}
+\hypertarget{struct_edge_holder}{}\label{struct_edge_holder}\index{EdgeHolder@{EdgeHolder}}
+
+
+Collaboration diagram for Edge\+Holder\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{struct_edge_holder__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_edge_holder_1_1_edge_loc}{Edge\+Loc}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_edge_holder_a34e8120bafff48645a7dbe3354ab5076}{Edge\+Holder}} (\mbox{\hyperlink{struct_node_holder}{Node\+Holder}} \&\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nodes1\+\_\+}}, \mbox{\hyperlink{struct_node_holder}{Node\+Holder}} \&\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{nodes2\+\_\+}}, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} max\+\_\+n\+\_\+edge)
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_edge_holder_a760941f3ce277eae3cd547cb02166680}{reset}} ()
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_edge_holder_a6f316cb4a0e3aa24f075e3a3abd990ad}{swap\+\_\+beliefs}} ()
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_edge_holder_a260a085da482d4f1b048ba3db5a2d78e}{add\+\_\+to\+\_\+edge}} (\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} ne, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{prob\+\_\+val}}, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{unsigned}} id1, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{unsigned}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rot1}}, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{unsigned}} id2, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{unsigned}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rot2}})
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_edge_holder_ad43ec9b562d4ae866faabe42a20112ab}{move\+\_\+edge\+\_\+prob\+\_\+to\+\_\+node2}} ()
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_edge_holder_ab956272702ecc9b0e3c278d08750ae1f}{standardize\+\_\+probs}} ()
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} N\+\_\+\+ROT1, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} N\+\_\+\+ROT2$>$ }\\\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_edge_holder_a15cfad6e01dacc3fb60f3dbc4c826061}{calculate\+\_\+marginals}} ()
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} N\+\_\+\+ROT1, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} N\+\_\+\+ROT2$>$ }\\\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{struct_edge_holder_ad760642ab1b443ec2048440724fe43b3}{edge\+\_\+free\+\_\+energy}} (\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} ne)
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} N\+\_\+\+ROT1, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} N\+\_\+\+ROT2, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} EType$>$ }\\\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{struct_edge_holder_a2ad900bfbd9292b95b388157fa260c14}{edge\+\_\+entropy}} (\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} ne)
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} N\+\_\+\+ROT1, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} N\+\_\+\+ROT2$>$ }\\\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_edge_holder_a0e6682105409ac29d04909e04117cbc2}{update\+\_\+beliefs}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_edge_holder_a024ff9580d0248a5d45264cb724b0677}{n\+\_\+rot1}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_edge_holder_a59eb39978f1fd763a91dffc28e525080}{n\+\_\+rot2}}
+\item 
+\mbox{\hyperlink{struct_node_holder}{Node\+Holder}} \& \mbox{\hyperlink{struct_edge_holder_a17e6d5df5675d7b29ae7eac1a8dd4818}{nodes1}}
+\item 
+\mbox{\hyperlink{struct_node_holder}{Node\+Holder}} \& \mbox{\hyperlink{struct_edge_holder_a141324f20fc3063dca8ae28f59fa5299}{nodes2}}
+\item 
+\mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} \mbox{\hyperlink{struct_edge_holder_a4b2430c4bbc9a372c2730c1c1d3b3236}{prob}}
+\item 
+\mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} \mbox{\hyperlink{struct_edge_holder_aba5b04fa210918b68e1adfb7ecf13f7b}{cur\+\_\+belief}}
+\item 
+\mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} \mbox{\hyperlink{struct_edge_holder_a93dc6fad6cf4f62bfbfd903e1290726f}{old\+\_\+belief}}
+\item 
+\mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} \mbox{\hyperlink{struct_edge_holder_a061abda544f4cb9261004a15ec7a047d}{marginal}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{unique\+\_\+ptr}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}}\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_edge_holder_a5f4b1d8ec04a837334143dbebe780a55}{edge\+\_\+indices1}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{unique\+\_\+ptr}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}}\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_edge_holder_aeba8fe1905fde18861cc5723430913a0}{edge\+\_\+indices2}}
+\item 
+\mbox{\hyperlink{struct_edge_locator}{Edge\+Locator}} \mbox{\hyperlink{struct_edge_holder_a6f2472dd708d6e8cde28a3e2ed3c7695}{nodes\+\_\+to\+\_\+edge}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{struct_edge_holder_1_1_edge_loc}{Edge\+Loc}} $>$ \mbox{\hyperlink{struct_edge_holder_a1265afe1ae4267695307e806a99f22ae}{edge\+\_\+loc}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00327}{327}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_edge_holder_a34e8120bafff48645a7dbe3354ab5076}\label{struct_edge_holder_a34e8120bafff48645a7dbe3354ab5076} 
+\index{EdgeHolder@{EdgeHolder}!EdgeHolder@{EdgeHolder}}
+\index{EdgeHolder@{EdgeHolder}!EdgeHolder@{EdgeHolder}}
+\doxysubsubsection{\texorpdfstring{EdgeHolder()}{EdgeHolder()}}
+{\footnotesize\ttfamily Edge\+Holder\+::\+Edge\+Holder (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_node_holder}{Node\+Holder}} \&}]{nodes1\+\_\+,  }\item[{\mbox{\hyperlink{struct_node_holder}{Node\+Holder}} \&}]{nodes2\+\_\+,  }\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}}}]{max\+\_\+n\+\_\+edge }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00348}{348}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_edge_holder_a260a085da482d4f1b048ba3db5a2d78e}\label{struct_edge_holder_a260a085da482d4f1b048ba3db5a2d78e} 
+\index{EdgeHolder@{EdgeHolder}!add\_to\_edge@{add\_to\_edge}}
+\index{add\_to\_edge@{add\_to\_edge}!EdgeHolder@{EdgeHolder}}
+\doxysubsubsection{\texorpdfstring{add\_to\_edge()}{add\_to\_edge()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} Edge\+Holder\+::add\+\_\+to\+\_\+edge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}}}]{ne,  }\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}}}]{prob\+\_\+val,  }\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{unsigned}}}]{id1,  }\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{unsigned}}}]{rot1,  }\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{unsigned}}}]{id2,  }\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{unsigned}}}]{rot2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00383}{383}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+\Hypertarget{struct_edge_holder_a15cfad6e01dacc3fb60f3dbc4c826061}\label{struct_edge_holder_a15cfad6e01dacc3fb60f3dbc4c826061} 
+\index{EdgeHolder@{EdgeHolder}!calculate\_marginals@{calculate\_marginals}}
+\index{calculate\_marginals@{calculate\_marginals}!EdgeHolder@{EdgeHolder}}
+\doxysubsubsection{\texorpdfstring{calculate\_marginals()}{calculate\_marginals()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} N\+\_\+\+ROT1, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} N\+\_\+\+ROT2$>$ \\
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} Edge\+Holder\+::calculate\+\_\+marginals (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00426}{426}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+\Hypertarget{struct_edge_holder_a2ad900bfbd9292b95b388157fa260c14}\label{struct_edge_holder_a2ad900bfbd9292b95b388157fa260c14} 
+\index{EdgeHolder@{EdgeHolder}!edge\_entropy@{edge\_entropy}}
+\index{edge\_entropy@{edge\_entropy}!EdgeHolder@{EdgeHolder}}
+\doxysubsubsection{\texorpdfstring{edge\_entropy()}{edge\_entropy()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} N\+\_\+\+ROT1, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} N\+\_\+\+ROT2, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} EType$>$ \\
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} Edge\+Holder\+::edge\+\_\+entropy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}}}]{ne }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00475}{475}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+\Hypertarget{struct_edge_holder_ad760642ab1b443ec2048440724fe43b3}\label{struct_edge_holder_ad760642ab1b443ec2048440724fe43b3} 
+\index{EdgeHolder@{EdgeHolder}!edge\_free\_energy@{edge\_free\_energy}}
+\index{edge\_free\_energy@{edge\_free\_energy}!EdgeHolder@{EdgeHolder}}
+\doxysubsubsection{\texorpdfstring{edge\_free\_energy()}{edge\_free\_energy()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} N\+\_\+\+ROT1, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} N\+\_\+\+ROT2$>$ \\
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} Edge\+Holder\+::edge\+\_\+free\+\_\+energy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}}}]{ne }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00452}{452}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+\Hypertarget{struct_edge_holder_ad43ec9b562d4ae866faabe42a20112ab}\label{struct_edge_holder_ad43ec9b562d4ae866faabe42a20112ab} 
+\index{EdgeHolder@{EdgeHolder}!move\_edge\_prob\_to\_node2@{move\_edge\_prob\_to\_node2}}
+\index{move\_edge\_prob\_to\_node2@{move\_edge\_prob\_to\_node2}!EdgeHolder@{EdgeHolder}}
+\doxysubsubsection{\texorpdfstring{move\_edge\_prob\_to\_node2()}{move\_edge\_prob\_to\_node2()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} Edge\+Holder\+::move\+\_\+edge\+\_\+prob\+\_\+to\+\_\+node2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00398}{398}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+\Hypertarget{struct_edge_holder_a760941f3ce277eae3cd547cb02166680}\label{struct_edge_holder_a760941f3ce277eae3cd547cb02166680} 
+\index{EdgeHolder@{EdgeHolder}!reset@{reset}}
+\index{reset@{reset}!EdgeHolder@{EdgeHolder}}
+\doxysubsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} Edge\+Holder\+::reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00371}{371}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+\Hypertarget{struct_edge_holder_ab956272702ecc9b0e3c278d08750ae1f}\label{struct_edge_holder_ab956272702ecc9b0e3c278d08750ae1f} 
+\index{EdgeHolder@{EdgeHolder}!standardize\_probs@{standardize\_probs}}
+\index{standardize\_probs@{standardize\_probs}!EdgeHolder@{EdgeHolder}}
+\doxysubsubsection{\texorpdfstring{standardize\_probs()}{standardize\_probs()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} Edge\+Holder\+::standardize\+\_\+probs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00407}{407}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+\Hypertarget{struct_edge_holder_a6f316cb4a0e3aa24f075e3a3abd990ad}\label{struct_edge_holder_a6f316cb4a0e3aa24f075e3a3abd990ad} 
+\index{EdgeHolder@{EdgeHolder}!swap\_beliefs@{swap\_beliefs}}
+\index{swap\_beliefs@{swap\_beliefs}!EdgeHolder@{EdgeHolder}}
+\doxysubsubsection{\texorpdfstring{swap\_beliefs()}{swap\_beliefs()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} Edge\+Holder\+::swap\+\_\+beliefs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00381}{381}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+\Hypertarget{struct_edge_holder_a0e6682105409ac29d04909e04117cbc2}\label{struct_edge_holder_a0e6682105409ac29d04909e04117cbc2} 
+\index{EdgeHolder@{EdgeHolder}!update\_beliefs@{update\_beliefs}}
+\index{update\_beliefs@{update\_beliefs}!EdgeHolder@{EdgeHolder}}
+\doxysubsubsection{\texorpdfstring{update\_beliefs()}{update\_beliefs()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} N\+\_\+\+ROT1, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} N\+\_\+\+ROT2$>$ \\
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} Edge\+Holder\+::update\+\_\+beliefs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00501}{501}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_edge_holder_aba5b04fa210918b68e1adfb7ecf13f7b}\label{struct_edge_holder_aba5b04fa210918b68e1adfb7ecf13f7b} 
+\index{EdgeHolder@{EdgeHolder}!cur\_belief@{cur\_belief}}
+\index{cur\_belief@{cur\_belief}!EdgeHolder@{EdgeHolder}}
+\doxysubsubsection{\texorpdfstring{cur\_belief}{cur\_belief}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} Edge\+Holder\+::cur\+\_\+belief}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00338}{338}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+\Hypertarget{struct_edge_holder_a5f4b1d8ec04a837334143dbebe780a55}\label{struct_edge_holder_a5f4b1d8ec04a837334143dbebe780a55} 
+\index{EdgeHolder@{EdgeHolder}!edge\_indices1@{edge\_indices1}}
+\index{edge\_indices1@{edge\_indices1}!EdgeHolder@{EdgeHolder}}
+\doxysubsubsection{\texorpdfstring{edge\_indices1}{edge\_indices1}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{unique\+\_\+ptr}}$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}}\mbox{[}$\,$\mbox{]}$>$ Edge\+Holder\+::edge\+\_\+indices1}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00342}{342}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+\Hypertarget{struct_edge_holder_aeba8fe1905fde18861cc5723430913a0}\label{struct_edge_holder_aeba8fe1905fde18861cc5723430913a0} 
+\index{EdgeHolder@{EdgeHolder}!edge\_indices2@{edge\_indices2}}
+\index{edge\_indices2@{edge\_indices2}!EdgeHolder@{EdgeHolder}}
+\doxysubsubsection{\texorpdfstring{edge\_indices2}{edge\_indices2}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{unique\+\_\+ptr}}$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}}\mbox{[}$\,$\mbox{]}$>$ Edge\+Holder\+::edge\+\_\+indices2}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00343}{343}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+\Hypertarget{struct_edge_holder_a1265afe1ae4267695307e806a99f22ae}\label{struct_edge_holder_a1265afe1ae4267695307e806a99f22ae} 
+\index{EdgeHolder@{EdgeHolder}!edge\_loc@{edge\_loc}}
+\index{edge\_loc@{edge\_loc}!EdgeHolder@{EdgeHolder}}
+\doxysubsubsection{\texorpdfstring{edge\_loc}{edge\_loc}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$\mbox{\hyperlink{struct_edge_holder_1_1_edge_loc}{Edge\+Loc}}$>$ Edge\+Holder\+::edge\+\_\+loc}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00346}{346}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+\Hypertarget{struct_edge_holder_a061abda544f4cb9261004a15ec7a047d}\label{struct_edge_holder_a061abda544f4cb9261004a15ec7a047d} 
+\index{EdgeHolder@{EdgeHolder}!marginal@{marginal}}
+\index{marginal@{marginal}!EdgeHolder@{EdgeHolder}}
+\doxysubsubsection{\texorpdfstring{marginal}{marginal}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} Edge\+Holder\+::marginal}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00340}{340}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+\Hypertarget{struct_edge_holder_a024ff9580d0248a5d45264cb724b0677}\label{struct_edge_holder_a024ff9580d0248a5d45264cb724b0677} 
+\index{EdgeHolder@{EdgeHolder}!n\_rot1@{n\_rot1}}
+\index{n\_rot1@{n\_rot1}!EdgeHolder@{EdgeHolder}}
+\doxysubsubsection{\texorpdfstring{n\_rot1}{n\_rot1}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} Edge\+Holder\+::n\+\_\+rot1}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00329}{329}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+\Hypertarget{struct_edge_holder_a59eb39978f1fd763a91dffc28e525080}\label{struct_edge_holder_a59eb39978f1fd763a91dffc28e525080} 
+\index{EdgeHolder@{EdgeHolder}!n\_rot2@{n\_rot2}}
+\index{n\_rot2@{n\_rot2}!EdgeHolder@{EdgeHolder}}
+\doxysubsubsection{\texorpdfstring{n\_rot2}{n\_rot2}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} Edge\+Holder\+::n\+\_\+rot2}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00329}{329}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+\Hypertarget{struct_edge_holder_a17e6d5df5675d7b29ae7eac1a8dd4818}\label{struct_edge_holder_a17e6d5df5675d7b29ae7eac1a8dd4818} 
+\index{EdgeHolder@{EdgeHolder}!nodes1@{nodes1}}
+\index{nodes1@{nodes1}!EdgeHolder@{EdgeHolder}}
+\doxysubsubsection{\texorpdfstring{nodes1}{nodes1}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_node_holder}{Node\+Holder}}\& Edge\+Holder\+::nodes1}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00330}{330}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+\Hypertarget{struct_edge_holder_a141324f20fc3063dca8ae28f59fa5299}\label{struct_edge_holder_a141324f20fc3063dca8ae28f59fa5299} 
+\index{EdgeHolder@{EdgeHolder}!nodes2@{nodes2}}
+\index{nodes2@{nodes2}!EdgeHolder@{EdgeHolder}}
+\doxysubsubsection{\texorpdfstring{nodes2}{nodes2}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_node_holder}{Node\+Holder}}\& Edge\+Holder\+::nodes2}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00331}{331}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+\Hypertarget{struct_edge_holder_a6f2472dd708d6e8cde28a3e2ed3c7695}\label{struct_edge_holder_a6f2472dd708d6e8cde28a3e2ed3c7695} 
+\index{EdgeHolder@{EdgeHolder}!nodes\_to\_edge@{nodes\_to\_edge}}
+\index{nodes\_to\_edge@{nodes\_to\_edge}!EdgeHolder@{EdgeHolder}}
+\doxysubsubsection{\texorpdfstring{nodes\_to\_edge}{nodes\_to\_edge}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_edge_locator}{Edge\+Locator}} Edge\+Holder\+::nodes\+\_\+to\+\_\+edge}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00345}{345}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+\Hypertarget{struct_edge_holder_a93dc6fad6cf4f62bfbfd903e1290726f}\label{struct_edge_holder_a93dc6fad6cf4f62bfbfd903e1290726f} 
+\index{EdgeHolder@{EdgeHolder}!old\_belief@{old\_belief}}
+\index{old\_belief@{old\_belief}!EdgeHolder@{EdgeHolder}}
+\doxysubsubsection{\texorpdfstring{old\_belief}{old\_belief}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} Edge\+Holder\+::old\+\_\+belief}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00339}{339}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+\Hypertarget{struct_edge_holder_a4b2430c4bbc9a372c2730c1c1d3b3236}\label{struct_edge_holder_a4b2430c4bbc9a372c2730c1c1d3b3236} 
+\index{EdgeHolder@{EdgeHolder}!prob@{prob}}
+\index{prob@{prob}!EdgeHolder@{EdgeHolder}}
+\doxysubsubsection{\texorpdfstring{prob}{prob}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} Edge\+Holder\+::prob}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00337}{337}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{rotamer_8cpp}{rotamer.\+cpp}}\end{DoxyCompactItemize}

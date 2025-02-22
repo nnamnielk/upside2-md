@@ -1,0 +1,200 @@
+\doxysection{Backbone\+Pairs Struct Reference}
+\hypertarget{struct_backbone_pairs}{}\label{struct_backbone_pairs}\index{BackbonePairs@{BackbonePairs}}
+
+
+Inheritance diagram for Backbone\+Pairs\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{struct_backbone_pairs__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Backbone\+Pairs\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{struct_backbone_pairs__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_backbone_pairs_1_1_ref_pos}{Ref\+Pos}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_backbone_pairs_abe0ad682960c9f4b04634b1c5b5202ec}{Backbone\+Pairs}} (\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{hid\+\_\+t}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{grp}}, \mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{alignment\+\_\+}})
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_backbone_pairs_af34b385f301663409928eb3f86133b58}{compute\+\_\+value}} (\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{Compute\+Mode}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{mode}})
+\begin{DoxyCompactList}\small\item\em Reads inputs and computes output value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_potential_node}{Potential\+Node}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_potential_node_ae85f3af95266404a37981073878c677b}{Potential\+Node}} ()
+\begin{DoxyCompactList}\small\item\em Trivial constructor. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{struct_potential_node_ab773065a7ed9977bcef687108baa6ef4}{propagate\+\_\+deriv}} ()
+\begin{DoxyCompactList}\small\item\em (unused) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_deriv_computation_ab55a3d270aedc331a7ade09591198c4f}{Deriv\+Computation}} (bool potential\+\_\+term\+\_\+)
+\begin{DoxyCompactList}\small\item\em Construct only noting if node is a potential\+\_\+node. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{struct_deriv_computation_ae61f149a7fc4869f1d053c263fd03657}{\texorpdfstring{$\sim$}{\string~}\+Deriv\+Computation}} ()
+\begin{DoxyCompactList}\small\item\em Trivial destructor. \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_deriv_computation_a5824da52d79ac4ac46e2cee217d8197c}{get\+\_\+param}} () const
+\begin{DoxyCompactList}\small\item\em Return arbitrary subset of parameters. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{struct_deriv_computation_a7c8dbb439e850f9cb4769aac0808d8c6}{set\+\_\+param}} (const std\+::vector$<$ float $>$ \&new\+\_\+params)
+\begin{DoxyCompactList}\small\item\em Set arbitrary subset of parameters (same as get\+\_\+param) \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_deriv_computation_aec2d05db4c36f52f8b7de6922af52494}{get\+\_\+value\+\_\+by\+\_\+name}} (const char \texorpdfstring{$\ast$}{*}log\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Compute a named quantity and return vector of floats (arbitrary behavior) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_backbone_pairs_a241d8f325b090adf7e20a1360b150df4}{n\+\_\+residue}}
+\item 
+\mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \& \mbox{\hyperlink{struct_backbone_pairs_a3fa29b8ab20c04a9fd21824a0c87280f}{alignment}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{struct_affine_params}{Affine\+Params}} $>$ \mbox{\hyperlink{struct_backbone_pairs_a38ca679bfc83aaaf6ee4ee4e0f9a1275}{params}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{struct_backbone_pairs_1_1_ref_pos}{Ref\+Pos}} $>$ \mbox{\hyperlink{struct_backbone_pairs_a8868f6f044aa9f6ddb70b04203cbf405}{ref\+\_\+pos}}
+\item 
+\mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{true}} $>$ \mbox{\hyperlink{struct_backbone_pairs_a4239605b37c1c0894f1f8ffb6077aa2a}{pairlist}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{unique\+\_\+ptr}}$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int32\+\_\+t}}\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_backbone_pairs_ad0e0f3e148100c7a9e7eff437ce2e831}{id}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{struct_backbone_pairs_ae0150448dda5914546244ebd24bfeecb}{dist\+\_\+cutoff}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_potential_node}{Potential\+Node}}}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{struct_potential_node_ae34531266ff6716a791f3a55edb60015}{potential}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}}}
+\begin{DoxyCompactItemize}
+\item 
+const bool \mbox{\hyperlink{struct_deriv_computation_ab9caf415ec64cd42c99d24545238e691}{potential\+\_\+term}}
+\begin{DoxyCompactList}\small\item\em True if output represents a potential energy rather than a new coordinate. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{backbone__steric_8cpp_source_l00038}{38}} of file \mbox{\hyperlink{backbone__steric_8cpp_source}{backbone\+\_\+steric.\+cpp}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_backbone_pairs_abe0ad682960c9f4b04634b1c5b5202ec}\label{struct_backbone_pairs_abe0ad682960c9f4b04634b1c5b5202ec} 
+\index{BackbonePairs@{BackbonePairs}!BackbonePairs@{BackbonePairs}}
+\index{BackbonePairs@{BackbonePairs}!BackbonePairs@{BackbonePairs}}
+\doxysubsubsection{\texorpdfstring{BackbonePairs()}{BackbonePairs()}}
+{\footnotesize\ttfamily Backbone\+Pairs\+::\+Backbone\+Pairs (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{hid\+\_\+t}}}]{grp,  }\item[{\mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&}]{alignment\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{backbone__steric_8cpp_source_l00053}{53}} of file \mbox{\hyperlink{backbone__steric_8cpp_source}{backbone\+\_\+steric.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_backbone_pairs_af34b385f301663409928eb3f86133b58}\label{struct_backbone_pairs_af34b385f301663409928eb3f86133b58} 
+\index{BackbonePairs@{BackbonePairs}!compute\_value@{compute\_value}}
+\index{compute\_value@{compute\_value}!BackbonePairs@{BackbonePairs}}
+\doxysubsubsection{\texorpdfstring{compute\_value()}{compute\_value()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} Backbone\+Pairs\+::compute\+\_\+value (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{Compute\+Mode}}}]{mode }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reads inputs and computes output value. 
+
+
+
+Implements \mbox{\hyperlink{struct_deriv_computation_a750d9688cee97b4ab8a6c66c8a739bfc}{Deriv\+Computation}}.
+
+
+
+Definition at line \mbox{\hyperlink{backbone__steric_8cpp_source_l00081}{81}} of file \mbox{\hyperlink{backbone__steric_8cpp_source}{backbone\+\_\+steric.\+cpp}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_backbone_pairs_a3fa29b8ab20c04a9fd21824a0c87280f}\label{struct_backbone_pairs_a3fa29b8ab20c04a9fd21824a0c87280f} 
+\index{BackbonePairs@{BackbonePairs}!alignment@{alignment}}
+\index{alignment@{alignment}!BackbonePairs@{BackbonePairs}}
+\doxysubsubsection{\texorpdfstring{alignment}{alignment}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_coord_node}{Coord\+Node}}\& Backbone\+Pairs\+::alignment}
+
+
+
+Definition at line \mbox{\hyperlink{backbone__steric_8cpp_source_l00046}{46}} of file \mbox{\hyperlink{backbone__steric_8cpp_source}{backbone\+\_\+steric.\+cpp}}.
+
+\Hypertarget{struct_backbone_pairs_ae0150448dda5914546244ebd24bfeecb}\label{struct_backbone_pairs_ae0150448dda5914546244ebd24bfeecb} 
+\index{BackbonePairs@{BackbonePairs}!dist\_cutoff@{dist\_cutoff}}
+\index{dist\_cutoff@{dist\_cutoff}!BackbonePairs@{BackbonePairs}}
+\doxysubsubsection{\texorpdfstring{dist\_cutoff}{dist\_cutoff}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} Backbone\+Pairs\+::dist\+\_\+cutoff}
+
+
+
+Definition at line \mbox{\hyperlink{backbone__steric_8cpp_source_l00051}{51}} of file \mbox{\hyperlink{backbone__steric_8cpp_source}{backbone\+\_\+steric.\+cpp}}.
+
+\Hypertarget{struct_backbone_pairs_ad0e0f3e148100c7a9e7eff437ce2e831}\label{struct_backbone_pairs_ad0e0f3e148100c7a9e7eff437ce2e831} 
+\index{BackbonePairs@{BackbonePairs}!id@{id}}
+\index{id@{id}!BackbonePairs@{BackbonePairs}}
+\doxysubsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{unique\+\_\+ptr}}$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int32\+\_\+t}}\mbox{[}$\,$\mbox{]}$>$ Backbone\+Pairs\+::id}
+
+
+
+Definition at line \mbox{\hyperlink{backbone__steric_8cpp_source_l00050}{50}} of file \mbox{\hyperlink{backbone__steric_8cpp_source}{backbone\+\_\+steric.\+cpp}}.
+
+\Hypertarget{struct_backbone_pairs_a241d8f325b090adf7e20a1360b150df4}\label{struct_backbone_pairs_a241d8f325b090adf7e20a1360b150df4} 
+\index{BackbonePairs@{BackbonePairs}!n\_residue@{n\_residue}}
+\index{n\_residue@{n\_residue}!BackbonePairs@{BackbonePairs}}
+\doxysubsubsection{\texorpdfstring{n\_residue}{n\_residue}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} Backbone\+Pairs\+::n\+\_\+residue}
+
+
+
+Definition at line \mbox{\hyperlink{backbone__steric_8cpp_source_l00045}{45}} of file \mbox{\hyperlink{backbone__steric_8cpp_source}{backbone\+\_\+steric.\+cpp}}.
+
+\Hypertarget{struct_backbone_pairs_a4239605b37c1c0894f1f8ffb6077aa2a}\label{struct_backbone_pairs_a4239605b37c1c0894f1f8ffb6077aa2a} 
+\index{BackbonePairs@{BackbonePairs}!pairlist@{pairlist}}
+\index{pairlist@{pairlist}!BackbonePairs@{BackbonePairs}}
+\doxysubsubsection{\texorpdfstring{pairlist}{pairlist}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation}}$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{true}}$>$ Backbone\+Pairs\+::pairlist}
+
+
+
+Definition at line \mbox{\hyperlink{backbone__steric_8cpp_source_l00049}{49}} of file \mbox{\hyperlink{backbone__steric_8cpp_source}{backbone\+\_\+steric.\+cpp}}.
+
+\Hypertarget{struct_backbone_pairs_a38ca679bfc83aaaf6ee4ee4e0f9a1275}\label{struct_backbone_pairs_a38ca679bfc83aaaf6ee4ee4e0f9a1275} 
+\index{BackbonePairs@{BackbonePairs}!params@{params}}
+\index{params@{params}!BackbonePairs@{BackbonePairs}}
+\doxysubsubsection{\texorpdfstring{params}{params}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$\mbox{\hyperlink{struct_affine_params}{Affine\+Params}}$>$ Backbone\+Pairs\+::params}
+
+
+
+Definition at line \mbox{\hyperlink{backbone__steric_8cpp_source_l00047}{47}} of file \mbox{\hyperlink{backbone__steric_8cpp_source}{backbone\+\_\+steric.\+cpp}}.
+
+\Hypertarget{struct_backbone_pairs_a8868f6f044aa9f6ddb70b04203cbf405}\label{struct_backbone_pairs_a8868f6f044aa9f6ddb70b04203cbf405} 
+\index{BackbonePairs@{BackbonePairs}!ref\_pos@{ref\_pos}}
+\index{ref\_pos@{ref\_pos}!BackbonePairs@{BackbonePairs}}
+\doxysubsubsection{\texorpdfstring{ref\_pos}{ref\_pos}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$\mbox{\hyperlink{struct_backbone_pairs_1_1_ref_pos}{Ref\+Pos}}$>$ Backbone\+Pairs\+::ref\+\_\+pos}
+
+
+
+Definition at line \mbox{\hyperlink{backbone__steric_8cpp_source_l00048}{48}} of file \mbox{\hyperlink{backbone__steric_8cpp_source}{backbone\+\_\+steric.\+cpp}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{backbone__steric_8cpp}{backbone\+\_\+steric.\+cpp}}\end{DoxyCompactItemize}

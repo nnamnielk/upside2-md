@@ -1,0 +1,198 @@
+\doxysection{Pos\+Quad\+Spline\+Interaction Struct Reference}
+\hypertarget{struct_pos_quad_spline_interaction}{}\label{struct_pos_quad_spline_interaction}\index{PosQuadSplineInteraction@{PosQuadSplineInteraction}}
+
+
+{\ttfamily \#include $<$bead\+\_\+interaction.\+h$>$}
+
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static float \mbox{\hyperlink{struct_pos_quad_spline_interaction_aa75f6ebf34f7693802736834e72b2f50}{cutoff}} (const float \texorpdfstring{$\ast$}{*}p)
+\item 
+static \mbox{\hyperlink{struct_int4}{Int4}} \mbox{\hyperlink{struct_pos_quad_spline_interaction_ad174a9fa6712246af6aa17aebb0045f2}{acceptable\+\_\+id\+\_\+pair}} (const \mbox{\hyperlink{struct_int4}{Int4}} \&id1, const \mbox{\hyperlink{struct_int4}{Int4}} \&id2)
+\item 
+static \mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{struct_pos_quad_spline_interaction_a2647b3438ec769cd023689520aad344e}{compute\+\_\+edge}} (\mbox{\hyperlink{struct_vec}{Vec}}$<$ \mbox{\hyperlink{struct_pos_quad_spline_interaction_ae690c479f228122d9e50f2096ddba679}{n\+\_\+dim1}}, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \&d1, \mbox{\hyperlink{struct_vec}{Vec}}$<$ \mbox{\hyperlink{struct_pos_quad_spline_interaction_a67dbd6730ebc12aa95f2afd6344bca70}{n\+\_\+dim2}}, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \&d2, const float \texorpdfstring{$\ast$}{*}p\mbox{[}4\mbox{]}, const \mbox{\hyperlink{struct_vec}{Vec}}$<$ \mbox{\hyperlink{struct_pos_quad_spline_interaction_ae690c479f228122d9e50f2096ddba679}{n\+\_\+dim1}}, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \&sc\+\_\+pos1, const \mbox{\hyperlink{struct_vec}{Vec}}$<$ \mbox{\hyperlink{struct_pos_quad_spline_interaction_a67dbd6730ebc12aa95f2afd6344bca70}{n\+\_\+dim2}}, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \&sc\+\_\+pos2)
+\item 
+static void \mbox{\hyperlink{struct_pos_quad_spline_interaction_a872294a5c1228d850d5cbf346b1b0997}{param\+\_\+deriv}} (\mbox{\hyperlink{struct_vec}{Vec}}$<$ \mbox{\hyperlink{struct_pos_quad_spline_interaction_a76f3483a183cf39b29eaaf75998d3e6f}{n\+\_\+param}} $>$ \&d\+\_\+param, const float \texorpdfstring{$\ast$}{*}p, const \mbox{\hyperlink{struct_vec}{Vec}}$<$ \mbox{\hyperlink{struct_pos_quad_spline_interaction_ae690c479f228122d9e50f2096ddba679}{n\+\_\+dim1}} $>$ \&sc\+\_\+pos1, const \mbox{\hyperlink{struct_vec}{Vec}}$<$ \mbox{\hyperlink{struct_pos_quad_spline_interaction_a67dbd6730ebc12aa95f2afd6344bca70}{n\+\_\+dim2}} $>$ \&sc\+\_\+pos2)
+\item 
+static bool \mbox{\hyperlink{struct_pos_quad_spline_interaction_a1155d580d768d09059ff9d2314359b08}{is\+\_\+compatible}} (const float \texorpdfstring{$\ast$}{*}p1, const float \texorpdfstring{$\ast$}{*}p2)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr bool \mbox{\hyperlink{struct_pos_quad_spline_interaction_a83079192b1471821817579ec3541592b}{symmetric}} = true
+\item 
+static constexpr int \mbox{\hyperlink{struct_pos_quad_spline_interaction_a0ece9e4c2b728b29ff0400ae48b448b2}{n\+\_\+knot}} = \mbox{\hyperlink{bead__interaction_8h_a0bfee5e22c1cd43eb1de433d381f6376}{N\+\_\+\+KNOT\+\_\+\+SC\+\_\+\+SC}}
+\item 
+static constexpr int \mbox{\hyperlink{struct_pos_quad_spline_interaction_a30e10aa661ebbb3e47baa122e7b9ebd0}{n\+\_\+knot\+\_\+angular}} =\mbox{\hyperlink{bead__interaction_8h_afaaee5aad1683e43ef74e68bddd58172}{N\+\_\+\+KNOT\+\_\+\+ANGULAR}}
+\item 
+static constexpr int \mbox{\hyperlink{struct_pos_quad_spline_interaction_a76f3483a183cf39b29eaaf75998d3e6f}{n\+\_\+param}} =2\texorpdfstring{$\ast$}{*}\mbox{\hyperlink{struct_pos_quad_spline_interaction_a30e10aa661ebbb3e47baa122e7b9ebd0}{n\+\_\+knot\+\_\+angular}}+2\texorpdfstring{$\ast$}{*}\mbox{\hyperlink{struct_pos_quad_spline_interaction_a0ece9e4c2b728b29ff0400ae48b448b2}{n\+\_\+knot}}
+\item 
+static constexpr int \mbox{\hyperlink{struct_pos_quad_spline_interaction_ae690c479f228122d9e50f2096ddba679}{n\+\_\+dim1}} =6
+\item 
+static constexpr int \mbox{\hyperlink{struct_pos_quad_spline_interaction_a67dbd6730ebc12aa95f2afd6344bca70}{n\+\_\+dim2}} =6
+\item 
+static constexpr int \mbox{\hyperlink{struct_pos_quad_spline_interaction_a138d4d6428e6946b9ef5cdef79921f17}{simd\+\_\+width}} =1
+\item 
+static constexpr float \mbox{\hyperlink{struct_pos_quad_spline_interaction_ade586e556131fec6701065e87c162116}{inv\+\_\+dx}} = 1.f/\mbox{\hyperlink{bead__interaction_8h_a8cabb2126b33b3cd695db6d141229eb6}{KNOT\+\_\+\+SPACING}}
+\item 
+static constexpr float \mbox{\hyperlink{struct_pos_quad_spline_interaction_a0110861b8f624e3676a6e8e0b730f728}{inv\+\_\+dtheta}} = (\mbox{\hyperlink{struct_pos_quad_spline_interaction_a30e10aa661ebbb3e47baa122e7b9ebd0}{n\+\_\+knot\+\_\+angular}}-\/3)/2.f
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{bead__interaction_8h_source_l00184}{184}} of file \mbox{\hyperlink{bead__interaction_8h_source}{bead\+\_\+interaction.\+h}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_pos_quad_spline_interaction_ad174a9fa6712246af6aa17aebb0045f2}\label{struct_pos_quad_spline_interaction_ad174a9fa6712246af6aa17aebb0045f2} 
+\index{PosQuadSplineInteraction@{PosQuadSplineInteraction}!acceptable\_id\_pair@{acceptable\_id\_pair}}
+\index{acceptable\_id\_pair@{acceptable\_id\_pair}!PosQuadSplineInteraction@{PosQuadSplineInteraction}}
+\doxysubsubsection{\texorpdfstring{acceptable\_id\_pair()}{acceptable\_id\_pair()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{struct_int4}{Int4}} Pos\+Quad\+Spline\+Interaction\+::acceptable\+\_\+id\+\_\+pair (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_int4}{Int4}} \&}]{id1,  }\item[{const \mbox{\hyperlink{struct_int4}{Int4}} \&}]{id2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{bead__interaction_8h_source_l00197}{197}} of file \mbox{\hyperlink{bead__interaction_8h_source}{bead\+\_\+interaction.\+h}}.
+
+\Hypertarget{struct_pos_quad_spline_interaction_a2647b3438ec769cd023689520aad344e}\label{struct_pos_quad_spline_interaction_a2647b3438ec769cd023689520aad344e} 
+\index{PosQuadSplineInteraction@{PosQuadSplineInteraction}!compute\_edge@{compute\_edge}}
+\index{compute\_edge@{compute\_edge}!PosQuadSplineInteraction@{PosQuadSplineInteraction}}
+\doxysubsubsection{\texorpdfstring{compute\_edge()}{compute\_edge()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{struct_float4}{Float4}} Pos\+Quad\+Spline\+Interaction\+::compute\+\_\+edge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_vec}{Vec}}$<$ \mbox{\hyperlink{struct_pos_quad_spline_interaction_ae690c479f228122d9e50f2096ddba679}{n\+\_\+dim1}}, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \&}]{d1,  }\item[{\mbox{\hyperlink{struct_vec}{Vec}}$<$ \mbox{\hyperlink{struct_pos_quad_spline_interaction_a67dbd6730ebc12aa95f2afd6344bca70}{n\+\_\+dim2}}, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \&}]{d2,  }\item[{const float \texorpdfstring{$\ast$}{*}}]{p\mbox{[}4\mbox{]},  }\item[{const \mbox{\hyperlink{struct_vec}{Vec}}$<$ \mbox{\hyperlink{struct_pos_quad_spline_interaction_ae690c479f228122d9e50f2096ddba679}{n\+\_\+dim1}}, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \&}]{sc\+\_\+pos1,  }\item[{const \mbox{\hyperlink{struct_vec}{Vec}}$<$ \mbox{\hyperlink{struct_pos_quad_spline_interaction_a67dbd6730ebc12aa95f2afd6344bca70}{n\+\_\+dim2}}, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \&}]{sc\+\_\+pos2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{bead__interaction_8h_source_l00201}{201}} of file \mbox{\hyperlink{bead__interaction_8h_source}{bead\+\_\+interaction.\+h}}.
+
+\Hypertarget{struct_pos_quad_spline_interaction_aa75f6ebf34f7693802736834e72b2f50}\label{struct_pos_quad_spline_interaction_aa75f6ebf34f7693802736834e72b2f50} 
+\index{PosQuadSplineInteraction@{PosQuadSplineInteraction}!cutoff@{cutoff}}
+\index{cutoff@{cutoff}!PosQuadSplineInteraction@{PosQuadSplineInteraction}}
+\doxysubsubsection{\texorpdfstring{cutoff()}{cutoff()}}
+{\footnotesize\ttfamily static float Pos\+Quad\+Spline\+Interaction\+::cutoff (\begin{DoxyParamCaption}\item[{const float \texorpdfstring{$\ast$}{*}}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{bead__interaction_8h_source_l00193}{193}} of file \mbox{\hyperlink{bead__interaction_8h_source}{bead\+\_\+interaction.\+h}}.
+
+\Hypertarget{struct_pos_quad_spline_interaction_a1155d580d768d09059ff9d2314359b08}\label{struct_pos_quad_spline_interaction_a1155d580d768d09059ff9d2314359b08} 
+\index{PosQuadSplineInteraction@{PosQuadSplineInteraction}!is\_compatible@{is\_compatible}}
+\index{is\_compatible@{is\_compatible}!PosQuadSplineInteraction@{PosQuadSplineInteraction}}
+\doxysubsubsection{\texorpdfstring{is\_compatible()}{is\_compatible()}}
+{\footnotesize\ttfamily static bool Pos\+Quad\+Spline\+Interaction\+::is\+\_\+compatible (\begin{DoxyParamCaption}\item[{const float \texorpdfstring{$\ast$}{*}}]{p1,  }\item[{const float \texorpdfstring{$\ast$}{*}}]{p2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{bead__interaction_8h_source_l00211}{211}} of file \mbox{\hyperlink{bead__interaction_8h_source}{bead\+\_\+interaction.\+h}}.
+
+\Hypertarget{struct_pos_quad_spline_interaction_a872294a5c1228d850d5cbf346b1b0997}\label{struct_pos_quad_spline_interaction_a872294a5c1228d850d5cbf346b1b0997} 
+\index{PosQuadSplineInteraction@{PosQuadSplineInteraction}!param\_deriv@{param\_deriv}}
+\index{param\_deriv@{param\_deriv}!PosQuadSplineInteraction@{PosQuadSplineInteraction}}
+\doxysubsubsection{\texorpdfstring{param\_deriv()}{param\_deriv()}}
+{\footnotesize\ttfamily static void Pos\+Quad\+Spline\+Interaction\+::param\+\_\+deriv (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_vec}{Vec}}$<$ \mbox{\hyperlink{struct_pos_quad_spline_interaction_a76f3483a183cf39b29eaaf75998d3e6f}{n\+\_\+param}} $>$ \&}]{d\+\_\+param,  }\item[{const float \texorpdfstring{$\ast$}{*}}]{p,  }\item[{const \mbox{\hyperlink{struct_vec}{Vec}}$<$ \mbox{\hyperlink{struct_pos_quad_spline_interaction_ae690c479f228122d9e50f2096ddba679}{n\+\_\+dim1}} $>$ \&}]{sc\+\_\+pos1,  }\item[{const \mbox{\hyperlink{struct_vec}{Vec}}$<$ \mbox{\hyperlink{struct_pos_quad_spline_interaction_a67dbd6730ebc12aa95f2afd6344bca70}{n\+\_\+dim2}} $>$ \&}]{sc\+\_\+pos2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{bead__interaction_8h_source_l00206}{206}} of file \mbox{\hyperlink{bead__interaction_8h_source}{bead\+\_\+interaction.\+h}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_pos_quad_spline_interaction_a0110861b8f624e3676a6e8e0b730f728}\label{struct_pos_quad_spline_interaction_a0110861b8f624e3676a6e8e0b730f728} 
+\index{PosQuadSplineInteraction@{PosQuadSplineInteraction}!inv\_dtheta@{inv\_dtheta}}
+\index{inv\_dtheta@{inv\_dtheta}!PosQuadSplineInteraction@{PosQuadSplineInteraction}}
+\doxysubsubsection{\texorpdfstring{inv\_dtheta}{inv\_dtheta}}
+{\footnotesize\ttfamily constexpr float Pos\+Quad\+Spline\+Interaction\+::inv\+\_\+dtheta = (\mbox{\hyperlink{struct_pos_quad_spline_interaction_a30e10aa661ebbb3e47baa122e7b9ebd0}{n\+\_\+knot\+\_\+angular}}-\/3)/2.f\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{bead__interaction_8h_source_l00191}{191}} of file \mbox{\hyperlink{bead__interaction_8h_source}{bead\+\_\+interaction.\+h}}.
+
+\Hypertarget{struct_pos_quad_spline_interaction_ade586e556131fec6701065e87c162116}\label{struct_pos_quad_spline_interaction_ade586e556131fec6701065e87c162116} 
+\index{PosQuadSplineInteraction@{PosQuadSplineInteraction}!inv\_dx@{inv\_dx}}
+\index{inv\_dx@{inv\_dx}!PosQuadSplineInteraction@{PosQuadSplineInteraction}}
+\doxysubsubsection{\texorpdfstring{inv\_dx}{inv\_dx}}
+{\footnotesize\ttfamily constexpr float Pos\+Quad\+Spline\+Interaction\+::inv\+\_\+dx = 1.f/\mbox{\hyperlink{bead__interaction_8h_a8cabb2126b33b3cd695db6d141229eb6}{KNOT\+\_\+\+SPACING}}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{bead__interaction_8h_source_l00191}{191}} of file \mbox{\hyperlink{bead__interaction_8h_source}{bead\+\_\+interaction.\+h}}.
+
+\Hypertarget{struct_pos_quad_spline_interaction_ae690c479f228122d9e50f2096ddba679}\label{struct_pos_quad_spline_interaction_ae690c479f228122d9e50f2096ddba679} 
+\index{PosQuadSplineInteraction@{PosQuadSplineInteraction}!n\_dim1@{n\_dim1}}
+\index{n\_dim1@{n\_dim1}!PosQuadSplineInteraction@{PosQuadSplineInteraction}}
+\doxysubsubsection{\texorpdfstring{n\_dim1}{n\_dim1}}
+{\footnotesize\ttfamily constexpr int Pos\+Quad\+Spline\+Interaction\+::n\+\_\+dim1 =6\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{bead__interaction_8h_source_l00190}{190}} of file \mbox{\hyperlink{bead__interaction_8h_source}{bead\+\_\+interaction.\+h}}.
+
+\Hypertarget{struct_pos_quad_spline_interaction_a67dbd6730ebc12aa95f2afd6344bca70}\label{struct_pos_quad_spline_interaction_a67dbd6730ebc12aa95f2afd6344bca70} 
+\index{PosQuadSplineInteraction@{PosQuadSplineInteraction}!n\_dim2@{n\_dim2}}
+\index{n\_dim2@{n\_dim2}!PosQuadSplineInteraction@{PosQuadSplineInteraction}}
+\doxysubsubsection{\texorpdfstring{n\_dim2}{n\_dim2}}
+{\footnotesize\ttfamily constexpr int Pos\+Quad\+Spline\+Interaction\+::n\+\_\+dim2 =6\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{bead__interaction_8h_source_l00190}{190}} of file \mbox{\hyperlink{bead__interaction_8h_source}{bead\+\_\+interaction.\+h}}.
+
+\Hypertarget{struct_pos_quad_spline_interaction_a0ece9e4c2b728b29ff0400ae48b448b2}\label{struct_pos_quad_spline_interaction_a0ece9e4c2b728b29ff0400ae48b448b2} 
+\index{PosQuadSplineInteraction@{PosQuadSplineInteraction}!n\_knot@{n\_knot}}
+\index{n\_knot@{n\_knot}!PosQuadSplineInteraction@{PosQuadSplineInteraction}}
+\doxysubsubsection{\texorpdfstring{n\_knot}{n\_knot}}
+{\footnotesize\ttfamily constexpr int Pos\+Quad\+Spline\+Interaction\+::n\+\_\+knot = \mbox{\hyperlink{bead__interaction_8h_a0bfee5e22c1cd43eb1de433d381f6376}{N\+\_\+\+KNOT\+\_\+\+SC\+\_\+\+SC}}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{bead__interaction_8h_source_l00189}{189}} of file \mbox{\hyperlink{bead__interaction_8h_source}{bead\+\_\+interaction.\+h}}.
+
+\Hypertarget{struct_pos_quad_spline_interaction_a30e10aa661ebbb3e47baa122e7b9ebd0}\label{struct_pos_quad_spline_interaction_a30e10aa661ebbb3e47baa122e7b9ebd0} 
+\index{PosQuadSplineInteraction@{PosQuadSplineInteraction}!n\_knot\_angular@{n\_knot\_angular}}
+\index{n\_knot\_angular@{n\_knot\_angular}!PosQuadSplineInteraction@{PosQuadSplineInteraction}}
+\doxysubsubsection{\texorpdfstring{n\_knot\_angular}{n\_knot\_angular}}
+{\footnotesize\ttfamily constexpr int Pos\+Quad\+Spline\+Interaction\+::n\+\_\+knot\+\_\+angular =\mbox{\hyperlink{bead__interaction_8h_afaaee5aad1683e43ef74e68bddd58172}{N\+\_\+\+KNOT\+\_\+\+ANGULAR}}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{bead__interaction_8h_source_l00189}{189}} of file \mbox{\hyperlink{bead__interaction_8h_source}{bead\+\_\+interaction.\+h}}.
+
+\Hypertarget{struct_pos_quad_spline_interaction_a76f3483a183cf39b29eaaf75998d3e6f}\label{struct_pos_quad_spline_interaction_a76f3483a183cf39b29eaaf75998d3e6f} 
+\index{PosQuadSplineInteraction@{PosQuadSplineInteraction}!n\_param@{n\_param}}
+\index{n\_param@{n\_param}!PosQuadSplineInteraction@{PosQuadSplineInteraction}}
+\doxysubsubsection{\texorpdfstring{n\_param}{n\_param}}
+{\footnotesize\ttfamily constexpr int Pos\+Quad\+Spline\+Interaction\+::n\+\_\+param =2\texorpdfstring{$\ast$}{*}\mbox{\hyperlink{struct_pos_quad_spline_interaction_a30e10aa661ebbb3e47baa122e7b9ebd0}{n\+\_\+knot\+\_\+angular}}+2\texorpdfstring{$\ast$}{*}\mbox{\hyperlink{struct_pos_quad_spline_interaction_a0ece9e4c2b728b29ff0400ae48b448b2}{n\+\_\+knot}}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{bead__interaction_8h_source_l00190}{190}} of file \mbox{\hyperlink{bead__interaction_8h_source}{bead\+\_\+interaction.\+h}}.
+
+\Hypertarget{struct_pos_quad_spline_interaction_a138d4d6428e6946b9ef5cdef79921f17}\label{struct_pos_quad_spline_interaction_a138d4d6428e6946b9ef5cdef79921f17} 
+\index{PosQuadSplineInteraction@{PosQuadSplineInteraction}!simd\_width@{simd\_width}}
+\index{simd\_width@{simd\_width}!PosQuadSplineInteraction@{PosQuadSplineInteraction}}
+\doxysubsubsection{\texorpdfstring{simd\_width}{simd\_width}}
+{\footnotesize\ttfamily constexpr int Pos\+Quad\+Spline\+Interaction\+::simd\+\_\+width =1\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{bead__interaction_8h_source_l00190}{190}} of file \mbox{\hyperlink{bead__interaction_8h_source}{bead\+\_\+interaction.\+h}}.
+
+\Hypertarget{struct_pos_quad_spline_interaction_a83079192b1471821817579ec3541592b}\label{struct_pos_quad_spline_interaction_a83079192b1471821817579ec3541592b} 
+\index{PosQuadSplineInteraction@{PosQuadSplineInteraction}!symmetric@{symmetric}}
+\index{symmetric@{symmetric}!PosQuadSplineInteraction@{PosQuadSplineInteraction}}
+\doxysubsubsection{\texorpdfstring{symmetric}{symmetric}}
+{\footnotesize\ttfamily constexpr bool Pos\+Quad\+Spline\+Interaction\+::symmetric = true\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{bead__interaction_8h_source_l00188}{188}} of file \mbox{\hyperlink{bead__interaction_8h_source}{bead\+\_\+interaction.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{bead__interaction_8h}{bead\+\_\+interaction.\+h}}\end{DoxyCompactItemize}

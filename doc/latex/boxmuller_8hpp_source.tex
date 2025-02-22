@@ -1,0 +1,141 @@
+\doxysection{boxmuller.\+hpp}
+\hypertarget{boxmuller_8hpp_source}{}\label{boxmuller_8hpp_source}\index{src/boxmuller.hpp@{src/boxmuller.hpp}}
+\mbox{\hyperlink{boxmuller_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00001}00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00002}00002\ \textcolor{comment}{Copyright\ 2010-\/2011,\ D.\ E.\ Shaw\ Research.}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00003}00003\ \textcolor{comment}{All\ rights\ reserved.}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00004}00004\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00005}00005\ \textcolor{comment}{Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00006}00006\ \textcolor{comment}{modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00007}00007\ \textcolor{comment}{met:}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00008}00008\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00009}00009\ \textcolor{comment}{*\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00010}00010\ \textcolor{comment}{\ \ notice,\ this\ list\ of\ conditions,\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00011}00011\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00012}00012\ \textcolor{comment}{*\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00013}00013\ \textcolor{comment}{\ \ notice,\ this\ list\ of\ conditions,\ and\ the\ following\ disclaimer\ in\ the}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00014}00014\ \textcolor{comment}{\ \ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00015}00015\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00016}00016\ \textcolor{comment}{*\ Neither\ the\ name\ of\ D.\ E.\ Shaw\ Research\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00017}00017\ \textcolor{comment}{\ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00018}00018\ \textcolor{comment}{\ \ this\ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00019}00019\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00020}00020\ \textcolor{comment}{THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00021}00021\ \textcolor{comment}{"{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00022}00022\ \textcolor{comment}{LIMITED\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00023}00023\ \textcolor{comment}{A\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00024}00024\ \textcolor{comment}{OWNER\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00025}00025\ \textcolor{comment}{SPECIAL,\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00026}00026\ \textcolor{comment}{LIMITED\ TO,\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00027}00027\ \textcolor{comment}{DATA,\ OR\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00028}00028\ \textcolor{comment}{THEORY\ OF\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00029}00029\ \textcolor{comment}{(INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00030}00030\ \textcolor{comment}{OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00031}00031\ \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00033}00033\ \textcolor{comment}{//\ This\ file\ implements\ the\ Box-\/Muller\ method\ for\ generating\ gaussian}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00034}00034\ \textcolor{comment}{//\ random\ variables\ (GRVs).\ \ Box-\/Muller\ has\ the\ advantage\ of}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00035}00035\ \textcolor{comment}{//\ deterministically\ requiring\ exactly\ two\ uniform\ random\ variables\ as}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00036}00036\ \textcolor{comment}{//\ input\ and\ producing\ exactly\ two\ GRVs\ as\ output,\ which\ makes\ it}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00037}00037\ \textcolor{comment}{//\ especially\ well-\/suited\ to\ the\ counter-\/based\ generators\ in}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00038}00038\ \textcolor{comment}{//\ Random123.\ \ Other\ methods\ (e.g.,\ Ziggurat,\ polar)\ require\ an}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00039}00039\ \textcolor{comment}{//\ indeterminate\ number\ of\ inputs\ for\ each\ output\ and\ so\ require\ a}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00040}00040\ \textcolor{comment}{//\ 'MicroURNG'\ to\ be\ used\ with\ Random123.\ \ The\ down\ side\ of\ Box-\/Muller}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00041}00041\ \textcolor{comment}{//\ is\ that\ it\ calls\ sincos,\ log\ and\ sqrt,\ which\ may\ be\ slow.\ \ However,}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00042}00042\ \textcolor{comment}{//\ on\ GPUs,\ these\ functions\ are\ remarkably\ fast,\ which\ makes}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00043}00043\ \textcolor{comment}{//\ Box-\/Muller\ the\ fastest\ GRV\ generator\ we\ know\ of\ on\ GPUs.}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00044}00044\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00045}00045\ \textcolor{comment}{//\ This\ file\ exports\ two\ structs\ and\ one\ overloaded\ function,}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00046}00046\ \textcolor{comment}{//\ all\ in\ the\ r123\ namespace:}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00047}00047\ \textcolor{comment}{//\ \ \ struct\ r123::float2\{\ float\ x,y;\ \}}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00048}00048\ \textcolor{comment}{//\ \ \ struct\ r123::double2\{\ double\ x,y;\ \}}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00049}00049\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00050}00050\ \textcolor{comment}{//\ \ \ r123::float2\ \ r123::boxmuller(uint32\_t\ u0,\ uint32\_t\ u1);}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00051}00051\ \textcolor{comment}{//\ \ \ r123::double2\ r123::boxmuller(uint64\_t\ u0,\ uint64\_t\ u1);}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00052}00052\ \textcolor{comment}{//\ \ }}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00053}00053\ \textcolor{comment}{//\ float2\ and\ double2\ are\ identical\ to\ their\ synonymous\ global-\/}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00054}00054\ \textcolor{comment}{//\ namespace\ structures\ in\ CUDA.}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00055}00055\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00056}00056\ \textcolor{comment}{//\ This\ file\ may\ not\ be\ as\ portable,\ and\ has\ not\ been\ tested\ as}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00057}00057\ \textcolor{comment}{//\ rigorously\ as\ the\ files\ in\ the\ library\ itself,\ i.e.,\ those\ in}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00058}00058\ \textcolor{comment}{//\ ../include/Random123.\ \ Nevertheless,\ we\ hope\ it\ is\ useful\ and\ we}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00059}00059\ \textcolor{comment}{//\ encourage\ developers\ to\ copy\ it\ and\ modify\ it\ for\ their\ own}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00060}00060\ \textcolor{comment}{//\ use.\ \ We\ invite\ comments\ and\ improvements.}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00063}00063\ \textcolor{preprocessor}{\#ifndef\ \_r123\_BOXMULLER\_HPP\_\_}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00064}00064\ \textcolor{preprocessor}{\#define\ \_r123\_BOXMULLER\_HPP\_\_}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00066}00066\ \textcolor{preprocessor}{\#include\ <Random123/features/compilerfeatures.h>}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00067}00067\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{uniform_8hpp}{uniform.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00068}00068\ \textcolor{preprocessor}{\#include\ <math.h>}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00070}\mbox{\hyperlink{namespacer123}{00070}}\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacer123}{r123}}\{}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00072}00072\ \textcolor{preprocessor}{\#if\ !defined(\_\_CUDACC\_\_)}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00073}\mbox{\hyperlink{structr123_1_1float2_a18723e45509a339700c3847d2e12ee1c}{00073}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structr123_1_1float2_a18723e45509a339700c3847d2e12ee1c}{x}},\ y;\ \}\ \mbox{\hyperlink{structr123_1_1float2}{float2}};}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00074}\mbox{\hyperlink{structr123_1_1double2_a56bb85ee6730a9a30109b5db051fbd1b}{00074}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structr123_1_1double2_a56bb85ee6730a9a30109b5db051fbd1b}{x}},\ y;\ \}\ \mbox{\hyperlink{structr123_1_1double2}{double2}};}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00075}00075\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00076}00076\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{struct_vec}{::float2}}\ \mbox{\hyperlink{structr123_1_1float2}{float2}};}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00077}00077\ \textcolor{keyword}{typedef}\ ::double2\ \mbox{\hyperlink{structr123_1_1double2}{double2}};}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00078}00078\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00080}00080\ \textcolor{preprocessor}{\#if\ R123\_NO\_SINCOS\ }\textcolor{comment}{/*\ enable\ this\ if\ sincos\ and\ sincosf\ are\ not\ in\ the\ math\ library\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00081}00081\ R123\_CUDA\_DEVICE\ R123\_STATIC\_INLINE\ \textcolor{keywordtype}{void}\ sincosf(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ *s,\ \textcolor{keywordtype}{float}\ *c)\ \{}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00082}00082\ \ \ \ \ *s\ =\ sinf(x);}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00083}00083\ \ \ \ \ *c\ =\ cosf(x);}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00084}00084\ \}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00086}00086\ R123\_CUDA\_DEVICE\ R123\_STATIC\_INLINE\ \textcolor{keywordtype}{void}\ sincos(\textcolor{keywordtype}{double}\ x,\ \textcolor{keywordtype}{double}\ *s,\ \textcolor{keywordtype}{double}\ *c)\ \{}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00087}00087\ \ \ \ \ *s\ =\ sin(x);}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00088}00088\ \ \ \ \ *c\ =\ cos(x);}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00089}00089\ \}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00090}00090\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ sincos\ is\ not\ in\ the\ math\ library\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00092}00092\ \textcolor{preprocessor}{\#if\ !defined(CUDART\_VERSION)\ ||\ CUDART\_VERSION\ <\ 5000\ }\textcolor{comment}{/*\ enabled\ if\ sincospi\ and\ sincospif\ are\ not\ in\ math\ lib\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00094}\mbox{\hyperlink{namespacer123_a44c7b96d6943ef6f07a688c976fae5c4}{00094}}\ R123\_CUDA\_DEVICE\ R123\_STATIC\_INLINE\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacer123_a44c7b96d6943ef6f07a688c976fae5c4}{sincospif}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ *s,\ \textcolor{keywordtype}{float}\ *c)\{}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00095}00095\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ PIf\ =\ 3.1415926535897932f;}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00096}00096\ \ \ \ \ sincosf(PIf*x,\ s,\ c);}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00097}00097\ \}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00099}\mbox{\hyperlink{namespacer123_a603446b853f885a101ec6752f5da9e47}{00099}}\ R123\_CUDA\_DEVICE\ R123\_STATIC\_INLINE\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacer123_a603446b853f885a101ec6752f5da9e47}{sincospi}}(\textcolor{keywordtype}{double}\ x,\ \textcolor{keywordtype}{double}\ *s,\ \textcolor{keywordtype}{double}\ *c)\ \{}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00100}00100\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ PI\ =\ 3.1415926535897932;}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00101}00101\ \ \ \ \ sincos(PI*x,\ s,\ c);}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00102}00102\ \}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00103}00103\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ sincospi\ is\ not\ in\ math\ lib\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00105}00105\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00106}00106\ \textcolor{comment}{\ *\ take\ two\ 32bit\ unsigned\ random\ values\ and\ return\ a\ float2\ with}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00107}00107\ \textcolor{comment}{\ *\ two\ random\ floats\ in\ a\ normal\ distribution\ via\ a\ Box-\/Muller\ transform}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00108}00108\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00109}\mbox{\hyperlink{namespacer123_afe781081ff63812582c2f02af778a1f5}{00109}}\ R123\_CUDA\_DEVICE\ R123\_STATIC\_INLINE\ \mbox{\hyperlink{structr123_1_1float2}{float2}}\ \mbox{\hyperlink{namespacer123_afe781081ff63812582c2f02af778a1f5}{boxmuller}}(uint32\_t\ u0,\ uint32\_t\ u1)\ \{}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00110}00110\ \ \ \ \ \textcolor{keywordtype}{float}\ r;}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00111}00111\ \ \ \ \ \mbox{\hyperlink{structr123_1_1float2}{float2}}\ f;}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00112}00112\ \ \ \ \ \mbox{\hyperlink{namespacer123_a44c7b96d6943ef6f07a688c976fae5c4}{sincospif}}(uneg11<float>(u0),\ \&f.\mbox{\hyperlink{structr123_1_1float2_a18723e45509a339700c3847d2e12ee1c}{x}},\ \&f.\mbox{\hyperlink{structr123_1_1float2_af51c599edf0494ba045e0cb088f86327}{y}});}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00113}00113\ \ \ \ \ r\ =\ \mbox{\hyperlink{_float4_8h_a71bff4a4d976cf10c637579a0fd58ae5}{sqrtf}}(-\/2.f\ *\ \mbox{\hyperlink{_float4_8h_affd1f141e053a9b817ca4d94a1b912e3}{logf}}(u01<float>(u1)));\ \textcolor{comment}{//\ u01\ is\ guaranteed\ to\ avoid\ 0.}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00114}00114\ \ \ \ \ f.\mbox{\hyperlink{structr123_1_1float2_a18723e45509a339700c3847d2e12ee1c}{x}}\ *=\ r;}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00115}00115\ \ \ \ \ f.\mbox{\hyperlink{structr123_1_1float2_af51c599edf0494ba045e0cb088f86327}{y}}\ *=\ r;}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00116}00116\ \ \ \ \ \textcolor{keywordflow}{return}\ f;}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00117}00117\ \}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00119}00119\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00120}00120\ \textcolor{comment}{\ *\ take\ two\ 64bit\ unsigned\ random\ values\ and\ return\ a\ double2\ with}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00121}00121\ \textcolor{comment}{\ *\ two\ random\ doubles\ in\ a\ normal\ distribution\ via\ a\ Box-\/Muller\ transform}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00122}00122\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00123}\mbox{\hyperlink{namespacer123_a641db790ccf468913483f1d23bb009c0}{00123}}\ R123\_CUDA\_DEVICE\ R123\_STATIC\_INLINE\ \mbox{\hyperlink{structr123_1_1double2}{double2}}\ \mbox{\hyperlink{namespacer123_afe781081ff63812582c2f02af778a1f5}{boxmuller}}(uint64\_t\ u0,\ uint64\_t\ u1)\ \{}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00124}00124\ \ \ \ \ \textcolor{keywordtype}{double}\ r;}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00125}00125\ \ \ \ \ \mbox{\hyperlink{structr123_1_1double2}{double2}}\ f;}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00127}00127\ \ \ \ \ \mbox{\hyperlink{namespacer123_a603446b853f885a101ec6752f5da9e47}{sincospi}}(uneg11<double>(u0),\ \&f.\mbox{\hyperlink{structr123_1_1double2_a56bb85ee6730a9a30109b5db051fbd1b}{x}},\ \&f.\mbox{\hyperlink{structr123_1_1double2_a355ed766f070d275d7ad9268e15fb437}{y}});}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00128}00128\ \ \ \ \ r\ =\ sqrt(-\/2.\ *\ log(u01<double>(u1)));\ \textcolor{comment}{//\ u01\ is\ guaranteed\ to\ avoid\ 0.}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00129}00129\ \ \ \ \ f.\mbox{\hyperlink{structr123_1_1double2_a56bb85ee6730a9a30109b5db051fbd1b}{x}}\ *=\ r;}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00130}00130\ \ \ \ \ f.\mbox{\hyperlink{structr123_1_1double2_a355ed766f070d275d7ad9268e15fb437}{y}}\ *=\ r;}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00131}00131\ \ \ \ \ \textcolor{keywordflow}{return}\ f;}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00132}00132\ \}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00133}00133\ \}\ \textcolor{comment}{//\ namespace\ r123}}
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{boxmuller_8hpp_source_l00135}00135\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ BOXMULLER\_H\_\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

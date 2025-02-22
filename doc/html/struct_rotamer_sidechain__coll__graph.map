@@ -1,0 +1,26 @@
+<map id="RotamerSidechain&lt; BT &gt;" name="RotamerSidechain&lt; BT &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="959,168,1147,193"/>
+<area shape="rect" id="Node000002" href="$struct_potential_node.html" title="Specialization of DerivComputation for potential terms." alt="" coords="452,5,567,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="581,29,744,68,840,94,936,125,1028,165,1026,170,934,130,839,99,743,73,579,35"/>
+<area shape="rect" id="Node000003" href="$struct_deriv_computation.html" title="Differentiable computation node." alt="" coords="5,8,147,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="160,17,451,16,452,21,160,23"/>
+<area shape="rect" id="Node000005" href="$struct_coord_node.html" title="Specialization of DerivComputation for derived coordinates." alt="" coords="299,65,393,91"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="151,34,241,53,299,65,298,71,239,58,150,39"/>
+<area shape="rect" id="Node000004" href="$struct_interaction_graph.html" title=" " alt="" coords="591,119,769,144"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="783,142,958,166,958,171,782,148"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="408,84,567,109,609,116,608,121,566,114,407,89"/>
+<area shape="rect" id="Node000006" href="$struct_vec_array_storage.html" title=" " alt="" coords="11,180,141,205"/>
+<area shape="poly" id="edge8_Node000004_Node000006" title=" " alt="" coords="125,173,170,162,283,146,397,136,590,128,590,134,397,141,284,151,171,167,127,178"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="97,167,129,139,169,113,202,100,236,90,298,79,299,84,237,95,204,105,172,118,133,143,101,171"/>
+<area shape="rect" id="Node000008" href="$struct_node_holder.html" title=" " alt="" coords="297,243,395,268"/>
+<area shape="poly" id="edge10_Node000008_Node000006" title=" " alt="" coords="146,206,297,241,296,247,144,211"/>
+<area shape="rect" id="Node000009" href="$struct_edge_holder.html" title=" " alt="" coords="631,339,729,364"/>
+<area shape="poly" id="edge13_Node000009_Node000006" title=" " alt="" coords="99,214,128,244,168,279,214,312,265,337,295,344,336,350,437,354,631,351,631,356,437,360,336,355,294,350,263,342,211,316,164,283,125,248,95,218"/>
+<area shape="rect" id="Node000007" href="$struct_pairlist_computation.html" title=" " alt="" coords="264,178,428,218"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="441,183,566,161,638,142,639,147,567,166,442,188"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="409,247,769,211,958,190,958,195,770,217,409,252"/>
+<area shape="poly" id="edge12_Node000009_Node000008" title=" " alt="" coords="405,269,635,336,634,341,403,274"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="742,363,787,369,836,371,886,365,933,348,956,333,976,314,1009,270,1031,226,1045,193,1050,195,1036,228,1013,273,980,318,959,337,936,352,888,370,836,376,786,375,742,369"/>
+<area shape="rect" id="Node000010" href="$struct_edge_locator.html" title=" " alt="" coords="295,400,397,425"/>
+<area shape="poly" id="edge14_Node000009_Node000010" title=" " alt="" coords="411,405,486,396,566,382,641,362,642,367,567,387,486,401,411,410"/>
+</map>

@@ -1,0 +1,77 @@
+\doxysection{src/generate\+\_\+from\+\_\+rotamer.cpp File Reference}
+\hypertarget{generate__from__rotamer_8cpp}{}\label{generate__from__rotamer_8cpp}\index{src/generate\_from\_rotamer.cpp@{src/generate\_from\_rotamer.cpp}}
+{\ttfamily \#include $<$Eigen/\+Dense$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$array$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$Eigen/\+Geometry$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+Include dependency graph for generate\+\_\+from\+\_\+rotamer.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{generate__from__rotamer_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{generate__from__rotamer_8cpp_a2f6834eee5548a6396951803fc10682c}{Res\+Func\+Ptr}}) (Matrix\+X3f \&ret, float psi, const array$<$ float, 4 $>$ \&chi)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Affine3f \mbox{\hyperlink{generate__from__rotamer_8cpp_a95392b3f5fa06c52b1e0e97b2e1ec9a9}{make\+\_\+tab}} (float phi, float theta, float bond)
+\item 
+Affine3f \mbox{\hyperlink{generate__from__rotamer_8cpp_aed019037e6691a7c80ab5e60d62fc810}{place\+\_\+bb}} (Matrix\+X3f \&ret, float psi, bool include\+\_\+\+CB=true)
+\item 
+map$<$ string, \mbox{\hyperlink{generate__from__rotamer_8cpp_a2f6834eee5548a6396951803fc10682c}{Res\+Func\+Ptr}} $>$ \& \mbox{\hyperlink{generate__from__rotamer_8cpp_a0283ace17e9d1257bf60034cae86bfc7}{res\+\_\+func\+\_\+map}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{generate__from__rotamer_8cpp_a2f6834eee5548a6396951803fc10682c}\label{generate__from__rotamer_8cpp_a2f6834eee5548a6396951803fc10682c} 
+\index{generate\_from\_rotamer.cpp@{generate\_from\_rotamer.cpp}!ResFuncPtr@{ResFuncPtr}}
+\index{ResFuncPtr@{ResFuncPtr}!generate\_from\_rotamer.cpp@{generate\_from\_rotamer.cpp}}
+\doxysubsubsection{\texorpdfstring{ResFuncPtr}{ResFuncPtr}}
+{\footnotesize\ttfamily typedef void(\texorpdfstring{$\ast$}{*} Res\+Func\+Ptr) (Matrix\+X3f \&ret, float psi, const array$<$ float, 4 $>$ \&chi)}
+
+
+
+Definition at line \mbox{\hyperlink{generate__from__rotamer_8cpp_source_l00214}{214}} of file \mbox{\hyperlink{generate__from__rotamer_8cpp_source}{generate\+\_\+from\+\_\+rotamer.\+cpp}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{generate__from__rotamer_8cpp_a95392b3f5fa06c52b1e0e97b2e1ec9a9}\label{generate__from__rotamer_8cpp_a95392b3f5fa06c52b1e0e97b2e1ec9a9} 
+\index{generate\_from\_rotamer.cpp@{generate\_from\_rotamer.cpp}!make\_tab@{make\_tab}}
+\index{make\_tab@{make\_tab}!generate\_from\_rotamer.cpp@{generate\_from\_rotamer.cpp}}
+\doxysubsubsection{\texorpdfstring{make\_tab()}{make\_tab()}}
+{\footnotesize\ttfamily Affine3f make\+\_\+tab (\begin{DoxyParamCaption}\item[{float}]{phi,  }\item[{float}]{theta,  }\item[{float}]{bond }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{generate__from__rotamer_8cpp_source_l00015}{15}} of file \mbox{\hyperlink{generate__from__rotamer_8cpp_source}{generate\+\_\+from\+\_\+rotamer.\+cpp}}.
+
+\Hypertarget{generate__from__rotamer_8cpp_aed019037e6691a7c80ab5e60d62fc810}\label{generate__from__rotamer_8cpp_aed019037e6691a7c80ab5e60d62fc810} 
+\index{generate\_from\_rotamer.cpp@{generate\_from\_rotamer.cpp}!place\_bb@{place\_bb}}
+\index{place\_bb@{place\_bb}!generate\_from\_rotamer.cpp@{generate\_from\_rotamer.cpp}}
+\doxysubsubsection{\texorpdfstring{place\_bb()}{place\_bb()}}
+{\footnotesize\ttfamily Affine3f place\+\_\+bb (\begin{DoxyParamCaption}\item[{Matrix\+X3f \&}]{ret,  }\item[{float}]{psi,  }\item[{bool}]{include\+\_\+\+CB = {\ttfamily true} }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{generate__from__rotamer_8cpp_source_l00030}{30}} of file \mbox{\hyperlink{generate__from__rotamer_8cpp_source}{generate\+\_\+from\+\_\+rotamer.\+cpp}}.
+
+\Hypertarget{generate__from__rotamer_8cpp_a0283ace17e9d1257bf60034cae86bfc7}\label{generate__from__rotamer_8cpp_a0283ace17e9d1257bf60034cae86bfc7} 
+\index{generate\_from\_rotamer.cpp@{generate\_from\_rotamer.cpp}!res\_func\_map@{res\_func\_map}}
+\index{res\_func\_map@{res\_func\_map}!generate\_from\_rotamer.cpp@{generate\_from\_rotamer.cpp}}
+\doxysubsubsection{\texorpdfstring{res\_func\_map()}{res\_func\_map()}}
+{\footnotesize\ttfamily map$<$ string, \mbox{\hyperlink{generate__from__rotamer_8cpp_a2f6834eee5548a6396951803fc10682c}{Res\+Func\+Ptr}} $>$ \& res\+\_\+func\+\_\+map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{generate__from__rotamer_8cpp_source_l00216}{216}} of file \mbox{\hyperlink{generate__from__rotamer_8cpp_source}{generate\+\_\+from\+\_\+rotamer.\+cpp}}.
+

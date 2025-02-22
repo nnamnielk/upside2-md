@@ -1,0 +1,26 @@
+var struct_edge_holder =
+[
+    [ "EdgeLoc", "struct_edge_holder_1_1_edge_loc.html", "struct_edge_holder_1_1_edge_loc" ],
+    [ "EdgeHolder", "struct_edge_holder.html#a34e8120bafff48645a7dbe3354ab5076", null ],
+    [ "add_to_edge", "struct_edge_holder.html#a260a085da482d4f1b048ba3db5a2d78e", null ],
+    [ "calculate_marginals", "struct_edge_holder.html#a15cfad6e01dacc3fb60f3dbc4c826061", null ],
+    [ "edge_entropy", "struct_edge_holder.html#a2ad900bfbd9292b95b388157fa260c14", null ],
+    [ "edge_free_energy", "struct_edge_holder.html#ad760642ab1b443ec2048440724fe43b3", null ],
+    [ "move_edge_prob_to_node2", "struct_edge_holder.html#ad43ec9b562d4ae866faabe42a20112ab", null ],
+    [ "reset", "struct_edge_holder.html#a760941f3ce277eae3cd547cb02166680", null ],
+    [ "standardize_probs", "struct_edge_holder.html#ab956272702ecc9b0e3c278d08750ae1f", null ],
+    [ "swap_beliefs", "struct_edge_holder.html#a6f316cb4a0e3aa24f075e3a3abd990ad", null ],
+    [ "update_beliefs", "struct_edge_holder.html#a0e6682105409ac29d04909e04117cbc2", null ],
+    [ "cur_belief", "struct_edge_holder.html#aba5b04fa210918b68e1adfb7ecf13f7b", null ],
+    [ "edge_indices1", "struct_edge_holder.html#a5f4b1d8ec04a837334143dbebe780a55", null ],
+    [ "edge_indices2", "struct_edge_holder.html#aeba8fe1905fde18861cc5723430913a0", null ],
+    [ "edge_loc", "struct_edge_holder.html#a1265afe1ae4267695307e806a99f22ae", null ],
+    [ "marginal", "struct_edge_holder.html#a061abda544f4cb9261004a15ec7a047d", null ],
+    [ "n_rot1", "struct_edge_holder.html#a024ff9580d0248a5d45264cb724b0677", null ],
+    [ "n_rot2", "struct_edge_holder.html#a59eb39978f1fd763a91dffc28e525080", null ],
+    [ "nodes1", "struct_edge_holder.html#a17e6d5df5675d7b29ae7eac1a8dd4818", null ],
+    [ "nodes2", "struct_edge_holder.html#a141324f20fc3063dca8ae28f59fa5299", null ],
+    [ "nodes_to_edge", "struct_edge_holder.html#a6f2472dd708d6e8cde28a3e2ed3c7695", null ],
+    [ "old_belief", "struct_edge_holder.html#a93dc6fad6cf4f62bfbfd903e1290726f", null ],
+    [ "prob", "struct_edge_holder.html#a4b2430c4bbc9a372c2730c1c1d3b3236", null ]
+];

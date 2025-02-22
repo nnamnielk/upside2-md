@@ -1,0 +1,463 @@
+\doxysection{src/\+Float4.h File Reference}
+\hypertarget{_float4_8h}{}\label{_float4_8h}\index{src/Float4.h@{src/Float4.h}}
+{\ttfamily \#include $<$xmmintrin.\+h$>$}\newline
+{\ttfamily \#include $<$smmintrin.\+h$>$}\newline
+{\ttfamily \#include $<$immintrin.\+h$>$}\newline
+Include dependency graph for Float4.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{_float4_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_float4_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_int4}{Int4}}
+\item 
+struct \mbox{\hyperlink{struct_float4}{Float4}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726}{Alignment}} \{ \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726ac1ee38840b675778cb869cc00f8a95e8}{unaligned}}
+, \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726a165f93b99f87c219277d70d866425da6}{aligned}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{_float4_8h_a617d800f1853f5f9b1085dde0f123850}{popcnt\+\_\+nibble}} (int value)
+\item 
+\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{_float4_8h_a6eaf2e3539fda98579b6c78f69ae151a}{rsqrt}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&x)
+\item 
+\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{_float4_8h_a71bff4a4d976cf10c637579a0fd58ae5}{sqrtf}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&x)
+\item 
+\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{_float4_8h_a52d502438dee5d0a9ed6bd4b0d1a1840}{rcp}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&x)
+\item 
+{\footnotesize template$<$int i0, int i1, int i2, int i3$>$ }\\\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{_float4_8h_a0416764fe958780a9dd8e03098a2ad90}{shuffle}} (\mbox{\hyperlink{struct_float4}{Float4}} m1, \mbox{\hyperlink{struct_float4}{Float4}} m2)
+\item 
+{\footnotesize template$<$int i0, int i1, int i2, int i3$>$ }\\\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{_float4_8h_a025128a83aad3988bff01648125c0f97}{shuffle}} (\mbox{\hyperlink{struct_float4}{Float4}} m)
+\item 
+void \mbox{\hyperlink{_float4_8h_a37f2e029fa219a5e82f8c4c5c4552d93}{transpose4}} (\mbox{\hyperlink{struct_float4}{Float4}} \&x, \mbox{\hyperlink{struct_float4}{Float4}} \&y, \mbox{\hyperlink{struct_float4}{Float4}} \&z, \mbox{\hyperlink{struct_float4}{Float4}} \&w)
+\item 
+\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{_float4_8h_aacb91429a798338284da425e353e1a07}{fmadd}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&a1, const \mbox{\hyperlink{struct_float4}{Float4}} \&a2, const \mbox{\hyperlink{struct_float4}{Float4}} \&b)
+\item 
+\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{_float4_8h_a129e8d073d9a23c532cfc4e01f856899}{fmsub}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&a1, const \mbox{\hyperlink{struct_float4}{Float4}} \&a2, const \mbox{\hyperlink{struct_float4}{Float4}} \&b)
+\item 
+\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{_float4_8h_aea31e5e2a8dd98fe7d99206ced8f792c}{expf}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&x)
+\item 
+\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{_float4_8h_affd1f141e053a9b817ca4d94a1b912e3}{logf}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&x)
+\item 
+bool \mbox{\hyperlink{_float4_8h_a5421116a047bd3271ae49134eaa98e1a}{any}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&x)
+\item 
+bool \mbox{\hyperlink{_float4_8h_a0dd23264eeeaae3072b443c611fe138f}{none}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&x)
+\item 
+\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{_float4_8h_a617d53f010c1d5e9a10a1720f300b7fe}{ternary}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&which, const \mbox{\hyperlink{struct_float4}{Float4}} \&a, const \mbox{\hyperlink{struct_float4}{Float4}} \&b)
+\item 
+\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{_float4_8h_a2237cd1ef8e30e3de4596c5aad2439ca}{min}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&a, const \mbox{\hyperlink{struct_float4}{Float4}} \&b)
+\item 
+\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{_float4_8h_a808942fd61ab9b0629299e577df245c8}{max}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&a, const \mbox{\hyperlink{struct_float4}{Float4}} \&b)
+\item 
+\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{_float4_8h_a47130891644ceec8af05160355eb021d}{approx\+\_\+rsqrt}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&x)
+\item 
+\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{_float4_8h_a012b864626235059b76cc97c0b920397}{approx\+\_\+rcp}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&x)
+\item 
+\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{_float4_8h_ad113dbc0096475a7e28b3e6bf301a8b1}{horizontal\+\_\+add}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&x1, const \mbox{\hyperlink{struct_float4}{Float4}} \&x2)
+\item 
+{\footnotesize template$<$int out\+\_\+mask0, int out\+\_\+mask1, int out\+\_\+mask2, int out\+\_\+mask3, int sum\+\_\+mask0, int sum\+\_\+mask1, int sum\+\_\+mask2, int sum\+\_\+mask3$>$ }\\\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{_float4_8h_af02fe10dabbc55923559a0bcadfff1c6}{dp}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&x, const \mbox{\hyperlink{struct_float4}{Float4}} \&y)
+\item 
+\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{_float4_8h_a130ae7fa651be9c469d82590e761a3fe}{dot}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&x, const \mbox{\hyperlink{struct_float4}{Float4}} \&y)
+\item 
+\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{_float4_8h_a0ff11eab674be94851d382df55bd0295}{dot3}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&x, const \mbox{\hyperlink{struct_float4}{Float4}} \&y)
+\item 
+\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{_float4_8h_a2f977ef5094039b4e9a7a66f31c008f3}{mag2}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&x)
+\item 
+\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{_float4_8h_a598369d852fe1cf8c960736883b3f3f3}{inv\+\_\+mag}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&x)
+\item 
+\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{_float4_8h_aa98b5f0cb57ab159636b03576c0358b3}{inv\+\_\+mag2}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&x)
+\item 
+\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{_float4_8h_ac1e2a71dea3a59bfa2db65143678e99b}{cross}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&x, const \mbox{\hyperlink{struct_float4}{Float4}} \&y)
+\item 
+float \mbox{\hyperlink{_float4_8h_a8082cb1509df8ec710d2b79f81547601}{extract\+\_\+float}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&x)
+\item 
+float \mbox{\hyperlink{_float4_8h_a73a761a435fe18b9098f203a106dcd27}{extract\+\_\+float}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&x, int d)
+\item 
+float \mbox{\hyperlink{_float4_8h_aab722bf54820e7fa1bb49a6c11529140}{extract\+\_\+float}} (float x)
+\item 
+\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{_float4_8h_a3660fa146ae881e87d6ecad19222eb57}{fabsf}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&x)
+\item 
+\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{_float4_8h_a8a7ad5cba3f2dd48b17036df9a383ee8}{copysignf}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&mag\+\_\+carrier, const \mbox{\hyperlink{struct_float4}{Float4}} \&sign\+\_\+carrier)
+\item 
+\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{_float4_8h_a00eebb50b347401b839d17b3e3e814ff}{approx\+\_\+max\+\_\+normalize3}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&o)
+\item 
+\mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{_float4_8h_a2ce0c8f09f6a667f8b65dd01a53b96a7}{isnan}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&o)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{_float4_8h_acdfaca60ec19c0265bac2692d7982726}\label{_float4_8h_acdfaca60ec19c0265bac2692d7982726} 
+\index{Float4.h@{Float4.h}!Alignment@{Alignment}}
+\index{Alignment@{Alignment}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{Alignment}{Alignment}}
+{\footnotesize\ttfamily enum class \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726}{Alignment}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{unaligned@{unaligned}!Float4.h@{Float4.h}}\index{Float4.h@{Float4.h}!unaligned@{unaligned}}}\Hypertarget{_float4_8h_acdfaca60ec19c0265bac2692d7982726ac1ee38840b675778cb869cc00f8a95e8}\label{_float4_8h_acdfaca60ec19c0265bac2692d7982726ac1ee38840b675778cb869cc00f8a95e8} 
+unaligned&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{aligned@{aligned}!Float4.h@{Float4.h}}\index{Float4.h@{Float4.h}!aligned@{aligned}}}\Hypertarget{_float4_8h_acdfaca60ec19c0265bac2692d7982726a165f93b99f87c219277d70d866425da6}\label{_float4_8h_acdfaca60ec19c0265bac2692d7982726a165f93b99f87c219277d70d866425da6} 
+aligned&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00010}{10}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_float4_8h_a5421116a047bd3271ae49134eaa98e1a}\label{_float4_8h_a5421116a047bd3271ae49134eaa98e1a} 
+\index{Float4.h@{Float4.h}!any@{any}}
+\index{any@{any}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{any()}{any()}}
+{\footnotesize\ttfamily bool any (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00447}{447}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_a00eebb50b347401b839d17b3e3e814ff}\label{_float4_8h_a00eebb50b347401b839d17b3e3e814ff} 
+\index{Float4.h@{Float4.h}!approx\_max\_normalize3@{approx\_max\_normalize3}}
+\index{approx\_max\_normalize3@{approx\_max\_normalize3}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{approx\_max\_normalize3()}{approx\_max\_normalize3()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_float4}{Float4}} approx\+\_\+max\+\_\+normalize3 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{o }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00522}{522}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_a012b864626235059b76cc97c0b920397}\label{_float4_8h_a012b864626235059b76cc97c0b920397} 
+\index{Float4.h@{Float4.h}!approx\_rcp@{approx\_rcp}}
+\index{approx\_rcp@{approx\_rcp}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{approx\_rcp()}{approx\_rcp()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_float4}{Float4}} approx\+\_\+rcp (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00464}{464}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_a47130891644ceec8af05160355eb021d}\label{_float4_8h_a47130891644ceec8af05160355eb021d} 
+\index{Float4.h@{Float4.h}!approx\_rsqrt@{approx\_rsqrt}}
+\index{approx\_rsqrt@{approx\_rsqrt}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{approx\_rsqrt()}{approx\_rsqrt()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_float4}{Float4}} approx\+\_\+rsqrt (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00463}{463}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_a8a7ad5cba3f2dd48b17036df9a383ee8}\label{_float4_8h_a8a7ad5cba3f2dd48b17036df9a383ee8} 
+\index{Float4.h@{Float4.h}!copysignf@{copysignf}}
+\index{copysignf@{copysignf}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{copysignf()}{copysignf()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_float4}{Float4}} copysignf (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{mag\+\_\+carrier,  }\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{sign\+\_\+carrier }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00518}{518}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_ac1e2a71dea3a59bfa2db65143678e99b}\label{_float4_8h_ac1e2a71dea3a59bfa2db65143678e99b} 
+\index{Float4.h@{Float4.h}!cross@{cross}}
+\index{cross@{cross}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{cross()}{cross()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_float4}{Float4}} cross (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{x,  }\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00498}{498}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_a130ae7fa651be9c469d82590e761a3fe}\label{_float4_8h_a130ae7fa651be9c469d82590e761a3fe} 
+\index{Float4.h@{Float4.h}!dot@{dot}}
+\index{dot@{dot}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{dot()}{dot()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_float4}{Float4}} dot (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{x,  }\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00478}{478}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_a0ff11eab674be94851d382df55bd0295}\label{_float4_8h_a0ff11eab674be94851d382df55bd0295} 
+\index{Float4.h@{Float4.h}!dot3@{dot3}}
+\index{dot3@{dot3}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{dot3()}{dot3()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_float4}{Float4}} dot3 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{x,  }\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00482}{482}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_af02fe10dabbc55923559a0bcadfff1c6}\label{_float4_8h_af02fe10dabbc55923559a0bcadfff1c6} 
+\index{Float4.h@{Float4.h}!dp@{dp}}
+\index{dp@{dp}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{dp()}{dp()}}
+{\footnotesize\ttfamily template$<$int out\+\_\+mask0, int out\+\_\+mask1, int out\+\_\+mask2, int out\+\_\+mask3, int sum\+\_\+mask0, int sum\+\_\+mask1, int sum\+\_\+mask2, int sum\+\_\+mask3$>$ \\
+\mbox{\hyperlink{struct_float4}{Float4}} dp (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{x,  }\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{y }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00473}{473}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_aea31e5e2a8dd98fe7d99206ced8f792c}\label{_float4_8h_aea31e5e2a8dd98fe7d99206ced8f792c} 
+\index{Float4.h@{Float4.h}!expf@{expf}}
+\index{expf@{expf}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{expf()}{expf()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_float4}{Float4}} expf (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00435}{435}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_a8082cb1509df8ec710d2b79f81547601}\label{_float4_8h_a8082cb1509df8ec710d2b79f81547601} 
+\index{Float4.h@{Float4.h}!extract\_float@{extract\_float}}
+\index{extract\_float@{extract\_float}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{extract\_float()}{extract\_float()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily float extract\+\_\+float (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00503}{503}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_a73a761a435fe18b9098f203a106dcd27}\label{_float4_8h_a73a761a435fe18b9098f203a106dcd27} 
+\index{Float4.h@{Float4.h}!extract\_float@{extract\_float}}
+\index{extract\_float@{extract\_float}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{extract\_float()}{extract\_float()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily float extract\+\_\+float (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{x,  }\item[{int}]{d }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00504}{504}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_aab722bf54820e7fa1bb49a6c11529140}\label{_float4_8h_aab722bf54820e7fa1bb49a6c11529140} 
+\index{Float4.h@{Float4.h}!extract\_float@{extract\_float}}
+\index{extract\_float@{extract\_float}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{extract\_float()}{extract\_float()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily float extract\+\_\+float (\begin{DoxyParamCaption}\item[{float}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00511}{511}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_a3660fa146ae881e87d6ecad19222eb57}\label{_float4_8h_a3660fa146ae881e87d6ecad19222eb57} 
+\index{Float4.h@{Float4.h}!fabsf@{fabsf}}
+\index{fabsf@{fabsf}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{fabsf()}{fabsf()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_float4}{Float4}} fabsf (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00514}{514}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_aacb91429a798338284da425e353e1a07}\label{_float4_8h_aacb91429a798338284da425e353e1a07} 
+\index{Float4.h@{Float4.h}!fmadd@{fmadd}}
+\index{fmadd@{fmadd}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{fmadd()}{fmadd()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_float4}{Float4}} fmadd (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{a1,  }\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{a2,  }\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00417}{417}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_a129e8d073d9a23c532cfc4e01f856899}\label{_float4_8h_a129e8d073d9a23c532cfc4e01f856899} 
+\index{Float4.h@{Float4.h}!fmsub@{fmsub}}
+\index{fmsub@{fmsub}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{fmsub()}{fmsub()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_float4}{Float4}} fmsub (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{a1,  }\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{a2,  }\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00425}{425}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_ad113dbc0096475a7e28b3e6bf301a8b1}\label{_float4_8h_ad113dbc0096475a7e28b3e6bf301a8b1} 
+\index{Float4.h@{Float4.h}!horizontal\_add@{horizontal\_add}}
+\index{horizontal\_add@{horizontal\_add}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{horizontal\_add()}{horizontal\_add()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_float4}{Float4}} horizontal\+\_\+add (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{x1,  }\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{x2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00467}{467}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_a598369d852fe1cf8c960736883b3f3f3}\label{_float4_8h_a598369d852fe1cf8c960736883b3f3f3} 
+\index{Float4.h@{Float4.h}!inv\_mag@{inv\_mag}}
+\index{inv\_mag@{inv\_mag}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{inv\_mag()}{inv\_mag()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_float4}{Float4}} inv\+\_\+mag (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00490}{490}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_aa98b5f0cb57ab159636b03576c0358b3}\label{_float4_8h_aa98b5f0cb57ab159636b03576c0358b3} 
+\index{Float4.h@{Float4.h}!inv\_mag2@{inv\_mag2}}
+\index{inv\_mag2@{inv\_mag2}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{inv\_mag2()}{inv\_mag2()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_float4}{Float4}} inv\+\_\+mag2 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00494}{494}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_a2ce0c8f09f6a667f8b65dd01a53b96a7}\label{_float4_8h_a2ce0c8f09f6a667f8b65dd01a53b96a7} 
+\index{Float4.h@{Float4.h}!isnan@{isnan}}
+\index{isnan@{isnan}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{isnan()}{isnan()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_float4}{Float4}} isnan (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{o }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00527}{527}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_affd1f141e053a9b817ca4d94a1b912e3}\label{_float4_8h_affd1f141e053a9b817ca4d94a1b912e3} 
+\index{Float4.h@{Float4.h}!logf@{logf}}
+\index{logf@{logf}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{logf()}{logf()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_float4}{Float4}} logf (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00442}{442}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_a2f977ef5094039b4e9a7a66f31c008f3}\label{_float4_8h_a2f977ef5094039b4e9a7a66f31c008f3} 
+\index{Float4.h@{Float4.h}!mag2@{mag2}}
+\index{mag2@{mag2}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{mag2()}{mag2()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_float4}{Float4}} mag2 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00486}{486}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_a808942fd61ab9b0629299e577df245c8}\label{_float4_8h_a808942fd61ab9b0629299e577df245c8} 
+\index{Float4.h@{Float4.h}!max@{max}}
+\index{max@{max}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{max()}{max()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_float4}{Float4}} max (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{a,  }\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00459}{459}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_a2237cd1ef8e30e3de4596c5aad2439ca}\label{_float4_8h_a2237cd1ef8e30e3de4596c5aad2439ca} 
+\index{Float4.h@{Float4.h}!min@{min}}
+\index{min@{min}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{min()}{min()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_float4}{Float4}} min (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{a,  }\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00455}{455}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_a0dd23264eeeaae3072b443c611fe138f}\label{_float4_8h_a0dd23264eeeaae3072b443c611fe138f} 
+\index{Float4.h@{Float4.h}!none@{none}}
+\index{none@{none}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{none()}{none()}}
+{\footnotesize\ttfamily bool none (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00448}{448}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_a617d800f1853f5f9b1085dde0f123850}\label{_float4_8h_a617d800f1853f5f9b1085dde0f123850} 
+\index{Float4.h@{Float4.h}!popcnt\_nibble@{popcnt\_nibble}}
+\index{popcnt\_nibble@{popcnt\_nibble}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{popcnt\_nibble()}{popcnt\_nibble()}}
+{\footnotesize\ttfamily int popcnt\+\_\+nibble (\begin{DoxyParamCaption}\item[{int}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00040}{40}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_a52d502438dee5d0a9ed6bd4b0d1a1840}\label{_float4_8h_a52d502438dee5d0a9ed6bd4b0d1a1840} 
+\index{Float4.h@{Float4.h}!rcp@{rcp}}
+\index{rcp@{rcp}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{rcp()}{rcp()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_float4}{Float4}} rcp (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00395}{395}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_a6eaf2e3539fda98579b6c78f69ae151a}\label{_float4_8h_a6eaf2e3539fda98579b6c78f69ae151a} 
+\index{Float4.h@{Float4.h}!rsqrt@{rsqrt}}
+\index{rsqrt@{rsqrt}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{rsqrt()}{rsqrt()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_float4}{Float4}} rsqrt (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00393}{393}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_a025128a83aad3988bff01648125c0f97}\label{_float4_8h_a025128a83aad3988bff01648125c0f97} 
+\index{Float4.h@{Float4.h}!shuffle@{shuffle}}
+\index{shuffle@{shuffle}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{shuffle()}{shuffle()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$int i0, int i1, int i2, int i3$>$ \\
+\mbox{\hyperlink{struct_float4}{Float4}} shuffle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_float4}{Float4}}}]{m }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00407}{407}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_a0416764fe958780a9dd8e03098a2ad90}\label{_float4_8h_a0416764fe958780a9dd8e03098a2ad90} 
+\index{Float4.h@{Float4.h}!shuffle@{shuffle}}
+\index{shuffle@{shuffle}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{shuffle()}{shuffle()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$int i0, int i1, int i2, int i3$>$ \\
+\mbox{\hyperlink{struct_float4}{Float4}} shuffle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_float4}{Float4}}}]{m1,  }\item[{\mbox{\hyperlink{struct_float4}{Float4}}}]{m2 }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00399}{399}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_a71bff4a4d976cf10c637579a0fd58ae5}\label{_float4_8h_a71bff4a4d976cf10c637579a0fd58ae5} 
+\index{Float4.h@{Float4.h}!sqrtf@{sqrtf}}
+\index{sqrtf@{sqrtf}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{sqrtf()}{sqrtf()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_float4}{Float4}} sqrtf (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00394}{394}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_a617d53f010c1d5e9a10a1720f300b7fe}\label{_float4_8h_a617d53f010c1d5e9a10a1720f300b7fe} 
+\index{Float4.h@{Float4.h}!ternary@{ternary}}
+\index{ternary@{ternary}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{ternary()}{ternary()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_float4}{Float4}} ternary (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{which,  }\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{a,  }\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00450}{450}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+
+\Hypertarget{_float4_8h_a37f2e029fa219a5e82f8c4c5c4552d93}\label{_float4_8h_a37f2e029fa219a5e82f8c4c5c4552d93} 
+\index{Float4.h@{Float4.h}!transpose4@{transpose4}}
+\index{transpose4@{transpose4}!Float4.h@{Float4.h}}
+\doxysubsubsection{\texorpdfstring{transpose4()}{transpose4()}}
+{\footnotesize\ttfamily void transpose4 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_float4}{Float4}} \&}]{x,  }\item[{\mbox{\hyperlink{struct_float4}{Float4}} \&}]{y,  }\item[{\mbox{\hyperlink{struct_float4}{Float4}} \&}]{z,  }\item[{\mbox{\hyperlink{struct_float4}{Float4}} \&}]{w }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_float4_8h_source_l00412}{412}} of file \mbox{\hyperlink{_float4_8h_source}{Float4.\+h}}.
+

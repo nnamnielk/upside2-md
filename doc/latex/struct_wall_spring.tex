@@ -1,0 +1,171 @@
+\doxysection{Wall\+Spring Struct Reference}
+\hypertarget{struct_wall_spring}{}\label{struct_wall_spring}\index{WallSpring@{WallSpring}}
+
+
+Inheritance diagram for Wall\+Spring\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{struct_wall_spring__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Wall\+Spring\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{struct_wall_spring__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_wall_spring_a39a57afcc860246dc397faefe406f08b}{Wall\+Spring}} (\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{hid\+\_\+t}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{grp}}, \mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pos\+\_\+}})
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_wall_spring_a451f4f1e5bb6921698e029582d6c47be}{compute\+\_\+value}} (\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{Compute\+Mode}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{mode}})
+\begin{DoxyCompactList}\small\item\em Reads inputs and computes output value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_potential_node}{Potential\+Node}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_potential_node_ae85f3af95266404a37981073878c677b}{Potential\+Node}} ()
+\begin{DoxyCompactList}\small\item\em Trivial constructor. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{struct_potential_node_ab773065a7ed9977bcef687108baa6ef4}{propagate\+\_\+deriv}} ()
+\begin{DoxyCompactList}\small\item\em (unused) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_deriv_computation_ab55a3d270aedc331a7ade09591198c4f}{Deriv\+Computation}} (bool potential\+\_\+term\+\_\+)
+\begin{DoxyCompactList}\small\item\em Construct only noting if node is a potential\+\_\+node. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{struct_deriv_computation_ae61f149a7fc4869f1d053c263fd03657}{\texorpdfstring{$\sim$}{\string~}\+Deriv\+Computation}} ()
+\begin{DoxyCompactList}\small\item\em Trivial destructor. \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_deriv_computation_a5824da52d79ac4ac46e2cee217d8197c}{get\+\_\+param}} () const
+\begin{DoxyCompactList}\small\item\em Return arbitrary subset of parameters. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{struct_deriv_computation_a7c8dbb439e850f9cb4769aac0808d8c6}{set\+\_\+param}} (const std\+::vector$<$ float $>$ \&new\+\_\+params)
+\begin{DoxyCompactList}\small\item\em Set arbitrary subset of parameters (same as get\+\_\+param) \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_deriv_computation_aec2d05db4c36f52f8b7de6922af52494}{get\+\_\+value\+\_\+by\+\_\+name}} (const char \texorpdfstring{$\ast$}{*}log\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Compute a named quantity and return vector of floats (arbitrary behavior) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_wall_spring_aba791579071f361d67d7c09ea1c3bb86}{n\+\_\+elem}}
+\item 
+\mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \& \mbox{\hyperlink{struct_wall_spring_aa485c21f5a607191ca5f32b12d282b06}{pos}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ Params $>$ \mbox{\hyperlink{struct_wall_spring_a19a643e47c0d0140fb3222830ef35353}{params}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_wall_spring_a3400858afb1249bc48ab3755cf0c1bc3}{n\+\_\+dim}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_wall_spring_a925e576fc5d21c356cb07bc295e3cc69}{dim1}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_potential_node}{Potential\+Node}}}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{struct_potential_node_ae34531266ff6716a791f3a55edb60015}{potential}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}}}
+\begin{DoxyCompactItemize}
+\item 
+const bool \mbox{\hyperlink{struct_deriv_computation_ab9caf415ec64cd42c99d24545238e691}{potential\+\_\+term}}
+\begin{DoxyCompactList}\small\item\em True if output represents a potential energy rather than a new coordinate. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{spring_8cpp_source_l00083}{83}} of file \mbox{\hyperlink{spring_8cpp_source}{spring.\+cpp}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_wall_spring_a39a57afcc860246dc397faefe406f08b}\label{struct_wall_spring_a39a57afcc860246dc397faefe406f08b} 
+\index{WallSpring@{WallSpring}!WallSpring@{WallSpring}}
+\index{WallSpring@{WallSpring}!WallSpring@{WallSpring}}
+\doxysubsubsection{\texorpdfstring{WallSpring()}{WallSpring()}}
+{\footnotesize\ttfamily Wall\+Spring\+::\+Wall\+Spring (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{hid\+\_\+t}}}]{grp,  }\item[{\mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&}]{pos\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{spring_8cpp_source_l00098}{98}} of file \mbox{\hyperlink{spring_8cpp_source}{spring.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_wall_spring_a451f4f1e5bb6921698e029582d6c47be}\label{struct_wall_spring_a451f4f1e5bb6921698e029582d6c47be} 
+\index{WallSpring@{WallSpring}!compute\_value@{compute\_value}}
+\index{compute\_value@{compute\_value}!WallSpring@{WallSpring}}
+\doxysubsubsection{\texorpdfstring{compute\_value()}{compute\_value()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} Wall\+Spring\+::compute\+\_\+value (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{Compute\+Mode}}}]{mode }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reads inputs and computes output value. 
+
+
+
+Implements \mbox{\hyperlink{struct_deriv_computation_a750d9688cee97b4ab8a6c66c8a739bfc}{Deriv\+Computation}}.
+
+
+
+Definition at line \mbox{\hyperlink{spring_8cpp_source_l00118}{118}} of file \mbox{\hyperlink{spring_8cpp_source}{spring.\+cpp}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_wall_spring_a925e576fc5d21c356cb07bc295e3cc69}\label{struct_wall_spring_a925e576fc5d21c356cb07bc295e3cc69} 
+\index{WallSpring@{WallSpring}!dim1@{dim1}}
+\index{dim1@{dim1}!WallSpring@{WallSpring}}
+\doxysubsubsection{\texorpdfstring{dim1}{dim1}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} Wall\+Spring\+::dim1}
+
+
+
+Definition at line \mbox{\hyperlink{spring_8cpp_source_l00096}{96}} of file \mbox{\hyperlink{spring_8cpp_source}{spring.\+cpp}}.
+
+\Hypertarget{struct_wall_spring_a3400858afb1249bc48ab3755cf0c1bc3}\label{struct_wall_spring_a3400858afb1249bc48ab3755cf0c1bc3} 
+\index{WallSpring@{WallSpring}!n\_dim@{n\_dim}}
+\index{n\_dim@{n\_dim}!WallSpring@{WallSpring}}
+\doxysubsubsection{\texorpdfstring{n\_dim}{n\_dim}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} Wall\+Spring\+::n\+\_\+dim}
+
+
+
+Definition at line \mbox{\hyperlink{spring_8cpp_source_l00095}{95}} of file \mbox{\hyperlink{spring_8cpp_source}{spring.\+cpp}}.
+
+\Hypertarget{struct_wall_spring_aba791579071f361d67d7c09ea1c3bb86}\label{struct_wall_spring_aba791579071f361d67d7c09ea1c3bb86} 
+\index{WallSpring@{WallSpring}!n\_elem@{n\_elem}}
+\index{n\_elem@{n\_elem}!WallSpring@{WallSpring}}
+\doxysubsubsection{\texorpdfstring{n\_elem}{n\_elem}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} Wall\+Spring\+::n\+\_\+elem}
+
+
+
+Definition at line \mbox{\hyperlink{spring_8cpp_source_l00092}{92}} of file \mbox{\hyperlink{spring_8cpp_source}{spring.\+cpp}}.
+
+\Hypertarget{struct_wall_spring_a19a643e47c0d0140fb3222830ef35353}\label{struct_wall_spring_a19a643e47c0d0140fb3222830ef35353} 
+\index{WallSpring@{WallSpring}!params@{params}}
+\index{params@{params}!WallSpring@{WallSpring}}
+\doxysubsubsection{\texorpdfstring{params}{params}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$Params$>$ Wall\+Spring\+::params}
+
+
+
+Definition at line \mbox{\hyperlink{spring_8cpp_source_l00094}{94}} of file \mbox{\hyperlink{spring_8cpp_source}{spring.\+cpp}}.
+
+\Hypertarget{struct_wall_spring_aa485c21f5a607191ca5f32b12d282b06}\label{struct_wall_spring_aa485c21f5a607191ca5f32b12d282b06} 
+\index{WallSpring@{WallSpring}!pos@{pos}}
+\index{pos@{pos}!WallSpring@{WallSpring}}
+\doxysubsubsection{\texorpdfstring{pos}{pos}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_coord_node}{Coord\+Node}}\& Wall\+Spring\+::pos}
+
+
+
+Definition at line \mbox{\hyperlink{spring_8cpp_source_l00093}{93}} of file \mbox{\hyperlink{spring_8cpp_source}{spring.\+cpp}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{spring_8cpp}{spring.\+cpp}}\end{DoxyCompactItemize}

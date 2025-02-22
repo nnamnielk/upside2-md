@@ -1,0 +1,152 @@
+\doxysection{Tension\+Potential Struct Reference}
+\hypertarget{struct_tension_potential}{}\label{struct_tension_potential}\index{TensionPotential@{TensionPotential}}
+
+
+Inheritance diagram for Tension\+Potential\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{struct_tension_potential__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Tension\+Potential\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{struct_tension_potential__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_tension_potential_1_1_param}{Param}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_tension_potential_a4d27520083923006c4fa7ff27d835ed7}{Tension\+Potential}} (\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{hid\+\_\+t}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{grp}}, \mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pos\+\_\+}})
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_tension_potential_a7a422085ee4de0c67d1f17077364e863}{compute\+\_\+value}} (\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{Compute\+Mode}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{mode}})
+\begin{DoxyCompactList}\small\item\em Reads inputs and computes output value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_potential_node}{Potential\+Node}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_potential_node_ae85f3af95266404a37981073878c677b}{Potential\+Node}} ()
+\begin{DoxyCompactList}\small\item\em Trivial constructor. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{struct_potential_node_ab773065a7ed9977bcef687108baa6ef4}{propagate\+\_\+deriv}} ()
+\begin{DoxyCompactList}\small\item\em (unused) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_deriv_computation_ab55a3d270aedc331a7ade09591198c4f}{Deriv\+Computation}} (bool potential\+\_\+term\+\_\+)
+\begin{DoxyCompactList}\small\item\em Construct only noting if node is a potential\+\_\+node. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{struct_deriv_computation_ae61f149a7fc4869f1d053c263fd03657}{\texorpdfstring{$\sim$}{\string~}\+Deriv\+Computation}} ()
+\begin{DoxyCompactList}\small\item\em Trivial destructor. \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_deriv_computation_a5824da52d79ac4ac46e2cee217d8197c}{get\+\_\+param}} () const
+\begin{DoxyCompactList}\small\item\em Return arbitrary subset of parameters. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{struct_deriv_computation_a7c8dbb439e850f9cb4769aac0808d8c6}{set\+\_\+param}} (const std\+::vector$<$ float $>$ \&new\+\_\+params)
+\begin{DoxyCompactList}\small\item\em Set arbitrary subset of parameters (same as get\+\_\+param) \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_deriv_computation_aec2d05db4c36f52f8b7de6922af52494}{get\+\_\+value\+\_\+by\+\_\+name}} (const char \texorpdfstring{$\ast$}{*}log\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Compute a named quantity and return vector of floats (arbitrary behavior) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_tension_potential_ad1bc68ba88bcb4d8713cc7af25c42598}{n\+\_\+elem}}
+\item 
+\mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \& \mbox{\hyperlink{struct_tension_potential_a282f3fb1fea7df5aa192f071f14b3079}{pos}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{struct_tension_potential_1_1_param}{Param}} $>$ \mbox{\hyperlink{struct_tension_potential_a1232e7b918ebf1ef57ad77daf9f38c65}{params}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_potential_node}{Potential\+Node}}}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{struct_potential_node_ae34531266ff6716a791f3a55edb60015}{potential}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}}}
+\begin{DoxyCompactItemize}
+\item 
+const bool \mbox{\hyperlink{struct_deriv_computation_ab9caf415ec64cd42c99d24545238e691}{potential\+\_\+term}}
+\begin{DoxyCompactList}\small\item\em True if output represents a potential energy rather than a new coordinate. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{tension_8cpp_source_l00008}{8}} of file \mbox{\hyperlink{tension_8cpp_source}{tension.\+cpp}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_tension_potential_a4d27520083923006c4fa7ff27d835ed7}\label{struct_tension_potential_a4d27520083923006c4fa7ff27d835ed7} 
+\index{TensionPotential@{TensionPotential}!TensionPotential@{TensionPotential}}
+\index{TensionPotential@{TensionPotential}!TensionPotential@{TensionPotential}}
+\doxysubsubsection{\texorpdfstring{TensionPotential()}{TensionPotential()}}
+{\footnotesize\ttfamily Tension\+Potential\+::\+Tension\+Potential (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{hid\+\_\+t}}}]{grp,  }\item[{\mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&}]{pos\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{tension_8cpp_source_l00018}{18}} of file \mbox{\hyperlink{tension_8cpp_source}{tension.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_tension_potential_a7a422085ee4de0c67d1f17077364e863}\label{struct_tension_potential_a7a422085ee4de0c67d1f17077364e863} 
+\index{TensionPotential@{TensionPotential}!compute\_value@{compute\_value}}
+\index{compute\_value@{compute\_value}!TensionPotential@{TensionPotential}}
+\doxysubsubsection{\texorpdfstring{compute\_value()}{compute\_value()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} Tension\+Potential\+::compute\+\_\+value (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{Compute\+Mode}}}]{mode }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reads inputs and computes output value. 
+
+
+
+Implements \mbox{\hyperlink{struct_deriv_computation_a750d9688cee97b4ab8a6c66c8a739bfc}{Deriv\+Computation}}.
+
+
+
+Definition at line \mbox{\hyperlink{tension_8cpp_source_l00030}{30}} of file \mbox{\hyperlink{tension_8cpp_source}{tension.\+cpp}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_tension_potential_ad1bc68ba88bcb4d8713cc7af25c42598}\label{struct_tension_potential_ad1bc68ba88bcb4d8713cc7af25c42598} 
+\index{TensionPotential@{TensionPotential}!n\_elem@{n\_elem}}
+\index{n\_elem@{n\_elem}!TensionPotential@{TensionPotential}}
+\doxysubsubsection{\texorpdfstring{n\_elem}{n\_elem}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} Tension\+Potential\+::n\+\_\+elem}
+
+
+
+Definition at line \mbox{\hyperlink{tension_8cpp_source_l00010}{10}} of file \mbox{\hyperlink{tension_8cpp_source}{tension.\+cpp}}.
+
+\Hypertarget{struct_tension_potential_a1232e7b918ebf1ef57ad77daf9f38c65}\label{struct_tension_potential_a1232e7b918ebf1ef57ad77daf9f38c65} 
+\index{TensionPotential@{TensionPotential}!params@{params}}
+\index{params@{params}!TensionPotential@{TensionPotential}}
+\doxysubsubsection{\texorpdfstring{params}{params}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$\mbox{\hyperlink{struct_tension_potential_1_1_param}{Param}}$>$ Tension\+Potential\+::params}
+
+
+
+Definition at line \mbox{\hyperlink{tension_8cpp_source_l00016}{16}} of file \mbox{\hyperlink{tension_8cpp_source}{tension.\+cpp}}.
+
+\Hypertarget{struct_tension_potential_a282f3fb1fea7df5aa192f071f14b3079}\label{struct_tension_potential_a282f3fb1fea7df5aa192f071f14b3079} 
+\index{TensionPotential@{TensionPotential}!pos@{pos}}
+\index{pos@{pos}!TensionPotential@{TensionPotential}}
+\doxysubsubsection{\texorpdfstring{pos}{pos}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_coord_node}{Coord\+Node}}\& Tension\+Potential\+::pos}
+
+
+
+Definition at line \mbox{\hyperlink{tension_8cpp_source_l00011}{11}} of file \mbox{\hyperlink{tension_8cpp_source}{tension.\+cpp}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{tension_8cpp}{tension.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,178 @@
+\doxysection{Ornstein\+Uhlenbeck\+Thermostat Struct Reference}
+\hypertarget{struct_ornstein_uhlenbeck_thermostat}{}\label{struct_ornstein_uhlenbeck_thermostat}\index{OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}}
+
+
+{\ttfamily \#include $<$thermostat.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_abfd6bdaab11ebc7365b6c89bca9a7a43}{Ornstein\+Uhlenbeck\+Thermostat}} ()
+\item 
+\mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_ab6357dfc0db59e1818ebd671d09ec355}{Ornstein\+Uhlenbeck\+Thermostat}} (uint32\+\_\+t random\+\_\+seed\+\_\+, float timescale\+\_\+, float temp\+\_\+, float delta\+\_\+t\+\_\+)
+\item 
+\mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat}{Ornstein\+Uhlenbeck\+Thermostat}} \& \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a49a8b6bd8337ce6b85760b67e6782f1f}{set\+\_\+timescale}} (float timescale\+\_\+)
+\item 
+\mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat}{Ornstein\+Uhlenbeck\+Thermostat}} \& \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_aa8d039cd13e6413c1115ee75466f27b5}{set\+\_\+temp}} (float temp\+\_\+)
+\item 
+\mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat}{Ornstein\+Uhlenbeck\+Thermostat}} \& \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a2ae28fd36a7746152551f078ad26e462}{set\+\_\+delta\+\_\+t}} (float delta\+\_\+t\+\_\+)
+\item 
+void \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a2001f98d4431191bfba61c2563f97914}{apply}} (\mbox{\hyperlink{struct_vec_array}{Vec\+Array}} mom, int n\+\_\+atom)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_aca08c572572feb3972c7c24aeebd9a14}{random\+\_\+seed}}
+\item 
+float \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a5ca964dc562baa4b6105244e4375f99a}{timescale}}
+\item 
+float \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a4a0a96962a13667827f163bd7eaf6b91}{delta\+\_\+t}}
+\item 
+float \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_aff154bd7afad8f15db595834c9a28c29}{mom\+\_\+scale}}
+\item 
+float \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a28a04a882a82aeab510e15631d660b98}{temp}}
+\item 
+float \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_afdbbd049f507939c85ea85b5dbc53a7f}{noise\+\_\+scale}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{thermostat_8h_source_l00004}{4}} of file \mbox{\hyperlink{thermostat_8h_source}{thermostat.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_ornstein_uhlenbeck_thermostat_abfd6bdaab11ebc7365b6c89bca9a7a43}\label{struct_ornstein_uhlenbeck_thermostat_abfd6bdaab11ebc7365b6c89bca9a7a43} 
+\index{OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}!OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}}
+\index{OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}!OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}}
+\doxysubsubsection{\texorpdfstring{OrnsteinUhlenbeckThermostat()}{OrnsteinUhlenbeckThermostat()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Ornstein\+Uhlenbeck\+Thermostat\+::\+Ornstein\+Uhlenbeck\+Thermostat (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{thermostat_8h_source_l00023}{23}} of file \mbox{\hyperlink{thermostat_8h_source}{thermostat.\+h}}.
+
+\Hypertarget{struct_ornstein_uhlenbeck_thermostat_ab6357dfc0db59e1818ebd671d09ec355}\label{struct_ornstein_uhlenbeck_thermostat_ab6357dfc0db59e1818ebd671d09ec355} 
+\index{OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}!OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}}
+\index{OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}!OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}}
+\doxysubsubsection{\texorpdfstring{OrnsteinUhlenbeckThermostat()}{OrnsteinUhlenbeckThermostat()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Ornstein\+Uhlenbeck\+Thermostat\+::\+Ornstein\+Uhlenbeck\+Thermostat (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{random\+\_\+seed\+\_\+,  }\item[{float}]{timescale\+\_\+,  }\item[{float}]{temp\+\_\+,  }\item[{float}]{delta\+\_\+t\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{thermostat_8h_source_l00024}{24}} of file \mbox{\hyperlink{thermostat_8h_source}{thermostat.\+h}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_ornstein_uhlenbeck_thermostat_a2001f98d4431191bfba61c2563f97914}\label{struct_ornstein_uhlenbeck_thermostat_a2001f98d4431191bfba61c2563f97914} 
+\index{OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}!apply@{apply}}
+\index{apply@{apply}!OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}}
+\doxysubsubsection{\texorpdfstring{apply()}{apply()}}
+{\footnotesize\ttfamily void Ornstein\+Uhlenbeck\+Thermostat\+::apply (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_vec_array}{Vec\+Array}}}]{mom,  }\item[{int}]{n\+\_\+atom }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{thermostat_8cpp_source_l00009}{9}} of file \mbox{\hyperlink{thermostat_8cpp_source}{thermostat.\+cpp}}.
+
+\Hypertarget{struct_ornstein_uhlenbeck_thermostat_a2ae28fd36a7746152551f078ad26e462}\label{struct_ornstein_uhlenbeck_thermostat_a2ae28fd36a7746152551f078ad26e462} 
+\index{OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}!set\_delta\_t@{set\_delta\_t}}
+\index{set\_delta\_t@{set\_delta\_t}!OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}}
+\doxysubsubsection{\texorpdfstring{set\_delta\_t()}{set\_delta\_t()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat}{Ornstein\+Uhlenbeck\+Thermostat}} \& Ornstein\+Uhlenbeck\+Thermostat\+::set\+\_\+delta\+\_\+t (\begin{DoxyParamCaption}\item[{float}]{delta\+\_\+t\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{thermostat_8h_source_l00035}{35}} of file \mbox{\hyperlink{thermostat_8h_source}{thermostat.\+h}}.
+
+\Hypertarget{struct_ornstein_uhlenbeck_thermostat_aa8d039cd13e6413c1115ee75466f27b5}\label{struct_ornstein_uhlenbeck_thermostat_aa8d039cd13e6413c1115ee75466f27b5} 
+\index{OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}!set\_temp@{set\_temp}}
+\index{set\_temp@{set\_temp}!OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}}
+\doxysubsubsection{\texorpdfstring{set\_temp()}{set\_temp()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat}{Ornstein\+Uhlenbeck\+Thermostat}} \& Ornstein\+Uhlenbeck\+Thermostat\+::set\+\_\+temp (\begin{DoxyParamCaption}\item[{float}]{temp\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{thermostat_8h_source_l00033}{33}} of file \mbox{\hyperlink{thermostat_8h_source}{thermostat.\+h}}.
+
+\Hypertarget{struct_ornstein_uhlenbeck_thermostat_a49a8b6bd8337ce6b85760b67e6782f1f}\label{struct_ornstein_uhlenbeck_thermostat_a49a8b6bd8337ce6b85760b67e6782f1f} 
+\index{OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}!set\_timescale@{set\_timescale}}
+\index{set\_timescale@{set\_timescale}!OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}}
+\doxysubsubsection{\texorpdfstring{set\_timescale()}{set\_timescale()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat}{Ornstein\+Uhlenbeck\+Thermostat}} \& Ornstein\+Uhlenbeck\+Thermostat\+::set\+\_\+timescale (\begin{DoxyParamCaption}\item[{float}]{timescale\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{thermostat_8h_source_l00031}{31}} of file \mbox{\hyperlink{thermostat_8h_source}{thermostat.\+h}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_ornstein_uhlenbeck_thermostat_a4a0a96962a13667827f163bd7eaf6b91}\label{struct_ornstein_uhlenbeck_thermostat_a4a0a96962a13667827f163bd7eaf6b91} 
+\index{OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}!delta\_t@{delta\_t}}
+\index{delta\_t@{delta\_t}!OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}}
+\doxysubsubsection{\texorpdfstring{delta\_t}{delta\_t}}
+{\footnotesize\ttfamily float Ornstein\+Uhlenbeck\+Thermostat\+::delta\+\_\+t}
+
+
+
+Definition at line \mbox{\hyperlink{thermostat_8h_source_l00017}{17}} of file \mbox{\hyperlink{thermostat_8h_source}{thermostat.\+h}}.
+
+\Hypertarget{struct_ornstein_uhlenbeck_thermostat_aff154bd7afad8f15db595834c9a28c29}\label{struct_ornstein_uhlenbeck_thermostat_aff154bd7afad8f15db595834c9a28c29} 
+\index{OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}!mom\_scale@{mom\_scale}}
+\index{mom\_scale@{mom\_scale}!OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}}
+\doxysubsubsection{\texorpdfstring{mom\_scale}{mom\_scale}}
+{\footnotesize\ttfamily float Ornstein\+Uhlenbeck\+Thermostat\+::mom\+\_\+scale}
+
+
+
+Definition at line \mbox{\hyperlink{thermostat_8h_source_l00018}{18}} of file \mbox{\hyperlink{thermostat_8h_source}{thermostat.\+h}}.
+
+\Hypertarget{struct_ornstein_uhlenbeck_thermostat_afdbbd049f507939c85ea85b5dbc53a7f}\label{struct_ornstein_uhlenbeck_thermostat_afdbbd049f507939c85ea85b5dbc53a7f} 
+\index{OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}!noise\_scale@{noise\_scale}}
+\index{noise\_scale@{noise\_scale}!OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}}
+\doxysubsubsection{\texorpdfstring{noise\_scale}{noise\_scale}}
+{\footnotesize\ttfamily float Ornstein\+Uhlenbeck\+Thermostat\+::noise\+\_\+scale}
+
+
+
+Definition at line \mbox{\hyperlink{thermostat_8h_source_l00021}{21}} of file \mbox{\hyperlink{thermostat_8h_source}{thermostat.\+h}}.
+
+\Hypertarget{struct_ornstein_uhlenbeck_thermostat_aca08c572572feb3972c7c24aeebd9a14}\label{struct_ornstein_uhlenbeck_thermostat_aca08c572572feb3972c7c24aeebd9a14} 
+\index{OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}!random\_seed@{random\_seed}}
+\index{random\_seed@{random\_seed}!OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}}
+\doxysubsubsection{\texorpdfstring{random\_seed}{random\_seed}}
+{\footnotesize\ttfamily uint32\+\_\+t Ornstein\+Uhlenbeck\+Thermostat\+::random\+\_\+seed}
+
+
+
+Definition at line \mbox{\hyperlink{thermostat_8h_source_l00015}{15}} of file \mbox{\hyperlink{thermostat_8h_source}{thermostat.\+h}}.
+
+\Hypertarget{struct_ornstein_uhlenbeck_thermostat_a28a04a882a82aeab510e15631d660b98}\label{struct_ornstein_uhlenbeck_thermostat_a28a04a882a82aeab510e15631d660b98} 
+\index{OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}!temp@{temp}}
+\index{temp@{temp}!OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}}
+\doxysubsubsection{\texorpdfstring{temp}{temp}}
+{\footnotesize\ttfamily float Ornstein\+Uhlenbeck\+Thermostat\+::temp}
+
+
+
+Definition at line \mbox{\hyperlink{thermostat_8h_source_l00020}{20}} of file \mbox{\hyperlink{thermostat_8h_source}{thermostat.\+h}}.
+
+\Hypertarget{struct_ornstein_uhlenbeck_thermostat_a5ca964dc562baa4b6105244e4375f99a}\label{struct_ornstein_uhlenbeck_thermostat_a5ca964dc562baa4b6105244e4375f99a} 
+\index{OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}!timescale@{timescale}}
+\index{timescale@{timescale}!OrnsteinUhlenbeckThermostat@{OrnsteinUhlenbeckThermostat}}
+\doxysubsubsection{\texorpdfstring{timescale}{timescale}}
+{\footnotesize\ttfamily float Ornstein\+Uhlenbeck\+Thermostat\+::timescale}
+
+
+
+Definition at line \mbox{\hyperlink{thermostat_8h_source_l00016}{16}} of file \mbox{\hyperlink{thermostat_8h_source}{thermostat.\+h}}.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{thermostat_8h}{thermostat.\+h}}\item 
+src/\mbox{\hyperlink{thermostat_8cpp}{thermostat.\+cpp}}\end{DoxyCompactItemize}

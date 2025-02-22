@@ -1,0 +1,126 @@
+\doxysection{Potential\+Node Struct Reference}
+\hypertarget{struct_potential_node}{}\label{struct_potential_node}\index{PotentialNode@{PotentialNode}}
+
+
+Specialization of \doxylink{struct_deriv_computation}{Deriv\+Computation} for potential terms.  
+
+
+
+
+{\ttfamily \#include $<$deriv\+\_\+engine.\+h$>$}
+
+
+
+Inheritance diagram for Potential\+Node\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{struct_potential_node__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Potential\+Node\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{struct_potential_node__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_potential_node_ae85f3af95266404a37981073878c677b}{Potential\+Node}} ()
+\begin{DoxyCompactList}\small\item\em Trivial constructor. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{struct_potential_node_ab773065a7ed9977bcef687108baa6ef4}{propagate\+\_\+deriv}} ()
+\begin{DoxyCompactList}\small\item\em (unused) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_deriv_computation_ab55a3d270aedc331a7ade09591198c4f}{Deriv\+Computation}} (bool potential\+\_\+term\+\_\+)
+\begin{DoxyCompactList}\small\item\em Construct only noting if node is a potential\+\_\+node. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{struct_deriv_computation_ae61f149a7fc4869f1d053c263fd03657}{\texorpdfstring{$\sim$}{\string~}\+Deriv\+Computation}} ()
+\begin{DoxyCompactList}\small\item\em Trivial destructor. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{struct_deriv_computation_a750d9688cee97b4ab8a6c66c8a739bfc}{compute\+\_\+value}} (\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{Compute\+Mode}} mode)=0
+\begin{DoxyCompactList}\small\item\em Reads inputs and computes output value. \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_deriv_computation_a5824da52d79ac4ac46e2cee217d8197c}{get\+\_\+param}} () const
+\begin{DoxyCompactList}\small\item\em Return arbitrary subset of parameters. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{struct_deriv_computation_a7c8dbb439e850f9cb4769aac0808d8c6}{set\+\_\+param}} (const std\+::vector$<$ float $>$ \&new\+\_\+params)
+\begin{DoxyCompactList}\small\item\em Set arbitrary subset of parameters (same as get\+\_\+param) \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_deriv_computation_aec2d05db4c36f52f8b7de6922af52494}{get\+\_\+value\+\_\+by\+\_\+name}} (const char \texorpdfstring{$\ast$}{*}log\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Compute a named quantity and return vector of floats (arbitrary behavior) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{struct_potential_node_ae34531266ff6716a791f3a55edb60015}{potential}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}}}
+\begin{DoxyCompactItemize}
+\item 
+const bool \mbox{\hyperlink{struct_deriv_computation_ab9caf415ec64cd42c99d24545238e691}{potential\+\_\+term}}
+\begin{DoxyCompactList}\small\item\em True if output represents a potential energy rather than a new coordinate. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Specialization of \doxylink{struct_deriv_computation}{Deriv\+Computation} for potential terms. 
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00100}{100}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_potential_node_ae85f3af95266404a37981073878c677b}\label{struct_potential_node_ae85f3af95266404a37981073878c677b} 
+\index{PotentialNode@{PotentialNode}!PotentialNode@{PotentialNode}}
+\index{PotentialNode@{PotentialNode}!PotentialNode@{PotentialNode}}
+\doxysubsubsection{\texorpdfstring{PotentialNode()}{PotentialNode()}}
+{\footnotesize\ttfamily Potential\+Node\+::\+Potential\+Node (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Trivial constructor. 
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00104}{104}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_potential_node_ab773065a7ed9977bcef687108baa6ef4}\label{struct_potential_node_ab773065a7ed9977bcef687108baa6ef4} 
+\index{PotentialNode@{PotentialNode}!propagate\_deriv@{propagate\_deriv}}
+\index{propagate\_deriv@{propagate\_deriv}!PotentialNode@{PotentialNode}}
+\doxysubsubsection{\texorpdfstring{propagate\_deriv()}{propagate\_deriv()}}
+{\footnotesize\ttfamily virtual void Potential\+Node\+::propagate\+\_\+deriv (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+(unused) 
+
+The propagate\+\_\+deriv function is never called for potential nodes 
+
+Implements \mbox{\hyperlink{struct_deriv_computation_a007700dca1cba2aeb17b27c8a94a3f16}{Deriv\+Computation}}.
+
+
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00109}{109}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_potential_node_ae34531266ff6716a791f3a55edb60015}\label{struct_potential_node_ae34531266ff6716a791f3a55edb60015} 
+\index{PotentialNode@{PotentialNode}!potential@{potential}}
+\index{potential@{potential}!PotentialNode@{PotentialNode}}
+\doxysubsubsection{\texorpdfstring{potential}{potential}}
+{\footnotesize\ttfamily float Potential\+Node\+::potential}
+
+output potential value 
+
+Definition at line \mbox{\hyperlink{deriv__engine_8h_source_l00102}{102}} of file \mbox{\hyperlink{deriv__engine_8h_source}{deriv\+\_\+engine.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{deriv__engine_8h}{deriv\+\_\+engine.\+h}}\end{DoxyCompactItemize}

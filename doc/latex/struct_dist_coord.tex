@@ -1,0 +1,200 @@
+\doxysection{Dist\+Coord Struct Reference}
+\hypertarget{struct_dist_coord}{}\label{struct_dist_coord}\index{DistCoord@{DistCoord}}
+
+
+Inheritance diagram for Dist\+Coord\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{struct_dist_coord__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Dist\+Coord\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{struct_dist_coord__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_dist_coord_1_1_params}{Params}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_dist_coord_a8c50673f0578f7d86ceb22abc38e1aba}{Dist\+Coord}} (\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{hid\+\_\+t}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{grp}}, \mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pos1\+\_\+}}, \mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{pos2\+\_\+}})
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_dist_coord_a9a1a5ff6a87df0062d80233401cef4c0}{compute\+\_\+value}} (\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{Compute\+Mode}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{mode}})
+\begin{DoxyCompactList}\small\item\em Reads inputs and computes output value. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_dist_coord_a994ddec345054065e12e203b99667fa5}{propagate\+\_\+deriv}} ()
+\begin{DoxyCompactList}\small\item\em Uses its sensitivity to its output to add to sensivities of its inputs. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_coord_node}{Coord\+Node}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_coord_node_a9483bd859494380be2d2851e094c453f}{Coord\+Node}} (int n\+\_\+elem\+\_\+, int elem\+\_\+width\+\_\+)
+\begin{DoxyCompactList}\small\item\em Initialize from n\+\_\+elem and elem\+\_\+width. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_deriv_computation_ab55a3d270aedc331a7ade09591198c4f}{Deriv\+Computation}} (bool potential\+\_\+term\+\_\+)
+\begin{DoxyCompactList}\small\item\em Construct only noting if node is a potential\+\_\+node. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{struct_deriv_computation_ae61f149a7fc4869f1d053c263fd03657}{\texorpdfstring{$\sim$}{\string~}\+Deriv\+Computation}} ()
+\begin{DoxyCompactList}\small\item\em Trivial destructor. \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_deriv_computation_a5824da52d79ac4ac46e2cee217d8197c}{get\+\_\+param}} () const
+\begin{DoxyCompactList}\small\item\em Return arbitrary subset of parameters. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{struct_deriv_computation_a7c8dbb439e850f9cb4769aac0808d8c6}{set\+\_\+param}} (const std\+::vector$<$ float $>$ \&new\+\_\+params)
+\begin{DoxyCompactList}\small\item\em Set arbitrary subset of parameters (same as get\+\_\+param) \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_deriv_computation_aec2d05db4c36f52f8b7de6922af52494}{get\+\_\+value\+\_\+by\+\_\+name}} (const char \texorpdfstring{$\ast$}{*}log\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Compute a named quantity and return vector of floats (arbitrary behavior) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_dist_coord_af7cc457ffcb8ff2ec4fd2291dd4e2ced}{n\+\_\+elem}}
+\item 
+\mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \& \mbox{\hyperlink{struct_dist_coord_a3578fe6a4d80f3535e0f1c2ddd3e23a7}{pos1}}
+\item 
+\mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \& \mbox{\hyperlink{struct_dist_coord_ab323a3bb30c0a6ffae321a22610cd4a2}{pos2}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{struct_dist_coord_1_1_params}{Params}} $>$ \mbox{\hyperlink{struct_dist_coord_aa4250b5356eea0f493ca9e29f4885bc3}{params}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$ \mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}} $>$ \mbox{\hyperlink{struct_dist_coord_a36509f7cd4b6f4b3e41e77f1ad088aa2}{deriv}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_coord_node}{Coord\+Node}}}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{struct_coord_node_a232a2dcef6925113085311168f3f7700}{n\+\_\+elem}}
+\begin{DoxyCompactList}\small\item\em number of output elements \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{struct_coord_node_ad9ae2976ea3b4379fe00959be6a04721}{elem\+\_\+width}}
+\begin{DoxyCompactList}\small\item\em number of dimensions for each output element \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} \mbox{\hyperlink{struct_coord_node_a678c754ea0a0fdd4e01a23875426d6b5}{output}}
+\begin{DoxyCompactList}\small\item\em output values \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_vec_array_storage}{Vec\+Array\+Storage}} \mbox{\hyperlink{struct_coord_node_aee777afa72f20aef74cdf071127fb0aa}{sens}}
+\begin{DoxyCompactList}\small\item\em sensitivity of the overall potential to each output value \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}}}
+\begin{DoxyCompactItemize}
+\item 
+const bool \mbox{\hyperlink{struct_deriv_computation_ab9caf415ec64cd42c99d24545238e691}{potential\+\_\+term}}
+\begin{DoxyCompactList}\small\item\em True if output represents a potential energy rather than a new coordinate. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{coord__basic_8cpp_source_l00013}{13}} of file \mbox{\hyperlink{coord__basic_8cpp_source}{coord\+\_\+basic.\+cpp}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_dist_coord_a8c50673f0578f7d86ceb22abc38e1aba}\label{struct_dist_coord_a8c50673f0578f7d86ceb22abc38e1aba} 
+\index{DistCoord@{DistCoord}!DistCoord@{DistCoord}}
+\index{DistCoord@{DistCoord}!DistCoord@{DistCoord}}
+\doxysubsubsection{\texorpdfstring{DistCoord()}{DistCoord()}}
+{\footnotesize\ttfamily Dist\+Coord\+::\+Dist\+Coord (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{hid\+\_\+t}}}]{grp,  }\item[{\mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&}]{pos1\+\_\+,  }\item[{\mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&}]{pos2\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{coord__basic_8cpp_source_l00023}{23}} of file \mbox{\hyperlink{coord__basic_8cpp_source}{coord\+\_\+basic.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_dist_coord_a9a1a5ff6a87df0062d80233401cef4c0}\label{struct_dist_coord_a9a1a5ff6a87df0062d80233401cef4c0} 
+\index{DistCoord@{DistCoord}!compute\_value@{compute\_value}}
+\index{compute\_value@{compute\_value}!DistCoord@{DistCoord}}
+\doxysubsubsection{\texorpdfstring{compute\_value()}{compute\_value()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} Dist\+Coord\+::compute\+\_\+value (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{Compute\+Mode}}}]{mode }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reads inputs and computes output value. 
+
+
+
+Implements \mbox{\hyperlink{struct_deriv_computation_a750d9688cee97b4ab8a6c66c8a739bfc}{Deriv\+Computation}}.
+
+
+
+Definition at line \mbox{\hyperlink{coord__basic_8cpp_source_l00036}{36}} of file \mbox{\hyperlink{coord__basic_8cpp_source}{coord\+\_\+basic.\+cpp}}.
+
+\Hypertarget{struct_dist_coord_a994ddec345054065e12e203b99667fa5}\label{struct_dist_coord_a994ddec345054065e12e203b99667fa5} 
+\index{DistCoord@{DistCoord}!propagate\_deriv@{propagate\_deriv}}
+\index{propagate\_deriv@{propagate\_deriv}!DistCoord@{DistCoord}}
+\doxysubsubsection{\texorpdfstring{propagate\_deriv()}{propagate\_deriv()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} Dist\+Coord\+::propagate\+\_\+deriv (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Uses its sensitivity to its output to add to sensivities of its inputs. 
+
+
+
+Implements \mbox{\hyperlink{struct_deriv_computation_a007700dca1cba2aeb17b27c8a94a3f16}{Deriv\+Computation}}.
+
+
+
+Definition at line \mbox{\hyperlink{coord__basic_8cpp_source_l00054}{54}} of file \mbox{\hyperlink{coord__basic_8cpp_source}{coord\+\_\+basic.\+cpp}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_dist_coord_a36509f7cd4b6f4b3e41e77f1ad088aa2}\label{struct_dist_coord_a36509f7cd4b6f4b3e41e77f1ad088aa2} 
+\index{DistCoord@{DistCoord}!deriv@{deriv}}
+\index{deriv@{deriv}!DistCoord@{DistCoord}}
+\doxysubsubsection{\texorpdfstring{deriv}{deriv}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$\mbox{\hyperlink{vector__math_8h_a64381bef6dd0e097a367318f70136255}{float3}}$>$ Dist\+Coord\+::deriv}
+
+
+
+Definition at line \mbox{\hyperlink{coord__basic_8cpp_source_l00021}{21}} of file \mbox{\hyperlink{coord__basic_8cpp_source}{coord\+\_\+basic.\+cpp}}.
+
+\Hypertarget{struct_dist_coord_af7cc457ffcb8ff2ec4fd2291dd4e2ced}\label{struct_dist_coord_af7cc457ffcb8ff2ec4fd2291dd4e2ced} 
+\index{DistCoord@{DistCoord}!n\_elem@{n\_elem}}
+\index{n\_elem@{n\_elem}!DistCoord@{DistCoord}}
+\doxysubsubsection{\texorpdfstring{n\_elem}{n\_elem}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} Dist\+Coord\+::n\+\_\+elem}
+
+
+
+Definition at line \mbox{\hyperlink{coord__basic_8cpp_source_l00017}{17}} of file \mbox{\hyperlink{coord__basic_8cpp_source}{coord\+\_\+basic.\+cpp}}.
+
+\Hypertarget{struct_dist_coord_aa4250b5356eea0f493ca9e29f4885bc3}\label{struct_dist_coord_aa4250b5356eea0f493ca9e29f4885bc3} 
+\index{DistCoord@{DistCoord}!params@{params}}
+\index{params@{params}!DistCoord@{DistCoord}}
+\doxysubsubsection{\texorpdfstring{params}{params}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{vector}}$<$\mbox{\hyperlink{struct_dist_coord_1_1_params}{Params}}$>$ Dist\+Coord\+::params}
+
+
+
+Definition at line \mbox{\hyperlink{coord__basic_8cpp_source_l00020}{20}} of file \mbox{\hyperlink{coord__basic_8cpp_source}{coord\+\_\+basic.\+cpp}}.
+
+\Hypertarget{struct_dist_coord_a3578fe6a4d80f3535e0f1c2ddd3e23a7}\label{struct_dist_coord_a3578fe6a4d80f3535e0f1c2ddd3e23a7} 
+\index{DistCoord@{DistCoord}!pos1@{pos1}}
+\index{pos1@{pos1}!DistCoord@{DistCoord}}
+\doxysubsubsection{\texorpdfstring{pos1}{pos1}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_coord_node}{Coord\+Node}}\& Dist\+Coord\+::pos1}
+
+
+
+Definition at line \mbox{\hyperlink{coord__basic_8cpp_source_l00018}{18}} of file \mbox{\hyperlink{coord__basic_8cpp_source}{coord\+\_\+basic.\+cpp}}.
+
+\Hypertarget{struct_dist_coord_ab323a3bb30c0a6ffae321a22610cd4a2}\label{struct_dist_coord_ab323a3bb30c0a6ffae321a22610cd4a2} 
+\index{DistCoord@{DistCoord}!pos2@{pos2}}
+\index{pos2@{pos2}!DistCoord@{DistCoord}}
+\doxysubsubsection{\texorpdfstring{pos2}{pos2}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_coord_node}{Coord\+Node}}\& Dist\+Coord\+::pos2}
+
+
+
+Definition at line \mbox{\hyperlink{coord__basic_8cpp_source_l00019}{19}} of file \mbox{\hyperlink{coord__basic_8cpp_source}{coord\+\_\+basic.\+cpp}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{coord__basic_8cpp}{coord\+\_\+basic.\+cpp}}\end{DoxyCompactItemize}

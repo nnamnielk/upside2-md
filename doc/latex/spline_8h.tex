@@ -1,0 +1,372 @@
+\doxysection{src/spline.h File Reference}
+\hypertarget{spline_8h}{}\label{spline_8h}\index{src/spline.h@{src/spline.h}}
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$random$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$cstring$>$}\newline
+{\ttfamily \#include "{}vector\+\_\+math.\+h"{}}\newline
+{\ttfamily \#include "{}Float4.\+h"{}}\newline
+Include dependency graph for spline.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{spline_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{spline_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_layered_periodic_spline2_d}{Layered\+Periodic\+Spline2\+D$<$ NDIM\+\_\+\+VALUE $>$}}
+\begin{DoxyCompactList}\small\item\em Old-\/style spline object -- not intended for new code. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_layered_clamped_spline1_d}{Layered\+Clamped\+Spline1\+D$<$ NDIM\+\_\+\+VALUE $>$}}
+\begin{DoxyCompactList}\small\item\em Old-\/style spline object -- not intended for new code. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{spline_8h_ae15d71ec38bac83f2c588774cfbd04d8}{solve\+\_\+periodic\+\_\+1d\+\_\+spline}} (int n, double \texorpdfstring{$\ast$}{*}coefficients, const double \texorpdfstring{$\ast$}{*}data, double \texorpdfstring{$\ast$}{*}temp\+\_\+storage)
+\begin{DoxyCompactList}\small\item\em Compute polynomial coefficients from periodic data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{spline_8h_aa5f33175e7355ab880b8d4430caa5268}{solve\+\_\+clamped\+\_\+1d\+\_\+spline}} (int n, double \texorpdfstring{$\ast$}{*}coefficients, const double \texorpdfstring{$\ast$}{*}data, double \texorpdfstring{$\ast$}{*}temp\+\_\+storage)
+\begin{DoxyCompactList}\small\item\em Compute polynomial coefficients from data for clamped spline. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{spline_8h_ab9e3b5aba2ac038660c8e6c7c0e96c39}{solve\+\_\+clamped\+\_\+1d\+\_\+spline\+\_\+for\+\_\+bsplines}} (int n\+\_\+coeff, double \texorpdfstring{$\ast$}{*}coefficients, const double \texorpdfstring{$\ast$}{*}data, double \texorpdfstring{$\ast$}{*}temp\+\_\+storage)
+\begin{DoxyCompactList}\small\item\em Compute bspline coefficients from data for clamped spline. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{spline_8h_a20e2bcb01b6a1247957f64aeb3e64bed}{solve\+\_\+periodic\+\_\+2d\+\_\+spline}} (int nx, int ny, double \texorpdfstring{$\ast$}{*}coefficients, const double \texorpdfstring{$\ast$}{*}data, double \texorpdfstring{$\ast$}{*}temp\+\_\+storage)
+\begin{DoxyCompactList}\small\item\em Compute polynomial coefficients for 2d periodic data. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{spline_8h_a02d56a9c6c9fd59ebed74f4d1a401f2c}{spline\+\_\+value\+\_\+and\+\_\+deriv}} (T \&value, T \&dx, T \&dy, const T \texorpdfstring{$\ast$}{*}c, T fx, T fy)
+\begin{DoxyCompactList}\small\item\em Evaluate 2d polynomial in polynomial representation to get value and deriv. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{spline_8h_a8f09875e90afbd44df566da568667c3b}{spline\+\_\+value\+\_\+and\+\_\+deriv}} (T result\mbox{[}2\mbox{]}, const T \texorpdfstring{$\ast$}{*}c, T fx)
+\begin{DoxyCompactList}\small\item\em Evaluate 1d polynomial in polynomial representation to get value and deriv. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ 2 $>$ \mbox{\hyperlink{spline_8h_aa3d872070f6b772fae6930ee53d50d37}{de\+Boor\+\_\+value\+\_\+and\+\_\+deriv}} (const float \texorpdfstring{$\ast$}{*}bspline\+\_\+coeff, const float x)
+\begin{DoxyCompactList}\small\item\em Evaluate 1d polynomial in B-\/spline basis to get value and deriv. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ 2 $>$ \mbox{\hyperlink{spline_8h_ab2abc4e132a8f96aaf51486f162693e1}{de\+Boor\+\_\+value\+\_\+and\+\_\+deriv}} (const std\+::vector$<$ float $>$ \&bspline\+\_\+coeff, const float x)
+\item 
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ 2, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \mbox{\hyperlink{spline_8h_ab7655e98487247d7c9602943dfc9b4d8}{uniform\+\_\+de\+Boor\+\_\+algorithm}} (const \mbox{\hyperlink{struct_float4}{Float4}} \&c00, const \mbox{\hyperlink{struct_float4}{Float4}} \&c01, const \mbox{\hyperlink{struct_float4}{Float4}} \&c02, const \mbox{\hyperlink{struct_float4}{Float4}} \&c03, const \mbox{\hyperlink{struct_float4}{Float4}} \&excess)
+\begin{DoxyCompactList}\small\item\em Evaluate 1d polynomial in B-\/spline basis to get value and deriv (\doxylink{struct_float4}{Float4}) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ 3, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \mbox{\hyperlink{spline_8h_aaf460ff4b5d08d917f7107503e02ba89}{de\+Boor2d\+\_\+value\+\_\+and\+\_\+deriv}} (const int ny, const float \texorpdfstring{$\ast$}{*}bspline\+\_\+coeff\mbox{[}4\mbox{]}, const \mbox{\hyperlink{struct_float4}{Float4}} \&x, const \mbox{\hyperlink{struct_float4}{Float4}} \&y)
+\begin{DoxyCompactList}\small\item\em Evaluate 2d polynomial in B-\/spline basis to get value and deriv (\doxylink{struct_float4}{Float4}) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ 2, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \mbox{\hyperlink{spline_8h_ad17c15224040b3d4e27ec6c0d2a3bd1c}{de\+Boor\+\_\+value\+\_\+and\+\_\+deriv}} (const float \texorpdfstring{$\ast$}{*}bspline\+\_\+coeff\mbox{[}4\mbox{]}, const \mbox{\hyperlink{struct_float4}{Float4}} \&x)
+\begin{DoxyCompactList}\small\item\em Evaluate 1d polynomial in B-\/spline basis to get value and deriv (\doxylink{struct_float4}{Float4}) \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{spline_8h_a15c0801533a7a30dad3b57b89362fb08}{clamped\+\_\+spline\+\_\+left}} (const float \texorpdfstring{$\ast$}{*}bspline\+\_\+coeff, int n\+\_\+coeff)
+\begin{DoxyCompactList}\small\item\em Left side clamping value for clamped spline. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{spline_8h_aa3cf4410a80acea4e68e2b81bab72f76}{clamped\+\_\+spline\+\_\+left}} (const std\+::vector$<$ float $>$ \&bspline\+\_\+coeff, int n\+\_\+coeff)
+\item 
+float \mbox{\hyperlink{spline_8h_ab330a7b78278eda614f0379608bfce4a}{clamped\+\_\+spline\+\_\+right}} (const float \texorpdfstring{$\ast$}{*}bspline\+\_\+coeff, int n\+\_\+coeff)
+\begin{DoxyCompactList}\small\item\em Right side clamping value for clamped spline. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{spline_8h_ac1a9fd1d3ee031a2579c2548e5368a94}{clamped\+\_\+spline\+\_\+right}} (const std\+::vector$<$ float $>$ \&bspline\+\_\+coeff, int n\+\_\+coeff)
+\item 
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ 2 $>$ \mbox{\hyperlink{spline_8h_a788bdb1776cdf54b913166a9aa613478}{clamped\+\_\+de\+Boor\+\_\+value\+\_\+and\+\_\+deriv}} (const float \texorpdfstring{$\ast$}{*}bspline\+\_\+coeff, const float x, int n\+\_\+knot)
+\begin{DoxyCompactList}\small\item\em Evaluate clamped spline that has n\+\_\+knots. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ 2 $>$ \mbox{\hyperlink{spline_8h_a8070836fae6a9e0d9a5fbb60972e2386}{clamped\+\_\+de\+Boor\+\_\+value\+\_\+and\+\_\+deriv}} (const std\+::vector$<$ float $>$ \&bspline\+\_\+coeff, const float x, int n\+\_\+knot)
+\item 
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ 2, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \mbox{\hyperlink{spline_8h_a3aec4d37d3282557795ff9d8235da7f6}{clamped\+\_\+de\+Boor\+\_\+value\+\_\+and\+\_\+deriv}} (const float \texorpdfstring{$\ast$}{*}bspline\+\_\+coeff\mbox{[}4\mbox{]}, const \mbox{\hyperlink{struct_float4}{Float4}} \&x, int n\+\_\+knot)
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_float4}{Float4} implementation of clamped\+\_\+de\+Boor\+\_\+value\+\_\+and\+\_\+deriv. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{spline_8h_afb10f68b32f01820ec8d606c3d7e4070}{de\+Boor\+\_\+coeff\+\_\+deriv}} (int \texorpdfstring{$\ast$}{*}starting\+\_\+bin, float result\mbox{[}4\mbox{]}, const float x)
+\begin{DoxyCompactList}\small\item\em Coefficient derivative for splines in the B-\/spline representation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{spline_8h_a85f483dbcbf9fe6d16fd555bde273b2a}{de\+Boor2d\+\_\+coeff\+\_\+deriv}} (int \texorpdfstring{$\ast$}{*}starting\+\_\+bin, float result\mbox{[}4\mbox{]}\mbox{[}4\mbox{]}, int ny, const float x, const float y)
+\begin{DoxyCompactList}\small\item\em Coefficient derivative for 2d splines in the B-\/spline representation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{spline_8h_a27e4172c50ac40ec56ded6a6601a65f8}{clamped\+\_\+de\+Boor\+\_\+coeff\+\_\+deriv}} (int \texorpdfstring{$\ast$}{*}starting\+\_\+bin, float result\mbox{[}4\mbox{]}, const float x, int n\+\_\+knot)
+\begin{DoxyCompactList}\small\item\em Coefficient derivative for clamped splines in the B-\/spline representation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{spline_8h_a27e4172c50ac40ec56ded6a6601a65f8}\label{spline_8h_a27e4172c50ac40ec56ded6a6601a65f8} 
+\index{spline.h@{spline.h}!clamped\_deBoor\_coeff\_deriv@{clamped\_deBoor\_coeff\_deriv}}
+\index{clamped\_deBoor\_coeff\_deriv@{clamped\_deBoor\_coeff\_deriv}!spline.h@{spline.h}}
+\doxysubsubsection{\texorpdfstring{clamped\_deBoor\_coeff\_deriv()}{clamped\_deBoor\_coeff\_deriv()}}
+{\footnotesize\ttfamily void clamped\+\_\+de\+Boor\+\_\+coeff\+\_\+deriv (\begin{DoxyParamCaption}\item[{int \texorpdfstring{$\ast$}{*}}]{starting\+\_\+bin,  }\item[{float}]{result\mbox{[}4\mbox{]},  }\item[{const float}]{x,  }\item[{int}]{n\+\_\+knot }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Coefficient derivative for clamped splines in the B-\/spline representation. 
+
+The derivative of a spline has 4 non-\/zero coefficients in the B-\/spline basis, which are the 4 coefficients that contribute to that value. This function returns the value of those coefficients in result and the first coefficient with non-\/zero derivative as starting\+\_\+bin. 
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00423}{423}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+\Hypertarget{spline_8h_a788bdb1776cdf54b913166a9aa613478}\label{spline_8h_a788bdb1776cdf54b913166a9aa613478} 
+\index{spline.h@{spline.h}!clamped\_deBoor\_value\_and\_deriv@{clamped\_deBoor\_value\_and\_deriv}}
+\index{clamped\_deBoor\_value\_and\_deriv@{clamped\_deBoor\_value\_and\_deriv}!spline.h@{spline.h}}
+\doxysubsubsection{\texorpdfstring{clamped\_deBoor\_value\_and\_deriv()}{clamped\_deBoor\_value\_and\_deriv()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_vec}{Vec}}$<$ 2 $>$ clamped\+\_\+de\+Boor\+\_\+value\+\_\+and\+\_\+deriv (\begin{DoxyParamCaption}\item[{const float \texorpdfstring{$\ast$}{*}}]{bspline\+\_\+coeff,  }\item[{const float}]{x,  }\item[{int}]{n\+\_\+knot }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Evaluate clamped spline that has n\+\_\+knots. 
+
+For clamping with derivative continuity, you should really have bspline\+\_\+coeff\mbox{[}0\mbox{]} == bspline\+\_\+coeff\mbox{[}2\mbox{]} and bspline\+\_\+coeff\mbox{[}n\+\_\+knot-\/3\mbox{]} == bspline\+\_\+coeff\mbox{[}n\+\_\+knot-\/1\mbox{]} 
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00310}{310}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+\Hypertarget{spline_8h_a3aec4d37d3282557795ff9d8235da7f6}\label{spline_8h_a3aec4d37d3282557795ff9d8235da7f6} 
+\index{spline.h@{spline.h}!clamped\_deBoor\_value\_and\_deriv@{clamped\_deBoor\_value\_and\_deriv}}
+\index{clamped\_deBoor\_value\_and\_deriv@{clamped\_deBoor\_value\_and\_deriv}!spline.h@{spline.h}}
+\doxysubsubsection{\texorpdfstring{clamped\_deBoor\_value\_and\_deriv()}{clamped\_deBoor\_value\_and\_deriv()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_vec}{Vec}}$<$ 2, \mbox{\hyperlink{struct_float4}{Float4}} $>$ clamped\+\_\+de\+Boor\+\_\+value\+\_\+and\+\_\+deriv (\begin{DoxyParamCaption}\item[{const float \texorpdfstring{$\ast$}{*}}]{bspline\+\_\+coeff\mbox{[}4\mbox{]},  }\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{x,  }\item[{int}]{n\+\_\+knot }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxylink{struct_float4}{Float4} implementation of clamped\+\_\+de\+Boor\+\_\+value\+\_\+and\+\_\+deriv. 
+
+
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00323}{323}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+\Hypertarget{spline_8h_a8070836fae6a9e0d9a5fbb60972e2386}\label{spline_8h_a8070836fae6a9e0d9a5fbb60972e2386} 
+\index{spline.h@{spline.h}!clamped\_deBoor\_value\_and\_deriv@{clamped\_deBoor\_value\_and\_deriv}}
+\index{clamped\_deBoor\_value\_and\_deriv@{clamped\_deBoor\_value\_and\_deriv}!spline.h@{spline.h}}
+\doxysubsubsection{\texorpdfstring{clamped\_deBoor\_value\_and\_deriv()}{clamped\_deBoor\_value\_and\_deriv()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_vec}{Vec}}$<$ 2 $>$ clamped\+\_\+de\+Boor\+\_\+value\+\_\+and\+\_\+deriv (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ float $>$ \&}]{bspline\+\_\+coeff,  }\item[{const float}]{x,  }\item[{int}]{n\+\_\+knot }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00316}{316}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+\Hypertarget{spline_8h_a15c0801533a7a30dad3b57b89362fb08}\label{spline_8h_a15c0801533a7a30dad3b57b89362fb08} 
+\index{spline.h@{spline.h}!clamped\_spline\_left@{clamped\_spline\_left}}
+\index{clamped\_spline\_left@{clamped\_spline\_left}!spline.h@{spline.h}}
+\doxysubsubsection{\texorpdfstring{clamped\_spline\_left()}{clamped\_spline\_left()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily float clamped\+\_\+spline\+\_\+left (\begin{DoxyParamCaption}\item[{const float \texorpdfstring{$\ast$}{*}}]{bspline\+\_\+coeff,  }\item[{int}]{n\+\_\+coeff }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Left side clamping value for clamped spline. 
+
+For clamping with derivative continuity, you should really have bspline\+\_\+coeff\mbox{[}0\mbox{]} == bspline\+\_\+coeff\mbox{[}2\mbox{]} 
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00278}{278}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+\Hypertarget{spline_8h_aa3cf4410a80acea4e68e2b81bab72f76}\label{spline_8h_aa3cf4410a80acea4e68e2b81bab72f76} 
+\index{spline.h@{spline.h}!clamped\_spline\_left@{clamped\_spline\_left}}
+\index{clamped\_spline\_left@{clamped\_spline\_left}!spline.h@{spline.h}}
+\doxysubsubsection{\texorpdfstring{clamped\_spline\_left()}{clamped\_spline\_left()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily float clamped\+\_\+spline\+\_\+left (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ float $>$ \&}]{bspline\+\_\+coeff,  }\item[{int}]{n\+\_\+coeff }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00284}{284}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+\Hypertarget{spline_8h_ab330a7b78278eda614f0379608bfce4a}\label{spline_8h_ab330a7b78278eda614f0379608bfce4a} 
+\index{spline.h@{spline.h}!clamped\_spline\_right@{clamped\_spline\_right}}
+\index{clamped\_spline\_right@{clamped\_spline\_right}!spline.h@{spline.h}}
+\doxysubsubsection{\texorpdfstring{clamped\_spline\_right()}{clamped\_spline\_right()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily float clamped\+\_\+spline\+\_\+right (\begin{DoxyParamCaption}\item[{const float \texorpdfstring{$\ast$}{*}}]{bspline\+\_\+coeff,  }\item[{int}]{n\+\_\+coeff }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Right side clamping value for clamped spline. 
+
+For clamping with derivative continuity, you should really have bspline\+\_\+coeff\mbox{[}n\+\_\+coeff-\/3\mbox{]} == bspline\+\_\+coeff\mbox{[}n\+\_\+coeff-\/1\mbox{]} 
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00294}{294}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+\Hypertarget{spline_8h_ac1a9fd1d3ee031a2579c2548e5368a94}\label{spline_8h_ac1a9fd1d3ee031a2579c2548e5368a94} 
+\index{spline.h@{spline.h}!clamped\_spline\_right@{clamped\_spline\_right}}
+\index{clamped\_spline\_right@{clamped\_spline\_right}!spline.h@{spline.h}}
+\doxysubsubsection{\texorpdfstring{clamped\_spline\_right()}{clamped\_spline\_right()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily float clamped\+\_\+spline\+\_\+right (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ float $>$ \&}]{bspline\+\_\+coeff,  }\item[{int}]{n\+\_\+coeff }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00300}{300}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+\Hypertarget{spline_8h_a85f483dbcbf9fe6d16fd555bde273b2a}\label{spline_8h_a85f483dbcbf9fe6d16fd555bde273b2a} 
+\index{spline.h@{spline.h}!deBoor2d\_coeff\_deriv@{deBoor2d\_coeff\_deriv}}
+\index{deBoor2d\_coeff\_deriv@{deBoor2d\_coeff\_deriv}!spline.h@{spline.h}}
+\doxysubsubsection{\texorpdfstring{deBoor2d\_coeff\_deriv()}{deBoor2d\_coeff\_deriv()}}
+{\footnotesize\ttfamily void de\+Boor2d\+\_\+coeff\+\_\+deriv (\begin{DoxyParamCaption}\item[{int \texorpdfstring{$\ast$}{*}}]{starting\+\_\+bin,  }\item[{float}]{result\mbox{[}4\mbox{]}\mbox{[}4\mbox{]},  }\item[{int}]{ny,  }\item[{const float}]{x,  }\item[{const float}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Coefficient derivative for 2d splines in the B-\/spline representation. 
+
+The derivative of a spline has 4x4 non-\/zero coefficients in the B-\/spline basis, which are the 4x4 coefficients that contribute to that value. This function returns the value of those coefficients in result and the first coefficient with non-\/zero derivative as starting\+\_\+bin. 
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00392}{392}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+\Hypertarget{spline_8h_aaf460ff4b5d08d917f7107503e02ba89}\label{spline_8h_aaf460ff4b5d08d917f7107503e02ba89} 
+\index{spline.h@{spline.h}!deBoor2d\_value\_and\_deriv@{deBoor2d\_value\_and\_deriv}}
+\index{deBoor2d\_value\_and\_deriv@{deBoor2d\_value\_and\_deriv}!spline.h@{spline.h}}
+\doxysubsubsection{\texorpdfstring{deBoor2d\_value\_and\_deriv()}{deBoor2d\_value\_and\_deriv()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_vec}{Vec}}$<$ 3, \mbox{\hyperlink{struct_float4}{Float4}} $>$ de\+Boor2d\+\_\+value\+\_\+and\+\_\+deriv (\begin{DoxyParamCaption}\item[{const int}]{ny,  }\item[{const float \texorpdfstring{$\ast$}{*}}]{bspline\+\_\+coeff\mbox{[}4\mbox{]},  }\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{x,  }\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Evaluate 2d polynomial in B-\/spline basis to get value and deriv (\doxylink{struct_float4}{Float4}) 
+
+Uses the de Boor algorithm for splines in the B-\/spline representation. The value is returned in the zeroth component and the derivative is returned in the first and second components. This function computes four spline evaluation at a time. 
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00212}{212}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+\Hypertarget{spline_8h_afb10f68b32f01820ec8d606c3d7e4070}\label{spline_8h_afb10f68b32f01820ec8d606c3d7e4070} 
+\index{spline.h@{spline.h}!deBoor\_coeff\_deriv@{deBoor\_coeff\_deriv}}
+\index{deBoor\_coeff\_deriv@{deBoor\_coeff\_deriv}!spline.h@{spline.h}}
+\doxysubsubsection{\texorpdfstring{deBoor\_coeff\_deriv()}{deBoor\_coeff\_deriv()}}
+{\footnotesize\ttfamily void de\+Boor\+\_\+coeff\+\_\+deriv (\begin{DoxyParamCaption}\item[{int \texorpdfstring{$\ast$}{*}}]{starting\+\_\+bin,  }\item[{float}]{result\mbox{[}4\mbox{]},  }\item[{const float}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Coefficient derivative for splines in the B-\/spline representation. 
+
+The derivative of a spline has 4 non-\/zero coefficients in the B-\/spline basis, which are the 4 coefficients that contribute to that value. This function returns the value of those coefficients in result and the first coefficient with non-\/zero derivative as starting\+\_\+bin. 
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00366}{366}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+\Hypertarget{spline_8h_aa3d872070f6b772fae6930ee53d50d37}\label{spline_8h_aa3d872070f6b772fae6930ee53d50d37} 
+\index{spline.h@{spline.h}!deBoor\_value\_and\_deriv@{deBoor\_value\_and\_deriv}}
+\index{deBoor\_value\_and\_deriv@{deBoor\_value\_and\_deriv}!spline.h@{spline.h}}
+\doxysubsubsection{\texorpdfstring{deBoor\_value\_and\_deriv()}{deBoor\_value\_and\_deriv()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_vec}{Vec}}$<$ 2 $>$ de\+Boor\+\_\+value\+\_\+and\+\_\+deriv (\begin{DoxyParamCaption}\item[{const float \texorpdfstring{$\ast$}{*}}]{bspline\+\_\+coeff,  }\item[{const float}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Evaluate 1d polynomial in B-\/spline basis to get value and deriv. 
+
+Uses the de Boor algorithm for splines in the B-\/spline representation. The value is returned in the zeroth component and the derivative is returned in the first component. This function computes a single spline evaluation at a time. 
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00098}{98}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+\Hypertarget{spline_8h_ad17c15224040b3d4e27ec6c0d2a3bd1c}\label{spline_8h_ad17c15224040b3d4e27ec6c0d2a3bd1c} 
+\index{spline.h@{spline.h}!deBoor\_value\_and\_deriv@{deBoor\_value\_and\_deriv}}
+\index{deBoor\_value\_and\_deriv@{deBoor\_value\_and\_deriv}!spline.h@{spline.h}}
+\doxysubsubsection{\texorpdfstring{deBoor\_value\_and\_deriv()}{deBoor\_value\_and\_deriv()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_vec}{Vec}}$<$ 2, \mbox{\hyperlink{struct_float4}{Float4}} $>$ de\+Boor\+\_\+value\+\_\+and\+\_\+deriv (\begin{DoxyParamCaption}\item[{const float \texorpdfstring{$\ast$}{*}}]{bspline\+\_\+coeff\mbox{[}4\mbox{]},  }\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Evaluate 1d polynomial in B-\/spline basis to get value and deriv (\doxylink{struct_float4}{Float4}) 
+
+Uses the de Boor algorithm for splines in the B-\/spline representation. The value is returned in the zeroth component and the derivative is returned in the first component. This function computes four spline evaluation at a time.
+
+This function assumes that endpoint conditions (say x\texorpdfstring{$<$}{<}=1.) have already been taken care of. The first spline is centered at -\/1. 
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00258}{258}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+\Hypertarget{spline_8h_ab2abc4e132a8f96aaf51486f162693e1}\label{spline_8h_ab2abc4e132a8f96aaf51486f162693e1} 
+\index{spline.h@{spline.h}!deBoor\_value\_and\_deriv@{deBoor\_value\_and\_deriv}}
+\index{deBoor\_value\_and\_deriv@{deBoor\_value\_and\_deriv}!spline.h@{spline.h}}
+\doxysubsubsection{\texorpdfstring{deBoor\_value\_and\_deriv()}{deBoor\_value\_and\_deriv()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_vec}{Vec}}$<$ 2 $>$ de\+Boor\+\_\+value\+\_\+and\+\_\+deriv (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ float $>$ \&}]{bspline\+\_\+coeff,  }\item[{const float}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00131}{131}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+\Hypertarget{spline_8h_aa5f33175e7355ab880b8d4430caa5268}\label{spline_8h_aa5f33175e7355ab880b8d4430caa5268} 
+\index{spline.h@{spline.h}!solve\_clamped\_1d\_spline@{solve\_clamped\_1d\_spline}}
+\index{solve\_clamped\_1d\_spline@{solve\_clamped\_1d\_spline}!spline.h@{spline.h}}
+\doxysubsubsection{\texorpdfstring{solve\_clamped\_1d\_spline()}{solve\_clamped\_1d\_spline()}}
+{\footnotesize\ttfamily void solve\+\_\+clamped\+\_\+1d\+\_\+spline (\begin{DoxyParamCaption}\item[{int}]{n,  }\item[{double \texorpdfstring{$\ast$}{*}}]{coefficients,  }\item[{const double \texorpdfstring{$\ast$}{*}}]{data,  }\item[{double \texorpdfstring{$\ast$}{*}}]{temp\+\_\+storage }\end{DoxyParamCaption})}
+
+
+
+Compute polynomial coefficients from data for clamped spline. 
+
+Computes data in polynomial representation, where each segment of the spline is represented by coefficients for ax\texorpdfstring{$^\wedge$}{\string^}3+bx\texorpdfstring{$^\wedge$}{\string^}2+cx+d. Clamped spline means that the derivative of the spline is zero on both ends. 
+
+Definition at line \mbox{\hyperlink{spline_8cpp_source_l00192}{192}} of file \mbox{\hyperlink{spline_8cpp_source}{spline.\+cpp}}.
+
+\Hypertarget{spline_8h_ab9e3b5aba2ac038660c8e6c7c0e96c39}\label{spline_8h_ab9e3b5aba2ac038660c8e6c7c0e96c39} 
+\index{spline.h@{spline.h}!solve\_clamped\_1d\_spline\_for\_bsplines@{solve\_clamped\_1d\_spline\_for\_bsplines}}
+\index{solve\_clamped\_1d\_spline\_for\_bsplines@{solve\_clamped\_1d\_spline\_for\_bsplines}!spline.h@{spline.h}}
+\doxysubsubsection{\texorpdfstring{solve\_clamped\_1d\_spline\_for\_bsplines()}{solve\_clamped\_1d\_spline\_for\_bsplines()}}
+{\footnotesize\ttfamily void solve\+\_\+clamped\+\_\+1d\+\_\+spline\+\_\+for\+\_\+bsplines (\begin{DoxyParamCaption}\item[{int}]{n\+\_\+coeff,  }\item[{double \texorpdfstring{$\ast$}{*}}]{coefficients,  }\item[{const double \texorpdfstring{$\ast$}{*}}]{data,  }\item[{double \texorpdfstring{$\ast$}{*}}]{temp\+\_\+storage }\end{DoxyParamCaption})}
+
+
+
+Compute bspline coefficients from data for clamped spline. 
+
+Computes data in bspline coefficient representation, where each of the values represents the scale factor for a single B-\/spline centered at that knot. Clamped spline means that the derivative of the spline is zero on both ends. 
+
+Definition at line \mbox{\hyperlink{spline_8cpp_source_l00158}{158}} of file \mbox{\hyperlink{spline_8cpp_source}{spline.\+cpp}}.
+
+\Hypertarget{spline_8h_ae15d71ec38bac83f2c588774cfbd04d8}\label{spline_8h_ae15d71ec38bac83f2c588774cfbd04d8} 
+\index{spline.h@{spline.h}!solve\_periodic\_1d\_spline@{solve\_periodic\_1d\_spline}}
+\index{solve\_periodic\_1d\_spline@{solve\_periodic\_1d\_spline}!spline.h@{spline.h}}
+\doxysubsubsection{\texorpdfstring{solve\_periodic\_1d\_spline()}{solve\_periodic\_1d\_spline()}}
+{\footnotesize\ttfamily void solve\+\_\+periodic\+\_\+1d\+\_\+spline (\begin{DoxyParamCaption}\item[{int}]{n,  }\item[{double \texorpdfstring{$\ast$}{*}}]{coefficients,  }\item[{const double \texorpdfstring{$\ast$}{*}}]{data,  }\item[{double \texorpdfstring{$\ast$}{*}}]{temp\+\_\+storage }\end{DoxyParamCaption})}
+
+
+
+Compute polynomial coefficients from periodic data. 
+
+Computes data in polynomial representation, where each segment of the spline is represented by coefficients for ax\texorpdfstring{$^\wedge$}{\string^}3+bx\texorpdfstring{$^\wedge$}{\string^}2+cx+d 
+\begin{DoxyParams}[1]{Parameters}
+ & {\em n} & number of data points  \\
+\hline
+\mbox{\texttt{ out}}  & {\em coefficients} & coefficients, length 4\texorpdfstring{$\ast$}{*}n  \\
+\hline
+\mbox{\texttt{ in}}  & {\em data} & data points to fit with spline, length n  \\
+\hline
+\mbox{\texttt{ out}}  & {\em temp\+\_\+storage} & scratch storage for the fitting algorithm, length 8\texorpdfstring{$\ast$}{*}n \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{spline_8cpp_source_l00121}{121}} of file \mbox{\hyperlink{spline_8cpp_source}{spline.\+cpp}}.
+
+\Hypertarget{spline_8h_a20e2bcb01b6a1247957f64aeb3e64bed}\label{spline_8h_a20e2bcb01b6a1247957f64aeb3e64bed} 
+\index{spline.h@{spline.h}!solve\_periodic\_2d\_spline@{solve\_periodic\_2d\_spline}}
+\index{solve\_periodic\_2d\_spline@{solve\_periodic\_2d\_spline}!spline.h@{spline.h}}
+\doxysubsubsection{\texorpdfstring{solve\_periodic\_2d\_spline()}{solve\_periodic\_2d\_spline()}}
+{\footnotesize\ttfamily void solve\+\_\+periodic\+\_\+2d\+\_\+spline (\begin{DoxyParamCaption}\item[{int}]{nx,  }\item[{int}]{ny,  }\item[{double \texorpdfstring{$\ast$}{*}}]{coefficients,  }\item[{const double \texorpdfstring{$\ast$}{*}}]{data,  }\item[{double \texorpdfstring{$\ast$}{*}}]{temp\+\_\+storage }\end{DoxyParamCaption})}
+
+
+
+Compute polynomial coefficients for 2d periodic data. 
+
+Computes data in polynomial representation, where each segment of the spline is represented by the 16 coefficients necessary for a 3d bicubic polynomial. 
+
+Definition at line \mbox{\hyperlink{spline_8cpp_source_l00262}{262}} of file \mbox{\hyperlink{spline_8cpp_source}{spline.\+cpp}}.
+
+\Hypertarget{spline_8h_a02d56a9c6c9fd59ebed74f4d1a401f2c}\label{spline_8h_a02d56a9c6c9fd59ebed74f4d1a401f2c} 
+\index{spline.h@{spline.h}!spline\_value\_and\_deriv@{spline\_value\_and\_deriv}}
+\index{spline\_value\_and\_deriv@{spline\_value\_and\_deriv}!spline.h@{spline.h}}
+\doxysubsubsection{\texorpdfstring{spline\_value\_and\_deriv()}{spline\_value\_and\_deriv()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void spline\+\_\+value\+\_\+and\+\_\+deriv (\begin{DoxyParamCaption}\item[{T \&}]{value,  }\item[{T \&}]{dx,  }\item[{T \&}]{dy,  }\item[{const T \texorpdfstring{$\ast$}{*}}]{c,  }\item[{T}]{fx,  }\item[{T}]{fy }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Evaluate 2d polynomial in polynomial representation to get value and deriv. 
+
+
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00062}{62}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+\Hypertarget{spline_8h_a8f09875e90afbd44df566da568667c3b}\label{spline_8h_a8f09875e90afbd44df566da568667c3b} 
+\index{spline.h@{spline.h}!spline\_value\_and\_deriv@{spline\_value\_and\_deriv}}
+\index{spline\_value\_and\_deriv@{spline\_value\_and\_deriv}!spline.h@{spline.h}}
+\doxysubsubsection{\texorpdfstring{spline\_value\_and\_deriv()}{spline\_value\_and\_deriv()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void spline\+\_\+value\+\_\+and\+\_\+deriv (\begin{DoxyParamCaption}\item[{T}]{result\mbox{[}2\mbox{]},  }\item[{const T \texorpdfstring{$\ast$}{*}}]{c,  }\item[{T}]{fx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Evaluate 1d polynomial in polynomial representation to get value and deriv. 
+
+
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00085}{85}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+\Hypertarget{spline_8h_ab7655e98487247d7c9602943dfc9b4d8}\label{spline_8h_ab7655e98487247d7c9602943dfc9b4d8} 
+\index{spline.h@{spline.h}!uniform\_deBoor\_algorithm@{uniform\_deBoor\_algorithm}}
+\index{uniform\_deBoor\_algorithm@{uniform\_deBoor\_algorithm}!spline.h@{spline.h}}
+\doxysubsubsection{\texorpdfstring{uniform\_deBoor\_algorithm()}{uniform\_deBoor\_algorithm()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_vec}{Vec}}$<$ 2, \mbox{\hyperlink{struct_float4}{Float4}} $>$ uniform\+\_\+de\+Boor\+\_\+algorithm (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{c00,  }\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{c01,  }\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{c02,  }\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{c03,  }\item[{const \mbox{\hyperlink{struct_float4}{Float4}} \&}]{excess }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Evaluate 1d polynomial in B-\/spline basis to get value and deriv (\doxylink{struct_float4}{Float4}) 
+
+Uses the de Boor algorithm for splines in the B-\/spline representation. The value is returned in the zeroth component and the derivative is returned in the first component. This function computes four spline evaluation at a time. 
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00166}{166}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+

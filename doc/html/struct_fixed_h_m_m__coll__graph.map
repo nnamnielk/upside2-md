@@ -1,0 +1,13 @@
+<map id="FixedHMM" name="FixedHMM">
+<area shape="rect" id="Node000001" title=" " alt="" coords="139,200,229,225"/>
+<area shape="rect" id="Node000002" href="$struct_potential_node.html" title="Specialization of DerivComputation for potential terms." alt="" coords="5,110,120,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,141,170,198,167,202,88,145"/>
+<area shape="rect" id="Node000003" href="$struct_deriv_computation.html" title="Differentiable computation node." alt="" coords="39,5,180,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="101,44,70,111,66,109,96,42"/>
+<area shape="rect" id="Node000004" href="$struct_coord_node.html" title="Specialization of DerivComputation for derived coordinates." alt="" coords="145,110,239,135"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="129,40,185,108,181,111,125,43"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="190,149,188,162,186,200,181,200,183,161,184,148"/>
+<area shape="rect" id="Node000005" href="$struct_vec_array_storage.html" title=" " alt="" coords="211,5,341,31"/>
+<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="285,44,290,73,292,108,287,144,272,178,253,195,231,205,229,200,250,190,267,174,281,143,286,108,285,74,280,45"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="243,40,225,56,208,84,198,111,193,109,203,82,221,53,240,36"/>
+</map>

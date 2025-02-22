@@ -1,0 +1,10 @@
+<map id="SigmoidCoord" name="SigmoidCoord">
+<area shape="rect" id="Node000001" title=" " alt="" coords="99,196,213,221"/>
+<area shape="rect" id="Node000002" href="$struct_coord_node.html" title="Specialization of DerivComputation for derived coordinates." alt="" coords="109,108,203,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="157,147,156,157,157,196,152,196,151,157,151,147"/>
+<area shape="poly" id="edge4_Node000001_Node000002" title=" " alt="" coords="159,147,159,195,153,195,153,147"/>
+<area shape="rect" id="Node000003" href="$struct_deriv_computation.html" title="Differentiable computation node." alt="" coords="5,5,147,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="96,40,149,106,145,110,92,43"/>
+<area shape="rect" id="Node000004" href="$struct_vec_array_storage.html" title=" " alt="" coords="171,5,301,31"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="220,43,167,110,163,106,216,40"/>
+</map>

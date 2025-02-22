@@ -1,0 +1,67 @@
+\doxysection{src/random.h File Reference}
+\hypertarget{random_8h}{}\label{random_8h}\index{src/random.h@{src/random.h}}
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$Random123/threefry.\+h$>$}\newline
+{\ttfamily \#include "{}uniform.\+hpp"{}}\newline
+{\ttfamily \#include "{}boxmuller.\+hpp"{}}\newline
+Include dependency graph for random.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{random_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{random_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_random_generator}{Random\+Generator}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{random_8h_ab1fa763976d66d77a7a63f680bfd720b}{Random\+Stream\+Type}} \{ \mbox{\hyperlink{random_8h_ab1fa763976d66d77a7a63f680bfd720ba22e752eca08a4aac60ee6108d52dc38a}{THERMOSTAT\+\_\+\+RANDOM\+\_\+\+STREAM}} = 0
+, \mbox{\hyperlink{random_8h_ab1fa763976d66d77a7a63f680bfd720ba30129a0e28b4becaa192cc6557b5f17b}{REPLICA\+\_\+\+EXCHANGE\+\_\+\+RANDOM\+\_\+\+STREAM}} = 1
+, \mbox{\hyperlink{random_8h_ab1fa763976d66d77a7a63f680bfd720baac33e6e3d5cf7777014d55c0ee632a1d}{PIVOT\+\_\+\+MOVE\+\_\+\+RANDOM\+\_\+\+STREAM}} = 2
+, \mbox{\hyperlink{random_8h_ab1fa763976d66d77a7a63f680bfd720ba53def7472034cd1aa9f696ae7afcdfe1}{JUMP\+\_\+\+MOVE\+\_\+\+RANDOM\+\_\+\+STREAM}} = 3
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{random_8h_ab1fa763976d66d77a7a63f680bfd720b}\label{random_8h_ab1fa763976d66d77a7a63f680bfd720b} 
+\index{random.h@{random.h}!RandomStreamType@{RandomStreamType}}
+\index{RandomStreamType@{RandomStreamType}!random.h@{random.h}}
+\doxysubsubsection{\texorpdfstring{RandomStreamType}{RandomStreamType}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{random_8h_ab1fa763976d66d77a7a63f680bfd720b}{Random\+Stream\+Type}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{THERMOSTAT\_RANDOM\_STREAM@{THERMOSTAT\_RANDOM\_STREAM}!random.h@{random.h}}\index{random.h@{random.h}!THERMOSTAT\_RANDOM\_STREAM@{THERMOSTAT\_RANDOM\_STREAM}}}\Hypertarget{random_8h_ab1fa763976d66d77a7a63f680bfd720ba22e752eca08a4aac60ee6108d52dc38a}\label{random_8h_ab1fa763976d66d77a7a63f680bfd720ba22e752eca08a4aac60ee6108d52dc38a} 
+THERMOSTAT\+\_\+\+RANDOM\+\_\+\+STREAM&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{REPLICA\_EXCHANGE\_RANDOM\_STREAM@{REPLICA\_EXCHANGE\_RANDOM\_STREAM}!random.h@{random.h}}\index{random.h@{random.h}!REPLICA\_EXCHANGE\_RANDOM\_STREAM@{REPLICA\_EXCHANGE\_RANDOM\_STREAM}}}\Hypertarget{random_8h_ab1fa763976d66d77a7a63f680bfd720ba30129a0e28b4becaa192cc6557b5f17b}\label{random_8h_ab1fa763976d66d77a7a63f680bfd720ba30129a0e28b4becaa192cc6557b5f17b} 
+REPLICA\+\_\+\+EXCHANGE\+\_\+\+RANDOM\+\_\+\+STREAM&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PIVOT\_MOVE\_RANDOM\_STREAM@{PIVOT\_MOVE\_RANDOM\_STREAM}!random.h@{random.h}}\index{random.h@{random.h}!PIVOT\_MOVE\_RANDOM\_STREAM@{PIVOT\_MOVE\_RANDOM\_STREAM}}}\Hypertarget{random_8h_ab1fa763976d66d77a7a63f680bfd720baac33e6e3d5cf7777014d55c0ee632a1d}\label{random_8h_ab1fa763976d66d77a7a63f680bfd720baac33e6e3d5cf7777014d55c0ee632a1d} 
+PIVOT\+\_\+\+MOVE\+\_\+\+RANDOM\+\_\+\+STREAM&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{JUMP\_MOVE\_RANDOM\_STREAM@{JUMP\_MOVE\_RANDOM\_STREAM}!random.h@{random.h}}\index{random.h@{random.h}!JUMP\_MOVE\_RANDOM\_STREAM@{JUMP\_MOVE\_RANDOM\_STREAM}}}\Hypertarget{random_8h_ab1fa763976d66d77a7a63f680bfd720ba53def7472034cd1aa9f696ae7afcdfe1}\label{random_8h_ab1fa763976d66d77a7a63f680bfd720ba53def7472034cd1aa9f696ae7afcdfe1} 
+JUMP\+\_\+\+MOVE\+\_\+\+RANDOM\+\_\+\+STREAM&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{random_8h_source_l00012}{12}} of file \mbox{\hyperlink{random_8h_source}{random.\+h}}.
+

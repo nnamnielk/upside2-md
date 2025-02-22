@@ -1,0 +1,77 @@
+\doxysection{src/uniform.hpp File Reference}
+\hypertarget{uniform_8hpp}{}\label{uniform_8hpp}\index{src/uniform.hpp@{src/uniform.hpp}}
+{\ttfamily \#include $<$Random123/features/compilerfeatures.\+h$>$}\newline
+{\ttfamily \#include $<$limits$>$}\newline
+Include dependency graph for uniform.\+hpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{uniform_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{uniform_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structr123_1_1make__signed}{r123\+::make\+\_\+signed$<$ T $>$}}
+\item 
+struct \mbox{\hyperlink{structr123_1_1make__unsigned}{r123\+::make\+\_\+unsigned$<$ T $>$}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacer123}{r123}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{uniform_8hpp_ab361f6abefccbb5be23e8516a3129929}{R123\+\_\+\+MK\+\_\+\+SIGNED\+\_\+\+UNSIGNED}}(ST,  UT)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacer123_a8c0d8906be4027e32f8c968fdfeed73b}{r123\+::\+R123\+\_\+\+MK\+\_\+\+SIGNED\+\_\+\+UNSIGNED}} (int8\+\_\+t, uint8\+\_\+t)
+\item 
+\mbox{\hyperlink{namespacer123_afe0be8c3a6acfa31f37c7d4aece04903}{r123\+::\+R123\+\_\+\+MK\+\_\+\+SIGNED\+\_\+\+UNSIGNED}} (int16\+\_\+t, uint16\+\_\+t)
+\item 
+\mbox{\hyperlink{namespacer123_a16158cf2528d01b0a6eb0c305bb3164c}{r123\+::\+R123\+\_\+\+MK\+\_\+\+SIGNED\+\_\+\+UNSIGNED}} (int32\+\_\+t, uint32\+\_\+t)
+\item 
+\mbox{\hyperlink{namespacer123_a7ad1ca2e311d5091fe12d9c360e5693e}{r123\+::\+R123\+\_\+\+MK\+\_\+\+SIGNED\+\_\+\+UNSIGNED}} (int64\+\_\+t, uint64\+\_\+t)
+\item 
+{\footnotesize template$<$typename T $>$ }\\R123\+\_\+\+CONSTEXPR R123\+\_\+\+STATIC\+\_\+\+INLINE T \mbox{\hyperlink{namespacer123_a7f7e853ac6707b1f17c73e27fd9f8ded}{r123\+::max\+Tvalue}} ()
+\item 
+{\footnotesize template$<$typename Ftype , typename Itype $>$ }\\R123\+\_\+\+CUDA\+\_\+\+DEVICE R123\+\_\+\+STATIC\+\_\+\+INLINE Ftype \mbox{\hyperlink{namespacer123_afc96ad616364743e209c836450cc4107}{r123\+::u01}} (Itype in)
+\item 
+{\footnotesize template$<$typename Ftype , typename Itype $>$ }\\R123\+\_\+\+CUDA\+\_\+\+DEVICE R123\+\_\+\+STATIC\+\_\+\+INLINE Ftype \mbox{\hyperlink{namespacer123_a49eb4e2f3522f1b5e22b66bdc86345ce}{r123\+::uneg11}} (Itype in)
+\item 
+{\footnotesize template$<$typename Ftype , typename Itype $>$ }\\R123\+\_\+\+CUDA\+\_\+\+DEVICE R123\+\_\+\+STATIC\+\_\+\+INLINE Ftype \mbox{\hyperlink{namespacer123_a6d75b90f162a67226c8044c6f3198b96}{r123\+::u01fixedpt}} (Itype in)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{uniform_8hpp_ab361f6abefccbb5be23e8516a3129929}\label{uniform_8hpp_ab361f6abefccbb5be23e8516a3129929} 
+\index{uniform.hpp@{uniform.hpp}!R123\_MK\_SIGNED\_UNSIGNED@{R123\_MK\_SIGNED\_UNSIGNED}}
+\index{R123\_MK\_SIGNED\_UNSIGNED@{R123\_MK\_SIGNED\_UNSIGNED}!uniform.hpp@{uniform.hpp}}
+\doxysubsubsection{\texorpdfstring{R123\_MK\_SIGNED\_UNSIGNED}{R123\_MK\_SIGNED\_UNSIGNED}}
+{\footnotesize\ttfamily \#define R123\+\_\+\+MK\+\_\+\+SIGNED\+\_\+\+UNSIGNED(\begin{DoxyParamCaption}\item[{}]{ST,  }\item[{}]{UT }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<>\ \textcolor{keyword}{struct\ }make\_signed<ST>\{\ \textcolor{keyword}{typedef}\ ST\ type;\ \};\ \(\backslash\)}
+\DoxyCodeLine{\textcolor{keyword}{template}<>\ \textcolor{keyword}{struct\ }make\_signed<UT>\{\ \textcolor{keyword}{typedef}\ ST\ type;\ \};\ \(\backslash\)}
+\DoxyCodeLine{\textcolor{keyword}{template}<>\ \textcolor{keyword}{struct\ }make\_unsigned<ST>\{\ \textcolor{keyword}{typedef}\ UT\ type;\ \};\ \(\backslash\)}
+\DoxyCodeLine{\textcolor{keyword}{template}<>\ \textcolor{keyword}{struct\ }make\_unsigned<UT>\{\ \textcolor{keyword}{typedef}\ UT\ type;\ \}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{uniform_8hpp_source_l00091}{91}} of file \mbox{\hyperlink{uniform_8hpp_source}{uniform.\+hpp}}.
+

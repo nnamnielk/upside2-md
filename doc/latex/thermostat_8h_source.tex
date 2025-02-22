@@ -1,0 +1,45 @@
+\doxysection{thermostat.\+h}
+\hypertarget{thermostat_8h_source}{}\label{thermostat_8h_source}\index{src/thermostat.h@{src/thermostat.h}}
+\mbox{\hyperlink{thermostat_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00004}\mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat}{00004}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat}{OrnsteinUhlenbeckThermostat}}}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00005}00005\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ following\ the\ notation\ in\ Gillespie,\ 1996}}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00006}00006\ \{}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00007}00007\ \ \ \ \ \textcolor{keyword}{private}:\ }
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00008}00008\ \ \ \ \ \ \ \ \ uint64\_t\ n\_invocations;}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00009}00009\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ update\_parameters()\ \{}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00010}00010\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_aff154bd7afad8f15db595834c9a28c29}{mom\_scale}}\ \ \ =\ exp(-\/\mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a4a0a96962a13667827f163bd7eaf6b91}{delta\_t}}/\mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a5ca964dc562baa4b6105244e4375f99a}{timescale}});}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00011}00011\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_afdbbd049f507939c85ea85b5dbc53a7f}{noise\_scale}}\ =\ \mbox{\hyperlink{_float4_8h_a71bff4a4d976cf10c637579a0fd58ae5}{sqrtf}}(\mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a28a04a882a82aeab510e15631d660b98}{temp}}\ *\ (1-\/\mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_aff154bd7afad8f15db595834c9a28c29}{mom\_scale}}*\mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_aff154bd7afad8f15db595834c9a28c29}{mom\_scale}}));}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00012}00012\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00014}00014\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00015}\mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_aca08c572572feb3972c7c24aeebd9a14}{00015}}\ \ \ \ \ \ \ \ \ uint32\_t\ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_aca08c572572feb3972c7c24aeebd9a14}{random\_seed}};}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00016}\mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a5ca964dc562baa4b6105244e4375f99a}{00016}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a5ca964dc562baa4b6105244e4375f99a}{timescale}};}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00017}\mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a4a0a96962a13667827f163bd7eaf6b91}{00017}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a4a0a96962a13667827f163bd7eaf6b91}{delta\_t}};}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00018}\mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_aff154bd7afad8f15db595834c9a28c29}{00018}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_aff154bd7afad8f15db595834c9a28c29}{mom\_scale}};}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00020}\mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a28a04a882a82aeab510e15631d660b98}{00020}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a28a04a882a82aeab510e15631d660b98}{temp}};}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00021}\mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_afdbbd049f507939c85ea85b5dbc53a7f}{00021}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_afdbbd049f507939c85ea85b5dbc53a7f}{noise\_scale}};}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00023}\mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_abfd6bdaab11ebc7365b6c89bca9a7a43}{00023}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_abfd6bdaab11ebc7365b6c89bca9a7a43}{OrnsteinUhlenbeckThermostat}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00024}\mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_ab6357dfc0db59e1818ebd671d09ec355}{00024}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_ab6357dfc0db59e1818ebd671d09ec355}{OrnsteinUhlenbeckThermostat}}(uint32\_t\ random\_seed\_,\ \textcolor{keywordtype}{float}\ timescale\_,\ \textcolor{keywordtype}{float}\ temp\_,\ \textcolor{keywordtype}{float}\ delta\_t\_):}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ n\_invocations(0),}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_aca08c572572feb3972c7c24aeebd9a14}{random\_seed}}(random\_seed\_),\ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a5ca964dc562baa4b6105244e4375f99a}{timescale}}(timescale\_),\ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a4a0a96962a13667827f163bd7eaf6b91}{delta\_t}}(delta\_t\_),\ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a28a04a882a82aeab510e15631d660b98}{temp}}(temp\_),\ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_afdbbd049f507939c85ea85b5dbc53a7f}{noise\_scale}}(0.f)}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ update\_parameters();}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00031}\mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a49a8b6bd8337ce6b85760b67e6782f1f}{00031}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat}{OrnsteinUhlenbeckThermostat}}\&\ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a49a8b6bd8337ce6b85760b67e6782f1f}{set\_timescale}}(\textcolor{keywordtype}{float}\ timescale\_)\ \{}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a5ca964dc562baa4b6105244e4375f99a}{timescale}}\ =\ timescale\_;\ update\_parameters();\ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};\}}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00033}\mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_aa8d039cd13e6413c1115ee75466f27b5}{00033}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat}{OrnsteinUhlenbeckThermostat}}\&\ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_aa8d039cd13e6413c1115ee75466f27b5}{set\_temp}}\ \ \ \ \ (\textcolor{keywordtype}{float}\ temp\_)\ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a28a04a882a82aeab510e15631d660b98}{temp}}\ \ \ \ \ \ =\ temp\_;\ \ \ \ \ \ update\_parameters();\ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};\}}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00035}\mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a2ae28fd36a7746152551f078ad26e462}{00035}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat}{OrnsteinUhlenbeckThermostat}}\&\ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a2ae28fd36a7746152551f078ad26e462}{set\_delta\_t}}\ \ (\textcolor{keywordtype}{float}\ delta\_t\_)\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a4a0a96962a13667827f163bd7eaf6b91}{delta\_t}}\ \ \ =\ delta\_t\_;\ \ \ update\_parameters();\ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};\}}
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_ornstein_uhlenbeck_thermostat_a2001f98d4431191bfba61c2563f97914}{apply}}(\mbox{\hyperlink{struct_vec_array}{VecArray}}\ mom,\ \textcolor{keywordtype}{int}\ n\_atom);\ }
+\DoxyCodeLine{\Hypertarget{thermostat_8h_source_l00039}00039\ \};}
+
+\end{DoxyCode}

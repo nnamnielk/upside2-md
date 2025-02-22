@@ -1,0 +1,204 @@
+\doxysection{H5\+Logger Struct Reference}
+\hypertarget{struct_h5_logger}{}\label{struct_h5_logger}\index{H5Logger@{H5Logger}}
+
+
+{\ttfamily \#include $<$state\+\_\+logger.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_h5_logger_a89cef64e54ec83aeb1ab6f67c5d46b5e}{H5\+Logger}} (\mbox{\hyperlink{namespaceh5_a020e9a461902cb318328c2dd6d40e1a9}{h5\+::\+H5\+Obj}} \&config\+\_\+, const char \texorpdfstring{$\ast$}{*}loc, \mbox{\hyperlink{state__logger_8h_a9cf4d2a890c8688e0fe1bc38fa88de94}{Log\+Level}} level\+\_\+)
+\item 
+void \mbox{\hyperlink{struct_h5_logger_afd6413ad584d8527428ee64c41027cfc}{collect\+\_\+samples}} ()
+\item 
+void \mbox{\hyperlink{struct_h5_logger_a43000ae42e5a609da8b7b433bf530a4f}{collect\+\_\+dense\+\_\+samples}} ()
+\item 
+void \mbox{\hyperlink{struct_h5_logger_ab5b6b76ff1fbae8cdf1d49c0f1bbff24}{flush}} ()
+\item 
+{\footnotesize template$<$typename T , typename F $>$ }\\void \mbox{\hyperlink{struct_h5_logger_a87ddbe1baf8913f4645735e9a4090b1b}{add\+\_\+logger}} (const char \texorpdfstring{$\ast$}{*}relative\+\_\+path, const std\+::initializer\+\_\+list$<$ int $>$ \&data\+\_\+shape, const F \&\&sample\+\_\+function)
+\item 
+{\footnotesize template$<$typename T , typename F $>$ }\\void \mbox{\hyperlink{struct_h5_logger_a17c8af51c5125cc73cfb36f180906a05}{add\+\_\+dense\+\_\+logger}} (const char \texorpdfstring{$\ast$}{*}relative\+\_\+path, const std\+::initializer\+\_\+list$<$ int $>$ \&data\+\_\+shape, const F \&\&sample\+\_\+function)
+\item 
+{\footnotesize template$<$typename T , typename F $>$ }\\void \mbox{\hyperlink{struct_h5_logger_a5ca730a174d9cd33b99f05b30138fc5d}{log\+\_\+once}} (const char \texorpdfstring{$\ast$}{*}relative\+\_\+path, const std\+::initializer\+\_\+list$<$ int $>$ \&data\+\_\+shape, const F \&\&sample\+\_\+function)
+\item 
+virtual \mbox{\hyperlink{struct_h5_logger_a16a18ae0749240a93880e434542df807}{\texorpdfstring{$\sim$}{\string~}\+H5\+Logger}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{state__logger_8h_a9cf4d2a890c8688e0fe1bc38fa88de94}{Log\+Level}} \mbox{\hyperlink{struct_h5_logger_a2c81b0449e6170b50476926a386112ac}{level}}
+\item 
+\mbox{\hyperlink{namespaceh5_a020e9a461902cb318328c2dd6d40e1a9}{h5\+::\+H5\+Obj}} \mbox{\hyperlink{struct_h5_logger_aa4d191d88b2a8b7fe94cac1ced0482ab}{config}}
+\item 
+\mbox{\hyperlink{namespaceh5_a020e9a461902cb318328c2dd6d40e1a9}{h5\+::\+H5\+Obj}} \mbox{\hyperlink{struct_h5_logger_a6f599f46a77dbd89532a0a11440754f1}{logging\+\_\+group}}
+\item 
+std\+::vector$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{struct_single_logger}{Single\+Logger}} $>$ $>$ \mbox{\hyperlink{struct_h5_logger_a776950e3f26354667d21f472af972078}{state\+\_\+loggers}}
+\item 
+std\+::vector$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{struct_single_logger}{Single\+Logger}} $>$ $>$ \mbox{\hyperlink{struct_h5_logger_a595e708d78b7737c6bad846d2449776a}{state\+\_\+dense\+\_\+loggers}}
+\item 
+size\+\_\+t \mbox{\hyperlink{struct_h5_logger_a5477f41ee9264502acfe0e242aef865e}{n\+\_\+samples\+\_\+buffered}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{state__logger_8h_source_l00068}{68}} of file \mbox{\hyperlink{state__logger_8h_source}{state\+\_\+logger.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_h5_logger_a89cef64e54ec83aeb1ab6f67c5d46b5e}\label{struct_h5_logger_a89cef64e54ec83aeb1ab6f67c5d46b5e} 
+\index{H5Logger@{H5Logger}!H5Logger@{H5Logger}}
+\index{H5Logger@{H5Logger}!H5Logger@{H5Logger}}
+\doxysubsubsection{\texorpdfstring{H5Logger()}{H5Logger()}}
+{\footnotesize\ttfamily H5\+Logger\+::\+H5\+Logger (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceh5_a020e9a461902cb318328c2dd6d40e1a9}{h5\+::\+H5\+Obj}} \&}]{config\+\_\+,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{loc,  }\item[{\mbox{\hyperlink{state__logger_8h_a9cf4d2a890c8688e0fe1bc38fa88de94}{Log\+Level}}}]{level\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{state__logger_8h_source_l00078}{78}} of file \mbox{\hyperlink{state__logger_8h_source}{state\+\_\+logger.\+h}}.
+
+\Hypertarget{struct_h5_logger_a16a18ae0749240a93880e434542df807}\label{struct_h5_logger_a16a18ae0749240a93880e434542df807} 
+\index{H5Logger@{H5Logger}!````~H5Logger@{\texorpdfstring{$\sim$}{\string~}H5Logger}}
+\index{````~H5Logger@{\texorpdfstring{$\sim$}{\string~}H5Logger}!H5Logger@{H5Logger}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}H5Logger()}{\string~H5Logger()}}
+{\footnotesize\ttfamily virtual H5\+Logger\+::\texorpdfstring{$\sim$}{\string~}\+H5\+Logger (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{state__logger_8h_source_l00157}{157}} of file \mbox{\hyperlink{state__logger_8h_source}{state\+\_\+logger.\+h}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_h5_logger_a17c8af51c5125cc73cfb36f180906a05}\label{struct_h5_logger_a17c8af51c5125cc73cfb36f180906a05} 
+\index{H5Logger@{H5Logger}!add\_dense\_logger@{add\_dense\_logger}}
+\index{add\_dense\_logger@{add\_dense\_logger}!H5Logger@{H5Logger}}
+\doxysubsubsection{\texorpdfstring{add\_dense\_logger()}{add\_dense\_logger()}}
+{\footnotesize\ttfamily template$<$typename T , typename F $>$ \\
+void H5\+Logger\+::add\+\_\+dense\+\_\+logger (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{relative\+\_\+path,  }\item[{const std\+::initializer\+\_\+list$<$ int $>$ \&}]{data\+\_\+shape,  }\item[{const F \&\&}]{sample\+\_\+function }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{state__logger_8h_source_l00126}{126}} of file \mbox{\hyperlink{state__logger_8h_source}{state\+\_\+logger.\+h}}.
+
+\Hypertarget{struct_h5_logger_a87ddbe1baf8913f4645735e9a4090b1b}\label{struct_h5_logger_a87ddbe1baf8913f4645735e9a4090b1b} 
+\index{H5Logger@{H5Logger}!add\_logger@{add\_logger}}
+\index{add\_logger@{add\_logger}!H5Logger@{H5Logger}}
+\doxysubsubsection{\texorpdfstring{add\_logger()}{add\_logger()}}
+{\footnotesize\ttfamily template$<$typename T , typename F $>$ \\
+void H5\+Logger\+::add\+\_\+logger (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{relative\+\_\+path,  }\item[{const std\+::initializer\+\_\+list$<$ int $>$ \&}]{data\+\_\+shape,  }\item[{const F \&\&}]{sample\+\_\+function }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{state__logger_8h_source_l00116}{116}} of file \mbox{\hyperlink{state__logger_8h_source}{state\+\_\+logger.\+h}}.
+
+\Hypertarget{struct_h5_logger_a43000ae42e5a609da8b7b433bf530a4f}\label{struct_h5_logger_a43000ae42e5a609da8b7b433bf530a4f} 
+\index{H5Logger@{H5Logger}!collect\_dense\_samples@{collect\_dense\_samples}}
+\index{collect\_dense\_samples@{collect\_dense\_samples}!H5Logger@{H5Logger}}
+\doxysubsubsection{\texorpdfstring{collect\_dense\_samples()}{collect\_dense\_samples()}}
+{\footnotesize\ttfamily void H5\+Logger\+::collect\+\_\+dense\+\_\+samples (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{state__logger_8h_source_l00094}{94}} of file \mbox{\hyperlink{state__logger_8h_source}{state\+\_\+logger.\+h}}.
+
+\Hypertarget{struct_h5_logger_afd6413ad584d8527428ee64c41027cfc}\label{struct_h5_logger_afd6413ad584d8527428ee64c41027cfc} 
+\index{H5Logger@{H5Logger}!collect\_samples@{collect\_samples}}
+\index{collect\_samples@{collect\_samples}!H5Logger@{H5Logger}}
+\doxysubsubsection{\texorpdfstring{collect\_samples()}{collect\_samples()}}
+{\footnotesize\ttfamily void H5\+Logger\+::collect\+\_\+samples (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{state__logger_8h_source_l00085}{85}} of file \mbox{\hyperlink{state__logger_8h_source}{state\+\_\+logger.\+h}}.
+
+\Hypertarget{struct_h5_logger_ab5b6b76ff1fbae8cdf1d49c0f1bbff24}\label{struct_h5_logger_ab5b6b76ff1fbae8cdf1d49c0f1bbff24} 
+\index{H5Logger@{H5Logger}!flush@{flush}}
+\index{flush@{flush}!H5Logger@{H5Logger}}
+\doxysubsubsection{\texorpdfstring{flush()}{flush()}}
+{\footnotesize\ttfamily void H5\+Logger\+::flush (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{state__logger_8h_source_l00100}{100}} of file \mbox{\hyperlink{state__logger_8h_source}{state\+\_\+logger.\+h}}.
+
+\Hypertarget{struct_h5_logger_a5ca730a174d9cd33b99f05b30138fc5d}\label{struct_h5_logger_a5ca730a174d9cd33b99f05b30138fc5d} 
+\index{H5Logger@{H5Logger}!log\_once@{log\_once}}
+\index{log\_once@{log\_once}!H5Logger@{H5Logger}}
+\doxysubsubsection{\texorpdfstring{log\_once()}{log\_once()}}
+{\footnotesize\ttfamily template$<$typename T , typename F $>$ \\
+void H5\+Logger\+::log\+\_\+once (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{relative\+\_\+path,  }\item[{const std\+::initializer\+\_\+list$<$ int $>$ \&}]{data\+\_\+shape,  }\item[{const F \&\&}]{sample\+\_\+function }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{state__logger_8h_source_l00136}{136}} of file \mbox{\hyperlink{state__logger_8h_source}{state\+\_\+logger.\+h}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_h5_logger_aa4d191d88b2a8b7fe94cac1ced0482ab}\label{struct_h5_logger_aa4d191d88b2a8b7fe94cac1ced0482ab} 
+\index{H5Logger@{H5Logger}!config@{config}}
+\index{config@{config}!H5Logger@{H5Logger}}
+\doxysubsubsection{\texorpdfstring{config}{config}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_a020e9a461902cb318328c2dd6d40e1a9}{h5\+::\+H5\+Obj}} H5\+Logger\+::config}
+
+
+
+Definition at line \mbox{\hyperlink{state__logger_8h_source_l00070}{70}} of file \mbox{\hyperlink{state__logger_8h_source}{state\+\_\+logger.\+h}}.
+
+\Hypertarget{struct_h5_logger_a2c81b0449e6170b50476926a386112ac}\label{struct_h5_logger_a2c81b0449e6170b50476926a386112ac} 
+\index{H5Logger@{H5Logger}!level@{level}}
+\index{level@{level}!H5Logger@{H5Logger}}
+\doxysubsubsection{\texorpdfstring{level}{level}}
+{\footnotesize\ttfamily \mbox{\hyperlink{state__logger_8h_a9cf4d2a890c8688e0fe1bc38fa88de94}{Log\+Level}} H5\+Logger\+::level}
+
+
+
+Definition at line \mbox{\hyperlink{state__logger_8h_source_l00069}{69}} of file \mbox{\hyperlink{state__logger_8h_source}{state\+\_\+logger.\+h}}.
+
+\Hypertarget{struct_h5_logger_a6f599f46a77dbd89532a0a11440754f1}\label{struct_h5_logger_a6f599f46a77dbd89532a0a11440754f1} 
+\index{H5Logger@{H5Logger}!logging\_group@{logging\_group}}
+\index{logging\_group@{logging\_group}!H5Logger@{H5Logger}}
+\doxysubsubsection{\texorpdfstring{logging\_group}{logging\_group}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_a020e9a461902cb318328c2dd6d40e1a9}{h5\+::\+H5\+Obj}} H5\+Logger\+::logging\+\_\+group}
+
+
+
+Definition at line \mbox{\hyperlink{state__logger_8h_source_l00071}{71}} of file \mbox{\hyperlink{state__logger_8h_source}{state\+\_\+logger.\+h}}.
+
+\Hypertarget{struct_h5_logger_a5477f41ee9264502acfe0e242aef865e}\label{struct_h5_logger_a5477f41ee9264502acfe0e242aef865e} 
+\index{H5Logger@{H5Logger}!n\_samples\_buffered@{n\_samples\_buffered}}
+\index{n\_samples\_buffered@{n\_samples\_buffered}!H5Logger@{H5Logger}}
+\doxysubsubsection{\texorpdfstring{n\_samples\_buffered}{n\_samples\_buffered}}
+{\footnotesize\ttfamily size\+\_\+t H5\+Logger\+::n\+\_\+samples\+\_\+buffered}
+
+
+
+Definition at line \mbox{\hyperlink{state__logger_8h_source_l00074}{74}} of file \mbox{\hyperlink{state__logger_8h_source}{state\+\_\+logger.\+h}}.
+
+\Hypertarget{struct_h5_logger_a595e708d78b7737c6bad846d2449776a}\label{struct_h5_logger_a595e708d78b7737c6bad846d2449776a} 
+\index{H5Logger@{H5Logger}!state\_dense\_loggers@{state\_dense\_loggers}}
+\index{state\_dense\_loggers@{state\_dense\_loggers}!H5Logger@{H5Logger}}
+\doxysubsubsection{\texorpdfstring{state\_dense\_loggers}{state\_dense\_loggers}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{struct_single_logger}{Single\+Logger}}$>$ $>$ H5\+Logger\+::state\+\_\+dense\+\_\+loggers}
+
+
+
+Definition at line \mbox{\hyperlink{state__logger_8h_source_l00073}{73}} of file \mbox{\hyperlink{state__logger_8h_source}{state\+\_\+logger.\+h}}.
+
+\Hypertarget{struct_h5_logger_a776950e3f26354667d21f472af972078}\label{struct_h5_logger_a776950e3f26354667d21f472af972078} 
+\index{H5Logger@{H5Logger}!state\_loggers@{state\_loggers}}
+\index{state\_loggers@{state\_loggers}!H5Logger@{H5Logger}}
+\doxysubsubsection{\texorpdfstring{state\_loggers}{state\_loggers}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{struct_single_logger}{Single\+Logger}}$>$ $>$ H5\+Logger\+::state\+\_\+loggers}
+
+
+
+Definition at line \mbox{\hyperlink{state__logger_8h_source_l00072}{72}} of file \mbox{\hyperlink{state__logger_8h_source}{state\+\_\+logger.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{state__logger_8h}{state\+\_\+logger.\+h}}\end{DoxyCompactItemize}

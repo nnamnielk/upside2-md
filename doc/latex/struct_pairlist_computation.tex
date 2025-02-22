@@ -1,0 +1,361 @@
+\doxysection{Pairlist\+Computation\texorpdfstring{$<$}{<} symmetric \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{struct_pairlist_computation}{}\label{struct_pairlist_computation}\index{PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}}
+
+
+{\ttfamily \#include $<$interaction\+\_\+graph.\+h$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+typedef \mbox{\hyperlink{struct_int4}{Int4}}(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_pairlist_computation_abe91e6d5b351054027a9b6d4cc01fb92}{acceptable\+\_\+id\+\_\+pair\+\_\+t}}) (const \mbox{\hyperlink{struct_int4}{Int4}} \&, const \mbox{\hyperlink{struct_int4}{Int4}} \&)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{struct_pairlist_computation_aae3108e3163fc5f31d61b828073786ef}{change\+\_\+cache\+\_\+buffer}} (float new\+\_\+buffer)
+\item 
+\mbox{\hyperlink{struct_pairlist_computation_a771ae0a1574a2e3b830fe4668fb17f8e}{Pairlist\+Computation}} (int n\+\_\+elem1\+\_\+, int n\+\_\+elem2\+\_\+, int max\+\_\+n\+\_\+edge)
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{struct_pairlist_computation_abe91e6d5b351054027a9b6d4cc01fb92}{acceptable\+\_\+id\+\_\+pair\+\_\+t}} acceptable\+\_\+id\+\_\+pair$>$ }\\void \mbox{\hyperlink{struct_pairlist_computation_a39c82f679cd13e0dd38bb336ead5cc3a}{find\+\_\+edges}} (float cutoff, const float \texorpdfstring{$\ast$}{*}aligned\+\_\+pos1, const int pos1\+\_\+stride, int \texorpdfstring{$\ast$}{*}id1, const float \texorpdfstring{$\ast$}{*}aligned\+\_\+pos2, const int pos2\+\_\+stride, int \texorpdfstring{$\ast$}{*}id2)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const int \mbox{\hyperlink{struct_pairlist_computation_a2e4cef3383f27242e8cacbbc6470340a}{n\+\_\+elem1}}
+\item 
+const int \mbox{\hyperlink{struct_pairlist_computation_a1f78c079efcaa41414c8c6c99712869c}{n\+\_\+elem2}}
+\item 
+std\+::unique\+\_\+ptr$<$ int32\+\_\+t\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_pairlist_computation_a8d0e524c91ff3e95f98569c43bde394a}{edge\+\_\+indices1}}
+\item 
+std\+::unique\+\_\+ptr$<$ int32\+\_\+t\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_pairlist_computation_ab70a1600fd33a414eda51ae9735023c8}{edge\+\_\+indices2}}
+\item 
+std\+::unique\+\_\+ptr$<$ int32\+\_\+t\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_pairlist_computation_ae19de191d3f60ade8db9c8f2458ea612}{edge\+\_\+id1}}
+\item 
+std\+::unique\+\_\+ptr$<$ int32\+\_\+t\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_pairlist_computation_a0c8e3171817ef93d6556d8a20aefb6b1}{edge\+\_\+id2}}
+\item 
+int \mbox{\hyperlink{struct_pairlist_computation_ae7309f6e24597966fd36441acb04a88e}{n\+\_\+edge}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$\mbox{\hyperlink{struct_pairlist_computation_abe91e6d5b351054027a9b6d4cc01fb92}{acceptable\+\_\+id\+\_\+pair\+\_\+t}} acceptable\+\_\+id\+\_\+pair$>$ }\\void \mbox{\hyperlink{struct_pairlist_computation_a410c86c09f7eec00ea340bd214a252c0}{ensure\+\_\+cache\+\_\+valid}} (float cutoff, const float \texorpdfstring{$\ast$}{*}aligned\+\_\+pos1, const int pos1\+\_\+stride, int \texorpdfstring{$\ast$}{*}id1, const float \texorpdfstring{$\ast$}{*}aligned\+\_\+pos2, const int pos2\+\_\+stride, int \texorpdfstring{$\ast$}{*}id2)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{struct_pairlist_computation_a239454f6d6dd05c92713119115376746}{cache\+\_\+valid}}
+\item 
+float \mbox{\hyperlink{struct_pairlist_computation_a1ce4e45c523c62c5914d5e0c67f305d7}{cache\+\_\+buffer}}
+\item 
+float \mbox{\hyperlink{struct_pairlist_computation_a4dc85c04d74855853d480dd3e4178865}{cache\+\_\+cutoff}}
+\item 
+std\+::unique\+\_\+ptr$<$ float\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_pairlist_computation_a48f907a903b3f2177a9f2320353feb45}{cache\+\_\+pos1}}
+\item 
+std\+::unique\+\_\+ptr$<$ float\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_pairlist_computation_a5b2122e713755ddfac3fe969d40a517e}{cache\+\_\+pos2}}
+\item 
+std\+::unique\+\_\+ptr$<$ int32\+\_\+t\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_pairlist_computation_a473b0a480d8843d670800e8335630a0c}{cache\+\_\+id1}}
+\item 
+std\+::unique\+\_\+ptr$<$ int32\+\_\+t\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_pairlist_computation_a64ba683459d43151d1bd838a358d0eb2}{cache\+\_\+id2}}
+\item 
+std\+::unique\+\_\+ptr$<$ int32\+\_\+t\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_pairlist_computation_a3eb51717fe33d8fea8f91a3fe31dde24}{cache\+\_\+edge\+\_\+indices1}}
+\item 
+std\+::unique\+\_\+ptr$<$ int32\+\_\+t\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_pairlist_computation_ad24d0aed82f0a7d9bb1f00a2db72545b}{cache\+\_\+edge\+\_\+indices2}}
+\item 
+std\+::unique\+\_\+ptr$<$ int32\+\_\+t\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_pairlist_computation_a8cab82d1b840512526bc98ce49652e0b}{cache\+\_\+edge\+\_\+id1}}
+\item 
+std\+::unique\+\_\+ptr$<$ int32\+\_\+t\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_pairlist_computation_a86a028c0232d559e34f0701ca2594ba6}{cache\+\_\+edge\+\_\+id2}}
+\item 
+int \mbox{\hyperlink{struct_pairlist_computation_a2c2e69e70ad0f585d67f3e69102074e0}{cache\+\_\+n\+\_\+edge}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$bool symmetric$>$\newline
+struct Pairlist\+Computation$<$ symmetric $>$}
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00033}{33}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+
+
+
+\doxysubsection{Member Typedef Documentation}
+\Hypertarget{struct_pairlist_computation_abe91e6d5b351054027a9b6d4cc01fb92}\label{struct_pairlist_computation_abe91e6d5b351054027a9b6d4cc01fb92} 
+\index{PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}!acceptable\_id\_pair\_t@{acceptable\_id\_pair\_t}}
+\index{acceptable\_id\_pair\_t@{acceptable\_id\_pair\_t}!PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}}
+\doxysubsubsection{\texorpdfstring{acceptable\_id\_pair\_t}{acceptable\_id\_pair\_t}}
+{\footnotesize\ttfamily template$<$bool symmetric$>$ \\
+typedef \mbox{\hyperlink{struct_int4}{Int4}}(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation}}$<$ symmetric $>$\+::acceptable\+\_\+id\+\_\+pair\+\_\+t) (const \mbox{\hyperlink{struct_int4}{Int4}} \&, const \mbox{\hyperlink{struct_int4}{Int4}} \&)}
+
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00034}{34}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_pairlist_computation_a771ae0a1574a2e3b830fe4668fb17f8e}\label{struct_pairlist_computation_a771ae0a1574a2e3b830fe4668fb17f8e} 
+\index{PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}!PairlistComputation@{PairlistComputation}}
+\index{PairlistComputation@{PairlistComputation}!PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}}
+\doxysubsubsection{\texorpdfstring{PairlistComputation()}{PairlistComputation()}}
+{\footnotesize\ttfamily template$<$bool symmetric$>$ \\
+\mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation}}$<$ symmetric $>$\mbox{\hyperlink{struct_pairlist_computation}{\+::\+Pairlist\+Computation}} (\begin{DoxyParamCaption}\item[{int}]{n\+\_\+elem1\+\_\+,  }\item[{int}]{n\+\_\+elem2\+\_\+,  }\item[{int}]{max\+\_\+n\+\_\+edge }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00173}{173}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_pairlist_computation_aae3108e3163fc5f31d61b828073786ef}\label{struct_pairlist_computation_aae3108e3163fc5f31d61b828073786ef} 
+\index{PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}!change\_cache\_buffer@{change\_cache\_buffer}}
+\index{change\_cache\_buffer@{change\_cache\_buffer}!PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}}
+\doxysubsubsection{\texorpdfstring{change\_cache\_buffer()}{change\_cache\_buffer()}}
+{\footnotesize\ttfamily template$<$bool symmetric$>$ \\
+void \mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation}}$<$ symmetric $>$\+::change\+\_\+cache\+\_\+buffer (\begin{DoxyParamCaption}\item[{float}]{new\+\_\+buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00172}{172}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+
+\Hypertarget{struct_pairlist_computation_a410c86c09f7eec00ea340bd214a252c0}\label{struct_pairlist_computation_a410c86c09f7eec00ea340bd214a252c0} 
+\index{PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}!ensure\_cache\_valid@{ensure\_cache\_valid}}
+\index{ensure\_cache\_valid@{ensure\_cache\_valid}!PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}}
+\doxysubsubsection{\texorpdfstring{ensure\_cache\_valid()}{ensure\_cache\_valid()}}
+{\footnotesize\ttfamily template$<$bool symmetric$>$ \\
+template$<$\mbox{\hyperlink{struct_pairlist_computation_abe91e6d5b351054027a9b6d4cc01fb92}{acceptable\+\_\+id\+\_\+pair\+\_\+t}} acceptable\+\_\+id\+\_\+pair$>$ \\
+void \mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation}}$<$ symmetric $>$\+::ensure\+\_\+cache\+\_\+valid (\begin{DoxyParamCaption}\item[{float}]{cutoff,  }\item[{const float \texorpdfstring{$\ast$}{*}}]{aligned\+\_\+pos1,  }\item[{const int}]{pos1\+\_\+stride,  }\item[{int \texorpdfstring{$\ast$}{*}}]{id1,  }\item[{const float \texorpdfstring{$\ast$}{*}}]{aligned\+\_\+pos2,  }\item[{const int}]{pos2\+\_\+stride,  }\item[{int \texorpdfstring{$\ast$}{*}}]{id2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00052}{52}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+
+\Hypertarget{struct_pairlist_computation_a39c82f679cd13e0dd38bb336ead5cc3a}\label{struct_pairlist_computation_a39c82f679cd13e0dd38bb336ead5cc3a} 
+\index{PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}!find\_edges@{find\_edges}}
+\index{find\_edges@{find\_edges}!PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}}
+\doxysubsubsection{\texorpdfstring{find\_edges()}{find\_edges()}}
+{\footnotesize\ttfamily template$<$bool symmetric$>$ \\
+template$<$\mbox{\hyperlink{struct_pairlist_computation_abe91e6d5b351054027a9b6d4cc01fb92}{acceptable\+\_\+id\+\_\+pair\+\_\+t}} acceptable\+\_\+id\+\_\+pair$>$ \\
+void \mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation}}$<$ symmetric $>$\+::find\+\_\+edges (\begin{DoxyParamCaption}\item[{float}]{cutoff,  }\item[{const float \texorpdfstring{$\ast$}{*}}]{aligned\+\_\+pos1,  }\item[{const int}]{pos1\+\_\+stride,  }\item[{int \texorpdfstring{$\ast$}{*}}]{id1,  }\item[{const float \texorpdfstring{$\ast$}{*}}]{aligned\+\_\+pos2,  }\item[{const int}]{pos2\+\_\+stride,  }\item[{int \texorpdfstring{$\ast$}{*}}]{id2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00203}{203}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_pairlist_computation_a1ce4e45c523c62c5914d5e0c67f305d7}\label{struct_pairlist_computation_a1ce4e45c523c62c5914d5e0c67f305d7} 
+\index{PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}!cache\_buffer@{cache\_buffer}}
+\index{cache\_buffer@{cache\_buffer}!PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}}
+\doxysubsubsection{\texorpdfstring{cache\_buffer}{cache\_buffer}}
+{\footnotesize\ttfamily template$<$bool symmetric$>$ \\
+float \mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation}}$<$ symmetric $>$\+::cache\+\_\+buffer\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00043}{43}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+
+\Hypertarget{struct_pairlist_computation_a4dc85c04d74855853d480dd3e4178865}\label{struct_pairlist_computation_a4dc85c04d74855853d480dd3e4178865} 
+\index{PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}!cache\_cutoff@{cache\_cutoff}}
+\index{cache\_cutoff@{cache\_cutoff}!PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}}
+\doxysubsubsection{\texorpdfstring{cache\_cutoff}{cache\_cutoff}}
+{\footnotesize\ttfamily template$<$bool symmetric$>$ \\
+float \mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation}}$<$ symmetric $>$\+::cache\+\_\+cutoff\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00044}{44}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+
+\Hypertarget{struct_pairlist_computation_a8cab82d1b840512526bc98ce49652e0b}\label{struct_pairlist_computation_a8cab82d1b840512526bc98ce49652e0b} 
+\index{PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}!cache\_edge\_id1@{cache\_edge\_id1}}
+\index{cache\_edge\_id1@{cache\_edge\_id1}!PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}}
+\doxysubsubsection{\texorpdfstring{cache\_edge\_id1}{cache\_edge\_id1}}
+{\footnotesize\ttfamily template$<$bool symmetric$>$ \\
+std\+::unique\+\_\+ptr$<$int32\+\_\+t\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation}}$<$ symmetric $>$\+::cache\+\_\+edge\+\_\+id1\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00048}{48}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+
+\Hypertarget{struct_pairlist_computation_a86a028c0232d559e34f0701ca2594ba6}\label{struct_pairlist_computation_a86a028c0232d559e34f0701ca2594ba6} 
+\index{PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}!cache\_edge\_id2@{cache\_edge\_id2}}
+\index{cache\_edge\_id2@{cache\_edge\_id2}!PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}}
+\doxysubsubsection{\texorpdfstring{cache\_edge\_id2}{cache\_edge\_id2}}
+{\footnotesize\ttfamily template$<$bool symmetric$>$ \\
+std\+::unique\+\_\+ptr$<$int32\+\_\+t\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation}}$<$ symmetric $>$\+::cache\+\_\+edge\+\_\+id2\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00048}{48}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+
+\Hypertarget{struct_pairlist_computation_a3eb51717fe33d8fea8f91a3fe31dde24}\label{struct_pairlist_computation_a3eb51717fe33d8fea8f91a3fe31dde24} 
+\index{PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}!cache\_edge\_indices1@{cache\_edge\_indices1}}
+\index{cache\_edge\_indices1@{cache\_edge\_indices1}!PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}}
+\doxysubsubsection{\texorpdfstring{cache\_edge\_indices1}{cache\_edge\_indices1}}
+{\footnotesize\ttfamily template$<$bool symmetric$>$ \\
+std\+::unique\+\_\+ptr$<$int32\+\_\+t\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation}}$<$ symmetric $>$\+::cache\+\_\+edge\+\_\+indices1\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00047}{47}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+
+\Hypertarget{struct_pairlist_computation_ad24d0aed82f0a7d9bb1f00a2db72545b}\label{struct_pairlist_computation_ad24d0aed82f0a7d9bb1f00a2db72545b} 
+\index{PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}!cache\_edge\_indices2@{cache\_edge\_indices2}}
+\index{cache\_edge\_indices2@{cache\_edge\_indices2}!PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}}
+\doxysubsubsection{\texorpdfstring{cache\_edge\_indices2}{cache\_edge\_indices2}}
+{\footnotesize\ttfamily template$<$bool symmetric$>$ \\
+std\+::unique\+\_\+ptr$<$int32\+\_\+t\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation}}$<$ symmetric $>$\+::cache\+\_\+edge\+\_\+indices2\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00047}{47}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+
+\Hypertarget{struct_pairlist_computation_a473b0a480d8843d670800e8335630a0c}\label{struct_pairlist_computation_a473b0a480d8843d670800e8335630a0c} 
+\index{PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}!cache\_id1@{cache\_id1}}
+\index{cache\_id1@{cache\_id1}!PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}}
+\doxysubsubsection{\texorpdfstring{cache\_id1}{cache\_id1}}
+{\footnotesize\ttfamily template$<$bool symmetric$>$ \\
+std\+::unique\+\_\+ptr$<$int32\+\_\+t\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation}}$<$ symmetric $>$\+::cache\+\_\+id1\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00046}{46}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+
+\Hypertarget{struct_pairlist_computation_a64ba683459d43151d1bd838a358d0eb2}\label{struct_pairlist_computation_a64ba683459d43151d1bd838a358d0eb2} 
+\index{PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}!cache\_id2@{cache\_id2}}
+\index{cache\_id2@{cache\_id2}!PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}}
+\doxysubsubsection{\texorpdfstring{cache\_id2}{cache\_id2}}
+{\footnotesize\ttfamily template$<$bool symmetric$>$ \\
+std\+::unique\+\_\+ptr$<$int32\+\_\+t\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation}}$<$ symmetric $>$\+::cache\+\_\+id2\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00046}{46}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+
+\Hypertarget{struct_pairlist_computation_a2c2e69e70ad0f585d67f3e69102074e0}\label{struct_pairlist_computation_a2c2e69e70ad0f585d67f3e69102074e0} 
+\index{PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}!cache\_n\_edge@{cache\_n\_edge}}
+\index{cache\_n\_edge@{cache\_n\_edge}!PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}}
+\doxysubsubsection{\texorpdfstring{cache\_n\_edge}{cache\_n\_edge}}
+{\footnotesize\ttfamily template$<$bool symmetric$>$ \\
+int \mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation}}$<$ symmetric $>$\+::cache\+\_\+n\+\_\+edge\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00049}{49}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+
+\Hypertarget{struct_pairlist_computation_a48f907a903b3f2177a9f2320353feb45}\label{struct_pairlist_computation_a48f907a903b3f2177a9f2320353feb45} 
+\index{PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}!cache\_pos1@{cache\_pos1}}
+\index{cache\_pos1@{cache\_pos1}!PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}}
+\doxysubsubsection{\texorpdfstring{cache\_pos1}{cache\_pos1}}
+{\footnotesize\ttfamily template$<$bool symmetric$>$ \\
+std\+::unique\+\_\+ptr$<$float\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation}}$<$ symmetric $>$\+::cache\+\_\+pos1\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00045}{45}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+
+\Hypertarget{struct_pairlist_computation_a5b2122e713755ddfac3fe969d40a517e}\label{struct_pairlist_computation_a5b2122e713755ddfac3fe969d40a517e} 
+\index{PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}!cache\_pos2@{cache\_pos2}}
+\index{cache\_pos2@{cache\_pos2}!PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}}
+\doxysubsubsection{\texorpdfstring{cache\_pos2}{cache\_pos2}}
+{\footnotesize\ttfamily template$<$bool symmetric$>$ \\
+std\+::unique\+\_\+ptr$<$float\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation}}$<$ symmetric $>$\+::cache\+\_\+pos2\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00045}{45}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+
+\Hypertarget{struct_pairlist_computation_a239454f6d6dd05c92713119115376746}\label{struct_pairlist_computation_a239454f6d6dd05c92713119115376746} 
+\index{PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}!cache\_valid@{cache\_valid}}
+\index{cache\_valid@{cache\_valid}!PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}}
+\doxysubsubsection{\texorpdfstring{cache\_valid}{cache\_valid}}
+{\footnotesize\ttfamily template$<$bool symmetric$>$ \\
+bool \mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation}}$<$ symmetric $>$\+::cache\+\_\+valid\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00042}{42}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+
+\Hypertarget{struct_pairlist_computation_ae19de191d3f60ade8db9c8f2458ea612}\label{struct_pairlist_computation_ae19de191d3f60ade8db9c8f2458ea612} 
+\index{PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}!edge\_id1@{edge\_id1}}
+\index{edge\_id1@{edge\_id1}!PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}}
+\doxysubsubsection{\texorpdfstring{edge\_id1}{edge\_id1}}
+{\footnotesize\ttfamily template$<$bool symmetric$>$ \\
+std\+::unique\+\_\+ptr$<$int32\+\_\+t\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation}}$<$ symmetric $>$\+::edge\+\_\+id1}
+
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00038}{38}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+
+\Hypertarget{struct_pairlist_computation_a0c8e3171817ef93d6556d8a20aefb6b1}\label{struct_pairlist_computation_a0c8e3171817ef93d6556d8a20aefb6b1} 
+\index{PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}!edge\_id2@{edge\_id2}}
+\index{edge\_id2@{edge\_id2}!PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}}
+\doxysubsubsection{\texorpdfstring{edge\_id2}{edge\_id2}}
+{\footnotesize\ttfamily template$<$bool symmetric$>$ \\
+std\+::unique\+\_\+ptr$<$int32\+\_\+t\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation}}$<$ symmetric $>$\+::edge\+\_\+id2}
+
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00038}{38}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+
+\Hypertarget{struct_pairlist_computation_a8d0e524c91ff3e95f98569c43bde394a}\label{struct_pairlist_computation_a8d0e524c91ff3e95f98569c43bde394a} 
+\index{PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}!edge\_indices1@{edge\_indices1}}
+\index{edge\_indices1@{edge\_indices1}!PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}}
+\doxysubsubsection{\texorpdfstring{edge\_indices1}{edge\_indices1}}
+{\footnotesize\ttfamily template$<$bool symmetric$>$ \\
+std\+::unique\+\_\+ptr$<$int32\+\_\+t\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation}}$<$ symmetric $>$\+::edge\+\_\+indices1}
+
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00037}{37}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+
+\Hypertarget{struct_pairlist_computation_ab70a1600fd33a414eda51ae9735023c8}\label{struct_pairlist_computation_ab70a1600fd33a414eda51ae9735023c8} 
+\index{PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}!edge\_indices2@{edge\_indices2}}
+\index{edge\_indices2@{edge\_indices2}!PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}}
+\doxysubsubsection{\texorpdfstring{edge\_indices2}{edge\_indices2}}
+{\footnotesize\ttfamily template$<$bool symmetric$>$ \\
+std\+::unique\+\_\+ptr$<$int32\+\_\+t\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation}}$<$ symmetric $>$\+::edge\+\_\+indices2}
+
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00037}{37}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+
+\Hypertarget{struct_pairlist_computation_ae7309f6e24597966fd36441acb04a88e}\label{struct_pairlist_computation_ae7309f6e24597966fd36441acb04a88e} 
+\index{PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}!n\_edge@{n\_edge}}
+\index{n\_edge@{n\_edge}!PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}}
+\doxysubsubsection{\texorpdfstring{n\_edge}{n\_edge}}
+{\footnotesize\ttfamily template$<$bool symmetric$>$ \\
+int \mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation}}$<$ symmetric $>$\+::n\+\_\+edge}
+
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00039}{39}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+
+\Hypertarget{struct_pairlist_computation_a2e4cef3383f27242e8cacbbc6470340a}\label{struct_pairlist_computation_a2e4cef3383f27242e8cacbbc6470340a} 
+\index{PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}!n\_elem1@{n\_elem1}}
+\index{n\_elem1@{n\_elem1}!PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}}
+\doxysubsubsection{\texorpdfstring{n\_elem1}{n\_elem1}}
+{\footnotesize\ttfamily template$<$bool symmetric$>$ \\
+const int \mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation}}$<$ symmetric $>$\+::n\+\_\+elem1}
+
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00036}{36}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+
+\Hypertarget{struct_pairlist_computation_a1f78c079efcaa41414c8c6c99712869c}\label{struct_pairlist_computation_a1f78c079efcaa41414c8c6c99712869c} 
+\index{PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}!n\_elem2@{n\_elem2}}
+\index{n\_elem2@{n\_elem2}!PairlistComputation$<$ symmetric $>$@{PairlistComputation$<$ symmetric $>$}}
+\doxysubsubsection{\texorpdfstring{n\_elem2}{n\_elem2}}
+{\footnotesize\ttfamily template$<$bool symmetric$>$ \\
+const int \mbox{\hyperlink{struct_pairlist_computation}{Pairlist\+Computation}}$<$ symmetric $>$\+::n\+\_\+elem2}
+
+
+
+Definition at line \mbox{\hyperlink{interaction__graph_8h_source_l00036}{36}} of file \mbox{\hyperlink{interaction__graph_8h_source}{interaction\+\_\+graph.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{interaction__graph_8h}{interaction\+\_\+graph.\+h}}\end{DoxyCompactItemize}

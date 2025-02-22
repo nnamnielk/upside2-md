@@ -1,0 +1,505 @@
+\doxysection{HBond\+Energy Struct Reference}
+\hypertarget{struct_h_bond_energy}{}\label{struct_h_bond_energy}\index{HBondEnergy@{HBondEnergy}}
+
+
+Inheritance diagram for HBond\+Energy\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{struct_h_bond_energy__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for HBond\+Energy\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{struct_h_bond_energy__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_h_bond_energy_acf893965b96c8d2c1e63341f6ce12366}{HBond\+Energy}} (\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{hid\+\_\+t}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{grp}}, \mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{protein\+\_\+hbond\+\_\+}}, \mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{rama\+\_\+}})
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_h_bond_energy_a0d78282d4325c0c0620bd59c2c301b99}{compute\+\_\+value}} (\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{Compute\+Mode}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{mode}}) \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{override}}
+\begin{DoxyCompactList}\small\item\em Reads inputs and computes output value. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} std\+::vector$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} $>$ \mbox{\hyperlink{struct_h_bond_energy_a4516264fd3fce2cf2e4108a3d7e640d7}{get\+\_\+param}} () \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{const}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{override}}
+\begin{DoxyCompactList}\small\item\em Return arbitrary subset of parameters. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} \mbox{\hyperlink{struct_h_bond_energy_a8515d4484d0fc66cca71cf7c6c6c3c3e}{set\+\_\+param}} (\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{const}} std\+::vector$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} $>$ \&\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{new\+\_\+param}}) \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{override}}
+\begin{DoxyCompactList}\small\item\em Set arbitrary subset of parameters (same as get\+\_\+param) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_h_bond_counter}{HBond\+Counter}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_h_bond_counter_a8fba387ba46bcf63abc39df5a699ec60}{HBond\+Counter}} ()
+\begin{DoxyCompactList}\small\item\em Trivial constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_potential_node}{Potential\+Node}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_potential_node_ae85f3af95266404a37981073878c677b}{Potential\+Node}} ()
+\begin{DoxyCompactList}\small\item\em Trivial constructor. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{struct_potential_node_ab773065a7ed9977bcef687108baa6ef4}{propagate\+\_\+deriv}} ()
+\begin{DoxyCompactList}\small\item\em (unused) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_deriv_computation_ab55a3d270aedc331a7ade09591198c4f}{Deriv\+Computation}} (bool potential\+\_\+term\+\_\+)
+\begin{DoxyCompactList}\small\item\em Construct only noting if node is a potential\+\_\+node. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{struct_deriv_computation_ae61f149a7fc4869f1d053c263fd03657}{\texorpdfstring{$\sim$}{\string~}\+Deriv\+Computation}} ()
+\begin{DoxyCompactList}\small\item\em Trivial destructor. \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_deriv_computation_aec2d05db4c36f52f8b7de6922af52494}{get\+\_\+value\+\_\+by\+\_\+name}} (const char \texorpdfstring{$\ast$}{*}log\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Compute a named quantity and return vector of floats (arbitrary behavior) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \& \mbox{\hyperlink{struct_h_bond_energy_ac1509bcc7e93e8ebdb4830bb4ac98f2f}{protein\+\_\+hbond}}
+\item 
+\mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \& \mbox{\hyperlink{struct_h_bond_energy_a061f906872d6a6752c025c5fb0369a2a}{rama}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_h_bond_energy_a576372750a5549ed05ce1274acc077a4}{n\+\_\+res}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_h_bond_energy_a5b30475b99d0f88e5d4cb466f0dc0a58}{n\+\_\+virtual}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_h_bond_energy_a287e99b06d99446d0af14ee769445f77}{n\+\_\+donor}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_h_bond_energy_ad51f958998372745891afb4740af342a}{n\+\_\+acceptor}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} \mbox{\hyperlink{struct_h_bond_energy_a4f8eb69abbe9eefae510af751b05f95c}{n\+\_\+param}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} $>$ \mbox{\hyperlink{struct_h_bond_energy_af11c00dce2d0e783a2d78d11c9704e09}{params}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} $>$ \mbox{\hyperlink{struct_h_bond_energy_aef06bd77a04a39a9a61eb0b9b475f460}{hb\+\_\+number1}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} $>$ \mbox{\hyperlink{struct_h_bond_energy_a162b2d6d72b951d77544e2a1b61ba2e8}{hb\+\_\+number2}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} $>$ \mbox{\hyperlink{struct_h_bond_energy_ab41a0250c7c07995f2344a967020bb2e}{donor\+\_\+resid}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} $>$ \mbox{\hyperlink{struct_h_bond_energy_afc0c409e2f33f2e9e6099110c2f42c3b}{acceptor\+\_\+resid}}
+\item 
+std\+::map$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}}, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} $>$ \mbox{\hyperlink{struct_h_bond_energy_abd13d0b3b8716583ce47e582f914866d}{resid\+\_\+donor}}
+\item 
+std\+::map$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}}, \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} $>$ \mbox{\hyperlink{struct_h_bond_energy_af8ff3ee48b525b524477e8cb70efdaa2}{resid\+\_\+acceptor}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} $>$ \mbox{\hyperlink{struct_h_bond_energy_aa86d2b4efd391f73cb4f9d6f3239a283}{Ehbond}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} $>$ \mbox{\hyperlink{struct_h_bond_energy_a707d483271739c3e3f9d596e467ab196}{d\+Phi}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} $>$ \mbox{\hyperlink{struct_h_bond_energy_ae7d6cdb28b577e13364b0c138767fa70}{d\+Psi}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{struct_h_bond_energy_ad15c308b60baf50a297e6d36c70c3c60}{E\+\_\+beta}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{struct_h_bond_energy_a35303d9a094f36892c8b8f2db1e29cc2}{E\+\_\+alpha}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{struct_h_bond_energy_aa18b2f023d7e7ca89e2d31030e369ab8}{E\+\_\+other}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{struct_h_bond_energy_a6c3a3099c1e82268e07d8db78aca1444}{boundary\+\_\+turn1}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{struct_h_bond_energy_aa12ac7c7e2e9eca43a19ec70248f9fa8}{sharpness\+\_\+turn1}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{struct_h_bond_energy_ac20a8356ccdc3c423a8fdfa0dae0c3fb}{boundary\+\_\+turn2}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{struct_h_bond_energy_ab810a87567568e67b92c177c69bfab45}{sharpness\+\_\+turn2}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{struct_h_bond_energy_a18900f0d6917c37f304f18fa76f138f2}{boundary\+\_\+helix1}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{struct_h_bond_energy_a6ccbc6f441c122f8f612e348ec3bd36b}{sharpness\+\_\+helix1}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{struct_h_bond_energy_aa0b1dad1ecd36602166aa767da7ea635}{boundary\+\_\+helix2}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{struct_h_bond_energy_afb374ce16309b7e72fdccbecc09b65ac}{sharpness\+\_\+helix2}}
+\item 
+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} \mbox{\hyperlink{struct_h_bond_energy_a23a3dfa3b17e291e3781f15337e00c3b}{E\+\_\+bias}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_h_bond_counter}{HBond\+Counter}}}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{struct_h_bond_counter_a25b9b7487ca509d6bcd2f6806386f72c}{n\+\_\+hbond}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_potential_node}{Potential\+Node}}}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{struct_potential_node_ae34531266ff6716a791f3a55edb60015}{potential}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_deriv_computation}{Deriv\+Computation}}}
+\begin{DoxyCompactItemize}
+\item 
+const bool \mbox{\hyperlink{struct_deriv_computation_ab9caf415ec64cd42c99d24545238e691}{potential\+\_\+term}}
+\begin{DoxyCompactList}\small\item\em True if output represents a potential energy rather than a new coordinate. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00487}{487}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_h_bond_energy_acf893965b96c8d2c1e63341f6ce12366}\label{struct_h_bond_energy_acf893965b96c8d2c1e63341f6ce12366} 
+\index{HBondEnergy@{HBondEnergy}!HBondEnergy@{HBondEnergy}}
+\index{HBondEnergy@{HBondEnergy}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{HBondEnergy()}{HBondEnergy()}}
+{\footnotesize\ttfamily HBond\+Energy\+::\+HBond\+Energy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{hid\+\_\+t}}}]{grp,  }\item[{\mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&}]{protein\+\_\+hbond\+\_\+,  }\item[{\mbox{\hyperlink{struct_coord_node}{Coord\+Node}} \&}]{rama\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00520}{520}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_h_bond_energy_a0d78282d4325c0c0620bd59c2c301b99}\label{struct_h_bond_energy_a0d78282d4325c0c0620bd59c2c301b99} 
+\index{HBondEnergy@{HBondEnergy}!compute\_value@{compute\_value}}
+\index{compute\_value@{compute\_value}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{compute\_value()}{compute\_value()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} HBond\+Energy\+::compute\+\_\+value (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4}{Compute\+Mode}}}]{mode }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reads inputs and computes output value. 
+
+
+
+Implements \mbox{\hyperlink{struct_deriv_computation_a750d9688cee97b4ab8a6c66c8a739bfc}{Deriv\+Computation}}.
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00556}{556}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_a4516264fd3fce2cf2e4108a3d7e640d7}\label{struct_h_bond_energy_a4516264fd3fce2cf2e4108a3d7e640d7} 
+\index{HBondEnergy@{HBondEnergy}!get\_param@{get\_param}}
+\index{get\_param@{get\_param}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{get\_param()}{get\_param()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} std\+::vector$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} $>$ HBond\+Energy\+::get\+\_\+param (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Return arbitrary subset of parameters. 
+
+
+
+Reimplemented from \mbox{\hyperlink{struct_deriv_computation_a5824da52d79ac4ac46e2cee217d8197c}{Deriv\+Computation}}.
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00653}{653}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_a8515d4484d0fc66cca71cf7c6c6c3c3e}\label{struct_h_bond_energy_a8515d4484d0fc66cca71cf7c6c6c3c3e} 
+\index{HBondEnergy@{HBondEnergy}!set\_param@{set\_param}}
+\index{set\_param@{set\_param}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{set\_param()}{set\_param()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{virtual}} \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{void}} HBond\+Energy\+::set\+\_\+param (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{const}} std\+::vector$<$ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} $>$ \&}]{new\+\_\+params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Set arbitrary subset of parameters (same as get\+\_\+param) 
+
+
+
+Reimplemented from \mbox{\hyperlink{struct_deriv_computation_a7c8dbb439e850f9cb4769aac0808d8c6}{Deriv\+Computation}}.
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00722}{722}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_h_bond_energy_afc0c409e2f33f2e9e6099110c2f42c3b}\label{struct_h_bond_energy_afc0c409e2f33f2e9e6099110c2f42c3b} 
+\index{HBondEnergy@{HBondEnergy}!acceptor\_resid@{acceptor\_resid}}
+\index{acceptor\_resid@{acceptor\_resid}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{acceptor\_resid}{acceptor\_resid}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}}$>$ HBond\+Energy\+::acceptor\+\_\+resid}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00500}{500}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_a18900f0d6917c37f304f18fa76f138f2}\label{struct_h_bond_energy_a18900f0d6917c37f304f18fa76f138f2} 
+\index{HBondEnergy@{HBondEnergy}!boundary\_helix1@{boundary\_helix1}}
+\index{boundary\_helix1@{boundary\_helix1}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{boundary\_helix1}{boundary\_helix1}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} HBond\+Energy\+::boundary\+\_\+helix1}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00514}{514}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_aa0b1dad1ecd36602166aa767da7ea635}\label{struct_h_bond_energy_aa0b1dad1ecd36602166aa767da7ea635} 
+\index{HBondEnergy@{HBondEnergy}!boundary\_helix2@{boundary\_helix2}}
+\index{boundary\_helix2@{boundary\_helix2}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{boundary\_helix2}{boundary\_helix2}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} HBond\+Energy\+::boundary\+\_\+helix2}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00516}{516}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_a6c3a3099c1e82268e07d8db78aca1444}\label{struct_h_bond_energy_a6c3a3099c1e82268e07d8db78aca1444} 
+\index{HBondEnergy@{HBondEnergy}!boundary\_turn1@{boundary\_turn1}}
+\index{boundary\_turn1@{boundary\_turn1}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{boundary\_turn1}{boundary\_turn1}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} HBond\+Energy\+::boundary\+\_\+turn1}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00510}{510}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_ac20a8356ccdc3c423a8fdfa0dae0c3fb}\label{struct_h_bond_energy_ac20a8356ccdc3c423a8fdfa0dae0c3fb} 
+\index{HBondEnergy@{HBondEnergy}!boundary\_turn2@{boundary\_turn2}}
+\index{boundary\_turn2@{boundary\_turn2}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{boundary\_turn2}{boundary\_turn2}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} HBond\+Energy\+::boundary\+\_\+turn2}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00512}{512}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_ab41a0250c7c07995f2344a967020bb2e}\label{struct_h_bond_energy_ab41a0250c7c07995f2344a967020bb2e} 
+\index{HBondEnergy@{HBondEnergy}!donor\_resid@{donor\_resid}}
+\index{donor\_resid@{donor\_resid}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{donor\_resid}{donor\_resid}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}}$>$ HBond\+Energy\+::donor\+\_\+resid}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00499}{499}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_a707d483271739c3e3f9d596e467ab196}\label{struct_h_bond_energy_a707d483271739c3e3f9d596e467ab196} 
+\index{HBondEnergy@{HBondEnergy}!dPhi@{dPhi}}
+\index{dPhi@{dPhi}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{dPhi}{dPhi}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}}$>$ HBond\+Energy\+::d\+Phi}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00505}{505}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_ae7d6cdb28b577e13364b0c138767fa70}\label{struct_h_bond_energy_ae7d6cdb28b577e13364b0c138767fa70} 
+\index{HBondEnergy@{HBondEnergy}!dPsi@{dPsi}}
+\index{dPsi@{dPsi}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{dPsi}{dPsi}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}}$>$ HBond\+Energy\+::d\+Psi}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00506}{506}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_a35303d9a094f36892c8b8f2db1e29cc2}\label{struct_h_bond_energy_a35303d9a094f36892c8b8f2db1e29cc2} 
+\index{HBondEnergy@{HBondEnergy}!E\_alpha@{E\_alpha}}
+\index{E\_alpha@{E\_alpha}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{E\_alpha}{E\_alpha}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} HBond\+Energy\+::\+E\+\_\+alpha}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00508}{508}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_ad15c308b60baf50a297e6d36c70c3c60}\label{struct_h_bond_energy_ad15c308b60baf50a297e6d36c70c3c60} 
+\index{HBondEnergy@{HBondEnergy}!E\_beta@{E\_beta}}
+\index{E\_beta@{E\_beta}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{E\_beta}{E\_beta}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} HBond\+Energy\+::\+E\+\_\+beta}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00507}{507}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_a23a3dfa3b17e291e3781f15337e00c3b}\label{struct_h_bond_energy_a23a3dfa3b17e291e3781f15337e00c3b} 
+\index{HBondEnergy@{HBondEnergy}!E\_bias@{E\_bias}}
+\index{E\_bias@{E\_bias}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{E\_bias}{E\_bias}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} HBond\+Energy\+::\+E\+\_\+bias}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00518}{518}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_aa18b2f023d7e7ca89e2d31030e369ab8}\label{struct_h_bond_energy_aa18b2f023d7e7ca89e2d31030e369ab8} 
+\index{HBondEnergy@{HBondEnergy}!E\_other@{E\_other}}
+\index{E\_other@{E\_other}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{E\_other}{E\_other}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} HBond\+Energy\+::\+E\+\_\+other}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00509}{509}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_aa86d2b4efd391f73cb4f9d6f3239a283}\label{struct_h_bond_energy_aa86d2b4efd391f73cb4f9d6f3239a283} 
+\index{HBondEnergy@{HBondEnergy}!Ehbond@{Ehbond}}
+\index{Ehbond@{Ehbond}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{Ehbond}{Ehbond}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}}$>$ HBond\+Energy\+::\+Ehbond}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00504}{504}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_aef06bd77a04a39a9a61eb0b9b475f460}\label{struct_h_bond_energy_aef06bd77a04a39a9a61eb0b9b475f460} 
+\index{HBondEnergy@{HBondEnergy}!hb\_number1@{hb\_number1}}
+\index{hb\_number1@{hb\_number1}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{hb\_number1}{hb\_number1}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}}$>$ HBond\+Energy\+::hb\+\_\+number1}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00497}{497}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_a162b2d6d72b951d77544e2a1b61ba2e8}\label{struct_h_bond_energy_a162b2d6d72b951d77544e2a1b61ba2e8} 
+\index{HBondEnergy@{HBondEnergy}!hb\_number2@{hb\_number2}}
+\index{hb\_number2@{hb\_number2}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{hb\_number2}{hb\_number2}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}}$>$ HBond\+Energy\+::hb\+\_\+number2}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00498}{498}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_ad51f958998372745891afb4740af342a}\label{struct_h_bond_energy_ad51f958998372745891afb4740af342a} 
+\index{HBondEnergy@{HBondEnergy}!n\_acceptor@{n\_acceptor}}
+\index{n\_acceptor@{n\_acceptor}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{n\_acceptor}{n\_acceptor}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} HBond\+Energy\+::n\+\_\+acceptor}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00494}{494}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_a287e99b06d99446d0af14ee769445f77}\label{struct_h_bond_energy_a287e99b06d99446d0af14ee769445f77} 
+\index{HBondEnergy@{HBondEnergy}!n\_donor@{n\_donor}}
+\index{n\_donor@{n\_donor}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{n\_donor}{n\_donor}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} HBond\+Energy\+::n\+\_\+donor}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00493}{493}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_a4f8eb69abbe9eefae510af751b05f95c}\label{struct_h_bond_energy_a4f8eb69abbe9eefae510af751b05f95c} 
+\index{HBondEnergy@{HBondEnergy}!n\_param@{n\_param}}
+\index{n\_param@{n\_param}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{n\_param}{n\_param}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} HBond\+Energy\+::n\+\_\+param}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00495}{495}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_a576372750a5549ed05ce1274acc077a4}\label{struct_h_bond_energy_a576372750a5549ed05ce1274acc077a4} 
+\index{HBondEnergy@{HBondEnergy}!n\_res@{n\_res}}
+\index{n\_res@{n\_res}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{n\_res}{n\_res}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} HBond\+Energy\+::n\+\_\+res}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00491}{491}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_a5b30475b99d0f88e5d4cb466f0dc0a58}\label{struct_h_bond_energy_a5b30475b99d0f88e5d4cb466f0dc0a58} 
+\index{HBondEnergy@{HBondEnergy}!n\_virtual@{n\_virtual}}
+\index{n\_virtual@{n\_virtual}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{n\_virtual}{n\_virtual}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}} HBond\+Energy\+::n\+\_\+virtual}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00492}{492}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_af11c00dce2d0e783a2d78d11c9704e09}\label{struct_h_bond_energy_af11c00dce2d0e783a2d78d11c9704e09} 
+\index{HBondEnergy@{HBondEnergy}!params@{params}}
+\index{params@{params}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{params}{params}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}}$>$ HBond\+Energy\+::params}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00496}{496}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_ac1509bcc7e93e8ebdb4830bb4ac98f2f}\label{struct_h_bond_energy_ac1509bcc7e93e8ebdb4830bb4ac98f2f} 
+\index{HBondEnergy@{HBondEnergy}!protein\_hbond@{protein\_hbond}}
+\index{protein\_hbond@{protein\_hbond}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{protein\_hbond}{protein\_hbond}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_coord_node}{Coord\+Node}}\& HBond\+Energy\+::protein\+\_\+hbond}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00489}{489}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_a061f906872d6a6752c025c5fb0369a2a}\label{struct_h_bond_energy_a061f906872d6a6752c025c5fb0369a2a} 
+\index{HBondEnergy@{HBondEnergy}!rama@{rama}}
+\index{rama@{rama}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{rama}{rama}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_coord_node}{Coord\+Node}}\& HBond\+Energy\+::rama}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00490}{490}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_af8ff3ee48b525b524477e8cb70efdaa2}\label{struct_h_bond_energy_af8ff3ee48b525b524477e8cb70efdaa2} 
+\index{HBondEnergy@{HBondEnergy}!resid\_acceptor@{resid\_acceptor}}
+\index{resid\_acceptor@{resid\_acceptor}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{resid\_acceptor}{resid\_acceptor}}
+{\footnotesize\ttfamily std\+::map$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}},\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}}$>$ HBond\+Energy\+::resid\+\_\+acceptor}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00502}{502}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_abd13d0b3b8716583ce47e582f914866d}\label{struct_h_bond_energy_abd13d0b3b8716583ce47e582f914866d} 
+\index{HBondEnergy@{HBondEnergy}!resid\_donor@{resid\_donor}}
+\index{resid\_donor@{resid\_donor}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{resid\_donor}{resid\_donor}}
+{\footnotesize\ttfamily std\+::map$<$\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}},\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{int}}$>$ HBond\+Energy\+::resid\+\_\+donor}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00501}{501}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_a6ccbc6f441c122f8f612e348ec3bd36b}\label{struct_h_bond_energy_a6ccbc6f441c122f8f612e348ec3bd36b} 
+\index{HBondEnergy@{HBondEnergy}!sharpness\_helix1@{sharpness\_helix1}}
+\index{sharpness\_helix1@{sharpness\_helix1}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{sharpness\_helix1}{sharpness\_helix1}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} HBond\+Energy\+::sharpness\+\_\+helix1}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00515}{515}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_afb374ce16309b7e72fdccbecc09b65ac}\label{struct_h_bond_energy_afb374ce16309b7e72fdccbecc09b65ac} 
+\index{HBondEnergy@{HBondEnergy}!sharpness\_helix2@{sharpness\_helix2}}
+\index{sharpness\_helix2@{sharpness\_helix2}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{sharpness\_helix2}{sharpness\_helix2}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} HBond\+Energy\+::sharpness\+\_\+helix2}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00517}{517}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_aa12ac7c7e2e9eca43a19ec70248f9fa8}\label{struct_h_bond_energy_aa12ac7c7e2e9eca43a19ec70248f9fa8} 
+\index{HBondEnergy@{HBondEnergy}!sharpness\_turn1@{sharpness\_turn1}}
+\index{sharpness\_turn1@{sharpness\_turn1}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{sharpness\_turn1}{sharpness\_turn1}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} HBond\+Energy\+::sharpness\+\_\+turn1}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00511}{511}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{struct_h_bond_energy_ab810a87567568e67b92c177c69bfab45}\label{struct_h_bond_energy_ab810a87567568e67b92c177c69bfab45} 
+\index{HBondEnergy@{HBondEnergy}!sharpness\_turn2@{sharpness\_turn2}}
+\index{sharpness\_turn2@{sharpness\_turn2}!HBondEnergy@{HBondEnergy}}
+\doxysubsubsection{\texorpdfstring{sharpness\_turn2}{sharpness\_turn2}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{float}} HBond\+Energy\+::sharpness\+\_\+turn2}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00513}{513}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{hbond_8cpp}{hbond.\+cpp}}\end{DoxyCompactItemize}

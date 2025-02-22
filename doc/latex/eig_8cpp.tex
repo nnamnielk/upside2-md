@@ -1,0 +1,137 @@
+\doxysection{src/eig.cpp File Reference}
+\hypertarget{eig_8cpp}{}\label{eig_8cpp}\index{src/eig.cpp@{src/eig.cpp}}
+{\ttfamily \#include "{}deriv\+\_\+engine.\+h"{}}\newline
+{\ttfamily \#include "{}timing.\+h"{}}\newline
+{\ttfamily \#include "{}affine.\+h"{}}\newline
+Include dependency graph for eig.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eig_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_affine_alignment}{Affine\+Alignment}}
+\item 
+struct \mbox{\hyperlink{struct_affine_alignment_1_1_params}{Affine\+Alignment\+::\+Params}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{eig_8cpp_a8632be35f000cadfa136fc7d22eabac5}{v}}(j)~((j)==0 ? one$<$\mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}}$>$() \+: A\mbox{[}r(k,k+1+(j))\mbox{]})
+\item 
+\#define \mbox{\hyperlink{eig_8cpp_af8176452732f76f8888a456591c3935d}{rot}}(i,  j)~(rot\+\_\+\mbox{[}(i)\texorpdfstring{$\ast$}{*}4+(j)\mbox{]})
+\item 
+\#define \mbox{\hyperlink{eig_8cpp_adf9ec465dfbd9762d9c1536625f8265e}{v0}}(j)~((j)==0 ? one$<$\mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}}$>$() \+: A\mbox{[}r(0,1+(j))\mbox{]})
+\item 
+\#define \mbox{\hyperlink{eig_8cpp_a8d818320c67e1e667d48e67802735bf9}{v1}}(j)~((j)==0 ? one$<$\mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}}$>$() \+: A\mbox{[}r(1,2+(j))\mbox{]})
+\item 
+\#define \mbox{\hyperlink{eig_8cpp_af8176452732f76f8888a456591c3935d}{rot}}(i,  j)~(rot\+\_\+\mbox{[}(i)\texorpdfstring{$\ast$}{*}4 + (j)\mbox{]})
+\item 
+\#define \mbox{\hyperlink{eig_8cpp_aa38bd86e798bdeaa70bba7875858c3e7}{R}}(i,  j)~(R\+\_\+\mbox{[}i\mbox{]}\mbox{[}j\mbox{]})
+\item 
+\#define \mbox{\hyperlink{eig_8cpp_aa16a375e07c61fbc631be63ccf48a9dd}{t}}(i,  j)
+\item 
+\#define \mbox{\hyperlink{eig_8cpp_ac6c874bfcd37d52e356945b4ef722756}{perturb}}(ret,  f00,  f01,  f02,  f03,  f11,  f12,  f13,  f22,  f23,  f33)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef \mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{eig_8cpp_ac6c874bfcd37d52e356945b4ef722756}\label{eig_8cpp_ac6c874bfcd37d52e356945b4ef722756} 
+\index{eig.cpp@{eig.cpp}!perturb@{perturb}}
+\index{perturb@{perturb}!eig.cpp@{eig.cpp}}
+\doxysubsubsection{\texorpdfstring{perturb}{perturb}}
+{\footnotesize\ttfamily \#define perturb(\begin{DoxyParamCaption}\item[{}]{ret,  }\item[{}]{f00,  }\item[{}]{f01,  }\item[{}]{f02,  }\item[{}]{f03,  }\item[{}]{f11,  }\item[{}]{f12,  }\item[{}]{f13,  }\item[{}]{f22,  }\item[{}]{f23,  }\item[{}]{f33 }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\ \{\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_float4}{S}}\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{f}}[10]\ =\ \{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{f00}},\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{f01}},\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{f02}},\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{f03}},\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{f11}},\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{f12}},\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{f13}},\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{f22}},\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{f23}},\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{f33}}\};\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{\(\backslash\)}}}
+\DoxyCodeLine{\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ for}}(\textcolor{keywordtype}{int}\ k=1;\ k<4;\ ++k)\ \{\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_float4}{S}}\ c\ =\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{inv\_evals}}[k]*(\mbox{\hyperlink{eig_8cpp_aa16a375e07c61fbc631be63ccf48a9dd}{t}}(0,0)+\mbox{\hyperlink{eig_8cpp_aa16a375e07c61fbc631be63ccf48a9dd}{t}}(0,1)+\mbox{\hyperlink{eig_8cpp_aa16a375e07c61fbc631be63ccf48a9dd}{t}}(0,2)+\mbox{\hyperlink{eig_8cpp_aa16a375e07c61fbc631be63ccf48a9dd}{t}}(0,3)\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\mbox{\hyperlink{eig_8cpp_aa16a375e07c61fbc631be63ccf48a9dd}{t}}(1,1)+\mbox{\hyperlink{eig_8cpp_aa16a375e07c61fbc631be63ccf48a9dd}{t}}(1,2)+\mbox{\hyperlink{eig_8cpp_aa16a375e07c61fbc631be63ccf48a9dd}{t}}(1,3)\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\mbox{\hyperlink{eig_8cpp_aa16a375e07c61fbc631be63ccf48a9dd}{t}}(2,2)+\mbox{\hyperlink{eig_8cpp_aa16a375e07c61fbc631be63ccf48a9dd}{t}}(2,3)\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\mbox{\hyperlink{eig_8cpp_aa16a375e07c61fbc631be63ccf48a9dd}{t}}(3,3));\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{ret}})\ +=\ c*\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{quat\_sens\_diag\_basis}}[k];\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+\Hypertarget{eig_8cpp_aa38bd86e798bdeaa70bba7875858c3e7}\label{eig_8cpp_aa38bd86e798bdeaa70bba7875858c3e7} 
+\index{eig.cpp@{eig.cpp}!R@{R}}
+\index{R@{R}!eig.cpp@{eig.cpp}}
+\doxysubsubsection{\texorpdfstring{R}{R}}
+{\footnotesize\ttfamily \#define R(\begin{DoxyParamCaption}\item[{}]{i,  }\item[{}]{j }\end{DoxyParamCaption})~(R\+\_\+\mbox{[}i\mbox{]}\mbox{[}j\mbox{]})}
+
+\Hypertarget{eig_8cpp_af8176452732f76f8888a456591c3935d}\label{eig_8cpp_af8176452732f76f8888a456591c3935d} 
+\index{eig.cpp@{eig.cpp}!rot@{rot}}
+\index{rot@{rot}!eig.cpp@{eig.cpp}}
+\doxysubsubsection{\texorpdfstring{rot}{rot}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \#define rot(\begin{DoxyParamCaption}\item[{}]{i,  }\item[{}]{j }\end{DoxyParamCaption})~(rot\+\_\+\mbox{[}(i)\texorpdfstring{$\ast$}{*}4+(j)\mbox{]})}
+
+
+
+Definition at line \mbox{\hyperlink{eig_8cpp_source_l00181}{181}} of file \mbox{\hyperlink{eig_8cpp_source}{eig.\+cpp}}.
+
+\Hypertarget{eig_8cpp_af8176452732f76f8888a456591c3935d}\label{eig_8cpp_af8176452732f76f8888a456591c3935d} 
+\index{eig.cpp@{eig.cpp}!rot@{rot}}
+\index{rot@{rot}!eig.cpp@{eig.cpp}}
+\doxysubsubsection{\texorpdfstring{rot}{rot}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \#define rot(\begin{DoxyParamCaption}\item[{}]{i,  }\item[{}]{j }\end{DoxyParamCaption})~(rot\+\_\+\mbox{[}(i)\texorpdfstring{$\ast$}{*}4 + (j)\mbox{]})}
+
+
+
+Definition at line \mbox{\hyperlink{eig_8cpp_source_l00181}{181}} of file \mbox{\hyperlink{eig_8cpp_source}{eig.\+cpp}}.
+
+\Hypertarget{eig_8cpp_aa16a375e07c61fbc631be63ccf48a9dd}\label{eig_8cpp_aa16a375e07c61fbc631be63ccf48a9dd} 
+\index{eig.cpp@{eig.cpp}!t@{t}}
+\index{t@{t}!eig.cpp@{eig.cpp}}
+\doxysubsubsection{\texorpdfstring{t}{t}}
+{\footnotesize\ttfamily \#define t(\begin{DoxyParamCaption}\item[{}]{i,  }\item[{}]{j }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{f}}[\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{r}}(\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i}},j)]\ *\ ((\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i}}==j)\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ?\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{evecs}}[k*4+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i}}]*\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{evecs}}[0*4+j]\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{evecs}}[k*4+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i}}]*\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{evecs}}[0*4+j]+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{evecs}}[k*4+j]*\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{evecs}}[0*4+\mbox{\hyperlink{namespaceh5_af9f807538c6f3c399e12e66eb1f8200c}{i}}]))}
+
+\end{DoxyCode}
+\Hypertarget{eig_8cpp_a8632be35f000cadfa136fc7d22eabac5}\label{eig_8cpp_a8632be35f000cadfa136fc7d22eabac5} 
+\index{eig.cpp@{eig.cpp}!v@{v}}
+\index{v@{v}!eig.cpp@{eig.cpp}}
+\doxysubsubsection{\texorpdfstring{v}{v}}
+{\footnotesize\ttfamily \#define v(\begin{DoxyParamCaption}\item[{}]{j }\end{DoxyParamCaption})~((j)==0 ? one$<$\mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}}$>$() \+: A\mbox{[}r(k,k+1+(j))\mbox{]})}
+
+\Hypertarget{eig_8cpp_adf9ec465dfbd9762d9c1536625f8265e}\label{eig_8cpp_adf9ec465dfbd9762d9c1536625f8265e} 
+\index{eig.cpp@{eig.cpp}!v0@{v0}}
+\index{v0@{v0}!eig.cpp@{eig.cpp}}
+\doxysubsubsection{\texorpdfstring{v0}{v0}}
+{\footnotesize\ttfamily \#define v0(\begin{DoxyParamCaption}\item[{}]{j }\end{DoxyParamCaption})~((j)==0 ? one$<$\mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}}$>$() \+: A\mbox{[}r(0,1+(j))\mbox{]})}
+
+\Hypertarget{eig_8cpp_a8d818320c67e1e667d48e67802735bf9}\label{eig_8cpp_a8d818320c67e1e667d48e67802735bf9} 
+\index{eig.cpp@{eig.cpp}!v1@{v1}}
+\index{v1@{v1}!eig.cpp@{eig.cpp}}
+\doxysubsubsection{\texorpdfstring{v1}{v1}}
+{\footnotesize\ttfamily \#define v1(\begin{DoxyParamCaption}\item[{}]{j }\end{DoxyParamCaption})~((j)==0 ? one$<$\mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}}$>$() \+: A\mbox{[}r(1,2+(j))\mbox{]})}
+
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}\label{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7} 
+\index{eig.cpp@{eig.cpp}!S@{S}}
+\index{S@{S}!eig.cpp@{eig.cpp}}
+\doxysubsubsection{\texorpdfstring{S}{S}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{struct_float4}{Float4}} \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}}}
+
+
+
+Definition at line \mbox{\hyperlink{eig_8cpp_source_l00016}{16}} of file \mbox{\hyperlink{eig_8cpp_source}{eig.\+cpp}}.
+

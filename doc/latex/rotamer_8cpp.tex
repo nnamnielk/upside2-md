@@ -1,0 +1,86 @@
+\doxysection{src/rotamer.cpp File Reference}
+\hypertarget{rotamer_8cpp}{}\label{rotamer_8cpp}\index{src/rotamer.cpp@{src/rotamer.cpp}}
+{\ttfamily \#include "{}bead\+\_\+interaction.\+h"{}}\newline
+{\ttfamily \#include "{}interaction\+\_\+graph.\+h"{}}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include "{}h5\+\_\+support.\+h"{}}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include "{}deriv\+\_\+engine.\+h"{}}\newline
+{\ttfamily \#include "{}timing.\+h"{}}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include "{}state\+\_\+logger.\+h"{}}\newline
+{\ttfamily \#include $<$tuple$>$}\newline
+{\ttfamily \#include $<$set$>$}\newline
+{\ttfamily \#include "{}Float4.\+h"{}}\newline
+{\ttfamily \#include $<$functional$>$}\newline
+Include dependency graph for rotamer.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{rotamer_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_padded_matrix}{Padded\+Matrix$<$ D1, D2 $>$}}
+\item 
+struct \mbox{\hyperlink{struct_edge_locator}{Edge\+Locator}}
+\item 
+struct \mbox{\hyperlink{struct_node_holder}{Node\+Holder}}
+\item 
+struct \mbox{\hyperlink{struct_edge_holder}{Edge\+Holder}}
+\item 
+struct \mbox{\hyperlink{struct_edge_holder_1_1_edge_loc}{Edge\+Holder\+::\+Edge\+Loc}}
+\item 
+struct \mbox{\hyperlink{struct_rotamer_sidechain}{Rotamer\+Sidechain$<$ BT $>$}}
+\item 
+struct \mbox{\hyperlink{struct_register_rotamer_sidechain}{Register\+Rotamer\+Sidechain$<$ BT $>$}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$int N\+\_\+\+Float4$>$ }\\\mbox{\hyperlink{struct_vec}{Vec}}$<$ N\+\_\+\+Float4, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \mbox{\hyperlink{rotamer_8cpp_a45c4f4adddfbf2e5fad1f72463954f09}{read4vec}} (float \texorpdfstring{$\ast$}{*}address, \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726}{Alignment}} align=\mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726a165f93b99f87c219277d70d866425da6}{Alignment\+::aligned}})
+\item 
+{\footnotesize template$<$int N\+\_\+\+Float4$>$ }\\\mbox{\hyperlink{struct_vec}{Vec}}$<$ N\+\_\+\+Float4, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \mbox{\hyperlink{rotamer_8cpp_aef378ffac2466766fe1f6d6af39cb8f6}{store4vec}} (float \texorpdfstring{$\ast$}{*}address, const \mbox{\hyperlink{struct_vec}{Vec}}$<$ N\+\_\+\+Float4, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \&a, \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726}{Alignment}} align=\mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726a165f93b99f87c219277d70d866425da6}{Alignment\+::aligned}})
+\item 
+{\footnotesize template$<$typename BT $>$ }\\array$<$ int, UPPER\+\_\+\+ROT $>$ \mbox{\hyperlink{rotamer_8cpp_aa7a1efc2e499de43d3d788bdf53a6b13}{calculate\+\_\+n\+\_\+elem}} (\mbox{\hyperlink{struct_interaction_graph}{Interaction\+Graph}}$<$ BT $>$ \&igraph)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{rotamer_8cpp_aa7a1efc2e499de43d3d788bdf53a6b13}\label{rotamer_8cpp_aa7a1efc2e499de43d3d788bdf53a6b13} 
+\index{rotamer.cpp@{rotamer.cpp}!calculate\_n\_elem@{calculate\_n\_elem}}
+\index{calculate\_n\_elem@{calculate\_n\_elem}!rotamer.cpp@{rotamer.cpp}}
+\doxysubsubsection{\texorpdfstring{calculate\_n\_elem()}{calculate\_n\_elem()}}
+{\footnotesize\ttfamily template$<$typename BT $>$ \\
+array$<$ int, UPPER\+\_\+\+ROT $>$ calculate\+\_\+n\+\_\+elem (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_interaction_graph}{Interaction\+Graph}}$<$ BT $>$ \&}]{igraph }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00607}{607}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+\Hypertarget{rotamer_8cpp_a45c4f4adddfbf2e5fad1f72463954f09}\label{rotamer_8cpp_a45c4f4adddfbf2e5fad1f72463954f09} 
+\index{rotamer.cpp@{rotamer.cpp}!read4vec@{read4vec}}
+\index{read4vec@{read4vec}!rotamer.cpp@{rotamer.cpp}}
+\doxysubsubsection{\texorpdfstring{read4vec()}{read4vec()}}
+{\footnotesize\ttfamily template$<$int N\+\_\+\+Float4$>$ \\
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ N\+\_\+\+Float4, \mbox{\hyperlink{struct_float4}{Float4}} $>$ read4vec (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}}]{address,  }\item[{\mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726}{Alignment}}}]{align = {\ttfamily \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726a165f93b99f87c219277d70d866425da6}{Alignment\+::aligned}}} }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00022}{22}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+
+\Hypertarget{rotamer_8cpp_aef378ffac2466766fe1f6d6af39cb8f6}\label{rotamer_8cpp_aef378ffac2466766fe1f6d6af39cb8f6} 
+\index{rotamer.cpp@{rotamer.cpp}!store4vec@{store4vec}}
+\index{store4vec@{store4vec}!rotamer.cpp@{rotamer.cpp}}
+\doxysubsubsection{\texorpdfstring{store4vec()}{store4vec()}}
+{\footnotesize\ttfamily template$<$int N\+\_\+\+Float4$>$ \\
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ N\+\_\+\+Float4, \mbox{\hyperlink{struct_float4}{Float4}} $>$ store4vec (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}}]{address,  }\item[{const \mbox{\hyperlink{struct_vec}{Vec}}$<$ N\+\_\+\+Float4, \mbox{\hyperlink{struct_float4}{Float4}} $>$ \&}]{a,  }\item[{\mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726}{Alignment}}}]{align = {\ttfamily \mbox{\hyperlink{_float4_8h_acdfaca60ec19c0265bac2692d7982726a165f93b99f87c219277d70d866425da6}{Alignment\+::aligned}}} }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{rotamer_8cpp_source_l00030}{30}} of file \mbox{\hyperlink{rotamer_8cpp_source}{rotamer.\+cpp}}.
+

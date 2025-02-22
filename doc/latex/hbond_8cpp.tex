@@ -1,0 +1,134 @@
+\doxysection{src/hbond.cpp File Reference}
+\hypertarget{hbond_8cpp}{}\label{hbond_8cpp}\index{src/hbond.cpp@{src/hbond.cpp}}
+{\ttfamily \#include "{}deriv\+\_\+engine.\+h"{}}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include "{}timing.\+h"{}}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include "{}state\+\_\+logger.\+h"{}}\newline
+{\ttfamily \#include "{}interaction\+\_\+graph.\+h"{}}\newline
+{\ttfamily \#include "{}spline.\+h"{}}\newline
+{\ttfamily \#include "{}bead\+\_\+interaction.\+h"{}}\newline
+{\ttfamily \#include "{}vector\+\_\+math.\+h"{}}\newline
+Include dependency graph for hbond.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hbond_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_infer___h___o}{Infer\+\_\+\+H\+\_\+O}}
+\item 
+struct \mbox{\hyperlink{struct_infer___h___o_1_1_params}{Infer\+\_\+\+H\+\_\+\+O\+::\+Params}}
+\item 
+struct \mbox{\hyperlink{struct_c_ter_h_bond}{CTer\+HBond}}
+\item 
+struct \mbox{\hyperlink{struct_protein_h_bond}{Protein\+HBond}}
+\item 
+struct \mbox{\hyperlink{struct_h_bond_coverage}{HBond\+Coverage}}
+\item 
+struct \mbox{\hyperlink{struct_h_bond_energy}{HBond\+Energy}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{hbond_8cpp_a5808a49abe33842d54faaa7f08e3e48b}{N\+\_\+\+KNOT\+\_\+\+MID\+\_\+\+NC}}~7
+\item 
+\#define \mbox{\hyperlink{hbond_8cpp_a22a9883f964ff6de55317f75885485c7}{KNOT\+\_\+\+SPACING\+\_\+\+MID\+\_\+\+NC}}~0.\+2
+\item 
+\#define \mbox{\hyperlink{hbond_8cpp_a528e9b307380556f60bc3e1fb708cc8d}{OFFSET\+\_\+\+MID\+\_\+\+NC}}~3.\+5
+\item 
+\#define \mbox{\hyperlink{hbond_8cpp_af81f45e1f7cdd7a29942795b05333e7b}{radial\+\_\+cutoff2}}~(3.\+5f\texorpdfstring{$\ast$}{*}3.\+5f)
+\item 
+\#define \mbox{\hyperlink{hbond_8cpp_ab7714843fed19750ab638de2636c8d79}{angular\+\_\+cutoff}}~(0.f)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ }\\\mbox{\hyperlink{struct_vec}{Vec}}$<$ 2, \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \mbox{\hyperlink{hbond_8cpp_a09300e13da7299ae23e02a42300e6891}{hbond\+\_\+radial\+\_\+potential}} (const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&input, const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&inner\+\_\+barrier, const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&inv\+\_\+inner\+\_\+width, const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&outer\+\_\+barrier, const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&inv\+\_\+outer\+\_\+width)
+\item 
+{\footnotesize template$<$typename \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ }\\\mbox{\hyperlink{struct_vec}{Vec}}$<$ 2, \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \mbox{\hyperlink{hbond_8cpp_a04ef1c72323e2f85bb2143c8e2a2db13}{hbond\+\_\+angular\+\_\+potential}} (const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&dotp, const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&wall\+\_\+dp, const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&inv\+\_\+dp\+\_\+width)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{hbond_8cpp_ab7714843fed19750ab638de2636c8d79}\label{hbond_8cpp_ab7714843fed19750ab638de2636c8d79} 
+\index{hbond.cpp@{hbond.cpp}!angular\_cutoff@{angular\_cutoff}}
+\index{angular\_cutoff@{angular\_cutoff}!hbond.cpp@{hbond.cpp}}
+\doxysubsubsection{\texorpdfstring{angular\_cutoff}{angular\_cutoff}}
+{\footnotesize\ttfamily \#define angular\+\_\+cutoff~(0.f)}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00132}{132}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{hbond_8cpp_a22a9883f964ff6de55317f75885485c7}\label{hbond_8cpp_a22a9883f964ff6de55317f75885485c7} 
+\index{hbond.cpp@{hbond.cpp}!KNOT\_SPACING\_MID\_NC@{KNOT\_SPACING\_MID\_NC}}
+\index{KNOT\_SPACING\_MID\_NC@{KNOT\_SPACING\_MID\_NC}!hbond.cpp@{hbond.cpp}}
+\doxysubsubsection{\texorpdfstring{KNOT\_SPACING\_MID\_NC}{KNOT\_SPACING\_MID\_NC}}
+{\footnotesize\ttfamily \#define KNOT\+\_\+\+SPACING\+\_\+\+MID\+\_\+\+NC~0.\+2}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00014}{14}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{hbond_8cpp_a5808a49abe33842d54faaa7f08e3e48b}\label{hbond_8cpp_a5808a49abe33842d54faaa7f08e3e48b} 
+\index{hbond.cpp@{hbond.cpp}!N\_KNOT\_MID\_NC@{N\_KNOT\_MID\_NC}}
+\index{N\_KNOT\_MID\_NC@{N\_KNOT\_MID\_NC}!hbond.cpp@{hbond.cpp}}
+\doxysubsubsection{\texorpdfstring{N\_KNOT\_MID\_NC}{N\_KNOT\_MID\_NC}}
+{\footnotesize\ttfamily \#define N\+\_\+\+KNOT\+\_\+\+MID\+\_\+\+NC~7}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00013}{13}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{hbond_8cpp_a528e9b307380556f60bc3e1fb708cc8d}\label{hbond_8cpp_a528e9b307380556f60bc3e1fb708cc8d} 
+\index{hbond.cpp@{hbond.cpp}!OFFSET\_MID\_NC@{OFFSET\_MID\_NC}}
+\index{OFFSET\_MID\_NC@{OFFSET\_MID\_NC}!hbond.cpp@{hbond.cpp}}
+\doxysubsubsection{\texorpdfstring{OFFSET\_MID\_NC}{OFFSET\_MID\_NC}}
+{\footnotesize\ttfamily \#define OFFSET\+\_\+\+MID\+\_\+\+NC~3.\+5}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00015}{15}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{hbond_8cpp_af81f45e1f7cdd7a29942795b05333e7b}\label{hbond_8cpp_af81f45e1f7cdd7a29942795b05333e7b} 
+\index{hbond.cpp@{hbond.cpp}!radial\_cutoff2@{radial\_cutoff2}}
+\index{radial\_cutoff2@{radial\_cutoff2}!hbond.cpp@{hbond.cpp}}
+\doxysubsubsection{\texorpdfstring{radial\_cutoff2}{radial\_cutoff2}}
+{\footnotesize\ttfamily \#define radial\+\_\+cutoff2~(3.\+5f\texorpdfstring{$\ast$}{*}3.\+5f)}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00130}{130}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{hbond_8cpp_a04ef1c72323e2f85bb2143c8e2a2db13}\label{hbond_8cpp_a04ef1c72323e2f85bb2143c8e2a2db13} 
+\index{hbond.cpp@{hbond.cpp}!hbond\_angular\_potential@{hbond\_angular\_potential}}
+\index{hbond\_angular\_potential@{hbond\_angular\_potential}!hbond.cpp@{hbond.cpp}}
+\doxysubsubsection{\texorpdfstring{hbond\_angular\_potential()}{hbond\_angular\_potential()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \\
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ 2, \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ hbond\+\_\+angular\+\_\+potential (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&}]{dotp,  }\item[{const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&}]{wall\+\_\+dp,  }\item[{const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&}]{inv\+\_\+dp\+\_\+width }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00150}{150}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+
+\Hypertarget{hbond_8cpp_a09300e13da7299ae23e02a42300e6891}\label{hbond_8cpp_a09300e13da7299ae23e02a42300e6891} 
+\index{hbond.cpp@{hbond.cpp}!hbond\_radial\_potential@{hbond\_radial\_potential}}
+\index{hbond\_radial\_potential@{hbond\_radial\_potential}!hbond.cpp@{hbond.cpp}}
+\doxysubsubsection{\texorpdfstring{hbond\_radial\_potential()}{hbond\_radial\_potential()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ \\
+\mbox{\hyperlink{struct_vec}{Vec}}$<$ 2, \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} $>$ hbond\+\_\+radial\+\_\+potential (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&}]{input,  }\item[{const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&}]{inner\+\_\+barrier,  }\item[{const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&}]{inv\+\_\+inner\+\_\+width,  }\item[{const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&}]{outer\+\_\+barrier,  }\item[{const \mbox{\hyperlink{eig_8cpp_a774cb3efa51dafdab4499e79d58710c7}{S}} \&}]{inv\+\_\+outer\+\_\+width }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{hbond_8cpp_source_l00135}{135}} of file \mbox{\hyperlink{hbond_8cpp_source}{hbond.\+cpp}}.
+

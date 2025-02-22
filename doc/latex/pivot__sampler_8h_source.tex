@@ -1,0 +1,208 @@
+\doxysection{pivot\+\_\+sampler.\+h}
+\hypertarget{pivot__sampler_8h_source}{}\label{pivot__sampler_8h_source}\index{src/pivot\_sampler.h@{src/pivot\_sampler.h}}
+\mbox{\hyperlink{pivot__sampler_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ PIVOT\_SAMPLER\_H}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00002}00002\ \textcolor{preprocessor}{\#define\ PIVOT\_SAMPLER\_H}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{affine_8h}{affine.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{random_8h}{random.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00006}00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{h5__support_8h}{h5\_support.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timing_8h}{timing.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{deriv__engine_8h}{deriv\_engine.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00012}00012\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_pivot_location}{PivotLocation}}\ \{}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00013}00013\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_pivot_location_a6e6d9edc0325144de733bd32e15467ee}{rama\_atom}}[5];}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00014}00014\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_pivot_location_aea790a87d886356acc9234c755a8bed0}{pivot\_range}}[2];}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00015}00015\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_pivot_location_a97be1e6393a65ddd98deccfd96541241}{restype}};}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00016}00016\ \};}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00018}\mbox{\hyperlink{struct_pivot_stats}{00018}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_pivot_stats}{PivotStats}}\ \{}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00019}\mbox{\hyperlink{struct_pivot_stats_af4d2f1e658534b3171c3d192e57b006d}{00019}}\ \ \ \ \ uint64\_t\ \mbox{\hyperlink{struct_pivot_stats_af4d2f1e658534b3171c3d192e57b006d}{n\_success}};}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00020}\mbox{\hyperlink{struct_pivot_stats_a59d8e514b793d03dcf28451ade43e3a5}{00020}}\ \ \ \ \ uint64\_t\ \mbox{\hyperlink{struct_pivot_stats_a59d8e514b793d03dcf28451ade43e3a5}{n\_attempt}};}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00021}\mbox{\hyperlink{struct_pivot_stats_a14941feb94b885704286dda9921719e2}{00021}}\ \ \ \ \ \mbox{\hyperlink{struct_pivot_stats_a14941feb94b885704286dda9921719e2}{PivotStats}}()\ \{\mbox{\hyperlink{struct_pivot_stats_a6017d784be023ee77ad0dd2e6ebbb81e}{reset}}();\}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00022}\mbox{\hyperlink{struct_pivot_stats_a6017d784be023ee77ad0dd2e6ebbb81e}{00022}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_pivot_stats_a6017d784be023ee77ad0dd2e6ebbb81e}{reset}}()\ \{\mbox{\hyperlink{struct_pivot_stats_a59d8e514b793d03dcf28451ade43e3a5}{n\_attempt}}\ =\ \mbox{\hyperlink{struct_pivot_stats_af4d2f1e658534b3171c3d192e57b006d}{n\_success}}\ =\ 0u;\}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00023}00023\ \};}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00025}00025\ \textcolor{comment}{//\ FIXME\ take\ a\ set\ of\ temperatures\ and\ propose\ at\ the\ appropriate\ temperature}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00026}00026\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_pivot_sampler}{PivotSampler}}\ \{}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00027}00027\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_pivot_sampler_aa5aaa0ac21a42ff37fd3573d8ced7207}{n\_layer}};}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00028}00028\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}};}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00029}00029\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_pivot_sampler_a346e57715fa5f6a6f639ff497e579617}{n\_pivot\_loc}};}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00031}\mbox{\hyperlink{struct_pivot_sampler_a8c677a4bf77dbd392a78aa9487260a1e}{00031}}\ \ \ \ \ \mbox{\hyperlink{struct_pivot_stats}{PivotStats}}\ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_a8c677a4bf77dbd392a78aa9487260a1e}{pivot\_stats}};}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00032}00032\ \ \ \ \ std::vector<PivotLocation>\ \mbox{\hyperlink{struct_pivot_sampler_a65226281f8fa2f955c3ea22706c8266b}{pivot\_loc}};}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00033}00033\ \ \ \ \ std::vector<float>\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_afc826ed4e2f7da7359cd0c09122811d5}{proposal\_pot}};}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00034}00034\ \ \ \ \ std::vector<float>\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_a6600fd5ae7f81a0f25130769e3415fe8}{proposal\_prob\_cdf}};}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00036}\mbox{\hyperlink{struct_pivot_sampler_ad65527c35537711528dc5e5f6b2821cb}{00036}}\ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_ad65527c35537711528dc5e5f6b2821cb}{PivotSampler}}():\ \mbox{\hyperlink{struct_pivot_sampler_aa5aaa0ac21a42ff37fd3573d8ced7207}{n\_layer}}(0),\ \mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}(0),\ \mbox{\hyperlink{struct_pivot_sampler_a346e57715fa5f6a6f639ff497e579617}{n\_pivot\_loc}}(0)\ \{\}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00038}\mbox{\hyperlink{struct_pivot_sampler_a9b3aa64c7e5ace8cf2261dd78e9f7741}{00038}}\ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_a9b3aa64c7e5ace8cf2261dd78e9f7741}{PivotSampler}}(hid\_t\ grp):\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00039}00039\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_aa5aaa0ac21a42ff37fd3573d8ced7207}{n\_layer}}(\mbox{\hyperlink{namespaceh5}{h5}}::get\_dset\_size(3,\ grp,\ \textcolor{stringliteral}{"{}proposal\_pot"{}})[0]),\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00040}00040\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}\ \ (\mbox{\hyperlink{namespaceh5}{h5}}::get\_dset\_size(3,\ grp,\ \textcolor{stringliteral}{"{}proposal\_pot"{}})[1]),}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00041}00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_a346e57715fa5f6a6f639ff497e579617}{n\_pivot\_loc}}(\mbox{\hyperlink{namespaceh5}{h5}}::get\_dset\_size(2,\ grp,\ \textcolor{stringliteral}{"{}pivot\_atom"{}})[0]),}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00043}00043\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_a65226281f8fa2f955c3ea22706c8266b}{pivot\_loc}}(\mbox{\hyperlink{struct_pivot_sampler_a346e57715fa5f6a6f639ff497e579617}{n\_pivot\_loc}}),}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00044}00044\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_a6600fd5ae7f81a0f25130769e3415fe8}{proposal\_prob\_cdf}}(\mbox{\hyperlink{struct_pivot_sampler_aa5aaa0ac21a42ff37fd3573d8ced7207}{n\_layer}}*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}})}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00045}00045\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00046}00046\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ namespace\ }\mbox{\hyperlink{namespaceh5}{h5}};}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00048}00048\ \ \ \ \ \ \ \ \ check\_size(grp,\ \textcolor{stringliteral}{"{}proposal\_pot"{}},\ \mbox{\hyperlink{struct_pivot_sampler_aa5aaa0ac21a42ff37fd3573d8ced7207}{n\_layer}},\ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}},\ \mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}});}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00049}00049\ \ \ \ \ \ \ \ \ check\_size(grp,\ \textcolor{stringliteral}{"{}pivot\_atom"{}},\ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_a346e57715fa5f6a6f639ff497e579617}{n\_pivot\_loc}},\ 5);}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00050}00050\ \ \ \ \ \ \ \ \ check\_size(grp,\ \textcolor{stringliteral}{"{}pivot\_range"{}},\ \ \ \mbox{\hyperlink{struct_pivot_sampler_a346e57715fa5f6a6f639ff497e579617}{n\_pivot\_loc}},\ 2);}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00051}00051\ \ \ \ \ \ \ \ \ check\_size(grp,\ \textcolor{stringliteral}{"{}pivot\_restype"{}},\ \mbox{\hyperlink{struct_pivot_sampler_a346e57715fa5f6a6f639ff497e579617}{n\_pivot\_loc}});}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00053}00053\ \ \ \ \ \ \ \ \ traverse\_dset<2,int>(grp,\ \textcolor{stringliteral}{"{}pivot\_atom"{}},\ \ \ \ [\&](\textcolor{keywordtype}{size\_t}\ np,\ \textcolor{keywordtype}{size\_t}\ na,\ \textcolor{keywordtype}{int}\ x)\ \{\mbox{\hyperlink{struct_pivot_sampler_a65226281f8fa2f955c3ea22706c8266b}{pivot\_loc}}[np].rama\_atom[na]\ =x;\});}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00054}00054\ \ \ \ \ \ \ \ \ traverse\_dset<2,int>(grp,\ \textcolor{stringliteral}{"{}pivot\_range"{}},\ \ \ [\&](\textcolor{keywordtype}{size\_t}\ np,\ \textcolor{keywordtype}{size\_t}\ j,\ \ \textcolor{keywordtype}{int}\ x)\ \{\mbox{\hyperlink{struct_pivot_sampler_a65226281f8fa2f955c3ea22706c8266b}{pivot\_loc}}[np].pivot\_range[j]=x;\});}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00055}00055\ \ \ \ \ \ \ \ \ traverse\_dset<1,int>(grp,\ \textcolor{stringliteral}{"{}pivot\_restype"{}},\ [\&](\textcolor{keywordtype}{size\_t}\ np,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ x)\ \{\mbox{\hyperlink{struct_pivot_sampler_a65226281f8fa2f955c3ea22706c8266b}{pivot\_loc}}[np].restype\ =x;\});}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ \&p:\ \mbox{\hyperlink{struct_pivot_sampler_a65226281f8fa2f955c3ea22706c8266b}{pivot\_loc}})\ \{}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(p.restype<0\ ||\ p.restype>=\mbox{\hyperlink{struct_pivot_sampler_aa5aaa0ac21a42ff37fd3573d8ced7207}{n\_layer}})\ \textcolor{keywordflow}{throw}\ std::string(\textcolor{stringliteral}{"{}invalid\ pivot\ restype"{}});}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ na=0;\ na<5;\ ++na)\ \{}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(p.pivot\_range[0]\ <=\ p.rama\_atom[na]\ \&\&\ p.rama\_atom[na]\ <\ p.pivot\_range[1])}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::string(\textcolor{stringliteral}{"{}pivot\_range\ cannot\ contain\ any\ atoms\ in\ pivot\_atom\ "{}})\ +\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::to\_string(p.pivot\_range[0])\ +\ \textcolor{stringliteral}{"{}\ <=\ "{}}\ +\ std::to\_string(p.rama\_atom[na])\ +\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ <\ "{}}\ +\ std::to\_string(p.pivot\_range[1]);}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00065}00065\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00067}00067\ \ \ \ \ \ \ \ \ traverse\_dset<3,float>(grp,\ \textcolor{stringliteral}{"{}proposal\_pot"{}},\ [\&](\textcolor{keywordtype}{size\_t}\ nl,\ \textcolor{keywordtype}{size\_t}\ nx,\ \textcolor{keywordtype}{size\_t}\ ny,\ \textcolor{keywordtype}{float}\ x)\ \{\mbox{\hyperlink{struct_pivot_sampler_afc826ed4e2f7da7359cd0c09122811d5}{proposal\_pot}}.push\_back(x);\});}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00069}00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ nl=0;\ nl<\mbox{\hyperlink{struct_pivot_sampler_aa5aaa0ac21a42ff37fd3573d8ced7207}{n\_layer}};\ ++nl)\ \{}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ sum\_prob\ =\ 0.;}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}};\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sum\_prob\ +=\ exp(-\/\mbox{\hyperlink{struct_pivot_sampler_afc826ed4e2f7da7359cd0c09122811d5}{proposal\_pot}}[nl*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}\ +\ i]);}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_a6600fd5ae7f81a0f25130769e3415fe8}{proposal\_prob\_cdf}}[nl*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}\ +\ i]\ =\ sum\_prob;}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ normalize\ both\ the\ negative\ log\ probability\ and\ the\ cdf}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ inv\_sum\_prob\ =\ 1./sum\_prob;}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ lsum\_prob\ =\ log(sum\_prob);}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}};\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_a6600fd5ae7f81a0f25130769e3415fe8}{proposal\_prob\_cdf}}[nl*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}\ +\ i]\ *=\ inv\_sum\_prob;}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_afc826ed4e2f7da7359cd0c09122811d5}{proposal\_pot}}[nl*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}\ +\ i]\ \ \ \ \ \ +=\ lsum\_prob;}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_a6600fd5ae7f81a0f25130769e3415fe8}{proposal\_prob\_cdf}}[(nl+1)*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}-\/1]\ =\ 1.f;\ \ \textcolor{comment}{//\ ensure\ no\ rounding\ error\ here}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00085}00085\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00086}00086\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00088}\mbox{\hyperlink{struct_pivot_sampler_a4c2e63a4ec3cdc835f87491fb6af031f}{00088}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_pivot_sampler_a4c2e63a4ec3cdc835f87491fb6af031f}{reset\_stats}}()\ \{}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00089}00089\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_a8c677a4bf77dbd392a78aa9487260a1e}{pivot\_stats}}.\mbox{\hyperlink{struct_pivot_stats_a6017d784be023ee77ad0dd2e6ebbb81e}{reset}}();}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00090}00090\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00092}\mbox{\hyperlink{struct_pivot_sampler_aa5172496e0ac84da9096d1927a01f3f9}{00092}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_pivot_sampler_aa5172496e0ac84da9096d1927a01f3f9}{execute\_random\_pivot}}(\textcolor{keywordtype}{float}*\ delta\_lprob,\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ seed,\ uint64\_t\ n\_round,\ \mbox{\hyperlink{struct_vec_array}{VecArray}}\ pos)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00094}00094\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_timer}{Timer}}\ timer(std::string(\textcolor{stringliteral}{"{}random\_pivot"{}}));}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00095}00095\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_random_generator}{RandomGenerator}}\ random(seed,\ \mbox{\hyperlink{random_8h_ab1fa763976d66d77a7a63f680bfd720baac33e6e3d5cf7777014d55c0ee632a1d}{PIVOT\_MOVE\_RANDOM\_STREAM}},\ 0,\ n\_round);}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00096}00096\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float4}}\ random\_values\ =\ random.\mbox{\hyperlink{struct_random_generator_a15c5594b6abffc2c829ac20e08b8d0b8}{uniform\_open\_closed}}();}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ pick\ a\ random\ pivot\ location}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00099}00099\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ loc\ =\ int(\mbox{\hyperlink{struct_pivot_sampler_a346e57715fa5f6a6f639ff497e579617}{n\_pivot\_loc}}\ *\ random\_values.\mbox{\hyperlink{struct_vec_ad85da573f2248ee25c5c0219be221e40}{z}}());}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(loc\ ==\ \mbox{\hyperlink{struct_pivot_sampler_a346e57715fa5f6a6f639ff497e579617}{n\_pivot\_loc}})\ loc-\/-\/;\ \ \textcolor{comment}{//\ this\ may\ occur\ due\ to\ rounding}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00101}00101\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ p\ =\ \mbox{\hyperlink{struct_pivot_sampler_a65226281f8fa2f955c3ea22706c8266b}{pivot\_loc}}[loc];}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00103}00103\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ select\ a\ bin}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ cdf\_value\ =\ random\_values.\mbox{\hyperlink{struct_vec_a285120a00012d8eaaa0dc8748c0294c2}{w}}();}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00106}00106\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ pivot\_bin\ =\ std::lower\_bound(}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_a6600fd5ae7f81a0f25130769e3415fe8}{proposal\_prob\_cdf}}.data()+\ p.restype\ \ \ *\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}},\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_a6600fd5ae7f81a0f25130769e3415fe8}{proposal\_prob\_cdf}}.data()+(p.restype+1)*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}},}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cdf\_value)\ -\/\ (\mbox{\hyperlink{struct_pivot_sampler_a6600fd5ae7f81a0f25130769e3415fe8}{proposal\_prob\_cdf}}.data()+p.restype*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}});}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00110}00110\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ new\_lprob\ =\ \mbox{\hyperlink{struct_pivot_sampler_afc826ed4e2f7da7359cd0c09122811d5}{proposal\_pot}}[p.restype*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}\ +\ pivot\_bin];}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00111}00111\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00112}00112\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ phi\_bin\ =\ pivot\_bin/\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}};}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00113}00113\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ psi\_bin\ =\ pivot\_bin\%\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}};}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00115}00115\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ now\ pick\ a\ random\ location\ in\ that\ bin}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00116}00116\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Note\ the\ half-\/bin\ shift\ because\ we\ want\ the\ bin\ center\ of\ the\ left-\/most\ bin\ at\ 0}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00117}00117\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float2}}\ new\_rama\ =\ (2.f*\mbox{\hyperlink{compute__rotamer__centers_8cpp_a10eed9dbd8803e4acfbfc3432fc48b08}{M\_PI\_F}}/\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}})*\mbox{\hyperlink{vector__math_8h_a07f83a9ab124f930a5af5e9036c6ea9e}{make\_vec2}}(phi\_bin+random\_values.\mbox{\hyperlink{struct_vec_a053cf7422a55ce5bd20f5e14ad1c85bd}{x}}()-\/0.5f,\ psi\_bin+random\_values.\mbox{\hyperlink{struct_vec_a35750631386ec744b20299992d2b2fe9}{y}}()-\/0.5f)\ -\/\ \mbox{\hyperlink{compute__rotamer__centers_8cpp_a10eed9dbd8803e4acfbfc3432fc48b08}{M\_PI\_F}};}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00119}00119\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ find\ deviation\ from\ old\ rama}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00120}00120\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ d1,d2,d3,d4;}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00121}00121\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ prevC\ =\ load\_vec<3>(pos,\ p.rama\_atom[0]);}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00122}00122\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ N\ \ \ \ \ =\ load\_vec<3>(pos,\ p.rama\_atom[1]);}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00123}00123\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ CA\ \ \ \ =\ load\_vec<3>(pos,\ p.rama\_atom[2]);}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00124}00124\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ C\ \ \ \ \ =\ load\_vec<3>(pos,\ p.rama\_atom[3]);}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00125}00125\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ nextN\ =\ load\_vec<3>(pos,\ p.rama\_atom[4]);}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00127}00127\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float2}}\ old\_rama\ =\ \mbox{\hyperlink{vector__math_8h_a07f83a9ab124f930a5af5e9036c6ea9e}{make\_vec2}}(}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dihedral\_germ(prevC,N,CA,C,\ d1,d2,d3,d4),}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dihedral\_germ(N,CA,C,nextN,\ d1,d2,d3,d4));}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00131}00131\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ reverse\ the\ half-\/bin\ shift}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00132}00132\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ old\_phi\_bin\ =\ (old\_rama.\mbox{\hyperlink{struct_vec_a053cf7422a55ce5bd20f5e14ad1c85bd}{x}}()+\mbox{\hyperlink{compute__rotamer__centers_8cpp_a10eed9dbd8803e4acfbfc3432fc48b08}{M\_PI\_F}})\ *\ (0.5f/\mbox{\hyperlink{compute__rotamer__centers_8cpp_a10eed9dbd8803e4acfbfc3432fc48b08}{M\_PI\_F}})\ *\ \mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}\ +\ 0.5f;}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00133}00133\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ old\_psi\_bin\ =\ (old\_rama.\mbox{\hyperlink{struct_vec_a35750631386ec744b20299992d2b2fe9}{y}}()+\mbox{\hyperlink{compute__rotamer__centers_8cpp_a10eed9dbd8803e4acfbfc3432fc48b08}{M\_PI\_F}})\ *\ (0.5f/\mbox{\hyperlink{compute__rotamer__centers_8cpp_a10eed9dbd8803e4acfbfc3432fc48b08}{M\_PI\_F}})\ *\ \mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}\ +\ 0.5f;}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00134}00134\ \ \ \ \ \ \ \ \ old\_phi\_bin\ =\ old\_phi\_bin>=\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}\ ?\ 0\ :\ old\_phi\_bin;\ \ \textcolor{comment}{//\ enforce\ periodicity}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00135}00135\ \ \ \ \ \ \ \ \ old\_psi\_bin\ =\ old\_psi\_bin>=\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}\ ?\ 0\ :\ old\_psi\_bin;}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00136}00136\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ old\_lprob\ =\ \mbox{\hyperlink{struct_pivot_sampler_afc826ed4e2f7da7359cd0c09122811d5}{proposal\_pot}}[(p.restype*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}\ +\ old\_phi\_bin)*\mbox{\hyperlink{struct_pivot_sampler_a0b3bb3ac3b2e70e1c11a1a4abd47c7ef}{n\_bin}}\ +\ old\_psi\_bin];}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00137}00137\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00138}00138\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ apply\ rotations}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00139}00139\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ phi\_origin\ =\ CA;}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00140}00140\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ psi\_origin\ =\ C;}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00142}00142\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float2}}\ delta\_rama\ =\ new\_rama\ -\/\ old\_rama;}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00143}00143\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ phi\_U[9];\ \mbox{\hyperlink{affine_8h_a73b199010f781e87af84f95d8ef4eada}{axis\_angle\_to\_rot}}(phi\_U,\ delta\_rama.\mbox{\hyperlink{struct_vec_a053cf7422a55ce5bd20f5e14ad1c85bd}{x}}(),\ normalized(CA-\/N\ ));}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00144}00144\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ psi\_U[9];\ \mbox{\hyperlink{affine_8h_a73b199010f781e87af84f95d8ef4eada}{axis\_angle\_to\_rot}}(psi\_U,\ delta\_rama.\mbox{\hyperlink{struct_vec_a35750631386ec744b20299992d2b2fe9}{y}}(),\ normalized(C\ -\/CA));}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00145}00145\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00146}00146\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ y\ =\ load\_vec<3>(pos,\ p.rama\_atom[3]);\ \ \textcolor{comment}{//\ C}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ after\_psi\ =\ psi\_origin\ +\ \mbox{\hyperlink{affine_8h_a4898ef1f196b90dec831946aa0171167}{apply\_rotation}}(psi\_U,\ y\ \ \ \ \ \ \ \ -\/psi\_origin);\ \textcolor{comment}{//\ unnecessary\ but\ harmless}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ after\_phi\ =\ phi\_origin\ +\ \mbox{\hyperlink{affine_8h_a4898ef1f196b90dec831946aa0171167}{apply\_rotation}}(phi\_U,\ after\_psi-\/phi\_origin);}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{vector__math_8h_a721fdbc18b9714a8bfa755fefeb12961}{store\_vec}}(pos,\ p.rama\_atom[3],\ after\_phi);}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00151}00151\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00152}00152\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00153}00153\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ y\ =\ load\_vec<3>(pos,\ p.rama\_atom[4]);\ \ \textcolor{comment}{//\ nextN}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ after\_psi\ =\ psi\_origin\ +\ \mbox{\hyperlink{affine_8h_a4898ef1f196b90dec831946aa0171167}{apply\_rotation}}(psi\_U,\ y\ \ \ \ \ \ \ \ -\/psi\_origin);}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ after\_phi\ =\ phi\_origin\ +\ \mbox{\hyperlink{affine_8h_a4898ef1f196b90dec831946aa0171167}{apply\_rotation}}(phi\_U,\ after\_psi-\/phi\_origin);}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{vector__math_8h_a721fdbc18b9714a8bfa755fefeb12961}{store\_vec}}(pos,\ p.rama\_atom[4],\ after\_phi);}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00158}00158\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00159}00159\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00160}00160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ na=p.pivot\_range[0];\ na<p.pivot\_range[1];\ ++na)\ \{}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ y\ =\ load\_vec<3>(pos,\ na);}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ after\_psi\ =\ psi\_origin\ +\ \mbox{\hyperlink{affine_8h_a4898ef1f196b90dec831946aa0171167}{apply\_rotation}}(psi\_U,\ y\ \ \ \ \ \ \ \ -\/psi\_origin);}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec}{float3}}\ after\_phi\ =\ phi\_origin\ +\ \mbox{\hyperlink{affine_8h_a4898ef1f196b90dec831946aa0171167}{apply\_rotation}}(phi\_U,\ after\_psi-\/phi\_origin);}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{vector__math_8h_a721fdbc18b9714a8bfa755fefeb12961}{store\_vec}}(pos,\ na,\ after\_phi);}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00165}00165\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00166}00166\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00167}00167\ \ \ \ \ \ \ \ \ *delta\_lprob\ =\ new\_lprob\ -\/\ old\_lprob;}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00168}00168\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00170}\mbox{\hyperlink{struct_pivot_sampler_a4d257cb4ff14355ad32ff5c2c8191cee}{00170}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_pivot_sampler_a4d257cb4ff14355ad32ff5c2c8191cee}{pivot\_monte\_carlo\_step}}(}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ seed,\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ uint64\_t\ round,}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00173}00173\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ temperature,}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_deriv_engine}{DerivEngine}}\&\ engine)\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00175}00175\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00176}00176\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \&pos\ =\ engine.\mbox{\hyperlink{struct_deriv_engine_a4d1eead19c296c11095a8d7ecfa138ae}{pos}}-\/>\mbox{\hyperlink{struct_coord_node_a678c754ea0a0fdd4e01a23875426d6b5}{output}};}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00177}00177\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_vec_array_storage}{VecArrayStorage}}\ pos\_copy(pos);}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00178}00178\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ delta\_lprob;}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00179}00179\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00180}00180\ \ \ \ \ \ \ \ \ engine.\mbox{\hyperlink{struct_deriv_engine_a6aa1208083a02ae463d4a7aea00389cc}{compute}}(\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4a08446ed6520358b5446fcd916b65610c}{PotentialAndDerivMode}});}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00181}00181\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ old\_potential\ =\ engine.\mbox{\hyperlink{struct_deriv_engine_a3a0ab62cfd0b13b064466312d4b3f5e8}{potential}};}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00183}00183\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_aa5172496e0ac84da9096d1927a01f3f9}{execute\_random\_pivot}}(\&delta\_lprob,\ seed,\ round,\ pos);}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00184}00184\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00185}00185\ \ \ \ \ \ \ \ \ engine.\mbox{\hyperlink{struct_deriv_engine_a6aa1208083a02ae463d4a7aea00389cc}{compute}}(\mbox{\hyperlink{deriv__engine_8h_a4accf2c58634b72d20585af089f58dc4a08446ed6520358b5446fcd916b65610c}{PotentialAndDerivMode}});}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00186}00186\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ new\_potential\ =\ engine.\mbox{\hyperlink{struct_deriv_engine_a3a0ab62cfd0b13b064466312d4b3f5e8}{potential}};}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00187}00187\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00188}00188\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ lboltz\_diff\ =\ delta\_lprob\ -\/\ (1.f/temperature)\ *\ (new\_potential-\/old\_potential);}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00189}00189\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_random_generator}{RandomGenerator}}\ random(seed,\ PIVOT\_MONTE\_CARLO\_RANDOM\_STREAM,\ 0,\ round);}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00190}00190\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_a8c677a4bf77dbd392a78aa9487260a1e}{pivot\_stats}}.\mbox{\hyperlink{struct_pivot_stats_a59d8e514b793d03dcf28451ade43e3a5}{n\_attempt}}++;}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00191}00191\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00192}00192\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(lboltz\_diff\ >=\ 0.f\ ||\ \mbox{\hyperlink{_float4_8h_aea31e5e2a8dd98fe7d99206ced8f792c}{expf}}(lboltz\_diff)\ >=\ random.\mbox{\hyperlink{struct_random_generator_a15c5594b6abffc2c829ac20e08b8d0b8}{uniform\_open\_closed}}().\mbox{\hyperlink{struct_vec_a053cf7422a55ce5bd20f5e14ad1c85bd}{x}}())\ \{}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_pivot_sampler_a8c677a4bf77dbd392a78aa9487260a1e}{pivot\_stats}}.\mbox{\hyperlink{struct_pivot_stats_af4d2f1e658534b3171c3d192e57b006d}{n\_success}}++;}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00194}00194\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ we\ reject\ the\ pivot,\ we\ must\ reverse\ it}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ \ \ copy(pos\_copy,\ pos);}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00197}00197\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00198}00198\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00200}00200\ \};}
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00201}00201\ }
+\DoxyCodeLine{\Hypertarget{pivot__sampler_8h_source_l00202}00202\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

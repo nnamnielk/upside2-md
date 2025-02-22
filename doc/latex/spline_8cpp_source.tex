@@ -1,0 +1,331 @@
+\doxysection{spline.\+cpp}
+\hypertarget{spline_8cpp_source}{}\label{spline_8cpp_source}\index{src/spline.cpp@{src/spline.cpp}}
+\mbox{\hyperlink{spline_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{vector__math_8h}{vector\_math.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{spline_8h}{spline.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00005}00005\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00007}\mbox{\hyperlink{spline_8cpp_a27a8e2e447b848df6f19b21379f4186d}{00007}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{spline_8cpp_a27a8e2e447b848df6f19b21379f4186d}{solve\_tridiagonal\_system}}(}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00008}00008\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n,\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00009}00009\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ d,\ \ \ \textcolor{comment}{//\ right-\/hand-\/side\ (length\ n),\ after\ function\ finishes,\ solution\ is\ stored\ in\ d}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00010}00010\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ a,\ \ \ \textcolor{comment}{//\ sub-\/diagonal\ (length\ n-\/1)}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00011}00011\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ b,\ \ \ \textcolor{comment}{//\ main-\/diagonal\ (length\ n)}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00012}00012\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ c)\ \ \ \textcolor{comment}{//\ super-\/diagonal\ (length\ n-\/1)}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00013}00013\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00014}00014\ \ \ \ \ \textcolor{comment}{//\ this\ function\ uses\ Thomas's\ algorithm\ to\ solve\ a\ tridiagonal\ system}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00015}00015\ \ \ \ \ \textcolor{comment}{//\ original\ coefficients\ will\ be\ destroyed\ in\ the\ process}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00016}00016\ \ \ \ \ \textcolor{comment}{//\ solution\ was\ verified}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00018}00018\ \ \ \ \ \textcolor{comment}{//\ Forward\ phase}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00019}00019\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ k=1;\ k<n;\ ++k)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00020}00020\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ m\ =\ a[k-\/1]/b[k-\/1];}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00021}00021\ \ \ \ \ \ \ \ \ b[k]\ -\/=\ m*c[k-\/1];}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00022}00022\ \ \ \ \ \ \ \ \ d[k]\ -\/=\ m*d[k-\/1];}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00023}00023\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00025}00025\ \ \ \ \ \textcolor{comment}{//\ Backward\ phase}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00026}00026\ \ \ \ \ d[n-\/1]\ =\ d[n-\/1]/b[n-\/1];}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00027}00027\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ k=n-\/2;\ k>=0;\ -\/-\/k)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ d[k]\ =\ (d[k]\ -\/\ c[k]*d[k+1])/b[k];}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00029}00029\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00030}00030\ \}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00033}\mbox{\hyperlink{spline_8cpp_a4375fd35e1ad7d117164c547c26e1a75}{00033}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{spline_8cpp_a4375fd35e1ad7d117164c547c26e1a75}{solve\_periodic\_tridiagonal\_system}}(}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n,\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ solution,\ \textcolor{comment}{//\ length\ n}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ d,\ \ \ \textcolor{comment}{//\ right-\/hand-\/side\ (length\ n),\ after\ function\ finishes,\ solution\ is\ stored\ in\ d}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ a,\ \ \ \textcolor{comment}{//\ sub-\/diagonal\ (length\ n)}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ b,\ \ \ \textcolor{comment}{//\ main-\/diagonal\ (length\ n)}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ c,\ \ \ \textcolor{comment}{//\ super-\/diagonal\ (length\ n)}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ temp\_storage)\ \ \textcolor{comment}{//\ (length\ 3*n)}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00041}00041\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00042}00042\ \ \ \ \ \textcolor{comment}{//\ verified\ solution\ }}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00043}00043\ \ \ \ \ \textcolor{keywordtype}{double}\ b1\ =\ b[0];}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00044}00044\ \ \ \ \ \textcolor{keywordtype}{double}\ cn\ =\ c[n-\/1];}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00045}00045\ \ \ \ \ \textcolor{keywordtype}{double}\ ratio\ =\ a[0]/b1;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00047}00047\ \ \ \ \ \textcolor{comment}{//\ modify\ the\ coefficients\ to\ use\ the\ Sherman-\/Morrison\ formula}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00048}00048\ \ \ \ \ b[0]\ \ \ +=\ b1;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00049}00049\ \ \ \ \ b[n-\/1]\ +=\ ratio*cn;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00051}00051\ \ \ \ \ copy(a,\ a+n,\ temp\_storage+0*n);}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00052}00052\ \ \ \ \ copy(b,\ b+n,\ temp\_storage+1*n);}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00053}00053\ \ \ \ \ copy(c,\ c+n,\ temp\_storage+2*n);}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00055}00055\ \ \ \ \ \textcolor{comment}{//\ get\ ready\ to\ solve\ in\ vector\ solution}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00056}00056\ \ \ \ \ solution[0]\ =\ -\/b1;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00057}00057\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=1;\ i<n-\/1;\ ++i)\ solution[i]\ =\ 0.;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00058}00058\ \ \ \ \ solution[n-\/1]\ =\ cn;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00060}00060\ \ \ \ \ \textcolor{comment}{//\ contains\ vector\ u\ before\ solving\ and\ q\ after\ solving}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00061}00061\ \ \ \ \ \textcolor{keywordtype}{double}*\ q\ =\ solution;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00062}00062\ \ \ \ \ \mbox{\hyperlink{spline_8cpp_a27a8e2e447b848df6f19b21379f4186d}{solve\_tridiagonal\_system}}(n,\ q,\ a+1,\ b,\ c);}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00064}00064\ \ \ \ \ \textcolor{comment}{//\ restore\ coefficients}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00065}00065\ \ \ \ \ copy(temp\_storage+0*n,\ temp\_storage+1*n,\ a);}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00066}00066\ \ \ \ \ copy(temp\_storage+1*n,\ temp\_storage+2*n,\ b);}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00067}00067\ \ \ \ \ copy(temp\_storage+2*n,\ temp\_storage+3*n,\ c);}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00069}00069\ \ \ \ \ \textcolor{comment}{//\ contains\ vector\ d\ before\ solving\ and\ y\ after\ solving}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00070}00070\ \ \ \ \ \textcolor{keywordtype}{double}*\ y\ =\ d;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00071}00071\ \ \ \ \ \mbox{\hyperlink{spline_8cpp_a27a8e2e447b848df6f19b21379f4186d}{solve\_tridiagonal\_system}}(n,\ d,\ a+1,\ b,\ c);}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00073}00073\ \ \ \ \ \textcolor{keywordtype}{double}\ q\_prefactor\ =\ (y[0]-\/y[n-\/1]*ratio)/(1.\ +\ q[0]\ -\/\ q[n-\/1]*ratio);}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00075}00075\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<n;\ ++i)\ solution[i]\ =\ y[i]\ -\/\ q\_prefactor*q[i];}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00076}00076\ \}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00079}\mbox{\hyperlink{spline_8cpp_a77e0f4d07809a28f00976019b2da3b3e}{00079}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{spline_8cpp_a77e0f4d07809a28f00976019b2da3b3e}{evaluate\_1d\_spline}}(}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00080}00080\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ y,\ \textcolor{comment}{//\ length\ nx}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00081}00081\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n\_knot,\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00082}00082\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ coeff,\ \ \textcolor{comment}{//\ length\ 4*n\_knot}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00083}00083\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nx,}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00084}00084\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ x)\ \ \textcolor{comment}{//\ length\ nx}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00085}00085\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00086}00086\ \ \ \ \ \textcolor{comment}{//\ verified}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00087}00087\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ ix=0;\ ix<nx;\ ++ix)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00088}00088\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if(x[ix]<0\ ||\ x[ix]>=nx)\ throw\ "{}impossible"{};}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ x\_bin\ =\ int(x[ix]);}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00090}00090\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ f\ =\ x[ix]\ -\/\ x\_bin;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ c\ =\ coeff\ +\ 4*x\_bin;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00092}00092\ \ \ \ \ \ \ \ \ y[ix]\ =\ c[0]\ +\ c[1]*f\ +\ c[2]*(f*f)\ +\ (c[3]*f)*(f*f);}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00093}00093\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00094}00094\ \}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00096}\mbox{\hyperlink{spline_8cpp_a191b206f254262ea92aaa06606a619b9}{00096}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{spline_8cpp_a191b206f254262ea92aaa06606a619b9}{evaluate\_1d\_spline\_first\_derivative}}(}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00097}00097\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ dy,\ \textcolor{comment}{//\ length\ nx}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n\_knot,\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00099}00099\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ coeff,\ \ \textcolor{comment}{//\ length\ 4*n\_knot}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nx,}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00101}00101\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ x)\ \ \textcolor{comment}{//\ length\ nx}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00102}00102\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00103}00103\ \ \ \ \ \textcolor{comment}{//\ verified}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00104}00104\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ ix=0;\ ix<nx;\ ++ix)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00105}00105\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if(x[ix]<0\ ||\ x[ix]>=nx)\ throw\ "{}impossible"{};}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00106}00106\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ x\_bin\ =\ int(x[ix]);}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00107}00107\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ f\ =\ x[ix]\ -\/\ x\_bin;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00108}00108\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ c\ =\ coeff\ +\ 4*x\_bin;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00109}00109\ \ \ \ \ \ \ \ \ dy[ix]\ =\ c[1]\ +\ 2.*c[2]*f\ +\ 3.*c[3]*(f*f);}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00110}00110\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00111}00111\ \}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00113}00113\ \textcolor{comment}{//\ coefficients\ are\ valid\ only\ the\ range\ (0,1)\ reflecting\ the\ distance\ past\ the\ knot\ on\ the\ right}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00114}\mbox{\hyperlink{spline_8cpp_a1b981da51a405ec41e9a2accc4d7e098}{00114}}\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{spline_8cpp_a1b981da51a405ec41e9a2accc4d7e098}{bspline\_coeffs}}[4][4]\ =\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00115}00115\ \ \ \ \ \{\ 0./6.,\ 0./6.,\ 0./6.,\ 1./6.\},}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00116}00116\ \ \ \ \ \{\ 1./6.,\ 3./6.,\ 3./6.,-\/3./6.\},}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00117}00117\ \ \ \ \ \{\ 4./6.,\ 0./6.,-\/6./6.,\ 3./6.\},}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00118}00118\ \ \ \ \ \{\ 1./6.,-\/3./6.,\ 3./6.,-\/1./6.\}\};}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00121}\mbox{\hyperlink{spline_8cpp_ae15d71ec38bac83f2c588774cfbd04d8}{00121}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{spline_8cpp_ae15d71ec38bac83f2c588774cfbd04d8}{solve\_periodic\_1d\_spline}}(}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00122}00122\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n,\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00123}00123\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ coefficients,\ \textcolor{comment}{//\ length\ 4*n}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00124}00124\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ data,\ \ \ \textcolor{comment}{//\ length\ n}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00125}00125\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ temp\_storage)\ \textcolor{comment}{//\ length\ 8*n}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00126}00126\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00127}00127\ \ \ \ \ \textcolor{keywordtype}{double}*\ a\ =\ temp\_storage+0*n;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00128}00128\ \ \ \ \ \textcolor{keywordtype}{double}*\ b\ =\ temp\_storage+1*n;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00129}00129\ \ \ \ \ \textcolor{keywordtype}{double}*\ c\ =\ temp\_storage+2*n;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00130}00130\ \ \ \ \ \textcolor{keywordtype}{double}*\ d\ =\ temp\_storage+3*n;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00131}00131\ \ \ \ \ \textcolor{keywordtype}{double}*\ solution\ =\ temp\_storage\ +\ 4*n;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00132}00132\ \ \ \ \ \textcolor{keywordtype}{double}*\ temp\_for\_later\ =\ temp\_storage+5*n;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00133}00133\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00134}00134\ \ \ \ \ \textcolor{comment}{//\ b-\/spline\ coefficients\ for\ the\ natural\ cubic\ on\ integer\ grid}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00135}00135\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<n;\ ++i)\ a[i]\ =\ 1./6.;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00136}00136\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<n;\ ++i)\ b[i]\ =\ 2./3.;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00137}00137\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<n;\ ++i)\ c[i]\ =\ 1./6.;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00138}00138\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<n;\ ++i)\ d[i]\ =\ data[i];}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00140}00140\ \ \ \ \ \mbox{\hyperlink{spline_8cpp_a4375fd35e1ad7d117164c547c26e1a75}{solve\_periodic\_tridiagonal\_system}}(n,\ solution,\ d,\ a,\ b,\ c,\ temp\_for\_later);}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00142}00142\ \ \ \ \ \textcolor{comment}{//\ now\ we\ need\ to\ convert\ the\ b-\/spline\ coefficients\ to\ coefficients\ for\ \{1,x,x\string^2,x\string^3\}}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00143}00143\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<4*n;\ ++i)\ coefficients[i]\ =\ 0.;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00145}00145\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<n;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00146}00146\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ my\_val\ =\ solution[i];}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00147}00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ increment=0;\ increment<4;\ ++increment)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idx\ =\ i+increment-\/2;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(idx<\ 0)\ idx\ +=\ n;\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(idx>=n)\ idx\ -\/=\ n;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00151}00151\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ c=0;\ c<4;\ ++c)}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ coefficients[idx*4+c]\ +=\ my\_val*\mbox{\hyperlink{spline_8cpp_a1b981da51a405ec41e9a2accc4d7e098}{bspline\_coeffs}}[increment][c];}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00154}00154\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00155}00155\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00156}00156\ \}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00157}00157\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00158}\mbox{\hyperlink{spline_8cpp_ab9e3b5aba2ac038660c8e6c7c0e96c39}{00158}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{spline_8cpp_ab9e3b5aba2ac038660c8e6c7c0e96c39}{solve\_clamped\_1d\_spline\_for\_bsplines}}(}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00159}00159\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n\_coeff,\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00160}00160\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ coefficients,\ \textcolor{comment}{//\ length\ n\_coeff}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00161}00161\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ data,\ \ \ \textcolor{comment}{//\ length\ n\_coeff-\/2}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00162}00162\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ temp\_storage)\ \textcolor{comment}{//\ length\ 3*n\_coeff}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00163}00163\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00164}00164\ \ \ \ \ \textcolor{keywordtype}{int}\ n\ =\ n\_coeff-\/2;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00165}00165\ \ \ \ \ \textcolor{keywordtype}{double}*\ a\ =\ temp\_storage+0*n\_coeff;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00166}00166\ \ \ \ \ \textcolor{keywordtype}{double}*\ b\ =\ temp\_storage+1*n\_coeff;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00167}00167\ \ \ \ \ \textcolor{keywordtype}{double}*\ c\ =\ temp\_storage+2*n\_coeff;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00168}00168\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00169}00169\ \ \ \ \ \textcolor{comment}{//\ b-\/spline\ coefficients\ for\ the\ natural\ cubic\ on\ integer\ grid}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00170}00170\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<n;\ ++i)\ a[i]\ =\ 1./6.;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00171}00171\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<n;\ ++i)\ b[i]\ =\ 2./3.;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00172}00172\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<n;\ ++i)\ c[i]\ =\ 1./6.;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00173}00173\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<n;\ ++i)\ coefficients[i+1]\ =\ data[i];}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00174}00174\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00175}00175\ \ \ \ \ \textcolor{comment}{//\ this\ is\ a\ homogenous\ boundary\ condition\ and\ quite\ convenient\ for\ cartesian\ potentials}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00176}00176\ \ \ \ \ \textcolor{comment}{//\ for\ a\ zero-\/clamped\ spline,\ we\ must\ have\ coeff[-\/1]\ ==\ coeff[1]\ and\ coeff[N-\/2]\ ==\ coeff[N]}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00177}00177\ \ \ \ \ \textcolor{comment}{//\ this\ conditions\ break\ the\ tridiagonal\ condition\ if\ added\ naively.}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00178}00178\ \ \ \ \ \textcolor{comment}{//\ Instead,\ I\ can\ fold\ the\ condition\ into\ the\ matrix\ by\ doubling\ the\ (0,1)\ and\ (N-\/2,N-\/1)}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00179}00179\ \ \ \ \ \textcolor{comment}{//\ elements\ of\ the\ tridiagonal\ matrix.\ \ These\ would\ be\ elements\ c[0]\ and\ a[n-\/1].}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00180}00180\ \ \ \ \ \textcolor{comment}{//\ Then,\ I\ need\ to\ remember\ to\ add\ the\ special\ basis\ functions\ that\ I\ absorbed}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00181}00181\ \ \ \ \ \textcolor{comment}{//\ when\ computing\ the\ coefficients\ below.}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00183}00183\ \ \ \ \ a[n-\/1]\ *=\ 2.;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00184}00184\ \ \ \ \ c[0]\ \ \ *=\ 2.;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00185}00185\ \ \ \ \ \mbox{\hyperlink{spline_8cpp_a27a8e2e447b848df6f19b21379f4186d}{solve\_tridiagonal\_system}}(n\_coeff-\/2,\ coefficients+1,\ a+1,\ b,\ c);}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00186}00186\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00187}00187\ \ \ \ \ coefficients[0]\ =\ coefficients[2];}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00188}00188\ \ \ \ \ coefficients[n\_coeff-\/1]\ =\ coefficients[n\_coeff-\/3];}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00189}00189\ \}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00191}00191\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00192}\mbox{\hyperlink{spline_8cpp_aa5f33175e7355ab880b8d4430caa5268}{00192}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{spline_8cpp_aa5f33175e7355ab880b8d4430caa5268}{solve\_clamped\_1d\_spline}}(}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00193}00193\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n,\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00194}00194\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ coefficients,\ \textcolor{comment}{//\ length\ 4*(n-\/1)}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00195}00195\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ data,\ \ \ \textcolor{comment}{//\ length\ n}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00196}00196\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ temp\_storage)\ \textcolor{comment}{//\ length\ 4*n}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00197}00197\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00198}00198\ \ \ \ \ \textcolor{keywordtype}{double}*\ a\ =\ temp\_storage+0*n;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00199}00199\ \ \ \ \ \textcolor{keywordtype}{double}*\ b\ =\ temp\_storage+1*n;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00200}00200\ \ \ \ \ \textcolor{keywordtype}{double}*\ c\ =\ temp\_storage+2*n;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00201}00201\ \ \ \ \ \textcolor{keywordtype}{double}*\ solution\ =\ temp\_storage\ +\ 3*n;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00202}00202\ \ \ \ \ \textcolor{comment}{//\ double*\ d\ =\ temp\_storage+3*n;\ \ //\ unneed\ since\ solution\ overwrites\ data}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00203}00203\ \ \ \ \ \textcolor{comment}{//\ double*\ temp\_for\_later\ =\ temp\_storage+5*n;}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00204}00204\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00205}00205\ \ \ \ \ \textcolor{comment}{//\ b-\/spline\ coefficients\ for\ the\ natural\ cubic\ on\ integer\ grid}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00206}00206\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<n;\ ++i)\ a[i]\ =\ 1./6.;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00207}00207\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<n;\ ++i)\ b[i]\ =\ 2./3.;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00208}00208\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<n;\ ++i)\ c[i]\ =\ 1./6.;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00209}00209\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<n;\ ++i)\ solution[i]\ =\ data[i];}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00211}00211\ \ \ \ \ \textcolor{comment}{//\ FIXME\ also\ implement\ zero-\/derivative\ clamped\ splines}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00212}00212\ \ \ \ \ \textcolor{comment}{//\ this\ is\ a\ homogenous\ boundary\ condition\ and\ quite\ convenient\ for\ cartesian\ potentials}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00213}00213\ \ \ \ \ \textcolor{comment}{//\ for\ a\ zero-\/clamped\ spline,\ we\ must\ have\ coeff[-\/1]\ ==\ coeff[1]\ and\ coeff[N-\/2]\ ==\ coeff[N]}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00214}00214\ \ \ \ \ \textcolor{comment}{//\ this\ conditions\ break\ the\ tridiagonal\ condition\ if\ added\ naively.}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00215}00215\ \ \ \ \ \textcolor{comment}{//\ Instead,\ I\ can\ fold\ the\ condition\ into\ the\ matrix\ by\ doubling\ the\ (0,1)\ and\ (N-\/2,N-\/1)}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00216}00216\ \ \ \ \ \textcolor{comment}{//\ elements\ of\ the\ tridiagonal\ matrix.\ \ These\ would\ be\ elements\ c[0]\ and\ a[n-\/1].}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00217}00217\ \ \ \ \ \textcolor{comment}{//\ Then,\ I\ need\ to\ remember\ to\ add\ the\ special\ basis\ functions\ that\ I\ absorbed}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00218}00218\ \ \ \ \ \textcolor{comment}{//\ when\ computing\ the\ coefficients\ below.}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00219}00219\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00220}00220\ \ \ \ \ a[n-\/1]\ *=\ 2.;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00221}00221\ \ \ \ \ c[0]\ \ \ *=\ 2.;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00222}00222\ \ \ \ \ \mbox{\hyperlink{spline_8cpp_a27a8e2e447b848df6f19b21379f4186d}{solve\_tridiagonal\_system}}(n,\ solution,\ a+1,\ b,\ c);}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00223}00223\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00224}00224\ \ \ \ \ \textcolor{comment}{//\ now\ we\ need\ to\ convert\ the\ b-\/spline\ coefficients\ to\ coefficients\ for\ \{1,x,x\string^2,x\string^3\}}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00225}00225\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<4*(n-\/1);\ ++i)\ coefficients[i]\ =\ 0.;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00226}00226\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00227}00227\ \ \ \ \ \textcolor{comment}{//\ There\ is\ one\ fewer\ interval\ for\ clamped\ splines\ since\ they\ have\ nothing\ to\ the\ right}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00228}00228\ \ \ \ \ \textcolor{comment}{//\ \ \ \ of\ their\ last\ point;}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00229}00229\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<n;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00230}00230\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ my\_val\ =\ solution[i];}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00231}00231\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ increment=0;\ increment<4;\ ++increment)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00232}00232\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idx\ =\ i+increment-\/2;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(idx<\ 0)\ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00234}00234\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(idx>=n-\/1)\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00235}00235\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00236}00236\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ c=0;\ c<4;\ ++c)}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00237}00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ coefficients[idx*4+c]\ +=\ my\_val*\mbox{\hyperlink{spline_8cpp_a1b981da51a405ec41e9a2accc4d7e098}{bspline\_coeffs}}[increment][c];}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00238}00238\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00239}00239\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00240}00240\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00241}00241\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00242}00242\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ left\ wing\ B-\/spline}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00243}00243\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ my\_val\ =\ solution[1];}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00244}00244\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ increment\ =\ 3;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00245}00245\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idx\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00246}00246\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00247}00247\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ c=0;\ c<4;\ ++c)}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00248}00248\ \ \ \ \ \ \ \ \ \ \ \ \ coefficients[idx*4+c]\ +=\ my\_val*\mbox{\hyperlink{spline_8cpp_a1b981da51a405ec41e9a2accc4d7e098}{bspline\_coeffs}}[increment][c];}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00249}00249\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00250}00250\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00251}00251\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ right\ wing\ B-\/spline}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00252}00252\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ my\_val\ =\ solution[n-\/2];}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00253}00253\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ increment\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00254}00254\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idx\ =\ n-\/2;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00255}00255\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00256}00256\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ c=0;\ c<4;\ ++c)}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00257}00257\ \ \ \ \ \ \ \ \ \ \ \ \ coefficients[idx*4+c]\ +=\ my\_val*\mbox{\hyperlink{spline_8cpp_a1b981da51a405ec41e9a2accc4d7e098}{bspline\_coeffs}}[increment][c];}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00258}00258\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00259}00259\ \}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00260}00260\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00261}00261\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00262}\mbox{\hyperlink{spline_8cpp_a20e2bcb01b6a1247957f64aeb3e64bed}{00262}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{spline_8cpp_a20e2bcb01b6a1247957f64aeb3e64bed}{solve\_periodic\_2d\_spline}}(}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00263}00263\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nx,\ \textcolor{keywordtype}{int}\ ny,}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00264}00264\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ coefficients,\ \textcolor{comment}{//\ length\ (nx,ny,4,4)\ row-\/major}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00265}00265\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ data,\ \ \textcolor{comment}{//\ length\ (nx,ny),\ row-\/major}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00266}00266\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ temp\_storage)\ \textcolor{comment}{//\ length\ (nx+8)*(ny+8)*4}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00267}00267\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00268}00268\ \ \ \ \ \textcolor{comment}{//\ verified}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00269}00269\ \ \ \ \ \textcolor{keywordtype}{int}\ sum\_dim\ =\ nx+ny;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00270}00270\ \ \ \ \ \textcolor{keywordtype}{double}*\ splines\_1d\ \ \ \ \ \ \ \ \ =\ temp\_storage;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ size\ nx*ny*4}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00271}00271\ \ \ \ \ \textcolor{keywordtype}{double}*\ splines\_1d\_scratch\ =\ splines\_1d\ \ \ \ \ \ \ \ \ +\ nx*ny*4;\ \ \ \textcolor{comment}{//\ size\ sum\_dim*8\ for\ safety}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00272}00272\ \ \ \ \ \textcolor{keywordtype}{double}*\ values\_temp\ \ \ \ \ \ \ \ =\ splines\_1d\_scratch\ +\ sum\_dim*8;\ \textcolor{comment}{//\ size\ sum\_dim*4}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00273}00273\ \ \ \ \ \textcolor{keywordtype}{double}*\ coeffs\_temp\ \ \ \ \ \ \ \ =\ values\_temp\ \ \ \ \ \ \ \ +\ sum\_dim*4;\ \textcolor{comment}{//\ size\ sum\_dim*16}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00274}00274\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00275}00275\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00276}00276\ \ \ \ \ \textcolor{comment}{//\ compute\ splines\ across\ x-\/axis}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00277}00277\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ ix=0;\ ix<nx;\ ++ix)\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00278}00278\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{spline_8cpp_ae15d71ec38bac83f2c588774cfbd04d8}{solve\_periodic\_1d\_spline}}(ny,\ splines\_1d+ix*ny*4,\ data+ix*ny,\ splines\_1d\_scratch);}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00279}00279\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00280}00280\ \ \ \ \ \textcolor{comment}{//\ now\ transpose\ to\ compute\ splines\ across\ the\ coefficients\ of\ the\ previous\ step}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00281}00281\ \ \ \ \ \textcolor{comment}{//\ the\ data\ probably\ fits\ in\ L2\ or\ L3,\ so\ I\ won't\ worry\ about\ an\ efficient\ transpose}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00282}00282\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ iy=0;\ iy<ny;\ ++iy)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00283}00283\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ power\_y=0;\ power\_y<4;\ ++power\_y)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00284}00284\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ ix=0;\ ix<nx;\ ++ix)\ values\_temp[ix]\ =\ splines\_1d[ix*ny*4\ +\ iy*4\ +\ power\_y];}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00285}00285\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{spline_8cpp_ae15d71ec38bac83f2c588774cfbd04d8}{solve\_periodic\_1d\_spline}}(nx,\ coeffs\_temp,\ values\_temp,\ splines\_1d\_scratch);}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00286}00286\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00287}00287\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ ix=0;\ ix<nx;\ ++ix)\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00288}00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ power\_x=0;\ power\_x<4;\ ++power\_x)}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00289}00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ coefficients[ix*ny*16\ +\ iy*16\ +\ power\_x*4\ +\ power\_y]\ =\ coeffs\_temp[ix*4+power\_x];}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00290}00290\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00291}00291\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00292}00292\ \}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00293}00293\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00294}00294\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00295}00295\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00296}00296\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00297}\mbox{\hyperlink{spline_8cpp_ac33f647af7917a36b29bb0ce7c0b54d3}{00297}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{spline_8cpp_ac33f647af7917a36b29bb0ce7c0b54d3}{evaluate\_2d\_spline}}(}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00298}00298\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ z,\ \textcolor{comment}{//\ length\ nx}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00299}00299\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n\_knot\_x,\ \textcolor{keywordtype}{int}\ n\_knot\_y,\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00300}00300\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ coeff,\ \ \textcolor{comment}{//\ length\ 4*n\_knot}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00301}00301\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n\_point,}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00302}00302\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ points)\ \ \textcolor{comment}{//\ length\ nx*2}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00303}00303\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00304}00304\ \ \ \ \ \textcolor{comment}{//\ verified}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00305}00305\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ ip=0;\ ip<n\_point;\ ++ip)\ \{}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00306}00306\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ x\ =\ points[ip*2+0];}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00307}00307\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ y\ =\ points[ip*2+1];}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00308}00308\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00309}00309\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if(x<0.\ ||\ x>=n\_knot\_x\ ||\ y<0.\ ||\ y>=n\_knot\_y)\ throw\ "{}impossible"{};}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00310}00310\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ x\_bin\ =\ int(x);}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00311}00311\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ y\_bin\ =\ int(y);}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00312}00312\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00313}00313\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ fx\ =\ x\ -\/\ x\_bin;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00314}00314\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ fy\ =\ y\ -\/\ y\_bin;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00315}00315\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00316}00316\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ c\ =\ coeff\ +\ x\_bin*n\_knot\_y*16\ +\ y\_bin*16;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00317}00317\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ fx2\ =\ fx*fx;\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00318}00318\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ fx3\ =\ fx2*fx;}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00319}00319\ }
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00320}00320\ \ \ \ \ \ \ \ \ z[ip]\ =\ 1.f\ *\ (c[\ 0]\ +\ fy*(c[\ 1]\ +\ fy*(c[\ 2]\ +\ fy*c[\ 3])))\ +}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00321}00321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fx\ \ *\ (c[\ 4]\ +\ fy*(c[\ 5]\ +\ fy*(c[\ 6]\ +\ fy*c[\ 7])))\ +}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00322}00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fx2\ *\ (c[\ 8]\ +\ fy*(c[\ 9]\ +\ fy*(c[10]\ +\ fy*c[11])))\ +}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00323}00323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fx3\ *\ (c[12]\ +\ fy*(c[13]\ +\ fy*(c[14]\ +\ fy*c[15])));}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00324}00324\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{spline_8cpp_source_l00325}00325\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,7 @@
+<map id="RamaMapPot2" name="RamaMapPot2">
+<area shape="rect" id="Node000001" title=" " alt="" coords="17,152,135,177"/>
+<area shape="rect" id="Node000002" href="$struct_potential_node.html" title="Specialization of DerivComputation for potential terms." alt="" coords="19,79,133,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="79,118,79,152,73,152,73,118"/>
+<area shape="rect" id="Node000003" href="$struct_deriv_computation.html" title="Differentiable computation node." alt="" coords="5,5,147,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="79,44,79,79,73,79,73,44"/>
+</map>

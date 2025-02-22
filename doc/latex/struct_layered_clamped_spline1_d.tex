@@ -1,0 +1,144 @@
+\doxysection{Layered\+Clamped\+Spline1D\texorpdfstring{$<$}{<} NDIM\+\_\+\+VALUE \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{struct_layered_clamped_spline1_d}{}\label{struct_layered_clamped_spline1_d}\index{LayeredClampedSpline1D$<$ NDIM\_VALUE $>$@{LayeredClampedSpline1D$<$ NDIM\_VALUE $>$}}
+
+
+Old-\/style spline object -- not intended for new code.  
+
+
+
+
+{\ttfamily \#include $<$spline.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_layered_clamped_spline1_d_ad53b8c55855a3e1e785280b88f7cd575}{Layered\+Clamped\+Spline1D}} (int n\+\_\+layer\+\_\+, int nx\+\_\+)
+\item 
+void \mbox{\hyperlink{struct_layered_clamped_spline1_d_a4d87f429807d69e917880b9f41dbee5f}{fit\+\_\+spline}} (const double \texorpdfstring{$\ast$}{*}data)
+\item 
+void \mbox{\hyperlink{struct_layered_clamped_spline1_d_a7db2817e26234f6fae2906df7f54ed15}{evaluate\+\_\+value\+\_\+and\+\_\+deriv}} (float \texorpdfstring{$\ast$}{*}restrict result, int layer, float x) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const int \mbox{\hyperlink{struct_layered_clamped_spline1_d_aea17c6a2f62bdbb38dccb6f382fce05d}{n\+\_\+layer}}
+\item 
+const int \mbox{\hyperlink{struct_layered_clamped_spline1_d_a1357dcdb721d49ae061d0886c8f74d36}{nx}}
+\item 
+std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_layered_clamped_spline1_d_a6f197fbe9dec71bcaffccfd028ba80bc}{coefficients}}
+\item 
+std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_layered_clamped_spline1_d_a27d000697e59ce01f1d4fe9e86912f0e}{left\+\_\+clamped\+\_\+value}}
+\item 
+std\+::vector$<$ float $>$ \mbox{\hyperlink{struct_layered_clamped_spline1_d_ac89a14a0af67bc0a3de3be50ac615bfa}{right\+\_\+clamped\+\_\+value}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$int NDIM\+\_\+\+VALUE$>$\newline
+struct Layered\+Clamped\+Spline1\+D$<$ NDIM\+\_\+\+VALUE $>$}
+Old-\/style spline object -- not intended for new code. 
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00504}{504}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_layered_clamped_spline1_d_ad53b8c55855a3e1e785280b88f7cd575}\label{struct_layered_clamped_spline1_d_ad53b8c55855a3e1e785280b88f7cd575} 
+\index{LayeredClampedSpline1D$<$ NDIM\_VALUE $>$@{LayeredClampedSpline1D$<$ NDIM\_VALUE $>$}!LayeredClampedSpline1D@{LayeredClampedSpline1D}}
+\index{LayeredClampedSpline1D@{LayeredClampedSpline1D}!LayeredClampedSpline1D$<$ NDIM\_VALUE $>$@{LayeredClampedSpline1D$<$ NDIM\_VALUE $>$}}
+\doxysubsubsection{\texorpdfstring{LayeredClampedSpline1D()}{LayeredClampedSpline1D()}}
+{\footnotesize\ttfamily template$<$int NDIM\+\_\+\+VALUE$>$ \\
+\mbox{\hyperlink{struct_layered_clamped_spline1_d}{Layered\+Clamped\+Spline1D}}$<$ NDIM\+\_\+\+VALUE $>$\mbox{\hyperlink{struct_layered_clamped_spline1_d}{\+::\+Layered\+Clamped\+Spline1D}} (\begin{DoxyParamCaption}\item[{int}]{n\+\_\+layer\+\_\+,  }\item[{int}]{nx\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00511}{511}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_layered_clamped_spline1_d_a7db2817e26234f6fae2906df7f54ed15}\label{struct_layered_clamped_spline1_d_a7db2817e26234f6fae2906df7f54ed15} 
+\index{LayeredClampedSpline1D$<$ NDIM\_VALUE $>$@{LayeredClampedSpline1D$<$ NDIM\_VALUE $>$}!evaluate\_value\_and\_deriv@{evaluate\_value\_and\_deriv}}
+\index{evaluate\_value\_and\_deriv@{evaluate\_value\_and\_deriv}!LayeredClampedSpline1D$<$ NDIM\_VALUE $>$@{LayeredClampedSpline1D$<$ NDIM\_VALUE $>$}}
+\doxysubsubsection{\texorpdfstring{evaluate\_value\_and\_deriv()}{evaluate\_value\_and\_deriv()}}
+{\footnotesize\ttfamily template$<$int NDIM\+\_\+\+VALUE$>$ \\
+void \mbox{\hyperlink{struct_layered_clamped_spline1_d}{Layered\+Clamped\+Spline1D}}$<$ NDIM\+\_\+\+VALUE $>$\+::evaluate\+\_\+value\+\_\+and\+\_\+deriv (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}restrict}]{result,  }\item[{int}]{layer,  }\item[{float}]{x }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00544}{544}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+\Hypertarget{struct_layered_clamped_spline1_d_a4d87f429807d69e917880b9f41dbee5f}\label{struct_layered_clamped_spline1_d_a4d87f429807d69e917880b9f41dbee5f} 
+\index{LayeredClampedSpline1D$<$ NDIM\_VALUE $>$@{LayeredClampedSpline1D$<$ NDIM\_VALUE $>$}!fit\_spline@{fit\_spline}}
+\index{fit\_spline@{fit\_spline}!LayeredClampedSpline1D$<$ NDIM\_VALUE $>$@{LayeredClampedSpline1D$<$ NDIM\_VALUE $>$}}
+\doxysubsubsection{\texorpdfstring{fit\_spline()}{fit\_spline()}}
+{\footnotesize\ttfamily template$<$int NDIM\+\_\+\+VALUE$>$ \\
+void \mbox{\hyperlink{struct_layered_clamped_spline1_d}{Layered\+Clamped\+Spline1D}}$<$ NDIM\+\_\+\+VALUE $>$\+::fit\+\_\+spline (\begin{DoxyParamCaption}\item[{const double \texorpdfstring{$\ast$}{*}}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00517}{517}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_layered_clamped_spline1_d_a6f197fbe9dec71bcaffccfd028ba80bc}\label{struct_layered_clamped_spline1_d_a6f197fbe9dec71bcaffccfd028ba80bc} 
+\index{LayeredClampedSpline1D$<$ NDIM\_VALUE $>$@{LayeredClampedSpline1D$<$ NDIM\_VALUE $>$}!coefficients@{coefficients}}
+\index{coefficients@{coefficients}!LayeredClampedSpline1D$<$ NDIM\_VALUE $>$@{LayeredClampedSpline1D$<$ NDIM\_VALUE $>$}}
+\doxysubsubsection{\texorpdfstring{coefficients}{coefficients}}
+{\footnotesize\ttfamily template$<$int NDIM\+\_\+\+VALUE$>$ \\
+std\+::vector$<$float$>$ \mbox{\hyperlink{struct_layered_clamped_spline1_d}{Layered\+Clamped\+Spline1D}}$<$ NDIM\+\_\+\+VALUE $>$\+::coefficients}
+
+
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00507}{507}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+\Hypertarget{struct_layered_clamped_spline1_d_a27d000697e59ce01f1d4fe9e86912f0e}\label{struct_layered_clamped_spline1_d_a27d000697e59ce01f1d4fe9e86912f0e} 
+\index{LayeredClampedSpline1D$<$ NDIM\_VALUE $>$@{LayeredClampedSpline1D$<$ NDIM\_VALUE $>$}!left\_clamped\_value@{left\_clamped\_value}}
+\index{left\_clamped\_value@{left\_clamped\_value}!LayeredClampedSpline1D$<$ NDIM\_VALUE $>$@{LayeredClampedSpline1D$<$ NDIM\_VALUE $>$}}
+\doxysubsubsection{\texorpdfstring{left\_clamped\_value}{left\_clamped\_value}}
+{\footnotesize\ttfamily template$<$int NDIM\+\_\+\+VALUE$>$ \\
+std\+::vector$<$float$>$ \mbox{\hyperlink{struct_layered_clamped_spline1_d}{Layered\+Clamped\+Spline1D}}$<$ NDIM\+\_\+\+VALUE $>$\+::left\+\_\+clamped\+\_\+value}
+
+
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00508}{508}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+\Hypertarget{struct_layered_clamped_spline1_d_aea17c6a2f62bdbb38dccb6f382fce05d}\label{struct_layered_clamped_spline1_d_aea17c6a2f62bdbb38dccb6f382fce05d} 
+\index{LayeredClampedSpline1D$<$ NDIM\_VALUE $>$@{LayeredClampedSpline1D$<$ NDIM\_VALUE $>$}!n\_layer@{n\_layer}}
+\index{n\_layer@{n\_layer}!LayeredClampedSpline1D$<$ NDIM\_VALUE $>$@{LayeredClampedSpline1D$<$ NDIM\_VALUE $>$}}
+\doxysubsubsection{\texorpdfstring{n\_layer}{n\_layer}}
+{\footnotesize\ttfamily template$<$int NDIM\+\_\+\+VALUE$>$ \\
+const int \mbox{\hyperlink{struct_layered_clamped_spline1_d}{Layered\+Clamped\+Spline1D}}$<$ NDIM\+\_\+\+VALUE $>$\+::n\+\_\+layer}
+
+
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00505}{505}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+\Hypertarget{struct_layered_clamped_spline1_d_a1357dcdb721d49ae061d0886c8f74d36}\label{struct_layered_clamped_spline1_d_a1357dcdb721d49ae061d0886c8f74d36} 
+\index{LayeredClampedSpline1D$<$ NDIM\_VALUE $>$@{LayeredClampedSpline1D$<$ NDIM\_VALUE $>$}!nx@{nx}}
+\index{nx@{nx}!LayeredClampedSpline1D$<$ NDIM\_VALUE $>$@{LayeredClampedSpline1D$<$ NDIM\_VALUE $>$}}
+\doxysubsubsection{\texorpdfstring{nx}{nx}}
+{\footnotesize\ttfamily template$<$int NDIM\+\_\+\+VALUE$>$ \\
+const int \mbox{\hyperlink{struct_layered_clamped_spline1_d}{Layered\+Clamped\+Spline1D}}$<$ NDIM\+\_\+\+VALUE $>$\+::nx}
+
+
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00506}{506}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+\Hypertarget{struct_layered_clamped_spline1_d_ac89a14a0af67bc0a3de3be50ac615bfa}\label{struct_layered_clamped_spline1_d_ac89a14a0af67bc0a3de3be50ac615bfa} 
+\index{LayeredClampedSpline1D$<$ NDIM\_VALUE $>$@{LayeredClampedSpline1D$<$ NDIM\_VALUE $>$}!right\_clamped\_value@{right\_clamped\_value}}
+\index{right\_clamped\_value@{right\_clamped\_value}!LayeredClampedSpline1D$<$ NDIM\_VALUE $>$@{LayeredClampedSpline1D$<$ NDIM\_VALUE $>$}}
+\doxysubsubsection{\texorpdfstring{right\_clamped\_value}{right\_clamped\_value}}
+{\footnotesize\ttfamily template$<$int NDIM\+\_\+\+VALUE$>$ \\
+std\+::vector$<$float$>$ \mbox{\hyperlink{struct_layered_clamped_spline1_d}{Layered\+Clamped\+Spline1D}}$<$ NDIM\+\_\+\+VALUE $>$\+::right\+\_\+clamped\+\_\+value}
+
+
+
+Definition at line \mbox{\hyperlink{spline_8h_source_l00509}{509}} of file \mbox{\hyperlink{spline_8h_source}{spline.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{spline_8h}{spline.\+h}}\end{DoxyCompactItemize}
