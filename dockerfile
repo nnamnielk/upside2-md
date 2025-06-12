@@ -44,7 +44,8 @@ RUN pip install --no-cache-dir --upgrade pip && \
     pandas \
     h5py \
     pymbar \
-    setuptools
+    setuptools \
+    python-jsonpath
 
 # See mdtraj issue #1476 not yet updated in PyPi
 RUN pip install --no-cache-dir git+https://github.com/mdtraj/mdtraj@master

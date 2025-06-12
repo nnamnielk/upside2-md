@@ -1,0 +1,20 @@
+set $cache_checks = 0
+set $cache_hits = 0
+
+# Break on function entry
+break PairlistComputation::ensure_cache_valid
+commands
+    set $cache_checks = $cache_checks + 1
+    continue
+end
+
+# Break on cache hit return (you'll need to find the exact line numbers)
+break interaction_graph.h:205
+commands
+    set $cache_hits = $cache_hits + 1
+    printf "Cache hits: %d/%d (%.1f%%)\n", $cache_hits, $cache_checks, 100.0*$cache_hits/$cache_checks
+    continue
+end
+
+echo Cache tracking enabled\n
+continue
