@@ -1,0 +1,82 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "debug upside", // You can name this whatever you like
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/home/okleinmann/projects/upside2-md/obj/upside", // Path to your executable
+            "args": [
+                "--duration", "1000",
+                "--frame-interval", "50",
+                "--temperature", "0.8",
+                "--seed", "1",
+                "/home/okleinmann/projects/upside2-md/example/01.GettingStarted/outputs/simple_test/chig.run.up" // Note: GDB might need absolute paths for files if relative paths cause issues
+            ],
+            "stopAtEntry": false, // Set to true if you want the debugger to stop at the beginning of main()
+            "cwd": "/home/okleinmann/projects/upside2-md/", // Current working directory for your program
+            "environment": [],
+            "externalConsole": false, // Set to true if you want a separate console window for your program's output
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel", // Optional, personal preference
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "CMake Build", // This task will run before debugging starts
+            "miDebuggerPath": "/usr/bin/gdb" // Path to your GDB in WSL
+        },
+        {
+            "name": "debug upside (CUDA)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/home/okleinmann/projects/upside2-md/obj/upside",
+            "args": [
+                "--duration", "1000",
+                "--frame-interval", "50",
+                "--temperature", "0.8",
+                "--seed", "1",
+                "/home/okleinmann/projects/upside2-md/example/01.GettingStarted/outputs/simple_test/chig.run.up"
+            ],
+            "stopAtEntry": false,
+            "cwd": "/home/okleinmann/projects/upside2-md/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set CUDA focus to device",
+                    "text": "set cuda break_on_launch application",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Enable CUDA debugging",
+                    "text": "set cuda memcheck on",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "CMake Build CUDA Debug",
+            "miDebuggerPath": "/usr/local/cuda/bin/cuda-gdb" // Path to cuda-gdb
+        },
+        {
+            "name": "test upside",
+            "type": "pydbg",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": ["${workspaceFolder}/tests/build/testbridge","???","${workspaceFolder}/tests/records/line_213_capture.json"]
+        }
+    ]
+}

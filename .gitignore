@@ -3,7 +3,6 @@ run/
 bin/
 data/
 doc/
-.vscode/
 .venv/
 build/.cmake/
 build/build.ninja

@@ -1,0 +1,19 @@
+{
+  "configurations": [
+    {
+      "name": "Ubuntu",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "/usr/include/c++/11",
+        "/usr/local/include",
+        "/usr/include"
+      ],
+      "defines": [],
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "c11",
+      "cppStandard": "c++11",
+      "intelliSenseMode": "linux-gcc-x64"
+    }
+  ],
+  "version": 4
+}
