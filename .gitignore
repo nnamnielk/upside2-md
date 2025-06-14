@@ -33,4 +33,6 @@ compile_commands.json
 source.sh
 **inputs/
 **outputs/
+.aider*
+.env
 
