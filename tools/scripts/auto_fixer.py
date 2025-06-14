@@ -5,243 +5,208 @@ import argparse
 import os
 import re
 import sys
-import shutil
+import google.generativeai as genai
+from difflib import unified_diff
 
 # --- Configuration ---
 
+# Try to get the project directory from an environment variable.
 try:
+    # Ensure this environment variable is set to your C++ project's root directory.
     PROJECT_DIR = os.environ['UPSIDE_HOME']
 except KeyError:
     print("Error: The UPSIDE_HOME environment variable is not set.")
     print("Please set it to the root directory of your project, e.g., `export UPSIDE_HOME=$(pwd)`")
     sys.exit(1)
 
+# Configure the source and build directories for your project.
 SRC_DIR = os.path.join(PROJECT_DIR, 'src')
 BUILD_DIR = os.path.join(PROJECT_DIR, 'obj')
 
+# --- Gemini API Configuration ---
+
+# Ensure your GOOGLE_API_KEY environment variable is set.
 try:
-    print(f"Searching for source files in: {SRC_DIR}")
-    initial_src_files = [
-        os.path.join('src', f) 
-        for f in os.listdir(SRC_DIR) 
-        if os.path.isfile(os.path.join(SRC_DIR, f))
-    ]
-    print(f"Found {len(initial_src_files)} files in 'src'.")
-except FileNotFoundError:
-    print(f"Error: 'src' directory not found at {SRC_DIR}")
-    print(f"Please make sure UPSIDE_HOME is set correctly to '{PROJECT_DIR}'.")
+    genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
+except KeyError:
+    print("Error: The GOOGLE_API_KEY environment variable is not set.")
+    print("Please set it to your Google API key.")
     sys.exit(1)
 
-INITIAL_FILES = initial_src_files + ['CMakeLists.txt']
-if not initial_src_files:
-    print("Warning: No files found in the 'src' directory.")
 
+# --- Prompts for the Gemini Model ---
+
+# The initial prompt provides general context about the C++ project and the task.
 INITIAL_PROMPT = """
-Hello. We are refactoring this C++ project to use a new `device_buffer` class for GPU data management.
-I have already:
-1. Created the `device_buffer` class using the pImpl idiom to hide CUDA details (`device_buffer.h`, `device_buffer.cpp`).
-2. Replaced the Eigen-based `VecArrayStorage` with `device_buffer<float>` inside the `CoordNode` struct in `deriv_engine.h`.
-3. Added `device_buffer.cpp` to the `CMakeLists.txt`.
+You are an expert C++ programmer specializing in high-performance and GPU computing.
+Your task is to fix compilation errors in a C++ source file.
 
-This has broken the build, as the new class has a different API. I have added all files from the `/src` directory to your context. Your task is to fix the compilation errors across the entire project.
+**RULES:**
+1.  You MUST respond with the complete, corrected source code for the file.
+2.  Enclose the full source code in a single markdown block, like this: ```cpp ... ```.
+3.  Change as few lines as possible to fix the error.
 
-Please adhere to these rules:
-1.  **Change as few lines as possible.** This is a surgical refactoring task.
-2.  The `device_buffer` API provides `get_host_ptr()`, `get_mutable_host_ptr()`.
-3.  The old code used the `()` operator for 2D array access, like `node->output(row, col)`. This must be replaced. The new pattern is to get a pointer and calculate the 1D index manually. The `CoordNode` stores the dimensions `n_elem` and `elem_width`. The data is column-major, so the index is `col * elem_width + row`.
-4.  The old code used `std::swap` on the `VecArrayStorage` objects. I have added a `swap` method and free function for `device_buffer`, so calls like `swap(a.output, b.output)` should now work.
+**CONTEXT:**
+The project is being refactored to use a new `device_buffer` class for managing data between the CPU and GPU.
+- The `device_buffer` API uses `get_host_ptr()` or `get_mutable_host_ptr()` to get a raw pointer to CPU data.
+- The old code used `(row, col)` access, which is now invalid.
+- The new pattern is to get the pointer and manually calculate the 1D index for the column-major layout: `index = col * elem_width + row`.
 
-Please begin fixing the compilation errors based on the provided error output.
+**TASK:**
+The following C++ code has a compilation error. Please fix it.
 """
 
-def parse_arguments():
-    """Parses command-line arguments for the script."""
-    parser = argparse.ArgumentParser(
-        description="Automatically fix C++ compilation errors using aider."
-    )
-    parser.add_argument(
-        "--model",
-        type=str,
-        default="gemini-2.5-flash-latest",
-        help="The AI model to use with aider."
-    )
-    parser.add_argument(
-        "--max-compiles",
-        type=int,
-        default=15,
-        help="The maximum number of times to try compiling and fixing."
-    )
-    parser.add_argument(
-        "--max-tries-per-error",
-        type=int,
-        default=3,
-        help="The maximum number of times to try fixing the same compilation error."
-    )
-    return parser.parse_args()
+# The prompt for fixing a specific error includes the error message from the compiler.
+FIX_PROMPT_TEMPLATE = """
+The previous attempt to fix the code resulted in the following compilation error.
+Please fix this new error.
 
-# --- MODIFICATION START: Cost parsing added to run_command ---
-def run_command(command, cwd=PROJECT_DIR, text=True, state=None):
-    """
-    Runs a command, streams its output, parses `aider` cost, and returns a result object.
-    """
-    effective_cwd = cwd if os.path.isabs(cwd) else os.path.join(PROJECT_DIR, cwd)
-    if command[0] == 'aider':
-        effective_cwd = PROJECT_DIR
+**COMPILATION ERROR:**
+{error_message}
 
-    print(f"\n> Running: {' '.join(command)} in {effective_cwd}")
-    
-    process = subprocess.Popen(
-        command,
-        cwd=effective_cwd,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        text=text,
-        bufsize=1,
-        universal_newlines=True
-    )
+**FULL SOURCE CODE:**
+"""
 
-    output_lines = []
-    if process.stdout:
-        for line in iter(process.stdout.readline, ''):
-            print(line, end='', flush=True)
-            output_lines.append(line)
-            # --- Cost parsing logic ---
-            if state is not None and command[0] == 'aider':
-                match = re.search(r'Cost: \$([\d\.]+)', line)
-                if match:
-                    try:
-                        cost = float(match.group(1))
-                        state['total_cost'] += cost
-                        print(f"[COST_TRACKER: Added ${cost:.4f}, Cumulative Cost: ${state['total_cost']:.4f}]", flush=True)
-                    except (ValueError, IndexError):
-                        pass # Ignore if parsing the cost fails for any reason
-        process.stdout.close()
-
-    return_code = process.wait()
-
-    return subprocess.CompletedProcess(
-        args=command,
-        returncode=return_code,
-        stdout="".join(output_lines),
-        stderr=""
-    )
-# --- MODIFICATION END ---
-
+# --- Core Functions ---
 
 def compile_project():
-    """Runs the custom build process based on the user's install.sh script."""
-    os.makedirs(BUILD_DIR, exist_ok=True)
-    
-    print(f"> Clearing contents of build directory: {BUILD_DIR}")
-    for item in os.listdir(BUILD_DIR):
-        item_path = os.path.join(BUILD_DIR, item)
-        try:
-            if os.path.isfile(item_path) or os.path.islink(item_path):
-                os.unlink(item_path)
-            elif os.path.isdir(item_path):
-                shutil.rmtree(item_path)
-        except Exception as e:
-            print(f'Failed to delete {item_path}. Reason: {e}')
+    """
+    Compiles the C++ project using 'make'.
+    Returns a tuple: (return_code, output).
+    """
+    print("--- Attempting to compile the project... ---")
+    # This assumes you have a Makefile in your PROJECT_DIR.
+    process = subprocess.run(['make', '-C', PROJECT_DIR], capture_output=True, text=True)
+    return process.returncode, process.stdout + process.stderr
 
-    eigen_home = os.environ.get('EIGEN_HOME')
-    if not eigen_home:
-        print("\n---\nWARNING: EIGEN_HOME environment variable is not set.\n---\n")
-    
-    cmake_cmd = ['cmake', os.path.join(PROJECT_DIR, 'src')]
-    if eigen_home:
-        cmake_cmd.append(f'-DEIGEN3_INCLUDE_DIR={eigen_home}')
-
-    cmake_result = run_command(cmake_cmd, cwd=BUILD_DIR)
-    if cmake_result.returncode != 0:
-        print("> CMake configuration failed.")
-        return cmake_result
-
-    make_result = run_command(['make'], cwd=BUILD_DIR)
-    return make_result
-
-def extract_error(compile_output):
-    """Extracts a concise, relevant error block from the compiler output."""
-    match = re.search(r'((?:.*:\d+:\d+:\s+error:.*)|(?:make\[\d+\]:\s\*\*\*.*Error\s\d+))', compile_output, re.DOTALL)
+def extract_error_message(compile_output):
+    """
+    Extracts the relevant error message from the compiler output.
+    This function looks for the part of the output after a build progress indicator (e.g., [x%]).
+    """
+    # This regex is designed to find the error message that follows the build percentage.
+    match = re.search(r'\[\s*\d+%] Building CXX object.*?\n(.*?)(?=make\[\d+]:)', compile_output, re.DOTALL)
     if match:
-        error_lines = match.group(1).splitlines()
-        context_end_index = min(len(error_lines), 20)
-        return "\n".join(error_lines[:context_end_index])
-    return "Could not extract a specific error. Full output:\n" + compile_output[:2000]
+        return match.group(1).strip()
+    return "Could not extract a specific error message. Full output:\n" + compile_output
 
-def get_last_aider_diff():
-    """Gets the diff from the last commit made by aider."""
-    result = run_command(['git', 'show', '--pretty=medium', 'HEAD'])
-    if result.returncode == 0:
-        return result.stdout
-    return "Could not retrieve diff."
+def extract_code_from_response(response):
+    """
+    Extracts the C++ code from the model's markdown response.
+    """
+    # This regex finds the code within a ```cpp ... ``` block.
+    match = re.search(r'```cpp\n(.*?)\n```', response, re.DOTALL)
+    if match:
+        return match.group(1)
+    return None
+
+def get_file_path_from_error(error_message):
+    """
+    Parses the error message to find the path to the problematic file.
+    """
+    # This regex looks for a file path pattern in the error message.
+    match = re.search(r'([\w/.-]+\.(?:cpp|h|cu|cuh)):', error_message)
+    if match:
+        return os.path.join(PROJECT_DIR, match.group(1))
+    return None
+
+# --- Main Application Logic ---
 
 def main():
-    """The main compile-fix loop."""
-    args = parse_arguments()
-    # --- MODIFICATION: Added script_state to track cost ---
-    script_state = {'total_cost': 0.0}
-    compile_count, error_try_count, last_error_message = 0, 0, ""
+    """
+    The main function that orchestrates the auto-fixing process.
+    """
+    parser = argparse.ArgumentParser(description="Automatically fix C++ compilation errors using Gemini.")
+    parser.add_argument("model", help="The name of the Gemini model to use (e.g., 'gemini-1.5-flash').")
+    parser.add_argument("max_compilations", type=int, help="The maximum number of times to try compiling.")
+    parser.add_argument("max_retries_per_error", type=int, help="The maximum number of times to try fixing the same error.")
+    args = parser.parse_args()
 
-    if run_command(['which', 'aider']).returncode != 0:
-        print("Error: `aider` not found. Please `pip install aider-chat`.")
-        sys.exit(1)
-        
-    print("--- Starting Auto-Fixer Loop ---")
-    print(f"Project directory set to: {PROJECT_DIR}")
-    print(f"Aider will be initialized with {len(INITIAL_FILES)} files.")
-    print(f"Using model: {args.model}")
+    # Initialize the Gemini model.
+    model = genai.GenerativeModel(args.model)
 
-    while compile_count < args.max_compiles:
-        compile_result = compile_project()
+    compilation_attempts = 0
+    last_error = None
+    error_retries = 0
 
-        if compile_result.returncode == 0:
-            print(f"\n✅ ✅ ✅ COMPILE SUCCESSFUL! ✅ ✅ ✅")
-            print(f"Total script cost: ${script_state['total_cost']:.4f}")
-            print("Exiting.")
+    while compilation_attempts < args.max_compilations:
+        compilation_attempts += 1
+        print(f"\n--- Compilation Attempt #{compilation_attempts} ---")
+
+        return_code, output = compile_project()
+
+        if return_code == 0:
+            print("\n🎉 Compilation successful! The project has been fixed. 🎉")
             break
 
-        print("\n❌ COMPILE FAILED. Attempting to fix...")
-        compile_count += 1
-        
-        error_output = compile_result.stdout
-        current_error = extract_error(error_output)
+        print("\n❌ Compilation failed. Attempting to fix...")
+        error_message = extract_error_message(output)
+        print("\n--- COMPILATION ERROR ---")
+        print(error_message)
+        print("-------------------------\n")
 
-        print("\n--- Current Error ---")
-        print(current_error)
-        print("---------------------")
-
-        if current_error == last_error_message:
-            error_try_count += 1
+        if error_message == last_error:
+            error_retries += 1
         else:
-            last_error_message = current_error
-            error_try_count = 1
+            last_error = error_message
+            error_retries = 1
 
-        if error_try_count > args.max_tries_per_error:
-            print(f"\n❌ FAILED: Stuck on the same error for {args.max_tries_per_error} attempts.")
-            print(f"Total script cost: ${script_state['total_cost']:.4f}")
-            print("Exiting.")
+        if error_retries > args.max_retries_per_error:
+            print(f"❌ Failed to fix the same error after {args.max_retries_per_error} attempts. Aborting.")
             break
 
-        if compile_count == 1:
-            aider_cmd = ['aider'] + INITIAL_FILES
-            prompt = INITIAL_PROMPT
-        else:
-            aider_cmd = ['aider']
-            prompt = f"The compilation failed. Please fix this error, remembering to change as few lines as possible.\n\nError:\n```\n{current_error}\n```"
+        filepath = get_file_path_from_error(error_message)
+        if not filepath or not os.path.exists(filepath):
+            print("❌ Could not determine the file to fix from the error message. Aborting.")
+            print("Full compiler output:", output)
+            break
+        
+        try:
+            with open(filepath, 'r') as f:
+                original_code = f.read()
+        except FileNotFoundError:
+            print(f"❌ File not found: {filepath}. Aborting.")
+            break
 
-        aider_cmd.extend(['--model', args.model, '--message', prompt])
-        # --- MODIFICATION: Pass state to run_command ---
-        run_command(aider_cmd, state=script_state)
-        
-        print("\n--- Aider's Changes ---")
-        diff = get_last_aider_diff()
-        print(diff)
-        print("-----------------------")
-        print(f"--- Cumulative Cost: ${script_state['total_cost']:.4f} ---")
-        
-        if compile_count >= args.max_compiles:
-            print(f"\n❌ FAILED: Reached max compile attempts ({args.max_compiles}).")
-            print(f"Total script cost: ${script_state['total_cost']:.4f}")
+        # Construct the prompt for the model.
+        if compilation_attempts == 1:
+            prompt = f"{INITIAL_PROMPT}\n\n```cpp\n{original_code}\n```"
+        else:
+            prompt = f"{FIX_PROMPT_TEMPLATE.format(error_message=error_message)}\n\n```cpp\n{original_code}\n```"
+
+        try:
+            print("🤖 Asking Gemini for a fix...")
+            response = model.generate_content(prompt)
+            new_code = extract_code_from_response(response.text)
+
+            if not new_code:
+                print("❌ Gemini did not return valid code. Aborting this attempt.")
+                continue
+
+            # Display the changes.
+            print("\n--- PROPOSED CHANGES ---")
+            diff = unified_diff(
+                original_code.splitlines(keepends=True),
+                new_code.splitlines(keepends=True),
+                fromfile='a/' + os.path.basename(filepath),
+                tofile='b/' + os.path.basename(filepath),
+            )
+            sys.stdout.writelines(diff)
+            print("------------------------\n")
+
+            # Overwrite the file with the proposed fix.
+            with open(filepath, 'w') as f:
+                f.write(new_code)
+            
+            print(f"✅ Applied fix to {filepath}.")
+
+        except Exception as e:
+            print(f"An error occurred while interacting with the Gemini API: {e}")
+            break
+
+    else:
+        # This else block runs if the while loop finishes without a 'break'.
+        print(f"\n❌ Maximum compilation attempts ({args.max_compilations}) reached. Aborting.")
 
 if __name__ == "__main__":
     main()

@@ -9,6 +9,7 @@ build/build.ninja
 build/cmake_install.cmake
 build/Makefile
 tests/build/
+obj/
 *~
 *.swp
 *.vtf
@@ -34,5 +35,5 @@ source.sh
 **inputs/
 **outputs/
 .aider*
-.env
+.envrc
 
