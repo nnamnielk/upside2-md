@@ -1,0 +1,15 @@
+Bootstrap: docker
+From: oliverkleinmann/upside2-md
+
+%post
+    apt-get update && apt-get install -y jupyter-notebook
+    pip install --upgrade pip
+    pip install jupyter
+
+%environment
+    export JUPYTER_PORT=8888
+    export JUPYTER_IP=0.0.0.0
+
+%runscript
+    echo "Starting Jupyter Notebook..."
+    jupyter notebook --ip=${JUPYTER_IP} --port=${JUPYTER_PORT} --no-browser --allow-root
