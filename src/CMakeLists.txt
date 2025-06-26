@@ -1,5 +1,7 @@
-# cmake_minimum_required(VERSION 2.8)
-# project(upside CXX C)
+cmake_minimum_required(VERSION 3.5)
+project(upside CXX C)
+
+if(APPLE AND CMAKE_SYSTEM_PROCESSOR MATCHES "arm64")
 
 set (CMAKE_MODULE_PATH "../cmake;${CMAKE_MODULE_PATH}")
 find_package(HDF5 REQUIRED COMPONENTS C)
@@ -7,44 +9,58 @@ find_package(OpenMP QUIET)
 
 set(ARCH "native" CACHE STRING "architecture to use for -march flag to compiler")
 
-set(DEBUG_FLAGS "-g")
-set(GPROF_FLAGS "-pg")
+if(DEBUG)
+    set (OPT "-Og -g -fno-omit-frame-pointer -march=${ARCH}")
+    set(GPROF_FLAGS "-pg")
+else()
+    set(GPROF_FLAGS "")
+    set (OPT "-O3 --fast-math -fno-omit-frame-pointer -march=${ARCH}")
+endif()
 
 set (OMP_FLAGS "${OpenMP_CXX_FLAGS}") # "-fsanitize=address") #
-set (DEFINES "-DR123_NO_SINCOS -Drestrict=__restrict__ -DNDEBUG")
-set (OPT     "-Og -fno-omit-frame-pointer -march=${ARCH}")
-set (WARN    "-pedantic -Wall -Wno-strict-overflow -Wno-unused-function -Wno-unknown-pragmas")
 
-set (CMAKE_CXX_FLAGS "${OMP_FLAGS} ${CMAKE_CXX_FLAGS} ${DEBUG_FLAGS} -std=c++11 ${DEFINES} ${OPT} ${WARN} ${GPROF_FLAGS}" )
-set (CMAKE_LD_FLAGS  "${OMP_FLAGS} ${CMAKE_LD_FLAGS} ${GPROF_FLAGS}" )
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    set (DEFINES "-DR123_NO_SINCOS -Drestrict=__restrict__ -DNDEBUG")
+elseif(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+    set (DEFINES "-DR123_NO_SINCOS -Drestrict=__restrict -DNDEBUG")
+else()
+    # For other compilers, remove restrict entirely
+    set (DEFINES "-DR123_NO_SINCOS -Drestrict= -DNDEBUG")
+endif()
+
+set (WARN "-pedantic -Wall -Wno-strict-overflow -Wno-unused-function -Wno-unknown-pragmas")
+
+set (CMAKE_CXX_FLAGS "${OMP_FLAGS} ${CMAKE_CXX_FLAGS} -std=c++11 ${DEFINES} ${OPT} ${WARN} ${GPROF_FLAGS}" )
+
+set (CMAKE_LD_FLAGS "${OMP_FLAGS} ${CMAKE_LD_FLAGS} ${GPROF_FLAGS}" )
 include_directories(SYSTEM "include")
 
-set (ENGINE_SRC 
-    main.cpp
-    environment.cpp
-    hbond.cpp 
-    rotamer.cpp
-    placement.cpp
-    rama_map_pot.cpp
-    coord_operator.cpp
-    coord_basic.cpp
-    coord_const.cpp
-    coord_map.cpp
-    spline.cpp
-    spring.cpp
-    tension.cpp
-    sigmoid_energy.cpp
-    deriv_engine.cpp 
-    sidechain_radial.cpp
-    backbone_steric.cpp 
-    eig.cpp 
-    membrane_potential.cpp
-    surface.cpp
-    timing.cpp 
-    thermostat.cpp
-    h5_support.cpp 
-    state_logger.cpp
-    monte_carlo_sampler.cpp)
+set (ENGINE_SRC
+main.cpp
+environment.cpp
+hbond.cpp
+rotamer.cpp
+placement.cpp
+rama_map_pot.cpp
+coord_operator.cpp
+coord_basic.cpp
+coord_const.cpp
+coord_map.cpp
+spline.cpp
+spring.cpp
+tension.cpp
+sigmoid_energy.cpp
+deriv_engine.cpp
+sidechain_radial.cpp
+backbone_steric.cpp
+eig.cpp
+membrane_potential.cpp
+surface.cpp
+timing.cpp
+thermostat.cpp
+h5_support.cpp
+state_logger.cpp
+monte_carlo_sampler.cpp)
 
 add_executable (upside ${ENGINE_SRC})
 
@@ -55,12 +71,12 @@ find_package(Eigen3 REQUIRED)
 include_directories(SYSTEM ${EIGEN3_INCLUDE_DIR})
 
 add_library(upside_calculation SHARED
-    engine_c_library.cpp
-    ${ENGINE_SRC})
+engine_c_library.cpp
+${ENGINE_SRC})
 
 set_target_properties(upside_calculation PROPERTIES
-    COMPILE_FLAGS "-DPARAM_DERIV"
-    OUTPUT_NAME   "upside")
+COMPILE_FLAGS "-DPARAM_DERIV"
+OUTPUT_NAME "upside")
 
 target_link_libraries(upside_calculation stdc++ ${HDF5_LIBRARIES})
 
