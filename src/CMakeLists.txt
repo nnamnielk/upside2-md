@@ -1,7 +1,13 @@
-cmake_minimum_required(VERSION 3.5)
-project(upside CXX C)
+# cmake_minimum_required(VERSION 2.8)
+# project(upside CXX C)
 
 if(APPLE AND CMAKE_SYSTEM_PROCESSOR MATCHES "arm64")
+    message(STATUS "Detected ARM Mac (M1/M2/M3), using CMakeLists_M1.txt")
+    include(${CMAKE_SOURCE_DIR}/CMakeLists_M1.txt)
+else()
+    message(STATUS "Using default CMakeLists.txt for x86_64 or other OS")
+    include(${CMAKE_SOURCE_DIR}/CMakeLists_Other.txt)
+endif()
 
 set (CMAKE_MODULE_PATH "../cmake;${CMAKE_MODULE_PATH}")
 find_package(HDF5 REQUIRED COMPONENTS C)
