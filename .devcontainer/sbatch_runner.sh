@@ -111,6 +111,6 @@ fi
 
 # Run the command in Singularity
 echo "Executing command: $EXECUTABLE $EXEC_ARGS"
-singularity exec ${BIND_PATHS} upside2-md.sif $EXECUTABLE $EXEC_ARGS
+singularity exec ${BIND_PATHS} upside2-md.sif bash -c "source /home/user/.bashrc && $EXECUTABLE $EXEC_ARGS"
 
 echo "Job finished at $(date)"
