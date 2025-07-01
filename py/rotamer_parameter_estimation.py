@@ -5,7 +5,7 @@ import subprocess as sp
 import os
 import theano
 import theano.tensor as T
-import cPickle as cp
+import pickle as cp
 import scipy.optimize as opt
 import collections
 
@@ -144,7 +144,7 @@ def pack_param(*args):
             jac = (lambda x: d_discrep(x, *args)))
     # print 'required %i evaluations' % (results.nfev, )
 
-    print discrep(results.x, *args)
+    print(discrep(results.x, *args))
     if not (discrep(results.x, *args) < 1.6e-4):
         raise ValueError('Failed to converge')
 
@@ -259,10 +259,10 @@ class UpsideEnergyGapGrad(theano.Op):
         total_n_res, pos_fix_free = self.protein_data
         energy, deriv = bind_param_and_evaluate(pos_fix_free, list(self.node_names), inputs_storage)
         if np.isnan(np.sum([x.sum() for x in deriv])): 
-            print [x.sum() for x in inputs_storage]
-            print [x[0,0] for x in inputs_storage]
-            print [np.isnan(x.sum()) for x in deriv]
-            print energy
+            print([x.sum() for x in inputs_storage])
+            print([x[0,0] for x in inputs_storage])
+            print([np.isnan(x.sum()) for x in deriv])
+            print(energy)
             raise RuntimeError()
 
         for i in range(len(output_storage)):
@@ -333,7 +333,7 @@ class AdamSolver(object):
         return u
 
     def log_state(self, direc):
-        with open(os.path.join(direc, 'solver_state.pkl'),'w') as f: 
+        with open(os.path.join(direc, 'solver_state.pkl'),'wb') as f: 
             cp.dump(dict(step_num=self.step_num, grad1=self.grad1, grad2=self.grad2, solver=str(self)), f, -1)
 
     def __repr__(self):
@@ -438,5 +438,3 @@ def low_rank_approximation(m, rank):
     vh[rank:,:] = 0.
     m_approx = np.dot(u,s[:,None]*vh)
     return m_approx
-
-

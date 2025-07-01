@@ -5,7 +5,7 @@ import numpy as np
 import tempfile
 import subprocess as sp
 import os
-import cPickle as cp
+import pickle as cp
 import collections
 import uuid
 import predict_chi1
@@ -40,7 +40,7 @@ class UpsideEnsemble(object):
     def __init__(self, condiv_dict):
         self.condiv_dict = dict(condiv_dict)
         self.grad_name = None
-        obj = self.condiv_dict.values()[0]
+        obj = list(self.condiv_dict.values())[0]
         self.n_observable = obj.n_observable
         self.frame_shape = obj.frame_shape
 
@@ -70,7 +70,7 @@ class UpsideEnsemble(object):
             for pnm in param_sens:
                 param_sens[pnm] += sys_param_sens[pnm]
 
-        numpy_reduce_inplace(self.comm, param_sens.values())
+        numpy_reduce_inplace(self.comm, list(param_sens.values()))
         return [param_sens[pnm].astype('f4') for pnm in param_names]
 
     @mco.obj.collective
@@ -173,8 +173,8 @@ class UpsideEnergy(object):
                 d['n_res'] = len(d['seq'])
                 chi1_true = pd.read_csv(chi1_file, delim_whitespace=1)
                 chi1_true = chi1_true[np.isfinite(chi1_true.chi1)]
-                d['chi1_state'] = predict_chi1.compute_chi1_state(chi1_true.chi1.as_matrix()*deg)
-                d['chi1_residue'] = chi1_true.residue.as_matrix()
+                d['chi1_state'] = predict_chi1.compute_chi1_state(chi1_true.chi1.values*deg)
+                d['chi1_residue'] = chi1_true.residue.values
                 # d['chi1'] = chi1_true.chi1.as_matrix()
             d['engine'] = ue.Upside(path)
             self.systems[name] = d

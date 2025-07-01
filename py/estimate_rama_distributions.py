@@ -4,7 +4,7 @@ import os,sys
 import tables as tb
 import numpy as np
 from sklearn.neighbors.kde import KernelDensity
-import cPickle as cp
+import pickle as cp
 
 deg = np.pi/180.
 
@@ -57,7 +57,7 @@ def main():
                 add_image_points(rama[:,nr], args.periodic_padding*deg), 
                 args.bandwidth)
 
-    with open(args.output_pkl,'w') as f:
+    with open(args.output_pkl,'wb') as f:
         cp.dump(densities,f,-1)
 
 if __name__ == '__main__':
