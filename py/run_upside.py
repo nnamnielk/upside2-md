@@ -360,16 +360,19 @@ class UpsideJob(object):
                 pass
         return retcode
 
-def run_upside(queue, config, duration, frame_interval, time_limit=None, n_threads=1, minutes=None, temperature=1., seed=None,
-               replica_interval=None, anneal_factor=1., anneal_duration=-1., anneal_start=-1., anneal_end=-1., mc_interval=None, input_base=None, output_base=None,
-               time_step = None, swap_sets = None, exchange_criterion = None,
+
+def run_upside(queue, config, duration, frame_interval, time_limit=None, n_threads=1, minutes=None, temperature=1.,
+               seed=None,
+               replica_interval=None, anneal_factor=1., anneal_duration=-1., anneal_start=-1., anneal_end=-1.,
+               mc_interval=None, input_base=None, output_base=None,
+               time_step=None, swap_sets=None, exchange_criterion=None,
                log_level='basic', account=None, disable_recentering=False, disable_z_recentering=False,
                extra_args=[], verbose=True):
-    if isinstance(config,str): config = [config]
-    
-    upside_args = [os.path.join(obj_dir,'upside'), '--duration', '%f'%duration,
-            '--frame-interval', '%f'%frame_interval] + config
-
+    if isinstance(config, str): config = [config]
+    # Start with just the executable and first options
+    upside_args = [os.path.join(obj_dir, 'upside'), '--duration', '%f' % duration,
+                   '--frame-interval', '%f' % frame_interval]
+    # Add all other options (no .up files yet!)
     try:
         upside_args.extend(['--temperature', ','.join(map(str,temperature))])
     except TypeError:  # not iterable
@@ -380,8 +383,9 @@ def run_upside(queue, config, duration, frame_interval, time_limit=None, n_threa
 
     if replica_interval is not None:
         upside_args.extend(['--replica-interval', '%f'%replica_interval])
-        for s in swap_sets:
-            upside_args.extend(['--swap-set', s])
+        if swap_sets is not None:
+            for s in swap_sets:
+                if s and s.strip(): upside_args.extend(['--swap-set', s])
     if mc_interval is not None:
         upside_args.extend(['--monte-carlo-interval', '%f'%mc_interval])
     if exchange_criterion is not None:
@@ -395,7 +399,6 @@ def run_upside(queue, config, duration, frame_interval, time_limit=None, n_threa
     if anneal_end != -1.:
         upside_args.extend(['--anneal-end', '%f'%anneal_end])
     upside_args.extend(['--log-level', log_level])
-    
     if time_step is not None:
         upside_args.extend(['--time-step', str(time_step)])
     if disable_recentering:
@@ -408,22 +411,23 @@ def run_upside(queue, config, duration, frame_interval, time_limit=None, n_threa
     if output_base is not None:
         upside_args.extend(['--output-base', output_base])
 
-    upside_args.extend(['--seed','%li'%(seed if seed is not None else np.random.randint(1<<31))])
+    upside_args.extend(['--seed', '%li' % (seed if seed is not None else np.random.randint(1 << 31))])
     upside_args.extend(extra_args)
-    
-    output_path = config[0]+'.output'
+    # Now append config files (.up) at the very end
+    upside_args.extend(config)
+    output_path = config[0] + '.output'
     timer_object = None
 
-    if queue == '': 
+    if queue == '':
         env = os.environ.copy()
         env['OMP_NUM_THREADS'] = str(n_threads)
-        output_file = open(output_path,'w')
+        output_file = open(output_path, 'w')
         job = sp.Popen(upside_args, stdout=output_file, stderr=output_file)
 
         if minutes is not None:
             # FIXME in Python 3.3+, subprocess supports job timeout directly
             import threading
-            timer_object = threading.Timer(minutes*60., stop_upside_gently, args=[job])
+            timer_object = threading.Timer(minutes * 60., stop_upside_gently, args=[job])
             timer_object.start()
 
     elif queue == 'srun':
@@ -447,7 +451,7 @@ def run_upside(queue, config, duration, frame_interval, time_limit=None, n_threa
                 os.environ['OMP_NUM_THREADS'] = old_omp_num_threads
     elif queue == 'in_process':
         import upside_engine as ue
-        if verbose: print ('args', ' '.join(upside_args))
+        if verbose: print('args', ' '.join(upside_args))
         os.environ['OMP_NUM_THREADS'] = str(n_threads)
         job = ue.in_process_upside(upside_args[1:], verbose=verbose)
     else:
@@ -462,7 +466,7 @@ def run_upside(queue, config, duration, frame_interval, time_limit=None, n_threa
             args.append('--account=%s'%account)
         job = sp.check_output(args).strip()
 
-    return UpsideJob(job,config,output_path, timer_object=timer_object)
+    return UpsideJob(job, config, output_path, timer_object=timer_object)
 
 def continue_sim( configs, partition='', duration=0, frame_interval=0, **upside_kwargs):
     upside_kwargs = dict(upside_kwargs)
@@ -497,7 +501,7 @@ def read_output(t, output_name, stride):
         while 'output_previous_%i'%i in t.root:
             yield t.get_node('/output_previous_%i'%i)
             i += 1
-        if 'output' in t.root: 
+        if 'output' in t.root:
             yield t.get_node('/output')
             i += 1
 
@@ -520,7 +524,7 @@ def compute_com_dist(config_fn):
     with tb.open_file(config_fn) as t:
         n_res = len(t.root.input.sequence[:])
         try:
-            xyz = read_output(t, "pos", 1)[:,0,:,:] 
+            xyz = read_output(t, "pos", 1)[:,0,:,:]
         except ValueError:
             print ("No output for %s" % config_fn)
             sys.exit(1)
@@ -548,7 +552,7 @@ def status(job):
         job_state = sp.check_output(['/usr/bin/env', 'squeue', '-j', job.job, '-h', '-o', '%t']).strip()
     except sp.CalledProcessError:
         job_state = 'FN'
-        
+
     if job_state == 'PD':
         status = ''
     else:
@@ -560,7 +564,7 @@ def read_hb(tr):
     n_res = tr.root.input.pos.shape[0]/3
     don_res =  tr.root.input.potential.infer_H_O.donors.id[:,1] / 3
     acc_res = (tr.root.input.potential.infer_H_O.acceptors.id[:,1]-2) / 3
-    
+
     n_hb = tr.root.output.hbond.shape[1]
     hb_raw   = tr.root.output.hbond[:]
     hb = np.zeros((hb_raw.shape[0],n_res,2,2))
@@ -570,13 +574,13 @@ def read_hb(tr):
 
     hb[:,acc_res,1,0] =    hb_raw[:,len(don_res):]
     hb[:,acc_res,1,1] = 1.-hb_raw[:,len(don_res):]
-    
+
     return hb
 
 def read_constant_hb(tr, n_res):
     don_res = tr.root.input.potential.infer_H_O.donors.residue[:]
     acc_res = tr.root.input.potential.infer_H_O.acceptors.residue[:]
-    
+
     n_hb = tr.root.output.hbond.shape[2]
     hb_raw   = tr.root.output.hbond[:,0]
 
@@ -589,7 +593,7 @@ def read_constant_hb(tr, n_res):
     hb[:,acc_res,1,0] = hb_raw[:,len(don_res):,0]
     hb[:,acc_res,1,1] = hb_raw[:,len(don_res):,1]
     hb[:,acc_res,1,2] = 1.-hb_raw[:,len(don_res):].sum(axis=-1)
-    
+
     return hb
 
 
@@ -597,7 +601,7 @@ def rmsd_transform(target, model):
     assert target.shape == model.shape == (model.shape[0],3)
     base_shift_target = target.mean(axis=0)
     base_shift_model  = model .mean(axis=0)
-    
+
     target = target - target.mean(axis=0)
     model = model   - model .mean(axis=0)
 
@@ -644,40 +648,40 @@ def compute_topology(t):
     n_acceptor = infer.acceptors.id.shape[0]
     id = np.concatenate((infer.donors.id[:],infer.acceptors.id[:]), axis=0)
     bond_length = np.concatenate((infer.donors.bond_length[:],infer.acceptors.bond_length[:]),axis=0)
-    
+
     def augment_pos(pos, id=id, bond_length=bond_length):
         prev = pos[id[:,0]]
         curr = pos[id[:,1]]
         nxt  = pos[id[:,2]]
-        
+
         virtual = curr + bond_length[:,None] * vhat(vhat(curr-nxt) + vhat(curr-prev))
         new_pos = np.concatenate((pos,virtual), axis=0)
         return json.dumps([map(float,x) for x in new_pos])  # convert to json form
-    
+
     n_atom = 3*len(seq)
     backbone_names = ['N','CA','C']
-    
-    backbone_atoms = [dict(name=backbone_names[i%3], residue_num=i/3, element=backbone_names[i%3][:1]) 
+
+    backbone_atoms = [dict(name=backbone_names[i%3], residue_num=i/3, element=backbone_names[i%3][:1])
                       for i in range(n_atom)]
-    virtual_atoms  = [dict(name=('H' if i<n_donor else 'O'), residue_num=int(id[i,1]/3), 
+    virtual_atoms  = [dict(name=('H' if i<n_donor else 'O'), residue_num=int(id[i,1]/3),
                            element=('H' if i<n_donor else 'O'))
                      for i in range(n_donor+n_acceptor)]
     backbone_bonds = [[i,i+1] for i in range(n_atom-1)]
     virtual_bonds  = [[int(id[i,1]), n_atom+i] for i in range(n_donor+n_acceptor)]
-    
+
     topology = json.dumps(dict(
         residues = [dict(resname=str(s), resid=i) for i,s in enumerate(seq)],
         atoms = backbone_atoms + virtual_atoms,
         bonds = backbone_bonds + virtual_bonds,
     ))
-    
+
     return topology, augment_pos
 
 
 def display_structure(topo_aug, pos, size=(600,600)):
     import IPython.display as disp
     id_string = uuid.uuid4()
-    return disp.Javascript(lib='/files/js/protein-viewer.js', 
+    return disp.Javascript(lib='/files/js/protein-viewer.js',
                     data='render_structure(element, "%s", %i, %i, %s, %s);'%
                        (id_string, size[0], size[1], topo_aug[0], topo_aug[1](pos))), id_string
 

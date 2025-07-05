@@ -241,9 +241,8 @@ def load_upside_ref(fname, add_atoms=True):
                 chain_counts = t.root.input.chain_break.chain_counts[:]
             else:
                 chain_counts = np.array([1 for i in chain_first_residue])
-
-    if add_atoms:
-        return traj_from_upside(seq, time, xyz, chain_first_residue, chain_counts, add_extra_atoms=add_atoms)
+    
+    return traj_from_upside(seq, time, xyz, chain_first_residue, chain_counts, add_extra_atoms=add_atoms)
 
 def load_upside_data(fname, output_names):
     pass
