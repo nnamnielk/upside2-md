@@ -1,0 +1,30 @@
+# Extends the base upside2-md Dockerfile with additional data science packages
+
+FROM sosnicklab/upside2-md:latest
+LABEL maintainer="Oliver Kleinmann"
+
+# Switch to root for package installation
+USER root
+
+# Install additional conda packages in the existing upside2-env environment
+RUN conda run -n upside2-env conda install -c conda-forge -y \
+    matplotlib \
+    seaborn \
+    jupyterlab \
+    jupyter \
+    ipywidgets \
+    nglview \
+    && conda clean -afy
+
+# Enable nglview for Jupyter (extensions are automatically configured with modern conda install)
+RUN conda run -n upside2-env python -c "import nglview; print('nglview installed successfully')"
+
+# Expose Jupyter port
+EXPOSE 8888
+
+# Switch back to non-root user
+USER user
+
+# Keep the existing entrypoint and command
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["bash"]

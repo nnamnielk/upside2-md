@@ -1,7 +1,7 @@
 # .devcontainer/Dockerfile
 
 FROM continuumio/miniconda3
-LABEL maintainer="sosnicklab"
+LABEL maintainer="Oliver Kleinmann"
 
 WORKDIR /upside2-md
 
@@ -32,7 +32,7 @@ RUN mkdir -p /home/user && \
 
 # Clone the project repository into the working directory.
 # This creates a self-contained image with the project code.
-RUN git clone https://github.com/sosnicklab/upside2-md .
+RUN git clone https://github.com/nnamnielk/upside2-md --branch nnamnielk .
 
 # Copy environment definition file into the container.
 # This will overwrite the cloned version with the local one, allowing for easy customization.
@@ -98,7 +98,7 @@ COPY .devcontainer/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Create a directory for user-provided scripts and set ownership
-RUN mkdir /upside2-md/scripts && chown user:user /upside2-md/scripts
+RUN mkdir /persistent && chown user:user /persistent
 
 # Switch to the non-root user. This will be the default for `docker run`.
 USER user
