@@ -167,7 +167,7 @@ launch_jupyter() {
         "${mount_opts[@]}" \
         -w "$working_dir" \
         "$DOCKER_IMAGE" \
-        bash -c "conda run -n upside2-env jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password=''"
+        bash -c "conda run -n upside2-env jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --notebook-dir=/ --NotebookApp.token='' --NotebookApp.password=''"
     
     # Wait a moment for Jupyter to start
     echo "Waiting for Jupyter to start..."
