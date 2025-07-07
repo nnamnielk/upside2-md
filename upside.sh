@@ -6,7 +6,7 @@
 set -e
 
 # Jupyter Defaults
-MOUNT_PATH="."
+MOUNT_PATHS=(".")
 DOCKER_IMAGE="upside2-lab"
 DOCKERFILE_PATH=".devcontainer/Dockerfile.ipy"
 CONTAINER_NAME="upside2-jupyter-$(date +%s)"
@@ -26,7 +26,9 @@ show_usage() {
     echo "  build      Build Docker image with specified options"
     echo ""
     echo "Jupyter Options:"
-    echo "  --mount=<path>     Mount directory to /persistent (default: current directory)"
+    echo "  --mount=<path>     Mount directory into the container (can be used multiple times)"
+    echo "                     - Format: <host_path>:<container_path>"
+    echo "                     - Default: '.' is mounted to /persistent"
     echo "  --port=<port>      Jupyter port (default: 8888)"
     echo "  --name=<name>      Container name (default: auto-generated)"
     echo "  --build            Force rebuild of Docker image"
@@ -113,28 +115,57 @@ build_only() {
 
 # Function to launch Jupyter
 launch_jupyter() {
-    local mount_abs_path
-    mount_abs_path=$(get_absolute_path "$MOUNT_PATH")
-    
-    if [[ ! -d "$mount_abs_path" ]]; then
-        echo "Error: Mount path '$mount_abs_path' does not exist"
-        exit 1
+    local mount_opts=()
+    local working_dir="/persistent"
+
+    # Process mount paths
+    for mount_path in "${MOUNT_PATHS[@]}"; do
+        local host_path
+        local container_path
+
+        if [[ "$mount_path" == *":"* ]]; then
+            host_path="${mount_path%%:*}"
+            container_path="${mount_path#*:}"
+        else
+            host_path="$mount_path"
+            container_path="/persistent"
+        fi
+
+        local abs_host_path
+        abs_host_path=$(get_absolute_path "$host_path")
+
+        if [[ ! -e "$abs_host_path" ]]; then
+            echo "Error: Mount path '$abs_host_path' does not exist"
+            exit 1
+        fi
+        mount_opts+=(-v "$abs_host_path:$container_path")
+    done
+
+    # Set working directory to the first container path if specified
+    if [[ "${MOUNT_PATHS[0]}" == *":"* ]]; then
+        working_dir="${MOUNT_PATHS[0]#*:}"
     fi
-    
+
     echo "Building/checking Docker image..."
     build_image
     
     echo "Starting Jupyter Lab container..."
     echo "  - Container name: $CONTAINER_NAME"
-    echo "  - Mounting: $mount_abs_path -> /persistent"
+    echo "  - Mounts:"
+    for mount_opt in "${mount_opts[@]}"; do
+        if [[ "$mount_opt" == "-v" ]]; then
+            continue
+        fi
+        echo "    - $mount_opt"
+    done
     echo "  - Jupyter port: $JUPYTER_PORT"
     
     # Start container with Jupyter
     docker run -d \
         --name "$CONTAINER_NAME" \
         -p "$JUPYTER_PORT:8888" \
-        -v "$mount_abs_path:/persistent" \
-        -w /persistent \
+        "${mount_opts[@]}" \
+        -w "$working_dir" \
         "$DOCKER_IMAGE" \
         bash -c "conda run -n upside2-env jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password=''"
     
@@ -147,7 +178,7 @@ launch_jupyter() {
         echo ""
         echo "✅ Jupyter Lab is running!"
         echo "🌐 Access it at: http://localhost:$JUPYTER_PORT"
-        echo "📁 Working directory: /persistent (mounted from $mount_abs_path)"
+        echo "   Working directory: $working_dir"
         echo ""
         echo "Container management:"
         echo "  Stop:    docker stop $CONTAINER_NAME"
@@ -176,7 +207,10 @@ while [[ $# -gt 0 ]]; do
             shift
             ;;
         --mount=*)
-            MOUNT_PATH="${1#*=}"
+            if [[ "${MOUNT_PATHS[0]}" == "." ]]; then
+                MOUNT_PATHS=()
+            fi
+            MOUNT_PATHS+=("${1#*=}")
             shift
             ;;
         --port=*)
