@@ -5,12 +5,17 @@
 
 set -e
 
-# Default values
+# Jupyter Defaults
 MOUNT_PATH="."
 DOCKER_IMAGE="upside2-lab"
-DOCKERFILE_PATH=".devcontainer/Dockerfile.lab"
+DOCKERFILE_PATH=".devcontainer/Dockerfile.ipy"
 CONTAINER_NAME="upside2-jupyter-$(date +%s)"
 JUPYTER_PORT="8888"
+
+# Build Defaults
+BUILD_DOCKERFILE="Dockerfile"
+BUILD_IMAGE_NAME="upside2-md"
+BUILD_TAGS=()
 
 # Function to show usage
 show_usage() {
@@ -18,18 +23,25 @@ show_usage() {
     echo ""
     echo "Commands:"
     echo "  jupyter    Launch Jupyter Lab in the background"
+    echo "  build      Build Docker image with specified options"
     echo ""
-    echo "Options:"
+    echo "Jupyter Options:"
     echo "  --mount=<path>     Mount directory to /persistent (default: current directory)"
     echo "  --port=<port>      Jupyter port (default: 8888)"
     echo "  --name=<name>      Container name (default: auto-generated)"
     echo "  --build            Force rebuild of Docker image"
+    echo ""
+    echo "Build Options:"
+    echo "  --dockerfile=<name> Dockerfile name in .devcontainer/ (default: Dockerfile)"
+    echo "  --tag=<tag>        Add tag to built image (can be used multiple times)"
+    echo "  --name=<name>      Base image name (default: upside2)"
     echo "  --help             Show this help message"
     echo ""
     echo "Examples:"
     echo "  $0 jupyter --mount=./data"
     echo "  $0 jupyter --mount=. --port=9999"
-    echo "  $0 jupyter --mount=/home/user/project --build"
+    echo "  $0 build --dockerfile=Dockerfile.dev --tag=dev --tag=v1.0"
+    echo "  $0 build --name=upside2-lab --tag=latest"
 }
 
 # Function to build Docker image if needed
@@ -52,6 +64,51 @@ get_absolute_path() {
     else
         echo "$(pwd)/$path"
     fi
+}
+
+# Function to build Docker image only
+build_only() {
+    local dockerfile_path=".devcontainer/$BUILD_DOCKERFILE"
+    
+    # Check if dockerfile exists
+    if [[ ! -f "$dockerfile_path" ]]; then
+        echo "Error: Dockerfile '$dockerfile_path' does not exist"
+        echo "Available dockerfiles in .devcontainer/:"
+        ls -1 .devcontainer/Dockerfile*
+        exit 1
+    fi
+    
+    # If no tags specified, use 'latest'
+    if [[ ${#BUILD_TAGS[@]} -eq 0 ]]; then
+        BUILD_TAGS=("latest")
+    fi
+    
+    echo "Building Docker image with:"
+    echo "  - Dockerfile: $dockerfile_path"
+    echo "  - Base name: $BUILD_IMAGE_NAME"
+    echo "  - Tags: ${BUILD_TAGS[*]}"
+    
+    # Build with first tag
+    local first_tag="${BUILD_TAGS[0]}"
+    local image_with_tag="$BUILD_IMAGE_NAME:$first_tag"
+    
+    echo "Building: $image_with_tag"
+    docker build -f "$dockerfile_path" -t "$image_with_tag" .
+    
+    # Add additional tags if specified
+    if [[ ${#BUILD_TAGS[@]} -gt 1 ]]; then
+        for tag in "${BUILD_TAGS[@]:1}"; do
+            local additional_tag="$BUILD_IMAGE_NAME:$tag"
+            echo "Tagging as: $additional_tag"
+            docker tag "$image_with_tag" "$additional_tag"
+        done
+    fi
+    
+    echo "✅ Build completed successfully!"
+    echo "Built images:"
+    for tag in "${BUILD_TAGS[@]}"; do
+        echo "  - $BUILD_IMAGE_NAME:$tag"
+    done
 }
 
 # Function to launch Jupyter
@@ -114,6 +171,10 @@ while [[ $# -gt 0 ]]; do
             COMMAND="jupyter"
             shift
             ;;
+        build)
+            COMMAND="build"
+            shift
+            ;;
         --mount=*)
             MOUNT_PATH="${1#*=}"
             shift
@@ -123,7 +184,19 @@ while [[ $# -gt 0 ]]; do
             shift
             ;;
         --name=*)
-            CONTAINER_NAME="${1#*=}"
+            if [[ "$COMMAND" == "build" ]]; then
+                BUILD_IMAGE_NAME="${1#*=}"
+            else
+                CONTAINER_NAME="${1#*=}"
+            fi
+            shift
+            ;;
+        --dockerfile=*)
+            BUILD_DOCKERFILE="${1#*=}"
+            shift
+            ;;
+        --tag=*)
+            BUILD_TAGS+=("${1#*=}")
             shift
             ;;
         --build)
@@ -153,6 +226,9 @@ fi
 case $COMMAND in
     jupyter)
         launch_jupyter
+        ;;
+    build)
+        build_only
         ;;
     *)
         echo "Error: Unknown command '$COMMAND'"

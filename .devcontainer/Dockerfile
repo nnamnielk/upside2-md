@@ -100,6 +100,10 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 # Create a directory for user-provided scripts and set ownership
 RUN mkdir /persistent && chown user:user /persistent
 
+# Attempt to slim- down the image by removing unnecessary build files.
+# RUN conda remove --yes --force c-compiler cxx-compiler make
+RUN conda clean --all --yes
+
 # Switch to the non-root user. This will be the default for `docker run`.
 USER user
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

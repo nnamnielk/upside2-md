@@ -1,6 +1,6 @@
 # Extends the base upside2-md Dockerfile with additional data science packages
 
-FROM sosnicklab/upside2-md:latest
+FROM oliverkleinmann/upside2-md:base
 LABEL maintainer="Oliver Kleinmann"
 
 # Switch to root for package installation
