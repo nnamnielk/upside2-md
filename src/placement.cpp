@@ -62,7 +62,7 @@ struct RamaPlacement {
         const float scale_y = spline.ny * (0.5f/M_PI_F - 1e-7f);
         const float shift = M_PI_F;
 
-        VecArray rama_pos   = rama.output;
+        VecArray rama_pos(rama.output.get_mutable_host_ptr(), rama.elem_width);
 
         auto r   = load_vec<2>(rama_pos,   params[ne].rama_residue);
 
@@ -81,7 +81,7 @@ struct RamaPlacement {
         const float scale_x = spline.nx * (0.5f/M_PI_F - 1e-7f);
         const float scale_y = spline.ny * (0.5f/M_PI_F - 1e-7f);
 
-        VecArray r_sens = rama.sens;
+        VecArray r_sens(rama.sens.get_mutable_host_ptr(), rama.elem_width);
 
         auto my_rama_deriv = load_vec<2*n_pos_dim>(rama_deriv, ne);
         auto rd = make_vec2(
@@ -254,7 +254,7 @@ struct PlacementNode: public CoordNode
         if(logging(LOG_EXTENSIVE)) {
             // FIXME prepend the logging with the class name for disambiguation
             default_logger->add_logger<float>("placement_pos", {n_elem, n_pos_dim}, [&](float* buffer) {
-                    VecArray pos = output;
+                    VecArray pos(output.get_mutable_host_ptr(), elem_width);
                     for(int ne: range(n_elem))
                         for(int d: range(n_pos_dim))
                             buffer[ne*n_pos_dim + d] = pos(d,ne);});
@@ -264,8 +264,8 @@ struct PlacementNode: public CoordNode
     virtual void compute_value(ComputeMode mode) {
         Timer timer(string("placement"));
 
-        VecArray affine_pos = alignment.output;
-        VecArray pos        = output;
+        VecArray affine_pos(alignment.output.get_mutable_host_ptr(), alignment.elem_width);
+        VecArray pos(output.get_mutable_host_ptr(), elem_width);
 
         placement_data.reset();
 
@@ -283,12 +283,12 @@ struct PlacementNode: public CoordNode
     virtual void propagate_deriv() {
       Timer timer(string("placement_deriv"));
 
-      VecArray a_sens = alignment.sens;
-      VecArray affine_pos = alignment.output;
+      VecArray a_sens(alignment.sens.get_mutable_host_ptr(), alignment.elem_width);
+      VecArray affine_pos(alignment.output.get_mutable_host_ptr(), alignment.elem_width);
 
       for(int ne: range(n_elem)) {
-          auto d = load_vec<n_pos_dim>(sens, ne);
-          float* x = &output(0,ne);
+          auto d = load_vec<n_pos_dim>(VecArray(sens.get_mutable_host_ptr(), elem_width), ne);
+          float* x = &output.get_mutable_host_ptr()[ne * elem_width];
 
           auto aff = load_vec<7>(affine_pos, affine_residue[ne]);
           auto t   = extract<0,3>(aff);

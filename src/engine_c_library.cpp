@@ -28,7 +28,7 @@ void free_deriv_engine(DerivEngine* engine) {
 
 // 0 indicates success, anything else is failure
 int evaluate_energy(float* energy, DerivEngine* engine, const float* pos) try {
-    VecArray a = engine->pos->output;
+    VecArray a(engine->pos->output.get_mutable_host_ptr(), engine->pos->elem_width);
     for(int na: range(engine->pos->n_atom))
         for(int d: range(3))
             a(d,na) = pos[na*3+d];
@@ -48,14 +48,14 @@ int evaluate_energy(float* energy, DerivEngine* engine, const float* pos) try {
 // 0 indicates success, anything else is failure
 int evaluate_deriv(float* deriv, DerivEngine* engine, const float* pos) try {
     // result is size (n_atom,3)
-    VecArray a = engine->pos->output;
+    VecArray a(engine->pos->output.get_mutable_host_ptr(), engine->pos->elem_width);
     for(int na: range(engine->pos->n_atom))
         for(int d: range(3))
             a(d,na) = pos[na*3+d];
 
     engine->compute(PotentialAndDerivMode);
 
-    VecArray b = engine->pos->sens;
+    VecArray b(engine->pos->sens.get_mutable_host_ptr(), engine->pos->elem_width);
     for(int na: range(engine->pos->n_atom))
         for(int d: range(3))
             deriv[na*3+d] = b(d,na);
@@ -120,7 +120,7 @@ int get_sens(int n_output, float* sens, DerivEngine* engine, const char* node_na
     } else {
         auto& c = dynamic_cast<CoordNode&>(dc);
         if(n_output != c.n_elem*c.elem_width) throw string("wrong size for CoordNode");
-        VecArray a = c.sens;
+        VecArray a(c.sens.get_mutable_host_ptr(), c.elem_width);
         for(int ne: range(c.n_elem))
             for(int d: range(c.elem_width))
                 sens[ne*c.elem_width + d] = a(d,ne);
@@ -144,7 +144,7 @@ int get_output(int n_output, float* output, DerivEngine* engine, const char* nod
     } else {
         auto& c = dynamic_cast<CoordNode&>(dc);
         if(n_output != c.n_elem*c.elem_width) throw string("wrong size for CoordNode");
-        VecArray a = c.output;
+        VecArray a(c.output.get_mutable_host_ptr(), c.elem_width);
         for(int ne: range(c.n_elem))
             for(int d: range(c.elem_width))
                 output[ne*c.elem_width + d] = a(d,ne);

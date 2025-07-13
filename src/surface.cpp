@@ -179,7 +179,8 @@ struct Surface : public CoordNode
     virtual void compute_value(ComputeMode mode) {
 
         Timer timer(string("surface"));
-        VecArray all_pos = pos.output;
+        VecArray all_pos(pos.output.get_mutable_host_ptr(), pos.elem_width);
+        VecArray output(this->output.get_mutable_host_ptr(), this->elem_width);
 
         // 0. find the TM residues
         int ii = 0;
@@ -695,4 +696,3 @@ struct Surface : public CoordNode
 
 };
 static RegisterNodeType<Surface, 1> surface_node("surface");
-

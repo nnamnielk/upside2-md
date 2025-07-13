@@ -305,25 +305,24 @@ struct EnvironmentCoverage : public CoordNode {
         if(logging(LOG_EXTENSIVE)) {
             default_logger->add_logger<float>("environment_coverage", {n_elem}, [&](float* buffer) {
                     for(int ne: range(n_elem))
-                            buffer[ne] = output(0,ne);});
+                            buffer[ne] = output.get_host_ptr()[ne];});
         }
 
-        for(int i=0;i<n_aa*n_res; ++i)
-            output(0, i) = 0.0;
+        std::fill_n(output.get_mutable_host_ptr(), n_aa * n_res, 0.0f);
     }
 
     virtual void compute_value(ComputeMode mode) override {
         Timer timer(string("environment_coverage"));
 
         igraph.compute_edges();
-        fill(output, 0.f);
+        std::fill_n(output.get_mutable_host_ptr(), output.get_size(), 0.f);
 
         // accumulate for each cb
         for(int ne=0; ne<igraph.n_edge; ++ne) {
             int indices1 = igraph.edge_indices1[ne];
             int id2      = igraph.edge_id2[ne];
             int type2    = aa_types[id2];
-            output(0, indices1*n_aa+type2) += igraph.edge_value[ne];
+            output.get_mutable_host_ptr()[indices1*n_aa+type2] += igraph.edge_value[ne];
         }
     }
 
@@ -334,7 +333,7 @@ struct EnvironmentCoverage : public CoordNode {
             int indices1 = igraph.edge_indices1[ne];
             int id2      = igraph.edge_id2[ne];
             int type2    = aa_types[id2];
-            igraph.edge_sensitivity[ne] = sens(0, indices1*n_aa+type2);
+            igraph.edge_sensitivity[ne] = sens.get_host_ptr()[indices1*n_aa+type2];
         }
         igraph.propagate_derivatives();
     }
@@ -356,23 +355,23 @@ struct HbondEnvironmentCoverage : public CoordNode {
         if(logging(LOG_EXTENSIVE)) {
             default_logger->add_logger<float>("hbond_environment_coverage", {n_elem}, [&](float* buffer) {
                 for(int ne: range(n_elem))
-                    buffer[ne] = output(0,ne);});
+                    buffer[ne] = output.get_host_ptr()[ne];});
         }
     }
 
     virtual void compute_value(ComputeMode mode) override {
         Timer timer(string("hbond_environment_coverage"));
         igraph.compute_edges();
-        fill(output, 0.f);
+        std::fill_n(output.get_mutable_host_ptr(), output.get_size(), 0.f);
         for(int ne=0; ne<igraph.n_edge; ++ne)  // accumulate for each cb
-            output(0, igraph.edge_indices1[ne]) += igraph.edge_value[ne];
+            output.get_mutable_host_ptr()[igraph.edge_indices1[ne]] += igraph.edge_value[ne];
     }
 
     virtual void propagate_deriv() override {
         Timer timer(string("d_hbond_environment_coverage"));
 
         for(int ne: range(igraph.n_edge))
-            igraph.edge_sensitivity[ne] = sens(0,igraph.edge_indices1[ne]);
+            igraph.edge_sensitivity[ne] = sens.get_host_ptr()[igraph.edge_indices1[ne]];
         igraph.propagate_derivatives();
     }
 
@@ -393,23 +392,23 @@ struct HbondBackBoneCoverage : public CoordNode {
         if(logging(LOG_EXTENSIVE)) {
             default_logger->add_logger<float>("hbond_backbone_coverage", {n_elem}, [&](float* buffer) {
                 for(int ne: range(n_elem))
-                    buffer[ne] = output(0,ne);});
+                    buffer[ne] = output.get_host_ptr()[ne];});
         }
     }
 
     virtual void compute_value(ComputeMode mode) override {
         Timer timer(string("hbond_backbone_coverage"));
         igraph.compute_edges();
-        fill(output, 0.f);
+        std::fill_n(output.get_mutable_host_ptr(), output.get_size(), 0.f);
         for(int ne=0; ne<igraph.n_edge; ++ne)  // accumulate for each cb
-            output(0, igraph.edge_indices1[ne]) += igraph.edge_value[ne];
+            output.get_mutable_host_ptr()[igraph.edge_indices1[ne]] += igraph.edge_value[ne];
     }
 
     virtual void propagate_deriv() override {
         Timer timer(string("d_hbond_backbone_coverage"));
 
         for(int ne: range(igraph.n_edge))
-            igraph.edge_sensitivity[ne] = sens(0,igraph.edge_indices1[ne]);
+            igraph.edge_sensitivity[ne] = sens.get_host_ptr()[igraph.edge_indices1[ne]];
         igraph.propagate_derivatives();
     }
 
@@ -432,16 +431,16 @@ struct SphereEnvironmentCoverage : public CoordNode {
     virtual void compute_value(ComputeMode mode) override {
         Timer timer(string("sphere_environment_coverage"));
         igraph.compute_edges();
-        fill(output, 0.f);
+        std::fill_n(output.get_mutable_host_ptr(), output.get_size(), 0.f);
         for(int ne=0; ne<igraph.n_edge; ++ne)  // accumulate for each cb
-            output(0, igraph.edge_indices1[ne]) += igraph.edge_value[ne];
+            output.get_mutable_host_ptr()[igraph.edge_indices1[ne]] += igraph.edge_value[ne];
     }
 
     virtual void propagate_deriv() override {
         Timer timer(string("d_hbond_environment_coverage"));
 
         for(int ne: range(igraph.n_edge))
-            igraph.edge_sensitivity[ne] = sens(0,igraph.edge_indices1[ne]);
+            igraph.edge_sensitivity[ne] = sens.get_host_ptr()[igraph.edge_indices1[ne]];
         igraph.propagate_derivatives();
     }
 
@@ -464,16 +463,16 @@ struct WeightedSphereEnvironmentCoverage : public CoordNode {
     virtual void compute_value(ComputeMode mode) override {
         Timer timer(string("sphere_environment_coverage"));
         igraph.compute_edges();
-        fill(output, 0.f);
+        std::fill_n(output.get_mutable_host_ptr(), output.get_size(), 0.f);
         for(int ne=0; ne<igraph.n_edge; ++ne)  // accumulate for each cb
-            output(0, igraph.edge_indices1[ne]) += igraph.edge_value[ne];
+            output.get_mutable_host_ptr()[igraph.edge_indices1[ne]] += igraph.edge_value[ne];
     }
 
     virtual void propagate_deriv() override {
         Timer timer(string("d_hbond_environment_coverage"));
 
         for(int ne: range(igraph.n_edge))
-            igraph.edge_sensitivity[ne] = sens(0,igraph.edge_indices1[ne]);
+            igraph.edge_sensitivity[ne] = sens.get_host_ptr()[igraph.edge_indices1[ne]];
         igraph.propagate_derivatives();
     }
 
@@ -509,24 +508,33 @@ struct WeightedPos : public CoordNode {
     virtual void compute_value(ComputeMode mode) override {
         Timer timer("weighted_pos");
 
+        float* out_ptr = output.get_mutable_host_ptr();
+        const float* pos_ptr = pos.output.get_host_ptr();
+        const float* energy_ptr = energy.output.get_host_ptr();
+
         for(int ne=0; ne<n_elem; ++ne) {
             auto p = params[ne];
-            output(0,ne) = pos.output(0,p.index_pos);
-            output(1,ne) = pos.output(1,p.index_pos);
-            output(2,ne) = pos.output(2,p.index_pos);
-            output(3,ne) = expf(-energy.output(0,p.index_weight));
+            out_ptr[ne * elem_width + 0] = pos_ptr[p.index_pos * pos.elem_width + 0];
+            out_ptr[ne * elem_width + 1] = pos_ptr[p.index_pos * pos.elem_width + 1];
+            out_ptr[ne * elem_width + 2] = pos_ptr[p.index_pos * pos.elem_width + 2];
+            out_ptr[ne * elem_width + 3] = expf(-energy_ptr[p.index_weight * energy.elem_width + 0]);
         }
     }
 
     virtual void propagate_deriv() override {
         Timer timer("d_weighted_pos");
 
+        const float* out_ptr = output.get_host_ptr();
+        float* pos_sens_ptr = pos.sens.get_mutable_host_ptr();
+        float* energy_sens_ptr = energy.sens.get_mutable_host_ptr();
+        const float* sens_ptr = sens.get_host_ptr();
+
         for(int ne=0; ne<n_elem; ++ne) {
             auto p = params[ne];
-            pos.sens(0,p.index_pos) += sens(0,ne);
-            pos.sens(1,p.index_pos) += sens(1,ne);
-            pos.sens(2,p.index_pos) += sens(2,ne);
-            energy.sens(0,p.index_weight) -= output(3,ne)*sens(3,ne); // exponential derivative
+            pos_sens_ptr[p.index_pos * pos.elem_width + 0] += sens_ptr[ne * elem_width + 0];
+            pos_sens_ptr[p.index_pos * pos.elem_width + 1] += sens_ptr[ne * elem_width + 1];
+            pos_sens_ptr[p.index_pos * pos.elem_width + 2] += sens_ptr[ne * elem_width + 2];
+            energy_sens_ptr[p.index_weight * energy.elem_width + 0] -= out_ptr[ne * elem_width + 3] * sens_ptr[ne * elem_width + 3]; // exponential derivative
         }
     }
 };
@@ -558,9 +566,9 @@ struct UniformTransform : public CoordNode {
     virtual void compute_value(ComputeMode mode) override {
         Timer timer("uniform_transform");
         for(int ne=0; ne<n_elem; ++ne) {
-            auto coord = (input.output(0,ne)-spline_offset)*spline_inv_dx;
+            auto coord = (input.output.get_host_ptr()[ne]-spline_offset)*spline_inv_dx;
             auto v = clamped_deBoor_value_and_deriv(bspline_coeff.get(), coord, n_coeff);
-            output(0,ne) = v[0];
+            output.get_mutable_host_ptr()[ne] = v[0];
             jac[ne]      = v[1]*spline_inv_dx;
         }
     }
@@ -568,7 +576,7 @@ struct UniformTransform : public CoordNode {
     virtual void propagate_deriv() override {
         Timer timer("d_uniform_transform");
         for(int ne=0; ne<n_elem; ++ne)
-            input.sens(0,ne) += jac[ne]*sens(0,ne);
+            input.sens.get_mutable_host_ptr()[ne] += jac[ne]*sens.get_host_ptr()[ne];
     }
 
     virtual std::vector<float> get_param() const override{
@@ -584,13 +592,14 @@ struct UniformTransform : public CoordNode {
         vector<float> ret(2+n_coeff, 0.f);
         int starting_bin;
         float d[4];
+        VecArray input_output(input.output.get_mutable_host_ptr(), input.elem_width);
         for(int ne=0; ne<n_elem; ++ne) {
-            auto coord = (input.output(0,ne)-spline_offset)*spline_inv_dx;
+            auto coord = (input_output(0,ne)-spline_offset)*spline_inv_dx;
             auto v = clamped_deBoor_value_and_deriv(bspline_coeff.get(), coord, n_coeff);
             clamped_deBoor_coeff_deriv(&starting_bin, d, coord, n_coeff);
 
             ret[0] += v[1];                                    // derivative of offset
-            ret[1] += v[1]*(input.output(0,ne)-spline_offset); // derivative of inv_dx
+            ret[1] += v[1]*(input_output(0,ne)-spline_offset); // derivative of inv_dx
             for(int i: range(4)) ret[2+starting_bin+i] += d[i];
         }
         return ret;
@@ -651,7 +660,7 @@ struct LinearCoupling : public PotentialNode {
                     {input.n_elem}, [&](float* buffer) {
                     for(int ne: range(input.n_elem)) {
                         float c = couplings[coupling_types[ne]];
-                        buffer[ne] = c*input.output(0,ne);
+                        buffer[ne] = c*input.output.get_host_ptr()[ne];
                     }});
         }
     }
@@ -662,11 +671,11 @@ struct LinearCoupling : public PotentialNode {
         float pot = 0.f;
         for(int ne=0; ne<n_elem; ++ne) {
             float c = couplings[coupling_types[ne]];
-            float act = inactivation ? sqr(1.f-inactivation->output(inactivation_dim,ne)) : 1.f;
-            float val = input.output(0,ne);
+            float act = inactivation ? sqr(1.f-inactivation->output.get_host_ptr()[ne * inactivation->elem_width + inactivation_dim]) : 1.f;
+            float val = input.output.get_host_ptr()[ne];
             pot += c * val * act;
-            input.sens(0,ne) += c*act;
-            if(inactivation) inactivation->sens(inactivation_dim,ne) -= c*val;
+            input.sens.get_mutable_host_ptr()[ne] += c*act;
+            if(inactivation) inactivation->sens.get_mutable_host_ptr()[ne * inactivation->elem_width + inactivation_dim] -= c*val;
         }
         potential = pot;
     }
@@ -681,8 +690,8 @@ struct LinearCoupling : public PotentialNode {
 
         int n_elem = input.n_elem;
         for(int ne=0; ne<n_elem; ++ne) {
-            float act = inactivation ? 1.f - inactivation->output(inactivation_dim,ne) : 1.f;
-            deriv[coupling_types[ne]] += input.output(0,ne) * act;
+            float act = inactivation ? 1.f - inactivation->output.get_host_ptr()[ne * inactivation->elem_width + inactivation_dim] : 1.f;
+            deriv[coupling_types[ne]] += input.output.get_host_ptr()[ne] * act;
         }
         return deriv;
     }
@@ -742,7 +751,7 @@ struct NonlinearCoupling : public PotentialNode {
                     wnumber[nr] = 0.0;
                     int ctype = coupling_types[nr];
                     for(int aa: range(n_restype)) 
-                        wnumber[nr] += weights[ctype*n_restype+aa] * input.output(0, nr*n_restype+aa);
+                        wnumber[nr] += weights[ctype*n_restype+aa] * input.output.get_host_ptr()[nr*n_restype+aa];
                     auto coord = (wnumber[nr]-spline_offset)*spline_inv_dx;
                     buffer[nr] = clamped_deBoor_value_and_deriv(
                             coeff.data() + ctype*n_coeff, coord, n_coeff)[0];
@@ -758,14 +767,14 @@ struct NonlinearCoupling : public PotentialNode {
             wnumber[nr] = 0.0;
             int ctype = coupling_types[nr];
             for(int aa: range(n_restype)) 
-                wnumber[nr] += weights[ctype*n_restype+aa] * input.output(0, nr*n_restype+aa);
+                wnumber[nr] += weights[ctype*n_restype+aa] * input.output.get_host_ptr()[nr*n_restype+aa];
 
             auto coord = (wnumber[nr]-spline_offset)*spline_inv_dx;
             auto v = clamped_deBoor_value_and_deriv(coeff.data() + ctype*n_coeff, coord, n_coeff);
 
             pot += v[0];
             for(int aa: range(n_restype)) 
-                input.sens(0, nr*n_restype+aa) = weights[ctype*n_restype+aa] * spline_inv_dx * v[1];
+                input.sens.get_mutable_host_ptr()[nr*n_restype+aa] = weights[ctype*n_restype+aa] * spline_inv_dx * v[1];
         }
 
         potential = pot;
@@ -801,7 +810,7 @@ struct NonlinearCoupling : public PotentialNode {
             int ctype = coupling_types[nr];
 
             for(int aa: range(n_restype)) 
-                wnumber[nr] += weights[ctype*n_restype+aa] * input.output(0, nr*n_restype+aa);
+                wnumber[nr] += weights[ctype*n_restype+aa] * input.output.get_host_ptr()[nr*n_restype+aa];
 
             auto coord = (wnumber[nr]-spline_offset)*spline_inv_dx;
 
@@ -820,7 +829,7 @@ struct NonlinearCoupling : public PotentialNode {
         for(int nr: range(n_res)) {
             int ctype = coupling_types[nr];
             for(int aa: range(n_restype)) {
-                auto deriv_aa = sens[nr] * input.output(0, nr*n_restype+aa);
+                auto deriv_aa = sens[nr] * input.output.get_host_ptr()[nr*n_restype+aa];
                 if ( num_independent_weight == 400)
                     deriv[csize+ctype*n_restype+aa] += deriv_aa;
                 else if ( num_independent_weight == 20 ) 
@@ -896,7 +905,7 @@ struct SigmoidCoupling : public PotentialNode {
                     wnumber[nr] = 0.0;
                     int ctype = coupling_types[nr];
                     for(int aa: range(n_restype)) 
-                        wnumber[nr] += weights[ctype*n_restype+aa] * input.output(0, nr*n_restype+aa);
+                        wnumber[nr] += weights[ctype*n_restype+aa] * input.output.get_host_ptr()[nr*n_restype+aa];
                     auto out = compact_sigmoid(wnumber[nr]-center[ctype], sharpness[ctype]);
                     buffer[nr] = out.x() * scale[ctype];
                 }});
@@ -911,13 +920,13 @@ struct SigmoidCoupling : public PotentialNode {
             wnumber[nr] = 0.0;
             int ctype = coupling_types[nr];
             for(int aa: range(n_restype)) {
-                wnumber[nr] += weights[ctype*n_restype+aa] * input.output(0, nr*n_restype+aa);
+                wnumber[nr] += weights[ctype*n_restype+aa] * input.output.get_host_ptr()[nr*n_restype+aa];
             }
             auto out = compact_sigmoid(wnumber[nr]-center[ctype], sharpness[ctype]);
 
             pot += scale[ctype] * out.x();
             for(int aa: range(n_restype)) 
-                input.sens(0,nr*n_restype+aa) +=  weights[ctype*n_restype+aa] * scale[ctype] * out.y();
+                input.sens.get_mutable_host_ptr()[nr*n_restype+aa] +=  weights[ctype*n_restype+aa] * scale[ctype] * out.y();
         }
         potential = pot;
     }
@@ -967,7 +976,7 @@ struct SigmoidCoupling : public PotentialNode {
             int ctype = coupling_types[nr];
 
             for(int aa: range(n_restype)) 
-                wnumber[nr] += weights[ctype*n_restype+aa] * input.output(0, nr*n_restype+aa);
+                wnumber[nr] += weights[ctype*n_restype+aa] * input.output.get_host_ptr()[nr*n_restype+aa];
 
             auto dist_coord = wnumber[nr]-center[ctype];
             auto out = compact_sigmoid(dist_coord, sharpness[ctype]);
@@ -986,7 +995,7 @@ struct SigmoidCoupling : public PotentialNode {
         for(int nr: range(n_residue)) {
             int ctype = coupling_types[nr];
             for(int aa: range(n_restype)) {
-                auto deriv_aa = sens[nr] * input.output(0, nr*n_restype+aa);
+                auto deriv_aa = sens[nr] * input.output.get_host_ptr()[nr*n_restype+aa];
                 if ( num_independent_weight == 400)
                     deriv[csize+ctype*n_restype+aa] += deriv_aa;
                 else if ( num_independent_weight == 20 ) 
@@ -1086,15 +1095,15 @@ struct BackboneSigmoidCoupling : public PotentialNode {
         for(int nr: range(n_bb)) {
             float bl = 0.0;
             for(int aa: range(n_restype)) 
-                bl += weights[aa] * env_sc.output(0, nr*n_restype+aa);
-            bl += hbond_weight*env_hb.output(0, nr);
+                bl += weights[aa] * env_sc.output.get_host_ptr()[nr*n_restype+aa];
+            bl += hbond_weight*env_hb.output.get_host_ptr()[nr];
             auto out = compact_sigmoid(bl-center, sharpness);
 
             pot        += scale * out.x();
             auto d_pot  = scale * out.y();
             for(int aa: range(n_restype)) 
-                env_sc.sens(0, nr*n_restype+aa) +=  weights[aa] * d_pot;
-            env_hb.sens(0, nr) +=  hbond_weight* d_pot;
+                env_sc.sens.get_mutable_host_ptr()[nr*n_restype+aa] +=  weights[aa] * d_pot;
+            env_hb.sens.get_mutable_host_ptr()[nr] +=  hbond_weight* d_pot;
         }
         potential = pot;
     }
@@ -1120,8 +1129,8 @@ struct BackboneSigmoidCoupling : public PotentialNode {
         for(int nr: range(n_bb)) {
             float bl = 0.0;
             for(int aa: range(n_restype)) 
-                bl += weights[aa] * env_sc.output(0, nr*n_restype+aa);
-            bl += hbond_weight*env_hb.output(0, nr);
+                bl += weights[aa] * env_sc.output.get_host_ptr()[nr*n_restype+aa];
+            bl += hbond_weight*env_hb.output.get_host_ptr()[nr];
 
             auto dist_coord = bl-center;
             auto out = compact_sigmoid(dist_coord, sharpness);

@@ -106,7 +106,7 @@ struct System {
     shared_ptr<H5Logger> logger;
     DerivEngine engine;
     MultipleMonteCarloSampler mc_samplers;
-    VecArrayStorage mom; // momentum
+    std::unique_ptr<device_buffer<float>> mom; // momentum
     OrnsteinUhlenbeckThermostat thermostat;
     uint64_t round_num;
     System(): round_num(0) {}
@@ -330,7 +330,7 @@ struct CurvatureChange {
         mt19937 rng;
         rng.seed(seed);
 
-        CoordNode* ccenter;
+        CoordNode* ccenter = nullptr;
         for(auto &n:  sys.engine.nodes) {
             if(is_prefix(n.name, "Const3D_curvature_center")) {
                 ccenter = dynamic_cast<CoordNode*>(n.computation.get());
@@ -353,9 +353,9 @@ struct CurvatureChange {
         }
 
         float rand_value = ((float) rand()/RAND_MAX - 0.5)*2.;
-        float centerz = ccenter->output(2,0);
+        float centerz = ccenter->output.get_mutable_host_ptr()[0 * ccenter->elem_width + 2];
         float dcenterz = relative_change*centerz*rand_value;
-        ccenter->output(2,0) += dcenterz;
+        ccenter->output.get_mutable_host_ptr()[0 * ccenter->elem_width + 2] += dcenterz;
 
         float new_memb_potential = 0.f;
         for(auto &n:  sys.engine.nodes) {
@@ -378,7 +378,7 @@ struct CurvatureChange {
 
         float lboltz_diff = new_lboltz - old_lboltz;
         if(lboltz_diff < 0.f && expf(lboltz_diff) < random.uniform_open_closed().x()) {
-            ccenter->output(2,0) -= dcenterz;
+            ccenter->output.get_mutable_host_ptr()[0 * ccenter->elem_width + 2] -= dcenterz;
         }
 
     }
@@ -388,7 +388,7 @@ struct CurvatureChange {
 vector<float> potential_deriv_agreement(DerivEngine& engine) {
     vector<float> relative_error;
     int n_atom = engine.pos->n_elem;
-    VecArray pos_array = engine.pos->output;
+    VecArray pos_array(engine.pos->output.get_mutable_host_ptr(), engine.pos->elem_width);
 
     vector<float> input(n_atom*3);
     for(int na=0; na<n_atom; ++na)
@@ -414,9 +414,10 @@ vector<float> potential_deriv_agreement(DerivEngine& engine) {
 
     auto central_diff_jac = central_difference_deriviative(do_compute, input, output, 1e-3);
     vector<float> deriv_array;
+    VecArray sens_array(engine.pos->sens.get_mutable_host_ptr(), engine.pos->elem_width);
     for(int na=0; na<n_atom; ++na)
         for(int d=0; d<3; ++d)
-            deriv_array.push_back(engine.pos->sens(d,na));
+            deriv_array.push_back(sens_array(d,na));
 
     relative_error.push_back(
             relative_rms_deviation(central_diff_jac, deriv_array));
@@ -756,10 +757,10 @@ try {
 
             if (user_defined_input) 
                 traverse_dset<3,float>(sys->input.get(), "/input/pos", [&](size_t na, size_t d, size_t ns, float x) { 
-                        sys->engine.pos->output(d,na) = x;});
+                        sys->engine.pos->output.get_mutable_host_ptr()[na * sys->engine.pos->elem_width + d] = x;});
             else
                 traverse_dset<3,float>(sys->config.get(), "/input/pos", [&](size_t na, size_t d, size_t ns, float x) { 
-                        sys->engine.pos->output(d,na) = x;});
+                        sys->engine.pos->output.get_mutable_host_ptr()[na * sys->engine.pos->elem_width + d] = x;});
 
             if(verbose) printf("%s\nn_atom %i\n\n", config_paths[ns].c_str(), sys->n_atom);
 
@@ -780,39 +781,40 @@ try {
             sys->set_temperature(sys->initial_temperature);
             sys->thermostat.set_delta_t(thermostat_interval*inner_step*dt);  // set true thermostat interval  //  FIXME inner_step
 
-            sys->mom.reset(3, sys->n_atom);
+            sys->mom.reset(new device_buffer<float>(sys->n_atom * 3)); // Initialize momentum buffer
             if (restart_using_momentum_arg.getValue()) { // initialize momentum using input.mom if requested
                 if (user_defined_input) {
                     if (h5_exists(sys->input.get(), "input/mom")) {
                         traverse_dset<3,float>(sys->input.get(), "/input/mom", [&](size_t na, size_t d, size_t ns, float x) { 
-                            sys->mom(d,na) = x;});
+                            sys->mom->get_mutable_host_ptr()[na * 3 + d] = x;}); // Use get_mutable_host_ptr and direct indexing
                     }
                     else throw  string("input h5 file doesn't have input.mom group, can't restart using the momentum!");
                 }
                 else {
                     if (h5_exists(sys->config.get(), "input/mom")) {
                         traverse_dset<3,float>(sys->config.get(), "/input/mom", [&](size_t na, size_t d, size_t ns, float x) { 
-                                sys->mom(d,na) = x;});
+                                sys->mom->get_mutable_host_ptr()[na * 3 + d] = x;}); // Use get_mutable_host_ptr and direct indexing
                     }
                     else throw  string("input h5 file doesn't have input.mom group, can't restart using the momentum!");
                 }
             }
             else {
-                for(int d: range(3)) for(int na: range(sys->n_atom)) sys->mom(d,na) = 0.f;
-                sys->thermostat.apply(sys->mom, sys->n_atom); // initial thermalization if it's a fresh start
+                // Initialize momentum to zeros using the host pointer
+                std::fill_n(sys->mom->get_mutable_host_ptr(), sys->n_atom * 3, 0.f);
+                sys->thermostat.apply(VecArray(sys->mom->get_mutable_host_ptr(), 3), sys->n_atom); // initial thermalization if it's a fresh start
             }
 
 
             // we must capture the sys pointer by value here so that it is available later
             sys->logger->add_logger<float>("pos", {1, sys->n_atom, 3}, [sys](float* pos_buffer) {
-                    VecArray pos_array = sys->engine.pos->output;
+                    VecArray pos_array(sys->engine.pos->output.get_mutable_host_ptr(), sys->engine.pos->elem_width);
                     for(int na=0; na<sys->n_atom; ++na) 
                     for(int d=0; d<3; ++d) 
                     pos_buffer[na*3 + d] = pos_array(d,na);
                     });
             if (record_momentum_arg.getValue()) { // record the momentum if requested, with the same frequency as the position recording
                 sys->logger->add_logger<float>("mom", {1, sys->n_atom, 3}, [sys](float* mom_buffer) {
-                        VecArray mom_array = sys->mom;
+                        VecArray mom_array(sys->mom->get_mutable_host_ptr(), 3); // Use get_mutable_host_ptr and elem_width 3
                         for(int na=0; na<sys->n_atom; ++na) 
                         for(int d=0; d<3; ++d) 
                         mom_buffer[na*3 + d] = mom_array(d,na);
@@ -821,7 +823,7 @@ try {
             }
             sys->logger->add_logger<double>("kinetic", {1}, [sys](double* kin_buffer) {
                     double sum_kin = 0.f;
-                    for(int na=0; na<sys->n_atom; ++na) sum_kin += mag2(load_vec<3>(sys->mom,na));
+                    for(int na=0; na<sys->n_atom; ++na) sum_kin += mag2(load_vec<3>(VecArray(sys->mom->get_mutable_host_ptr(), 3),na)); // Use get_mutable_host_ptr and elem_width 3
                     kin_buffer[0] = (0.5/sys->n_atom)*sum_kin;  // kinetic_energy = (1/2) * <mom^2>
                     });
             sys->logger->add_logger<double>("potential", {1}, [sys](double* pot_buffer) {
@@ -927,36 +929,36 @@ try {
                             break;
                         }
 
-                        // Check if run time limit exceeded 
-                        if (time_lim > 0.) {
-                            auto elapsed = chrono::duration<double>(std::chrono::high_resolution_clock::now() - tstart).count();
-                            // printf("Currently at %.1f seconds\n", elapsed);
-                            if (elapsed > time_lim) {
-                                passed_time_lim = true;
-                                break;
-                            }
-                        }    
-                    } 
+                    // Check if run time limit exceeded 
+                    if (time_lim > 0.) {
+                        auto elapsed = chrono::duration<double>(std::chrono::high_resolution_clock::now() - tstart).count();
+                        // printf("Currently at %.1f seconds\n", elapsed);
+                        if (elapsed > time_lim) {
+                            passed_time_lim = true;
+                            break;
+                        }
+                    }    
+                } 
 
-                    // Don't pivot at t=0 so that a partially strained system may relax before the
-                    // first pivot
-                    if(nr && mc_interval && !(nr%mc_interval)) 
-                        sys.mc_samplers.execute(sys.random_seed, nr, sys.temperature, sys.engine);
+                // Don't pivot at t=0 so that a partially strained system may relax before the
+                // first pivot
+                if(nr && mc_interval && !(nr%mc_interval)) 
+                    sys.mc_samplers.execute(sys.random_seed, nr, sys.temperature, sys.engine);
 
-                    if(!frame_interval || !(nr%frame_interval)) {
-                        if(do_recenter) recenter(sys.engine.pos->output, xy_recenter_only, sys.n_atom);
-                        sys.engine.compute(PotentialAndDerivMode);
-                        sys.logger->collect_samples();
+                if(!frame_interval || !(nr%frame_interval)) {
+                    if(do_recenter) recenter(VecArray(sys.engine.pos->output.get_mutable_host_ptr(), sys.engine.pos->elem_width), xy_recenter_only, sys.n_atom);
+                    sys.engine.compute(PotentialAndDerivMode);
+                    sys.logger->collect_samples();
 
-                        double Rg = 0.f;
-                        float3 com = make_vec3(0.f, 0.f, 0.f);
-                        for(int na=0; na<sys.n_atom; ++na)
-                            com += load_vec<3>(sys.engine.pos->output, na);
-                        com *= 1.f/sys.n_atom;
+                    double Rg = 0.f;
+                    float3 com = make_vec3(0.f, 0.f, 0.f);
+                    for(int na=0; na<sys.n_atom; ++na)
+                        com += load_vec<3>(VecArray(sys.engine.pos->output.get_mutable_host_ptr(), sys.engine.pos->elem_width), na);
+                    com *= 1.f/sys.n_atom;
 
-                        for(int na=0; na<sys.n_atom; ++na) 
-                            Rg += mag2(load_vec<3>(sys.engine.pos->output,na)-com);
-                        Rg = sqrtf(Rg/sys.n_atom);
+                    for(int na=0; na<sys.n_atom; ++na) 
+                        Rg += mag2(load_vec<3>(VecArray(sys.engine.pos->output.get_mutable_host_ptr(), sys.engine.pos->elem_width),na)-com);
+                    Rg = sqrtf(Rg/sys.n_atom);
 
                         if(verbose) printf(
                                 "%*.0f / %*.0f elapsed %2i system %.2f temp %5.1f hbonds, Rg %5.1f A, potential % 8.2f\n", 
@@ -975,13 +977,13 @@ try {
                         // Handle simulated annealing if applicable
                         if(anneal_factor != 1.)
                             sys.set_temperature(anneal_temp(sys.initial_temperature, inner_step*dt*(sys.round_num+1)));
-                        sys.thermostat.apply(sys.mom, sys.n_atom);
+                        sys.thermostat.apply(VecArray(sys.mom->get_mutable_host_ptr(), 3), sys.n_atom); // Create VecArray from device_buffer
                     }
 
                     if  (integrator_arg.getValue() == "mv" )
-                        sys.engine.integration_cycle(sys.mom, dt, inner_step);
+                        sys.engine.integration_cycle(*sys.mom, dt, inner_step); // Dereference unique_ptr
                     else
-                        sys.engine.integration_cycle(sys.mom, dt);
+                        sys.engine.integration_cycle(*sys.mom, dt); // Dereference unique_ptr
 
                     if(curvature_changer_interval && !(sys.round_num % curvature_changer_interval))
                         curvature_changer->attempt_change(base_random_seed, sys.round_num, sys, relative_curvature_radius_change);

@@ -111,12 +111,12 @@ struct MembranePotential : public PotentialNode
     virtual void compute_value(ComputeMode mode) {
         Timer timer(string("membrane_potential"));
 
-        VecArray cb_pos       = res_pos.output;
-        VecArray cb_pos_sens  = res_pos.sens;
-        VecArray env_cov      = environment_coverage.output;
-        VecArray env_cov_sens = environment_coverage.sens;
-        VecArray hb_pos       = protein_hbond.output;
-        VecArray hb_sens      = protein_hbond.sens;
+        VecArray cb_pos(res_pos.output.get_mutable_host_ptr(), res_pos.elem_width);
+        VecArray cb_pos_sens(res_pos.sens.get_mutable_host_ptr(), res_pos.elem_width);
+        VecArray env_cov(environment_coverage.output.get_mutable_host_ptr(), environment_coverage.elem_width);
+        VecArray env_cov_sens(environment_coverage.sens.get_mutable_host_ptr(), environment_coverage.elem_width);
+        VecArray hb_pos(protein_hbond.output.get_mutable_host_ptr(), protein_hbond.elem_width);
+        VecArray hb_sens(protein_hbond.sens.get_mutable_host_ptr(), protein_hbond.elem_width);
 
         potential = 0.f;
 
@@ -187,8 +187,8 @@ struct MembranePotential : public PotentialNode
     virtual std::vector<float> get_param_deriv() override {
         vector<float> deriv(40, 0.f);
 
-        VecArray cb_pos  = res_pos.output;
-        VecArray env_cov = environment_coverage.output;
+        VecArray cb_pos(res_pos.output.get_mutable_host_ptr(), res_pos.elem_width);
+        VecArray env_cov(environment_coverage.output.get_mutable_host_ptr(), environment_coverage.elem_width);
 
         for(int nr=0; nr<n_elem; ++nr) {
             auto &p = res_params[nr];
@@ -292,10 +292,10 @@ struct MembraneCBPotential : public PotentialNode
     virtual void compute_value(ComputeMode mode) {
         Timer timer(string("cb_membrane_potential"));
 
-        VecArray cb_pos       = res_pos.output;
-        VecArray cb_pos_sens  = res_pos.sens;
-        VecArray env_cov      = environment_coverage.output;
-        VecArray env_cov_sens = environment_coverage.sens;
+        VecArray cb_pos(res_pos.output.get_mutable_host_ptr(), res_pos.elem_width);
+        VecArray cb_pos_sens(res_pos.sens.get_mutable_host_ptr(), res_pos.elem_width);
+        VecArray env_cov(environment_coverage.output.get_mutable_host_ptr(), environment_coverage.elem_width);
+        VecArray env_cov_sens(environment_coverage.sens.get_mutable_host_ptr(), environment_coverage.elem_width);
 
         potential = 0.f;
 
@@ -309,7 +309,8 @@ struct MembraneCBPotential : public PotentialNode
         vector<float> fs(n_bl);
         vector<float> dfs(n_bl);
 
-        auto ccenter = load_vec<3>(center_of_curvature.output, 0);
+        VecArray center_of_curvature_output(center_of_curvature.output.get_mutable_host_ptr(), center_of_curvature.elem_width);
+        auto ccenter = load_vec<3>(center_of_curvature_output, 0);
         curvature_radius = ccenter.z()*-1.f*curvature_sign;
 
         for(int nr=0; nr<n_elem; ++nr) {
@@ -420,8 +421,8 @@ struct MembraneCBPotential : public PotentialNode
         int np = n_restype*n_bl*n_node;
         vector<float> deriv(np, 0.f);
 
-        VecArray cb_pos  = res_pos.output;
-        VecArray env_cov = environment_coverage.output;
+        VecArray cb_pos(res_pos.output.get_mutable_host_ptr(), res_pos.elem_width);
+        VecArray env_cov(environment_coverage.output.get_mutable_host_ptr(), environment_coverage.elem_width);
 
         vector<float> bl_score1(n_bl-1);
         vector<float> bl_score2(n_bl-1);
@@ -430,7 +431,8 @@ struct MembraneCBPotential : public PotentialNode
         vector<float> bl_score(n_bl);
         vector<float> d_bl_score(n_bl);
 
-        auto ccenter = load_vec<3>(center_of_curvature.output, 0);
+        VecArray center_of_curvature_output(center_of_curvature.output.get_mutable_host_ptr(), center_of_curvature.elem_width);
+        auto ccenter = load_vec<3>(center_of_curvature_output, 0);
         curvature_radius = ccenter.z()*-1.f*curvature_sign;
 
         for(int nr=0; nr<n_elem; ++nr) {
@@ -536,12 +538,13 @@ struct MembraneHBPotential : public PotentialNode
     virtual void compute_value(ComputeMode mode) {
         Timer timer(string("hb_membrane_potential"));
 
-        VecArray hb_pos  = protein_hbond.output;
-        VecArray hb_sens = protein_hbond.sens;
+        VecArray hb_pos(protein_hbond.output.get_mutable_host_ptr(), protein_hbond.elem_width);
+        VecArray hb_sens(protein_hbond.sens.get_mutable_host_ptr(), protein_hbond.elem_width);
 
         potential = 0.f;
 
-        auto ccenter = load_vec<3>(center_of_curvature.output, 0);
+        VecArray center_of_curvature_output(center_of_curvature.output.get_mutable_host_ptr(), center_of_curvature.elem_width);
+        auto ccenter = load_vec<3>(center_of_curvature_output, 0);
         curvature_radius = ccenter.z()*-1.f*curvature_sign;
 
         for(int nv=0; nv<n_elem; ++nv) {
@@ -626,9 +629,10 @@ struct MembraneHBPotential : public PotentialNode
     virtual std::vector<float> get_param_deriv() override {
         int np = 2*2*n_node;
         vector<float> deriv(np, 0.f);
-        VecArray hb_pos = protein_hbond.output;
+        VecArray hb_pos(protein_hbond.output.get_mutable_host_ptr(), protein_hbond.elem_width);
 
-        auto ccenter = load_vec<3>(center_of_curvature.output, 0);
+        VecArray center_of_curvature_output(center_of_curvature.output.get_mutable_host_ptr(), center_of_curvature.elem_width);
+        auto ccenter = load_vec<3>(center_of_curvature_output, 0);
         curvature_radius = ccenter.z()*-1.f*curvature_sign;
 
         for(int nv=0; nv<n_elem; ++nv) {
@@ -756,12 +760,12 @@ struct MembraneSurfCBPotential : public PotentialNode
     virtual void compute_value(ComputeMode mode) {
         Timer timer(string("cb_surf_membrane_potential"));
 
-        VecArray cb_pos       = res_pos.output;
-        VecArray cb_pos_sens  = res_pos.sens;
-        VecArray env_cov      = environment_coverage.output;
-        VecArray env_cov_sens = environment_coverage.sens;
+        VecArray cb_pos(res_pos.output.get_mutable_host_ptr(), res_pos.elem_width);
+        VecArray cb_pos_sens(res_pos.sens.get_mutable_host_ptr(), res_pos.elem_width);
+        VecArray env_cov(environment_coverage.output.get_mutable_host_ptr(), environment_coverage.elem_width);
+        VecArray env_cov_sens(environment_coverage.sens.get_mutable_host_ptr(), environment_coverage.elem_width);
 
-        VecArray surf         = surface.output;
+        VecArray surf(surface.output.get_mutable_host_ptr(), surface.elem_width);
 
         potential = 0.f;
 
@@ -775,7 +779,8 @@ struct MembraneSurfCBPotential : public PotentialNode
         vector<float> fs(n_bl);
         vector<float> dfs(n_bl);
 
-        auto ccenter = load_vec<3>(center_of_curvature.output, 0);
+        VecArray center_of_curvature_output(center_of_curvature.output.get_mutable_host_ptr(), center_of_curvature.elem_width);
+        auto ccenter = load_vec<3>(center_of_curvature_output, 0);
         curvature_radius = ccenter.z()*-1.f*curvature_sign;
 
         for(int nr=0; nr<n_elem; ++nr) {
@@ -905,9 +910,9 @@ struct MembraneSurfCBPotential : public PotentialNode
         int np = n_restype*n_bl*n_node;
         vector<float> deriv(np, 0.f);
 
-        VecArray cb_pos  = res_pos.output;
-        VecArray env_cov = environment_coverage.output;
-        VecArray surf    = surface.output;
+        VecArray cb_pos(res_pos.output.get_mutable_host_ptr(), res_pos.elem_width);
+        VecArray env_cov(environment_coverage.output.get_mutable_host_ptr(), environment_coverage.elem_width);
+        VecArray surf(surface.output.get_mutable_host_ptr(), surface.elem_width);
 
         vector<float> bl_score1(n_bl-1);
         vector<float> bl_score2(n_bl-1);
@@ -916,7 +921,8 @@ struct MembraneSurfCBPotential : public PotentialNode
         vector<float> bl_score(n_bl);
         vector<float> d_bl_score(n_bl);
 
-        auto ccenter = load_vec<3>(center_of_curvature.output, 0);
+        VecArray center_of_curvature_output(center_of_curvature.output.get_mutable_host_ptr(), center_of_curvature.elem_width);
+        auto ccenter = load_vec<3>(center_of_curvature_output, 0);
         curvature_radius = ccenter.z()*-1.f*curvature_sign;
 
         for(int nr=0; nr<n_elem; ++nr) {
@@ -1064,18 +1070,19 @@ struct MembraneSurfHBPotential : public PotentialNode
     virtual void compute_value(ComputeMode mode) {
         Timer timer(string("hb_membrane_potential"));
 
-        VecArray hb_pos  = protein_hbond.output;
-        VecArray hb_sens = protein_hbond.sens;
-        VecArray surf    = surface.output;
+        VecArray hb_pos(protein_hbond.output.get_mutable_host_ptr(), protein_hbond.elem_width);
+        VecArray hb_sens(protein_hbond.sens.get_mutable_host_ptr(), protein_hbond.elem_width);
+        VecArray surf(surface.output.get_mutable_host_ptr(), surface.elem_width);
 
-        VecArray env_cov      = environment_coverage.output;
-        VecArray env_cov_sens = environment_coverage.sens;
+        VecArray env_cov(environment_coverage.output.get_mutable_host_ptr(), environment_coverage.elem_width);
+        VecArray env_cov_sens(environment_coverage.sens.get_mutable_host_ptr(), environment_coverage.elem_width);
 
         float pot     = 0.f;
         float comb_f  = 0.f;
         float comb_df = 0.f;
 
-        auto ccenter = load_vec<3>(center_of_curvature.output, 0);
+        VecArray center_of_curvature_output(center_of_curvature.output.get_mutable_host_ptr(), center_of_curvature.elem_width);
+        auto ccenter = load_vec<3>(center_of_curvature_output, 0);
         curvature_radius = ccenter.z()*-1.f*curvature_sign;
 
         for(int nv=0; nv<n_elem; ++nv) {
@@ -1207,10 +1214,11 @@ struct MembraneSurfHBPotential : public PotentialNode
     virtual std::vector<float> get_param_deriv() override {
         int np = 2*2*n_node;
         vector<float> deriv(np, 0.f);
-        VecArray hb_pos = protein_hbond.output;
-        VecArray surf   = surface.output;
+        VecArray hb_pos(protein_hbond.output.get_mutable_host_ptr(), protein_hbond.elem_width);
+        VecArray surf(surface.output.get_mutable_host_ptr(), surface.elem_width);
 
-        auto ccenter = load_vec<3>(center_of_curvature.output, 0);
+        VecArray center_of_curvature_output(center_of_curvature.output.get_mutable_host_ptr(), center_of_curvature.elem_width);
+        auto ccenter = load_vec<3>(center_of_curvature_output, 0);
         curvature_radius = ccenter.z()*-1.f*curvature_sign;
 
         for(int nv=0; nv<n_elem; ++nv) {
@@ -1317,11 +1325,11 @@ struct MembraneLateralPotential : public PotentialNode
     virtual void compute_value(ComputeMode mode) {
         Timer timer(string("membrane_lateral_potential"));
 
-        VecArray surf    = surface.output;
-        VecArray bl      = BL.output;
+        VecArray surf(surface.output.get_mutable_host_ptr(), surface.elem_width);
+        VecArray bl(BL.output.get_mutable_host_ptr(), BL.elem_width);
         //VecArray bl_sens = BL.sens; // FIXME calcu the sens of bl
-        VecArray cb_pos  = pos.output;
-        VecArray cb_sens = pos.sens;
+        VecArray cb_pos(pos.output.get_mutable_host_ptr(), pos.elem_width);
+        VecArray cb_sens(pos.sens.get_mutable_host_ptr(), pos.elem_width);
 
         potential = 0.f;
 
@@ -1353,4 +1361,3 @@ struct MembraneLateralPotential : public PotentialNode
 };
 
 static RegisterNodeType<MembraneLateralPotential, 3> membrane_lateral_potential_node("membranelateral_potential");
-

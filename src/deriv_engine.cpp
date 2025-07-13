@@ -249,7 +249,7 @@ void DerivEngine::compute(ComputeMode mode) {
         if(!n.computation->potential_term) {
             // ensure zero sensitivity for later derivative writing
             CoordNode* coord_node = static_cast<CoordNode*>(n.computation.get());
-            fill(coord_node->sens, 0.f);
+            std::fill_n(coord_node->sens.get_mutable_host_ptr(), coord_node->sens.get_size(), 0.f);
         }
     }
 
@@ -266,7 +266,7 @@ void DerivEngine::compute(ComputeMode mode, int integrator_level) {
         auto& n = nodes[i];
         if (not n.computation->potential_term) {
             CoordNode* coord_node = static_cast<CoordNode*>(n.computation.get());
-            fill(coord_node->sens, 0.f);
+            std::fill_n(coord_node->sens.get_mutable_host_ptr(), coord_node->sens.get_size(), 0.f);
         }
 
         if (n.integrator_level != integrator_level and n.integrator_level != -1)
@@ -292,7 +292,7 @@ void DerivEngine::compute(ComputeMode mode, int integrator_level) {
 }
 
 
-void DerivEngine::integration_cycle(VecArray mom, float dt, float max_force, IntegratorType type) {
+void DerivEngine::integration_cycle(device_buffer<float>& mom, float dt, float max_force, IntegratorType type) {
     // integrator from Predescu et al., 2012
     // http://dx.doi.org/10.1080/00268976.2012.681311
 
@@ -306,46 +306,63 @@ void DerivEngine::integration_cycle(VecArray mom, float dt, float max_force, Int
         compute(DerivMode);   // compute derivatives
         Timer timer(string("integration"));
         integration_stage( 
-                mom,
-                pos->output,
-                pos->sens,
+                VecArray(mom.get_mutable_host_ptr(), 3), // mom has elem_width 3
+                VecArray(pos->output.get_mutable_host_ptr(), pos->elem_width),
+                VecArray(const_cast<float*>(pos->sens.get_host_ptr()), pos->elem_width),
                 dt*mom_update[stage], dt*pos_update[stage], max_force, 
                 pos->n_atom);
     }
 }
 
-void DerivEngine::integration_cycle(VecArray mom, float dt) {
+void DerivEngine::integration_cycle(device_buffer<float>& mom, float dt) {
 
     for(int stage=0; stage<3; ++stage) {
         compute(DerivMode);   // compute derivatives
         Timer timer(string("integration"));
 
+        float* mom_host_ptr = mom.get_mutable_host_ptr();
+        float* pos_output_host_ptr = pos->output.get_mutable_host_ptr();
+        const float* pos_sens_host_ptr = pos->sens.get_host_ptr();
+
+        VecArray mom_array(mom_host_ptr, 3); // mom has elem_width 3
+        VecArray pos_output_array(pos_output_host_ptr, pos->elem_width);
+        VecArray pos_sens_array(const_cast<float*>(pos_sens_host_ptr), pos->elem_width);
+
         for(int na=0; na < pos->n_atom; ++na) {
             // assumes unit mass for all particles
-            auto d = load_vec<3>(pos->sens, na);
-            auto p = load_vec<3>(mom, na) - dt*d;
-            store_vec (mom,   na, p);
-            update_vec(pos->output, na, dt*p);
+            auto d = load_vec<3>(pos_sens_array, na);
+            auto p = load_vec<3>(mom_array, na) - dt*d;
+            store_vec (mom_array,   na, p);
+            update_vec(pos_output_array, na, dt*p);
         }
     }
 }
 
-void DerivEngine::integration_cycle(VecArray mom, float dt, int inner_step) {
+void DerivEngine::integration_cycle(device_buffer<float>& mom, float dt, int inner_step) {
     // calculate acceleration, update velocity for slow level
     compute(DerivMode, 1); 
+
+    float* mom_host_ptr = mom.get_mutable_host_ptr();
+    float* pos_output_host_ptr = pos->output.get_mutable_host_ptr();
+    const float* pos_sens_host_ptr = pos->sens.get_host_ptr();
+
+    VecArray mom_array(mom_host_ptr, 3); // mom has elem_width 3
+    VecArray pos_output_array(pos_output_host_ptr, pos->elem_width);
+    VecArray pos_sens_array(const_cast<float*>(pos_sens_host_ptr), pos->elem_width);
+
     for(int na=0; na < pos->n_atom; ++na) {
-        auto d = load_vec<3>(pos->sens, na);
-        auto p = load_vec<3>(mom, na) - inner_step*dt*d;
-        store_vec (mom,   na, p);
+        auto d = load_vec<3>(pos_sens_array, na);
+        auto p = load_vec<3>(mom_array, na) - inner_step*dt*d;
+        store_vec (mom_array,   na, p);
     }
     // calculate acceleration, update velocity for fast level
     for(int i=0;i<inner_step;i++) {
         compute(DerivMode, 0);
         for(int na=0; na < pos->n_atom; ++na) {
-            auto d = load_vec<3>(pos->sens, na);
-            auto p = load_vec<3>(mom, na) - dt*d;
-            store_vec (mom,   na, p);
-            update_vec(pos->output, na, dt*p);
+            auto d = load_vec<3>(pos_sens_array, na);
+            auto p = load_vec<3>(mom_array, na) - dt*d;
+            store_vec (mom_array,   na, p);
+            update_vec(pos_output_array, na, dt*p);
         }
     }
 }

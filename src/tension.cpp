@@ -30,8 +30,8 @@ struct TensionPotential : public PotentialNode
     virtual void compute_value(ComputeMode mode) {
         Timer timer(string("tension"));
 
-        VecArray pos_c = pos.output;
-        VecArray pos_sens = pos.sens;
+        VecArray pos_c(pos.output.get_mutable_host_ptr(), pos.elem_width);
+        VecArray pos_sens(pos.sens.get_mutable_host_ptr(), pos.elem_width);
 
         float pot = 0.f;
         for(auto &p: params) {

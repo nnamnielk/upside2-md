@@ -261,13 +261,14 @@ void MonteCarloSampler::monte_carlo_step(
     RandomGenerator random(seed, stream_id, 0, round);
 
     auto &pos = engine.pos->output;
-    VecArrayStorage pos_copy(pos);
+    VecArrayStorage pos_copy(engine.pos->elem_width, engine.pos->n_atom);
+    copy(VecArray(pos.get_mutable_host_ptr(), pos_copy.row_width), pos_copy);
     float delta_lprob;
 
     engine.compute(PotentialAndDerivMode);
     float old_potential = engine.potential;
 
-    propose_random_move(&delta_lprob, random, pos);
+    propose_random_move(&delta_lprob, random, VecArray(pos.get_mutable_host_ptr(), engine.pos->elem_width));
 
     engine.compute(PotentialAndDerivMode);
     float new_potential = engine.potential;
@@ -279,7 +280,8 @@ void MonteCarloSampler::monte_carlo_step(
         move_stats.n_success++;
     } else {
         // If we reject the move, we must reverse it
-        copy(pos_copy, pos);
+        VecArray pos_view(pos.get_mutable_host_ptr(), pos_copy.row_width);
+        copy(pos_copy, pos_view);
     }
 }
 
@@ -304,5 +306,3 @@ MultipleMonteCarloSampler::MultipleMonteCarloSampler(hid_t sampler_group, H5Logg
 		samplers.emplace_back(
                         new JumpSampler(name.c_str(), open_group(sampler_group, (name + "_moves").c_str()).get(), logger));
 }
-
-

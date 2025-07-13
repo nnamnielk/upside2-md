@@ -263,7 +263,7 @@ struct WallSpring : public PotentialNode
         if(logging(LOG_DETAILED))
             default_logger->add_logger<float>("wall_energy", {1}, [&](float* buffer) {
                     float pot = 0.f;
-                    VecArray x = pos.output;
+                    VecArray x(pos.output.get_mutable_host_ptr(), pos.elem_width);
 
                     for(int nt=0; nt<n_elem; ++nt) {
 
@@ -280,8 +280,8 @@ struct WallSpring : public PotentialNode
     virtual void compute_value(ComputeMode mode) {
         Timer timer(string("walls"));
 
-        VecArray posc = pos.output;
-        VecArray pos_sens = pos.sens;
+        VecArray posc(pos.output.get_mutable_host_ptr(), pos.elem_width);
+        VecArray pos_sens(pos.sens.get_mutable_host_ptr(), pos.elem_width);
         float* pot = mode==PotentialAndDerivMode ? &potential : nullptr;
         if(pot) *pot = 0.f;
 
@@ -342,7 +342,7 @@ struct ContactEnergy : public PotentialNode
             default_logger->add_logger<float>("contact_energy", {bead_pos.n_elem}, 
                     [&](float* buffer) {
                        fill_n(buffer, bead_pos.n_elem, 0.f);
-                       VecArray pos  = bead_pos.output;
+                       VecArray pos(bead_pos.output.get_mutable_host_ptr(), bead_pos.elem_width);
 
                        for(const auto &p: params) {
                            auto dist = mag(load_vec<3>(pos, p.loc[0]) - load_vec<3>(pos, p.loc[1]));
@@ -355,8 +355,8 @@ struct ContactEnergy : public PotentialNode
 
     virtual void compute_value(ComputeMode mode) {
         Timer timer(string("contact_energy"));
-        VecArray pos  = bead_pos.output;
-        VecArray sens = bead_pos.sens;
+        VecArray pos(bead_pos.output.get_mutable_host_ptr(), bead_pos.elem_width);
+        VecArray sens(bead_pos.sens.get_mutable_host_ptr(), bead_pos.elem_width);
         potential = 0.f;
 
         for(int nc=0; nc<n_contact; ++nc) {
@@ -420,7 +420,7 @@ struct CooperationContacts : public PotentialNode
             default_logger->add_logger<float>("cooperation_contacts", {bead_pos.n_elem}, 
                     [&](float* buffer) {
                        fill_n(buffer, bead_pos.n_elem, 0.f);
-                       VecArray pos  = bead_pos.output;
+                       VecArray pos(bead_pos.output.get_mutable_host_ptr(), bead_pos.elem_width);
 
                        float en = 1.f;
                        for(const auto &p: params) {
@@ -441,8 +441,8 @@ struct CooperationContacts : public PotentialNode
     virtual void compute_value(ComputeMode mode) {
         Timer timer(string("cooperation_contacts"));
 
-        VecArray pos  = bead_pos.output;
-        VecArray sens = bead_pos.sens;
+        VecArray pos(bead_pos.output.get_mutable_host_ptr(), bead_pos.elem_width);
+        VecArray sens(bead_pos.sens.get_mutable_host_ptr(), bead_pos.elem_width);
 
         float product_contact = 1.f;
 
