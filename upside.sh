@@ -130,6 +130,7 @@ launch_jupyter() {
     
     # Start container with Jupyter
     docker run -d \
+        --platform=linux/x86 \
         --name "$CONTAINER_NAME" \
         -p "$JUPYTER_PORT:8888" \
         -v "$mount_abs_path:/persistent" \
@@ -180,6 +181,7 @@ launch_dev() {
     
     # Start interactive container with development tools
     docker run --rm -it \
+        --platform=linux/x86 \
         --name "${CONTAINER_NAME:-upside2-dev-$(date +%s)}" \
         -v "$CACHE_DIR:/ccache" \
         -v "$mount_abs_path:/upside2-md" \
@@ -255,6 +257,7 @@ launch_run() {
     
     # Execute the command in the container
     docker run --rm \
+        --platform=linux/x86 \
         "${docker_opts[@]}" \
         -w /persistent \
         "$BASE_DOCKER_IMAGE" \

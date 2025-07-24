@@ -41,10 +41,10 @@ RUN conda run -n upside2-env conda install -c conda-forge -y \
     && conda clean -afy
 
 # Configure ccache for persistent caching
-ENV CCACHE_DIR=/ccache
+ENV CCACHE_DIR=/upside2-md/.ccache
 ENV CCACHE_MAXSIZE=12G
-RUN mkdir -p /ccache && \
-    chmod 777 /ccache
+RUN mkdir -p /upside2-md/.ccache && \
+    chmod 777 /upside2-md/.ccache
 
 # Configure gdb for better debugging experience
 RUN echo "set auto-load safe-path /" >> /home/user/.gdbinit && \
@@ -66,7 +66,7 @@ ENV UPSIDE_HOME="/upside2-md"
 USER user
 
 # Declare volume for ccache persistence
-VOLUME ["/ccache"]
+VOLUME ["/upside2-md/.ccache"]
 
 # Keep the existing entrypoint and command
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
