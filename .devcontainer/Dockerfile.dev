@@ -1,30 +1,50 @@
 # .devcontainer/Dockerfile.dev
 # Extends the base upside2-md Dockerfile with development and debugging tools
 
-FROM .devcontainer/Dockerfile
+FROM upside2-base:latest
+#FROM oliverkleinmann/upside2-md:latest
 LABEL maintainer="Oliver Kleinmann"
 
 # Switch to root for package installation
 USER root
 
 # Install development and debugging tools
+# binutils provides gprof for gmon support
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gdb \
     gdbserver \
     vim \
     nano \
-    hexdump \
+    util-linux \
+    binutils \
+    ccache \
+    git \
+    clang \
+    curl \
+    doxygen \
+    graphviz \
+    asciidoctor \
+    tree \
     && rm -rf /var/lib/apt/lists/*
 
-# Install additional development conda packages
+# Install Python development packages
 RUN conda run -n upside2-env conda install -c conda-forge -y \
-    gdb \
     ipdb \
-    pdb++ \
+    pdbpp \
     line_profiler \
     memory_profiler \
     py-spy \
+    flake8 \
+    black \
+    mypy \
+    pre-commit \
     && conda clean -afy
+
+# Configure ccache for persistent caching
+ENV CCACHE_DIR=/ccache
+ENV CCACHE_MAXSIZE=12G
+RUN mkdir -p /ccache && \
+    chmod 777 /ccache
 
 # Configure gdb for better debugging experience
 RUN echo "set auto-load safe-path /" >> /home/user/.gdbinit && \
@@ -37,11 +57,16 @@ RUN echo "set auto-load safe-path /" >> /home/user/.gdbinit && \
 RUN echo "* soft core unlimited" >> /etc/security/limits.conf && \
     echo "* hard core unlimited" >> /etc/security/limits.conf
 
-# Enable DEBUG option in CMakeLists files
-RUN sed -i 's/option(DEBUG "Enable debug build" OFF)/option(DEBUG "Enable debug build" ON)/' /home/user/upside2-md/src/CMakeLists_x86.txt
+# Set environment variables for upside2-md
+ENV MY_PYTHON="/opt/conda"
+ENV EIGEN_HOME="/usr/include/eigen3"
+ENV UPSIDE_HOME="/upside2-md"
 
 # Switch back to non-root user
 USER user
+
+# Declare volume for ccache persistence
+VOLUME ["/ccache"]
 
 # Keep the existing entrypoint and command
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

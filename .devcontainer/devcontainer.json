@@ -3,8 +3,13 @@
     "name": "Upside2 Dev Environment",
 
     "build": {
-        "dockerfile": "Dockerfile",
+        "dockerfile": "Dockerfile.dev",
         "context": "..", // Build context is the parent directory
+        "options": [
+            "--platform=linux/amd64", // Force x86_64 for consistent experience across Intel and Apple Silicon Macs
+            "--no-cache",
+            "--pull=false" // If using --pull=true, remember to uncomment FROM oliverkleinmann/upside2-md:latest 
+        ],
         "args": {
             // -- BUILD ARGUMENT TO CHOOSE ENVIRONMENT --
             // To use the fast environment, uncomment the following line and rebuild the container.
@@ -14,12 +19,12 @@
 
     // --- KEY SETTINGS FOR USER EXPERIENCE ---
     "containerEnv": {
-        "UPSIDE_HOME": "/workspaces/${localWorkspaceFolderBasename}",
+        "UPSIDE_HOME": "/upside2-md",
         "INSTALL_TYPE": "${buildArg:INSTALL_TYPE:-slow}"
     },
 
-    "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind,consistency=cached",
-    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/upside2-md,type=bind,consistency=cached",
+    "workspaceFolder": "/upside2-md",
 
     "postCreateCommand": "bash .devcontainer/post-create.sh",
 
@@ -31,8 +36,8 @@
                 "terminal.integrated.defaultProfile.linux": "bash",
                 "terminal.integrated.profiles.linux": {
                     "bash": {
-                        "path": "/usr/local/bin/entrypoint.sh",
-                        "args": []
+                        "path": "/bin/bash",
+                        "args": ["-l"]
                     }
                 }
             },
@@ -40,7 +45,8 @@
                 "ms-python.python",
                 "ms-python.vscode-pylance",
                 "ms-vscode.cpptools",
-                "ms-azuretools.vscode-docker"
+                "ms-azuretools.vscode-docker",
+                "saoudrizwan.claude-dev"
             ]
         }
     },

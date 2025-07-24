@@ -1,0 +1,21 @@
+# Set default behavior to automatically normalize line endings
+* text=auto eol=lf
+
+# Force Unix line endings for shell scripts and Python files
+*.sh text eol=lf
+*.py text eol=lf
+
+# Force Unix line endings for source files that need to be processed
+source_arm text eol=lf
+source_x86 text eol=lf
+
+# Ensure Makefiles and CMake files use Unix line endings
+Makefile text eol=lf
+*.cmake text eol=lf
+CMakeLists.txt text eol=lf
+
+# Binary files should not be processed
+*.so binary
+*.a binary
+*.o binary
+*.exe binary

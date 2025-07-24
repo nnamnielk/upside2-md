@@ -11,6 +11,7 @@ echo "Setting up build environment for C++ compilation..."
 export EIGEN_HOME=/usr/include/eigen3
 
 echo "Building Upside C++ code..."
+cd /upside2-md/
 sudo ./install.sh
 
 echo "--- Post-Create Setup Complete ---"
