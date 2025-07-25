@@ -7,6 +7,21 @@ set -e
 
 # Default values
 MOUNT_PATH="."
+USE_SLURM="false"
+
+# SLURM defaults (used only with singularity)
+SLURM_CPUS="1"
+SLURM_PARTITION="broadwl"
+SLURM_MEMORY="8"
+SLURM_GPUS="0"
+SLURM_ACCOUNT="pi-trsosnic"
+SLURM_TIME=""
+
+# Container runtime: docker (default) or singularity
+CONTAINER_RUNTIME=""
+SINGULARITY_IMAGE_DIR="$(pwd)/singularity_images"
+SINGULARITY_IMAGE_NAME=""
+SINGULARITY_IMAGE_PATH=""
 
 LAB_DOCKER_IMAGE="upside2-lab"
 DEV_DOCKER_IMAGE="upside2-dev"
@@ -25,6 +40,9 @@ mkdir -p "$CACHE_DIR"
 # Ensure output base directory exists
 mkdir -p "$OUTPUT_BASE"
 
+# Ensure singularity image directory exists
+mkdir -p "$SINGULARITY_IMAGE_DIR"
+
 # Function to show usage
 show_usage() {
     echo "Usage: $0 <command> [options]"
@@ -37,6 +55,17 @@ show_usage() {
     echo "  run        Execute a command in the base container"
     echo "  jupyter    Launch Jupyter Lab in the background"
     echo "  develop    Launch an interactive development shell"
+    echo ""
+    echo "Global options:"
+    echo "  --slurm              Use SLURM+Singularity (default: Docker)"
+    echo ""
+    echo "SLURM options (with --slurm):"
+    echo "  --cpus=<n>         Number of CPUs (default: 1)"
+    echo "  --partition=<name> SLURM partition (default: broadwl)"
+    echo "  --memory=<GB>      Memory in GB (default: 8)"
+    echo "  --gpus=<n>         Number of GPUs (default: 0, omit for CPU jobs)"
+    echo "  --account=<name>   SLURM account (default: pi-trsosnic)"
+    echo "  --time=<hh:mm:ss>  SLURM time limit (optional)"
     echo ""
     echo "Build options:"
     echo "  --name=<name>      Image name (default: upside2-lab)"
@@ -62,7 +91,7 @@ show_usage() {
     echo "  $0 clean"
     echo "  $0 run python example/01.GettingStarted/0.run.py  # runs local file in container"
     echo "  $0 run --capture-dir=/data/results python script.py  # captures container output"
-    echo "  $0 jupyter --mount=./data --port=9999"
+    echo "  $0 jupyter --slurm --mount=./data --port=9999"
     echo "  $0 develop --mount=. --build"
     echo ""
 }
@@ -110,6 +139,69 @@ get_absolute_path() {
     fi
 }
 
+# Ensure singularity image exists (pull from docker-daemon)
+ensure_singularity_image() {
+    local docker_image="$1"
+    local sif_path="$2"
+    if [[ ! -f "$sif_path" ]]; then
+        echo "Singularity image not found: $sif_path"
+        echo "Pulling singularity image from local docker-daemon: $docker_image"
+        singularity pull "$sif_path" "docker-daemon://${docker_image}:latest"
+    else
+        echo "Using cached singularity image: $sif_path"
+    fi
+}
+
+# Helper: Wrap a singularity command with srun and SLURM flags
+wrap_with_slurm() {
+    local slurm_cmd=("srun"
+        "--cpus-per-task=$SLURM_CPUS"
+        "--partition=$SLURM_PARTITION"
+        "--mem=${SLURM_MEMORY}G"
+        "--account=$SLURM_ACCOUNT"
+    )
+    if [[ -n "$SLURM_TIME" ]]; then
+        slurm_cmd+=("--time=$SLURM_TIME")
+    fi
+    if [[ "$SLURM_GPUS" != "0" && -n "$SLURM_GPUS" ]]; then
+        slurm_cmd+=("--gres=gpu:$SLURM_GPUS")
+    fi
+    # Forward all args
+    slurm_cmd+=("$@")
+    "${slurm_cmd[@]}"
+}
+
+# Abstraction for running containers (docker or singularity)
+container_run() {
+    local image="$1"
+    shift
+    local run_cmd=("$@")
+    local mount_abs_path
+    mount_abs_path=$(get_absolute_path "$MOUNT_PATH")
+
+    if [[ "$CONTAINER_RUNTIME" == "docker" ]]; then
+        docker run -d \
+            --platform=linux/x86 \
+            --name "$CONTAINER_NAME" \
+            -p "$JUPYTER_PORT:8888" \
+            -v "$mount_abs_path:/persistent" \
+            -w /persistent \
+            "$image" \
+            "${run_cmd[@]}"
+    elif [[ "$CONTAINER_RUNTIME" == "singularity" ]]; then
+        SINGULARITY_IMAGE_NAME="${image}.sif"
+        SINGULARITY_IMAGE_PATH="$SINGULARITY_IMAGE_DIR/$SINGULARITY_IMAGE_NAME"
+        ensure_singularity_image "$image" "$SINGULARITY_IMAGE_PATH"
+        wrap_with_slurm singularity run \
+            --bind "$mount_abs_path:/persistent" \
+            "$SINGULARITY_IMAGE_PATH" \
+            "${run_cmd[@]}"
+    else
+        echo "Unknown container runtime: $CONTAINER_RUNTIME"
+        exit 1
+    fi
+}
+
 # Function to launch Jupyter
 launch_jupyter() {
     local mount_abs_path
@@ -119,45 +211,50 @@ launch_jupyter() {
         echo "Error: Mount path '$mount_abs_path' does not exist"
         exit 1
     fi
-    
-    echo "Building/checking Docker image..."
-    build_lab_image
-    
+
+    if [[ "$CONTAINER_RUNTIME" == "docker" ]]; then
+        echo "Building/checking Docker image..."
+        build_lab_image
+    fi
+
     echo "Starting Jupyter Lab container..."
     echo "  - Container name: $CONTAINER_NAME"
     echo "  - Mounting: $mount_abs_path -> /persistent"
     echo "  - Jupyter port: $JUPYTER_PORT"
-    
-    # Start container with Jupyter
-    docker run -d \
-        --platform=linux/x86 \
-        --name "$CONTAINER_NAME" \
-        -p "$JUPYTER_PORT:8888" \
-        -v "$mount_abs_path:/persistent" \
-        -w /persistent \
-        "$LAB_DOCKER_IMAGE" \
+
+    # Start container with Jupyter (docker or singularity)
+    container_run "$LAB_DOCKER_IMAGE" \
         bash -c "conda run -n upside2-env jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password=''"
-    
-    # Wait a moment for Jupyter to start
-    echo "Waiting for Jupyter to start..."
-    sleep 3
-    
-    # Check if container is running
-    if docker ps --filter "name=$CONTAINER_NAME" --format "table {{.Names}}" | grep -q "$CONTAINER_NAME"; then
+
+    if [[ "$CONTAINER_RUNTIME" == "docker" ]]; then
+        # Wait a moment for Jupyter to start
+        echo "Waiting for Jupyter to start..."
+        sleep 3
+
+        # Check if container is running
+        if docker ps --filter "name=$CONTAINER_NAME" --format "table {{.Names}}" | grep -q "$CONTAINER_NAME"; then
+            echo ""
+            echo "✅ Jupyter Lab is running!"
+            echo "🌐 Access it at: http://localhost:$JUPYTER_PORT"
+            echo "📁 Working directory: /persistent (mounted from $mount_abs_path)"
+            echo ""
+            echo "Container management:"
+            echo "  Stop:    docker stop $CONTAINER_NAME"
+            echo "  Remove:  docker rm $CONTAINER_NAME"
+            echo "  Logs:    docker logs $CONTAINER_NAME"
+            echo "  Shell:   docker exec -it $CONTAINER_NAME bash"
+        else
+            echo "❌ Failed to start container. Check logs with:"
+            echo "docker logs $CONTAINER_NAME"
+            exit 1
+        fi
+    else
         echo ""
-        echo "✅ Jupyter Lab is running!"
-        echo "🌐 Access it at: http://localhost:$JUPYTER_PORT"
+        echo "✅ Jupyter Lab (Singularity) started!"
+        echo "You may need to check the output for the Jupyter URL/token."
         echo "📁 Working directory: /persistent (mounted from $mount_abs_path)"
         echo ""
-        echo "Container management:"
-        echo "  Stop:    docker stop $CONTAINER_NAME"
-        echo "  Remove:  docker rm $CONTAINER_NAME"
-        echo "  Logs:    docker logs $CONTAINER_NAME"
-        echo "  Shell:   docker exec -it $CONTAINER_NAME bash"
-    else
-        echo "❌ Failed to start container. Check logs with:"
-        echo "docker logs $CONTAINER_NAME"
-        exit 1
+        echo "Tip: Use srun or sbatch for SLURM integration if needed."
     fi
 }
 
@@ -170,24 +267,40 @@ launch_dev() {
         echo "Error: Mount path '$mount_abs_path' does not exist"
         exit 1
     fi
-    
-    echo "Building/checking dev Docker image..."
-    build_dev_image
-    
+
+    if [[ "$CONTAINER_RUNTIME" == "docker" ]]; then
+        echo "Building/checking dev Docker image..."
+        build_dev_image
+    fi
+
     echo "Starting development shell..."
     echo "  - Container name: ${CONTAINER_NAME:-upside2-dev-$(date +%s)}"
     echo "  - Mounting: $mount_abs_path -> /upside2-md"
     echo "  - Cache: $CACHE_DIR -> /ccache"
-    
-    # Start interactive container with development tools
-    docker run --rm -it \
-        --platform=linux/x86 \
-        --name "${CONTAINER_NAME:-upside2-dev-$(date +%s)}" \
-        -v "$CACHE_DIR:/ccache" \
-        -v "$mount_abs_path:/upside2-md" \
-        -w /upside2-md \
-        "$DEV_DOCKER_IMAGE" \
-        bash
+
+    if [[ "$CONTAINER_RUNTIME" == "docker" ]]; then
+        # Start interactive container with development tools
+        docker run --rm -it \
+            --platform=linux/x86 \
+            --name "${CONTAINER_NAME:-upside2-dev-$(date +%s)}" \
+            -v "$CACHE_DIR:/ccache" \
+            -v "$mount_abs_path:/upside2-md" \
+            -w /upside2-md \
+            "$DEV_DOCKER_IMAGE" \
+            bash
+    elif [[ "$CONTAINER_RUNTIME" == "singularity" ]]; then
+        SINGULARITY_IMAGE_NAME="${DEV_DOCKER_IMAGE}.sif"
+        SINGULARITY_IMAGE_PATH="$SINGULARITY_IMAGE_DIR/$SINGULARITY_IMAGE_NAME"
+        ensure_singularity_image "$DEV_DOCKER_IMAGE" "$SINGULARITY_IMAGE_PATH"
+        wrap_with_slurm singularity exec \
+            --bind "$CACHE_DIR:/ccache" \
+            --bind "$mount_abs_path:/upside2-md" \
+            "$SINGULARITY_IMAGE_PATH" \
+            bash
+    else
+        echo "Unknown container runtime: $CONTAINER_RUNTIME"
+        exit 1
+    fi
 }
 
 # Function to run a command in base container
@@ -195,42 +308,47 @@ launch_run() {
     local args=("$@")
     local mapped_args=()
     local docker_opts=()
+    local singularity_binds=()
     local pwd_abs
     pwd_abs=$(pwd)
-    
-    echo "Building/checking base Docker image..."
-    build_base_image
-    
+
+    if [[ "$CONTAINER_RUNTIME" == "docker" ]]; then
+        echo "Building/checking base Docker image..."
+        build_base_image
+    fi
+
     echo "Setting up volume mounts..."
-    
+
     # Always mount the current directory
     docker_opts+=(-v "$pwd_abs:/persistent")
+    singularity_binds+=("--bind" "$pwd_abs:/persistent")
     echo "  - Mounting: $pwd_abs -> /persistent"
-    
+
     # Process capture directories
     for capture_dir in "${CAPTURE_DIRS[@]}"; do
         # Sanitize the container path to create host directory name
         local sanitized="${capture_dir#/}"        # Remove leading slash
         sanitized="${sanitized//\//_}"            # Replace / with _
         local host_dir="$OUTPUT_BASE/$sanitized"
-        
+
         # Create host directory (preserving existing files)
         mkdir -p "$host_dir"
-        
+
         # Add volume mount
         docker_opts+=(-v "$host_dir:$capture_dir")
+        singularity_binds+=("--bind" "$host_dir:$capture_dir")
         echo "  - Capturing: $capture_dir -> $host_dir"
     done
-    
+
     echo "Mapping file paths for container execution..."
-    
+
     # Process each argument to map file paths
     for arg in "${args[@]}"; do
         if [[ -e "$arg" ]]; then
             # File or directory exists, get absolute path
             local abs_path
             abs_path=$(get_absolute_path "$arg")
-            
+
             # Check if it's within the current working directory
             if [[ "$abs_path" == "$pwd_abs"* ]]; then
                 # Map to container path
@@ -251,17 +369,31 @@ launch_run() {
             mapped_args+=("$arg")
         fi
     done
-    
+
     echo "Executing command in base container..."
     echo "  - Command: ${mapped_args[*]}"
-    
-    # Execute the command in the container
-    docker run --rm \
-        --platform=linux/x86 \
-        "${docker_opts[@]}" \
-        -w /persistent \
-        "$BASE_DOCKER_IMAGE" \
-        bash -c "${mapped_args[*]}"
+
+    if [[ "$CONTAINER_RUNTIME" == "docker" ]]; then
+        # Execute the command in the container
+        docker run --rm \
+            --platform=linux/x86 \
+            "${docker_opts[@]}" \
+            -w /persistent \
+            "$BASE_DOCKER_IMAGE" \
+            bash -c "${mapped_args[*]}"
+    elif [[ "$CONTAINER_RUNTIME" == "singularity" ]]; then
+        SINGULARITY_IMAGE_NAME="${BASE_DOCKER_IMAGE}.sif"
+        SINGULARITY_IMAGE_PATH="$SINGULARITY_IMAGE_DIR/$SINGULARITY_IMAGE_NAME"
+        ensure_singularity_image "$BASE_DOCKER_IMAGE" "$SINGULARITY_IMAGE_PATH"
+        wrap_with_slurm singularity exec \
+            "${singularity_binds[@]}" \
+            --pwd /persistent \
+            "$SINGULARITY_IMAGE_PATH" \
+            bash -c "${mapped_args[*]}"
+    else
+        echo "Unknown container runtime: $CONTAINER_RUNTIME"
+        exit 1
+    fi
 }
 
 # Function to build custom image with multiple tags
@@ -392,7 +524,7 @@ clean_all_upside_resources() {
     echo "🎉 Cleanup complete!"
 }
 
-# Parse command line arguments
+# Parse global options (e.g., --runtime)
 COMMAND=""
 FORCE_BUILD="false"
 BUILD_IMAGE_NAME=""
@@ -401,27 +533,83 @@ BUILD_DOCKERFILE=""
 BUILD_EXTRA_ARGS=()
 KILL_NAME_PREFIX="upside"
 
-if [[ $# -eq 0 ]]; then
-    show_usage
-    exit 1
-fi
+# Parse global options before command
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --slurm)
+            USE_SLURM="true"
+            shift
+            ;;
+        --runtime=*)
+            # Deprecated, ignore for backward compatibility
+            shift
+            ;;
+        --cpus=*)
+            SLURM_CPUS="${1#*=}"
+            shift
+            ;;
+        --partition=*)
+            SLURM_PARTITION="${1#*=}"
+            shift
+            ;;
+        --memory=*)
+            SLURM_MEMORY="${1#*=}"
+            shift
+            ;;
+        --gpus=*)
+            SLURM_GPUS="${1#*=}"
+            shift
+            ;;
+        --account=*)
+            SLURM_ACCOUNT="${1#*=}"
+            shift
+            ;;
+        --time=*)
+            SLURM_TIME="${1#*=}"
+            shift
+            ;;
+        build|list|kill|clean|run|jupyter|develop)
+            COMMAND="$1"
+            shift
+            break
+            ;;
+        --help|-h)
+            show_usage
+            exit 0
+            ;;
+        *)
+            break
+            ;;
+    esac
+done
 
-# Get the command first
-case $1 in
-    build|list|kill|clean|run|jupyter|develop)
-        COMMAND="$1"
-        shift
-        ;;
-    --help|-h)
-        show_usage
-        exit 0
-        ;;
-    *)
-        echo "Unknown command: $1"
+if [[ -z "$COMMAND" ]]; then
+    if [[ $# -eq 0 ]]; then
         show_usage
         exit 1
-        ;;
-esac
+    else
+        COMMAND="$1"
+        shift
+    fi
+fi
+
+# Set container runtime based on --slurm
+if [[ "$USE_SLURM" == "true" ]]; then
+    if ! command -v singularity >/dev/null 2>&1; then
+        echo "Error: --slurm requested but singularity is not available."
+        exit 1
+    fi
+    CONTAINER_RUNTIME="singularity"
+else
+    if command -v docker >/dev/null 2>&1; then
+        CONTAINER_RUNTIME="docker"
+    else
+        echo "Error: Docker is not available and --slurm was not specified."
+        exit 1
+    fi
+fi
+
+echo "Using container runtime: $CONTAINER_RUNTIME"
 
 # Parse command-specific arguments
 case $COMMAND in
