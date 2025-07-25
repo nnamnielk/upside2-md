@@ -35,27 +35,33 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(Catch2)
 
+# === Required Source Files ===
+set(REQUIRED_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/../src/h5_support.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../src/deriv_engine.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../src/state_logger.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../src/timing.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../src/spline.cpp"
+)
+
 # === Test Executable ===
-add_executable(testbridge testbridge.cpp)
+add_executable(testbridge testbridge.cpp ${REQUIRED_SRC})
 
 # Add the compile definition for test accessors HERE:
 target_compile_definitions(testbridge PRIVATE TEST_HOOKS)
 
 # === Include Directories ===
-# Assuming Float4.h, interaction_graph.h, vector_math.h are in a 'src' directory
-# relative to the main project root, and tests are in 'project_root/tests'.
-# Adjust the path "${CMAKE_CURRENT_SOURCE_DIR}/../src" as needed.
-# The error message indicated #include "../src/Float4.h" from test_pairlist.cpp
 target_include_directories(testbridge PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/../src" # Path to Float4.h, interaction_graph.h etc.
+    "${CMAKE_CURRENT_SOURCE_DIR}/../src/include" # Include subdirectory
     "$catch2_SOURCE_DIR/include" # Catch2 include directory
-    # Add other necessary include paths here
 )
 
 # === Link Libraries ===
 target_link_libraries(testbridge PRIVATE
     Catch2::Catch2
     Eigen3::Eigen      # For Eigen
+    stdc++             # Standard C++ library
 )
 if(OpenMP_FOUND)
     target_link_libraries(testbridge PRIVATE OpenMP::OpenMP_CXX)

@@ -250,6 +250,10 @@ namespace {
         // radius scale angular_width angular_scale
         // first group is hb; second group is sc
 
+    #ifdef TEST_HOOKS
+            friend class HBondCoverageInteractionTestBridge;
+    #endif
+
         constexpr static bool  symmetric = false;
         constexpr static int   n_knot = N_KNOT_SC_BB, n_knot_angular=N_KNOT_ANGULAR;
         constexpr static int   n_param=2*n_knot_angular+2*n_knot, n_dim1=7, n_dim2=6, simd_width=1;
@@ -737,4 +741,3 @@ struct HBondEnergy : public HBondCounter
     }
 };
 static RegisterNodeType<HBondEnergy,2> hbond_energy_node("hbond_energy");
-

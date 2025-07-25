@@ -1,0 +1,30 @@
+[
+  {
+    "hit_number": null,
+    "location": null,
+    "args": {
+      "id1": "@0x7fffffff9fb0: {",
+      "vec": "{0, 0}",
+      "id2": "@0x7fffffff9fc0: {"
+    },
+    "locals": {
+      "sequence_exclude": "<optimized out>"
+    },
+    "backtrace": [
+      "#0  (anonymous namespace)::HBondCoverageInteraction::acceptable_id_pair (id1=..., id2=...) at /upside2-md/src/hbond.cpp:266",
+      "#1  0x00005555555abbf6 in PairlistComputation<false>::ensure_cache_valid<(anonymous namespace)::HBondCoverageInteraction::acceptable_id_pair> (this=this@entry=0x5555559675a8, cutoff=cutoff@entry=4.99999952, aligned_pos1=aligned_pos1@entry=0x5555559b2ec0, pos1_stride=pos1_stride@entry=8, id1=0x55555593a050, aligned_pos2=aligned_pos2@entry=0x5555559b32d0, pos2_stride=pos2_stride@entry=8, id2=0x555555892a10) at /upside2-md/src/Float4.h:55",
+      "#2  0x00005555555abe2c in PairlistComputation<false>::find_edges<(anonymous namespace)::HBondCoverageInteraction::acceptable_id_pair> (this=this@entry=0x5555559675a8, cutoff=4.99999952, aligned_pos1=0x5555559b2ec0, pos1_stride=pos1_stride@entry=8, id1=<optimized out>, aligned_pos2=0x5555559b32d0, pos2_stride=pos2_stride@entry=8, id2=0x555555892a10) at /upside2-md/src/interaction_graph.h:217",
+      "#3  0x00005555555b4cf3 in InteractionGraph<(anonymous namespace)::HBondCoverageInteraction>::compute_edges<>(void) (this=this@entry=0x555555967518) at /upside2-md/src/interaction_graph.h:471",
+      "#4  0x00005555555b5035 in HBondCoverage::compute_value (this=0x5555559674e0, mode=<optimized out>) at /upside2-md/src/hbond.cpp:458"
+    ],
+    "dereferenced_args": {
+      "id1": "@0x7fffffff9fb0",
+      "id2": "@0x7fffffff9fc0"
+    },
+    "custom_commands": {
+      "n_knot_value": "10",
+      "inv_dx_value": "1.6000000000000001"
+    },
+    "test_output_test_hbond_coverage_cutoff": "actual_cutoff: 4.99999952\ntest_cutoff: 4.99999952\nactual_n_knot: 10\nactual_inv_dx: 1.60000002\ninput_n_knot: 10\ninput_inv_dx: 1.60000002\n"
+  }
+]

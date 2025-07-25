@@ -11,6 +11,25 @@
 
 #include "interaction_graph.h" // Your actual header
 
+// Include the hbond header to access HBondCoverageInteraction
+#include "hbond.cpp"
+
+// Test bridge class for HBondCoverageInteraction
+class HBondCoverageInteractionTestBridge {
+public:
+    static float call_cutoff(const float* p) {
+        return HBondCoverageInteraction::cutoff(p);
+    }
+    
+    static int get_n_knot() {
+        return HBondCoverageInteraction::n_knot;
+    }
+    
+    static float get_inv_dx() {
+        return HBondCoverageInteraction::inv_dx;
+    }
+};
+
 // Dummy function for acceptable_id_pair_t signature
 // This function always returns a mask indicating all elements are acceptable for testing purposes.
 static Int4 dummy_acceptable_id_pair(const Int4& id1_vec, const Int4& id2_vec) {
@@ -247,6 +266,7 @@ int main(int argc, char* argv[]) {
         std::cerr << "    <call_cutoff_str> <pos1_stride_str> <pos2_stride_str> \\" << std::endl;
         std::cerr << "    <pos_array_1_input_str> <pos_array_2_input_str> \\" << std::endl;
         std::cerr << "    <initial_id1_val_str> <initial_id2_val_str>" << std::endl;
+        std::cerr << "  test_hbond_coverage_cutoff <p_str> <n_knot_str> <inv_dx_str>" << std::endl;
         return 1;
     }
 
@@ -428,7 +448,34 @@ int main(int argc, char* argv[]) {
                 );
             }
         }
-
+        
+    } else if (methodName == "test_hbond_coverage_cutoff") {
+        if (argc != 5) {
+            std::cerr << "Usage: " << argv[0] << " test_hbond_coverage_cutoff <p_str> <n_knot_str> <inv_dx_str>" << std::endl;
+            return 1;
+        }
+        
+        // Parse parameters (p is not used by the function but we keep it for consistency with the interface)
+        int n_knot_input = stringToInt(argv[3]);
+        float inv_dx_input = stringToFloat(argv[4]);
+        
+        // Give p a dummy value since the cutoff function doesn't actually use it
+        float dummy_p = 0.0f;
+        
+        // Call the actual HBondCoverageInteraction::cutoff function via test bridge
+        float actual_result = HBondCoverageInteractionTestBridge::call_cutoff(&dummy_p);
+        
+        // Calculate what it would be with the input parameters
+        float test_result = (n_knot_input - 2 - 1e-6f) / inv_dx_input;
+        
+        // Output results
+        std::cout << "actual_cutoff: " << actual_result << std::endl;
+        std::cout << "test_cutoff: " << test_result << std::endl;
+        std::cout << "actual_n_knot: " << HBondCoverageInteractionTestBridge::get_n_knot() << std::endl;
+        std::cout << "actual_inv_dx: " << HBondCoverageInteractionTestBridge::get_inv_dx() << std::endl;
+        std::cout << "input_n_knot: " << n_knot_input << std::endl;
+        std::cout << "input_inv_dx: " << inv_dx_input << std::endl;
+        
     } else {
         std::cerr << "Error: Unknown method name '" << methodName << "'" << std::endl;
         return 1;
