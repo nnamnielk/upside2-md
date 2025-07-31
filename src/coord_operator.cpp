@@ -54,22 +54,22 @@ struct Add : public CoordNode {
         traverse_dset<1,int>(grp,"dim2"    ,[&](size_t ne, int x){dim2[ne]    = x;});
 
 	bool check_s = true;
-	for(int i: dim1) if(i>=pos1.output.row_width) {check_s = false; break;};
+	for(int i: dim1) if(i>=pos1.output.h_ptr()->row_width) {check_s = false; break;};
 	assert(check_s);
 	check_s = true;
-	for(int i: dim2) if(i>=pos2.output.row_width) {check_s = false; break;};
+	for(int i: dim2) if(i>=pos2.output.h_ptr()->row_width) {check_s = false; break;};
 	assert(check_s);
 	check_s = true;
-	for(int i: id_pos1) if(i>=pos1.output.n_elem) {check_s = false; break;};
+	for(int i: id_pos1) if(i>=pos1.n_elem) {check_s = false; break;};
 	assert(check_s);
 	check_s = true;
-	for(int i: id_pos2) if(i>=pos2.output.n_elem) {check_s = false; break;};
+	for(int i: id_pos2) if(i>=pos2.n_elem) {check_s = false; break;};
 	assert(check_s);
 	check_s = true;
-	for(int i: id1_out) if(i>=output.n_elem) {check_s = false; break;};
+	for(int i: id1_out) if(i>=n_elem) {check_s = false; break;};
 	assert(check_s);
 	check_s = true;
-	for(int i: id2_out) if(i>=output.n_elem) {check_s = false; break;};
+	for(int i: id2_out) if(i>=n_elem) {check_s = false; break;};
 
 	if (not check_s) cout << "The ID you gave is out of range!" << endl;
 	assert(check_s);
@@ -80,17 +80,17 @@ struct Add : public CoordNode {
 
 	for(int i: range(n_size)) {
             for(int d: range(n_dim))
-                output(d, i) = 0.f;
+                const_cast<VecArrayStorage&>(*output.h_ptr())(d, i) = 0.f;
         }
 
 	for(int i: range(n_size1)) {
             for(int d: range(n_dim))
-                output(d, id1_out[i]) += pos1.output(dim1[d], id_pos1[i]);
+                const_cast<VecArrayStorage&>(*output.h_ptr())(d, id1_out[i]) += const_cast<VecArrayStorage&>(*pos1.output.h_ptr())(dim1[d], id_pos1[i]);
         }
 
 	for(int i: range(n_size2)) {
             for(int d: range(n_dim))
-                output(d, id2_out[i]) += pos2.output(dim2[d], id_pos2[i]);
+                const_cast<VecArrayStorage&>(*output.h_ptr())(d, id2_out[i]) += const_cast<VecArrayStorage&>(*pos2.output.h_ptr())(dim2[d], id_pos2[i]);
         }
     }
 
@@ -99,12 +99,12 @@ struct Add : public CoordNode {
 	
 	for(int i: range(n_size1)) {
             for(int d: range(n_dim))
-                pos1.sens(dim1[d], id_pos1[i]) += sens(d, id1_out[i]);
+                const_cast<VecArrayStorage&>(*pos1.sens.h_ptr())(dim1[d], id_pos1[i]) += const_cast<VecArrayStorage&>(*sens.h_ptr())(d, id1_out[i]);
         }
 
 	for(int i: range(n_size2)) {
             for(int d: range(n_dim))
-                pos2.sens(dim2[d], id_pos2[i]) += sens(d, id2_out[i]);
+                const_cast<VecArrayStorage&>(*pos2.sens.h_ptr())(dim2[d], id_pos2[i]) += const_cast<VecArrayStorage&>(*sens.h_ptr())(d, id2_out[i]);
         }
     }
 };
@@ -157,22 +157,22 @@ struct Mean : public CoordNode {
         traverse_dset<1,int>(grp,"dim2"    ,[&](size_t ne, int x){dim2[ne]    = x;});
 
 	bool check_s = true;
-	for(int i: dim1) if(i>=pos1.output.row_width) {check_s = false; break;};
+	for(int i: dim1) if(i>=pos1.output.h_ptr()->row_width) {check_s = false; break;};
 	assert(check_s);
 	check_s = true;
-	for(int i: dim2) if(i>=pos2.output.row_width) {check_s = false; break;};
+	for(int i: dim2) if(i>=pos2.output.h_ptr()->row_width) {check_s = false; break;};
 	assert(check_s);
 	check_s = true;
-	for(int i: id_pos1) if(i>=pos1.output.n_elem) {check_s = false; break;};
+	for(int i: id_pos1) if(i>=pos1.n_elem) {check_s = false; break;};
 	assert(check_s);
 	check_s = true;
-	for(int i: id_pos2) if(i>=pos2.output.n_elem) {check_s = false; break;};
+	for(int i: id_pos2) if(i>=pos2.n_elem) {check_s = false; break;};
 	assert(check_s);
 	check_s = true;
-	for(int i: id1_out) if(i>=output.n_elem) {check_s = false; break;};
+	for(int i: id1_out) if(i>=n_elem) {check_s = false; break;};
 	assert(check_s);
 	check_s = true;
-	for(int i: id2_out) if(i>=output.n_elem) {check_s = false; break;};
+	for(int i: id2_out) if(i>=n_elem) {check_s = false; break;};
 
 	if (not check_s) cout << "The ID you gave is out of range!" << endl;
 	assert(check_s);
@@ -194,17 +194,17 @@ struct Mean : public CoordNode {
 
 	for(int i: range(n_size)) {
             for(int d: range(n_dim))
-                output(d, i) = 0.f;
+                const_cast<VecArrayStorage&>(*output.h_ptr())(d, i) = 0.f;
         }
 
 	for(int i: range(n_size1)) {
             for(int d: range(n_dim))
-                output(d, id1_out[i]) += pos1.output(dim1[d], id_pos1[i]) * s[id1_out[i]];
+                const_cast<VecArrayStorage&>(*output.h_ptr())(d, id1_out[i]) += const_cast<VecArrayStorage&>(*pos1.output.h_ptr())(dim1[d], id_pos1[i]) * s[id1_out[i]];
         }
 
 	for(int i: range(n_size2)) {
             for(int d: range(n_dim))
-                output(d, id2_out[i]) += pos2.output(dim2[d], id_pos2[i]) * s[id2_out[i]];
+                const_cast<VecArrayStorage&>(*output.h_ptr())(d, id2_out[i]) += const_cast<VecArrayStorage&>(*pos2.output.h_ptr())(dim2[d], id_pos2[i]) * s[id2_out[i]];
         }
     }
 
@@ -213,12 +213,12 @@ struct Mean : public CoordNode {
 	
 	for(int i: range(n_size1)) {
             for(int d: range(n_dim))
-                pos1.sens(dim1[d], id_pos1[i]) += sens(d, id1_out[i])* s[id1_out[i]];
+                const_cast<VecArrayStorage&>(*pos1.sens.h_ptr())(dim1[d], id_pos1[i]) += const_cast<VecArrayStorage&>(*sens.h_ptr())(d, id1_out[i])* s[id1_out[i]];
         }
 
 	for(int i: range(n_size2)) {
             for(int d: range(n_dim))
-                pos2.sens(dim2[d], id_pos2[i]) += sens(d, id2_out[i])* s[id2_out[i]];
+                const_cast<VecArrayStorage&>(*pos2.sens.h_ptr())(dim2[d], id_pos2[i]) += const_cast<VecArrayStorage&>(*sens.h_ptr())(d, id2_out[i])* s[id2_out[i]];
         }
     }
 };
@@ -273,22 +273,22 @@ struct Multiply: public CoordNode {
         traverse_dset<1,int>(grp,"dim2"    ,[&](size_t ne, int x){dim2[ne]    = x;});
 
 	bool check_s = true;
-	for(int i: dim1) if(i>=pos1.output.row_width) {check_s = false; break;};
+	for(int i: dim1) if(i>=pos1.output.h_ptr()->row_width) {check_s = false; break;};
 	assert(check_s);
 	check_s = true;
-	for(int i: dim2) if(i>=pos2.output.row_width) {check_s = false; break;};
+	for(int i: dim2) if(i>=pos2.output.h_ptr()->row_width) {check_s = false; break;};
 	assert(check_s);
 	check_s = true;
-	for(int i: id_pos1) if(i>=pos1.output.n_elem) {check_s = false; break;};
+	for(int i: id_pos1) if(i>=pos1.n_elem) {check_s = false; break;};
 	assert(check_s);
 	check_s = true;
-	for(int i: id_pos2) if(i>=pos2.output.n_elem) {check_s = false; break;};
+	for(int i: id_pos2) if(i>=pos2.n_elem) {check_s = false; break;};
 	assert(check_s);
 	check_s = true;
-	for(int i: id1_out) if(i>=output.n_elem) {check_s = false; break;};
+	for(int i: id1_out) if(i>=n_elem) {check_s = false; break;};
 	assert(check_s);
 	check_s = true;
-	for(int i: id2_out) if(i>=output.n_elem) {check_s = false; break;};
+	for(int i: id2_out) if(i>=n_elem) {check_s = false; break;};
 
 	if (not check_s) cout << "The ID you gave is out of range!" << endl;
 	assert(check_s);
@@ -308,20 +308,20 @@ struct Multiply: public CoordNode {
 
 	for(int i: range(n_size)) {
             for(int d: range(n_dim))
-                output(d, i) = 1.f;
+                const_cast<VecArrayStorage&>(*output.h_ptr())(d, i) = 1.f;
         }
 
 	for(int i: range(n_size1)) {
             for(int d: range(n_dim)) {
-                output(d, id1_out[i]) *= pos1.output(dim1[d], id_pos1[i]);
-		s2[id1_out[i]] = pos1.output(dim1[d], id_pos1[i]);
+                const_cast<VecArrayStorage&>(*output.h_ptr())(d, id1_out[i]) *= const_cast<VecArrayStorage&>(*pos1.output.h_ptr())(dim1[d], id_pos1[i]);
+		s2[id1_out[i]] = const_cast<VecArrayStorage&>(*pos1.output.h_ptr())(dim1[d], id_pos1[i]);
             }
         }
 
 	for(int i: range(n_size2)) {
             for(int d: range(n_dim)) {
-                output(d, id2_out[i]) *= pos2.output(dim2[d], id_pos2[i]);
-		s1[id2_out[i]] = pos2.output(dim2[d], id_pos2[i]);
+                const_cast<VecArrayStorage&>(*output.h_ptr())(d, id2_out[i]) *= const_cast<VecArrayStorage&>(*pos2.output.h_ptr())(dim2[d], id_pos2[i]);
+		s1[id2_out[i]] = const_cast<VecArrayStorage&>(*pos2.output.h_ptr())(dim2[d], id_pos2[i]);
             }
         }
 
@@ -329,7 +329,7 @@ struct Multiply: public CoordNode {
             if (count[i] > 0)
                 continue;
             for(int d: range(n_dim)) 
-                output(d, i) = 0.f;
+                const_cast<VecArrayStorage&>(*output.h_ptr())(d, i) = 0.f;
         }
     }
 
@@ -338,12 +338,12 @@ struct Multiply: public CoordNode {
 	
 	for(int i: range(n_size1)) {
             for(int d: range(n_dim))
-                pos1.sens(dim1[d], id_pos1[i]) += sens(d, id1_out[i])* s2[id1_out[i]];
+                const_cast<VecArrayStorage&>(*pos1.sens.h_ptr())(dim1[d], id_pos1[i]) += const_cast<VecArrayStorage&>(*sens.h_ptr())(d, id1_out[i])* s2[id1_out[i]];
         }
 
 	for(int i: range(n_size2)) {
             for(int d: range(n_dim))
-                pos2.sens(dim2[d], id_pos2[i]) += sens(d, id2_out[i])* s1[id2_out[i]];
+                const_cast<VecArrayStorage&>(*pos2.sens.h_ptr())(dim2[d], id_pos2[i]) += const_cast<VecArrayStorage&>(*sens.h_ptr())(d, id2_out[i])* s1[id2_out[i]];
         }
     }
 };
@@ -374,11 +374,11 @@ struct Sum: public CoordNode {
         traverse_dset<1,float>(grp, "weight" ,[&](size_t ne, float x) {weight[ne] = x;});
 
 	bool check_s = true;
-	for(int i: dim) if(i>=pos1.output.row_width) {check_s = false; break;};
+	for(int i: dim) if(i>=pos1.output.h_ptr()->row_width) {check_s = false; break;};
 	if (not check_s) cout << "The dim you gave is out of range!" << endl;
 	assert(check_s);
 	check_s = true;
-	for(int i: id_pos) if(i>=pos1.output.n_elem) {check_s = false; break;};
+	for(int i: id_pos) if(i>=pos1.n_elem) {check_s = false; break;};
 	if (not check_s) cout << "The id you gave is out of range!" << endl;
 	assert(check_s);
     }
@@ -387,9 +387,9 @@ struct Sum: public CoordNode {
         Timer timer("Sum");
 
         for(int d: range(n_dim)) 
-            output(d, 0) = 0.0;
+            const_cast<VecArrayStorage&>(*output.h_ptr())(d, 0) = 0.0;
 	for(int i: range(n_size)) {
-            for(int d: range(n_dim)) output(d, 0) += weight[i]*pos1.output(dim[d], id_pos[i]);
+            for(int d: range(n_dim)) const_cast<VecArrayStorage&>(*output.h_ptr())(d, 0) += weight[i]*const_cast<VecArrayStorage&>(*pos1.output.h_ptr())(dim[d], id_pos[i]);
         }
     }
 
@@ -398,10 +398,9 @@ struct Sum: public CoordNode {
 	
 	for(int i: range(n_size)) {
             for(int d: range(n_dim))
-                pos1.sens(dim[d], id_pos[i]) += sens(d, 0)* weight[id_pos[i]];
+                const_cast<VecArrayStorage&>(*pos1.sens.h_ptr())(dim[d], id_pos[i]) += const_cast<VecArrayStorage&>(*sens.h_ptr())(d, 0)* weight[id_pos[i]];
         }
     }
 };
 
 static RegisterNodeType<Sum, 1> Sum_node("Sum");
-

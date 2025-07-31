@@ -80,7 +80,7 @@ monte_carlo_sampler.cpp)
 
 if(USE_CUDA)
 # Add the new .cu file to the source list
-list(APPEND ENGINE_SRC interaction_graph.cu)
+list(APPEND ENGINE_SRC interaction_graph.cu device_buffer.cu)
 endif()
 
 add_executable (upside ${ENGINE_SRC})

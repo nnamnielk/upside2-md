@@ -742,7 +742,7 @@ struct NonlinearCoupling : public PotentialNode {
                     wnumber[nr] = 0.0;
                     int ctype = coupling_types[nr];
                     for(int aa: range(n_restype)) 
-                        wnumber[nr] += weights[ctype*n_restype+aa] * input.output(0, nr*n_restype+aa);
+                        wnumber[nr] += weights[ctype*n_restype+aa] * const_cast<VecArrayStorage&>(*input.output.h_ptr())(0, nr*n_restype+aa);
                     auto coord = (wnumber[nr]-spline_offset)*spline_inv_dx;
                     buffer[nr] = clamped_deBoor_value_and_deriv(
                             coeff.data() + ctype*n_coeff, coord, n_coeff)[0];
@@ -801,7 +801,7 @@ struct NonlinearCoupling : public PotentialNode {
             int ctype = coupling_types[nr];
 
             for(int aa: range(n_restype)) 
-                wnumber[nr] += weights[ctype*n_restype+aa] * input.output(0, nr*n_restype+aa);
+                wnumber[nr] += weights[ctype*n_restype+aa] * const_cast<VecArrayStorage&>(*input.output.h_ptr())(0, nr*n_restype+aa);
 
             auto coord = (wnumber[nr]-spline_offset)*spline_inv_dx;
 
@@ -820,7 +820,7 @@ struct NonlinearCoupling : public PotentialNode {
         for(int nr: range(n_res)) {
             int ctype = coupling_types[nr];
             for(int aa: range(n_restype)) {
-                auto deriv_aa = sens[nr] * input.output(0, nr*n_restype+aa);
+                auto deriv_aa = sens[nr] * const_cast<VecArrayStorage&>(*input.output.h_ptr())(0, nr*n_restype+aa);
                 if ( num_independent_weight == 400)
                     deriv[csize+ctype*n_restype+aa] += deriv_aa;
                 else if ( num_independent_weight == 20 ) 
@@ -896,7 +896,7 @@ struct SigmoidCoupling : public PotentialNode {
                     wnumber[nr] = 0.0;
                     int ctype = coupling_types[nr];
                     for(int aa: range(n_restype)) 
-                        wnumber[nr] += weights[ctype*n_restype+aa] * input.output(0, nr*n_restype+aa);
+                        wnumber[nr] += weights[ctype*n_restype+aa] * const_cast<VecArrayStorage&>(*input.output.h_ptr())(0, nr*n_restype+aa);
                     auto out = compact_sigmoid(wnumber[nr]-center[ctype], sharpness[ctype]);
                     buffer[nr] = out.x() * scale[ctype];
                 }});
@@ -911,13 +911,13 @@ struct SigmoidCoupling : public PotentialNode {
             wnumber[nr] = 0.0;
             int ctype = coupling_types[nr];
             for(int aa: range(n_restype)) {
-                wnumber[nr] += weights[ctype*n_restype+aa] * input.output(0, nr*n_restype+aa);
+                wnumber[nr] += weights[ctype*n_restype+aa] * const_cast<VecArrayStorage&>(*input.output.h_ptr())(0, nr*n_restype+aa);
             }
             auto out = compact_sigmoid(wnumber[nr]-center[ctype], sharpness[ctype]);
 
             pot += scale[ctype] * out.x();
             for(int aa: range(n_restype)) 
-                input.sens(0,nr*n_restype+aa) +=  weights[ctype*n_restype+aa] * scale[ctype] * out.y();
+                const_cast<VecArrayStorage&>(*input.sens.h_ptr())(0,nr*n_restype+aa) +=  weights[ctype*n_restype+aa] * scale[ctype] * out.y();
         }
         potential = pot;
     }
@@ -967,7 +967,7 @@ struct SigmoidCoupling : public PotentialNode {
             int ctype = coupling_types[nr];
 
             for(int aa: range(n_restype)) 
-                wnumber[nr] += weights[ctype*n_restype+aa] * input.output(0, nr*n_restype+aa);
+                wnumber[nr] += weights[ctype*n_restype+aa] * const_cast<VecArrayStorage&>(*input.output.h_ptr())(0, nr*n_restype+aa);
 
             auto dist_coord = wnumber[nr]-center[ctype];
             auto out = compact_sigmoid(dist_coord, sharpness[ctype]);
@@ -986,7 +986,7 @@ struct SigmoidCoupling : public PotentialNode {
         for(int nr: range(n_residue)) {
             int ctype = coupling_types[nr];
             for(int aa: range(n_restype)) {
-                auto deriv_aa = sens[nr] * input.output(0, nr*n_restype+aa);
+                auto deriv_aa = sens[nr] * const_cast<VecArrayStorage&>(*input.output.h_ptr())(0, nr*n_restype+aa);
                 if ( num_independent_weight == 400)
                     deriv[csize+ctype*n_restype+aa] += deriv_aa;
                 else if ( num_independent_weight == 20 ) 
@@ -1086,15 +1086,15 @@ struct BackboneSigmoidCoupling : public PotentialNode {
         for(int nr: range(n_bb)) {
             float bl = 0.0;
             for(int aa: range(n_restype)) 
-                bl += weights[aa] * env_sc.output(0, nr*n_restype+aa);
-            bl += hbond_weight*env_hb.output(0, nr);
+                bl += weights[aa] * const_cast<VecArrayStorage&>(*env_sc.output.h_ptr())(0, nr*n_restype+aa);
+            bl += hbond_weight*const_cast<VecArrayStorage&>(*env_hb.output.h_ptr())(0, nr);
             auto out = compact_sigmoid(bl-center, sharpness);
 
             pot        += scale * out.x();
             auto d_pot  = scale * out.y();
             for(int aa: range(n_restype)) 
-                env_sc.sens(0, nr*n_restype+aa) +=  weights[aa] * d_pot;
-            env_hb.sens(0, nr) +=  hbond_weight* d_pot;
+                const_cast<VecArrayStorage&>(*env_sc.sens.h_ptr())(0, nr*n_restype+aa) +=  weights[aa] * d_pot;
+            const_cast<VecArrayStorage&>(*env_hb.sens.h_ptr())(0, nr) +=  hbond_weight* d_pot;
         }
         potential = pot;
     }
@@ -1120,8 +1120,8 @@ struct BackboneSigmoidCoupling : public PotentialNode {
         for(int nr: range(n_bb)) {
             float bl = 0.0;
             for(int aa: range(n_restype)) 
-                bl += weights[aa] * env_sc.output(0, nr*n_restype+aa);
-            bl += hbond_weight*env_hb.output(0, nr);
+                bl += weights[aa] * const_cast<VecArrayStorage&>(*env_sc.output.h_ptr())(0, nr*n_restype+aa);
+            bl += hbond_weight*const_cast<VecArrayStorage&>(*env_hb.output.h_ptr())(0, nr);
 
             auto dist_coord = bl-center;
             auto out = compact_sigmoid(dist_coord, sharpness);

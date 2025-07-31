@@ -299,7 +299,7 @@ struct AffineAlignment : public CoordNode
         check_size(grp, "ref_geom", n_elem, 3,3);  // (residue, atom, xyz)
 
         traverse_dset<2,int  >(grp,"atoms",   [&](size_t i,size_t j,          int   x){
-                params[i/4].atom_offsets[j][i%4] = x*pos.output.row_width;});
+                params[i/4].atom_offsets[j][i%4] = x*pos.output.h_ptr()->row_width;});
         traverse_dset<3,float>(grp,"ref_geom",[&](size_t i,size_t na,size_t d,float x){
                 params[i/4].ref_geom[na][d][i%4]=x;});
 
@@ -317,8 +317,8 @@ struct AffineAlignment : public CoordNode
     virtual void compute_value(ComputeMode mode) {
         Timer timer(string("affine_alignment"));
 
-        VecArray rigid_body = output;
-        float* posc = pos.output.x.get();
+        VecArray rigid_body = const_cast<VecArrayStorage&>(*output.h_ptr());
+        float* posc = pos.output.h_ptr()->x.get();
 
         for(int ng=0; ng<n_group; ++ng) {
             const auto& p = params[ng];
@@ -387,7 +387,7 @@ struct AffineAlignment : public CoordNode
 
     virtual void propagate_deriv() {
         Timer timer(string("affine_alignment_deriv"));
-        float* pos_sens = pos.sens.x.get();
+        float* pos_sens = pos.sens.h_ptr()->x.get();
 
         for(int ng=0; ng<n_group; ++ng) {
             const auto& p = params[ng];
@@ -405,9 +405,9 @@ struct AffineAlignment : public CoordNode
             // this means a right multiply by the quaternion itself
 
             // evecs[0] is the rotation quaternion
-            S sens3  [3] = {Float4(&sens(0,4*ng+0)), Float4(&sens(0,4*ng+1)),Float4(&sens(0,4*ng+2))};
-            S torque [3] = {Float4(&sens(0,4*ng+3)), Float4(&sens(4,4*ng+0)),Float4(&sens(4,4*ng+1))};
-            S padding[2] = {Float4(&sens(4,4*ng+2)), Float4(&sens(4,4*ng+3))};
+            S sens3  [3] = {Float4(&const_cast<VecArrayStorage&>(*sens.h_ptr())(0,4*ng+0)), Float4(&const_cast<VecArrayStorage&>(*sens.h_ptr())(0,4*ng+1)),Float4(&const_cast<VecArrayStorage&>(*sens.h_ptr())(0,4*ng+2))};
+            S torque [3] = {Float4(&const_cast<VecArrayStorage&>(*sens.h_ptr())(0,4*ng+3)), Float4(&const_cast<VecArrayStorage&>(*sens.h_ptr())(4,4*ng+0)),Float4(&const_cast<VecArrayStorage&>(*sens.h_ptr())(4,4*ng+1))};
+            S padding[2] = {Float4(&const_cast<VecArrayStorage&>(*sens.h_ptr())(4,4*ng+2)), Float4(&const_cast<VecArrayStorage&>(*sens.h_ptr())(4,4*ng+3))};
 
             transpose4(sens3 [0],sens3 [1],sens3  [2],torque [0]);
             transpose4(torque[1],torque[2],padding[0],padding[1]);

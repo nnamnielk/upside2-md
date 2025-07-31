@@ -179,7 +179,7 @@ struct Surface : public CoordNode
     virtual void compute_value(ComputeMode mode) {
 
         Timer timer(string("surface"));
-        VecArray all_pos = pos.output;
+        VecArray all_pos = const_cast<VecArrayStorage&>(*pos.output.h_ptr());
 
         // 0. find the TM residues
         int ii = 0;
@@ -681,11 +681,11 @@ struct Surface : public CoordNode
         // 9. Assign mempot_switch  
         for(int nr: range(n_residue)) {
             if (type_count[nr] > 0)
-                output(0, nr) = type_count[nr]*r_n_rotation;
+                const_cast<VecArrayStorage&>(*output.h_ptr())(0, nr) = type_count[nr]*r_n_rotation;
             else
-                output(0, nr) = 0.0;
-            output(1, nr) = sfx[nr];
-            output(2, nr) = sfy[nr];
+                const_cast<VecArrayStorage&>(*output.h_ptr())(0, nr) = 0.0;
+            const_cast<VecArrayStorage&>(*output.h_ptr())(1, nr) = sfx[nr];
+            const_cast<VecArrayStorage&>(*output.h_ptr())(2, nr) = sfy[nr];
         }
     }
 
@@ -695,4 +695,3 @@ struct Surface : public CoordNode
 
 };
 static RegisterNodeType<Surface, 1> surface_node("surface");
-

@@ -501,12 +501,12 @@ struct InteractionGraph{
     void compute_edges() {
         // Copy in the data to packed arrays to ensure contiguity
         {
-            VecArray posv = pos_node1->output;
+            VecArray posv = const_cast<VecArrayStorage&>(*pos_node1->output.h_ptr());
             for(int ne=0; ne<n_elem1; ++ne) 
                 store_vec(pos1.get()+ne*n_dim1a, load_vec<n_dim1>(posv, loc1[ne]));
         }
         if(!symmetric) {
-            VecArray posv = pos_node2->output;
+            VecArray posv = const_cast<VecArrayStorage&>(*pos_node2->output.h_ptr());
             for(int ne=0; ne<n_elem2; ++ne) 
                 store_vec(pos2.get()+ne*n_dim2a, load_vec<n_dim2>(posv, loc2[ne]));
         }
@@ -607,12 +607,12 @@ struct InteractionGraph{
 
         // Push derivatives to slots
         {
-            VecArray pos1_sens = pos_node1->sens;
+            VecArray pos1_sens = const_cast<VecArrayStorage&>(*pos_node1->sens.h_ptr());
             for(int i1=0; i1<n_elem1; ++i1)
                 update_vec(pos1_sens, loc1[i1], load_vec<n_dim1>(pos1_deriv+i1*n_dim1a));
         }
         if(!symmetric) {
-            VecArray pos2_sens = pos_node2->sens;
+            VecArray pos2_sens = const_cast<VecArrayStorage&>(*pos_node2->sens.h_ptr());
             for(int i2=0; i2<n_elem2; ++i2)
                 update_vec(pos2_sens, loc2[i2], load_vec<n_dim2>(pos2_deriv+i2*n_dim2a));
         }

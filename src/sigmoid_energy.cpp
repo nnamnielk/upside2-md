@@ -30,7 +30,7 @@ struct SigmoidEnergy : public PotentialNode
         n_elem(get_dset_size(1, grp, "id")[0]), 
 	pos(pos_), 
 	params(n_elem),
-	n_dim(pos.output.row_width),
+	n_dim(pos.output.h_ptr()->row_width),
         dim1( read_attribute<int>(grp, ".", "dim1") ),
         use_cutoff( read_attribute<int>(grp, ".", "use_cutoff") )
     {
@@ -62,8 +62,8 @@ struct SigmoidEnergy : public PotentialNode
 
     virtual void compute_value(ComputeMode mode) {
         Timer timer(string("sigmoid_energy"));
-        VecArray posc = pos.output;
-        VecArray pos_sens = pos.sens;
+        VecArray posc = const_cast<VecArrayStorage&>(*pos.output.h_ptr());
+        VecArray pos_sens = const_cast<VecArrayStorage&>(*pos.sens.h_ptr());
 
         float* pot = mode==PotentialAndDerivMode ? &potential : nullptr;
         if(pot) *pot = 0.f;
@@ -117,7 +117,7 @@ struct SigmoidLEnergy : public PotentialNode
 	pos(pos_), 
 	lambda(lambda_), 
 	params(n_elem),
-	n_dim(pos.output.row_width),
+	n_dim(pos.output.h_ptr()->row_width),
         dim1( read_attribute<int>(grp, ".", "dim1") ),
         use_cutoff( read_attribute<int>(grp, ".", "use_cutoff") )
     {
@@ -151,10 +151,10 @@ struct SigmoidLEnergy : public PotentialNode
 
     virtual void compute_value(ComputeMode mode) {
         Timer timer(string("sigmoid_l_energy"));
-        VecArray posc = pos.output;
-        VecArray pos_sens = pos.sens;
-        VecArray lambdac = lambda.output;
-        VecArray lambda_sens = lambda.sens;
+        VecArray posc = const_cast<VecArrayStorage&>(*pos.output.h_ptr());
+        VecArray pos_sens = const_cast<VecArrayStorage&>(*pos.sens.h_ptr());
+        VecArray lambdac = const_cast<VecArrayStorage&>(*lambda.output.h_ptr());
+        VecArray lambda_sens = const_cast<VecArrayStorage&>(*lambda.sens.h_ptr());
 
         float* pot = mode==PotentialAndDerivMode ? &potential : nullptr;
         if(pot) *pot = 0.f;
@@ -182,4 +182,3 @@ struct SigmoidLEnergy : public PotentialNode
     }
 };
 static RegisterNodeType<SigmoidLEnergy,2> sigmoid_l_node("SigmoidLEnergy");
-

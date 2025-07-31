@@ -35,15 +35,15 @@ struct DistCoord : public CoordNode
 
     virtual void compute_value(ComputeMode mode) {
         Timer timer(string("distance"));
-        VecArray posc1 = pos1.output;
-        VecArray posc2 = pos2.output;
+        VecArray posc1 = const_cast<VecArrayStorage&>(*pos1.output.h_ptr());
+        VecArray posc2 = const_cast<VecArrayStorage&>(*pos2.output.h_ptr());
         for(int nt=0; nt<n_elem; ++nt) {
             auto& p = params[nt];
             auto x1 = load_vec<3>(posc1, p.atom[0]);
             auto x2 = load_vec<3>(posc2, p.atom[1]);
             auto disp = x1 - x2;
 	    auto dist = mag(disp);
-	    output(0, nt) = dist;
+	    const_cast<VecArrayStorage&>(*output.h_ptr())(0, nt) = dist;
 	    if (dist != 0.)
                 deriv[nt] = disp * inv_mag(disp);
 	    else
@@ -53,11 +53,11 @@ struct DistCoord : public CoordNode
 
     virtual void propagate_deriv() {
         Timer timer(string("distance_deriv"));
-        VecArray pos_sens1 = pos1.sens;
-        VecArray pos_sens2 = pos2.sens;
+        VecArray pos_sens1 = const_cast<VecArrayStorage&>(*pos1.sens.h_ptr());
+        VecArray pos_sens2 = const_cast<VecArrayStorage&>(*pos2.sens.h_ptr());
         for(int nt=0; nt<n_elem; ++nt) {
             auto& p = params[nt];
-            auto  d = sens(0, nt);
+            auto  d = const_cast<VecArrayStorage&>(*sens.h_ptr())(0, nt);
             update_vec(pos_sens1, p.atom[0],  deriv[nt]*d);
             update_vec(pos_sens2, p.atom[1], -deriv[nt]*d);
         }
@@ -96,13 +96,13 @@ struct Dist2DCoord : public CoordNode
         Timer timer(string("distance2d"));
         for(int nt=0; nt<n_elem; ++nt) {
             auto& p       = params[nt];
-            auto x1       = pos1.output(dim1, p.atom[0]);
-            auto x2       = pos2.output(dim1, p.atom[1]);
-            auto y1       = pos1.output(dim2, p.atom[0]);
-            auto y2       = pos2.output(dim2, p.atom[1]);
+            auto x1       = const_cast<VecArrayStorage&>(*pos1.output.h_ptr())(dim1, p.atom[0]);
+            auto x2       = const_cast<VecArrayStorage&>(*pos2.output.h_ptr())(dim1, p.atom[1]);
+            auto y1       = const_cast<VecArrayStorage&>(*pos1.output.h_ptr())(dim2, p.atom[0]);
+            auto y2       = const_cast<VecArrayStorage&>(*pos2.output.h_ptr())(dim2, p.atom[1]);
 	    auto disp     = make_vec2(x1-x2, y1-y2);
 	    auto dist     = mag(disp);
-	    output(0, nt) = dist;
+	    const_cast<VecArrayStorage&>(*output.h_ptr())(0, nt) = dist;
 	    if (dist != 0.)
                 deriv[nt] = disp * inv_mag(disp);
 	    else
@@ -114,11 +114,11 @@ struct Dist2DCoord : public CoordNode
         Timer timer(string("distance2d_deriv"));
         for(int nt=0; nt<n_elem; ++nt) {
             auto& p = params[nt];
-            auto  d = sens(0, nt);
-            pos1.sens(dim1, p.atom[0]) += deriv[nt][0]*d;
-            pos2.sens(dim1, p.atom[1]) -= deriv[nt][0]*d;
-            pos1.sens(dim2, p.atom[0]) += deriv[nt][1]*d;
-            pos2.sens(dim2, p.atom[1]) -= deriv[nt][1]*d;
+            auto  d = const_cast<VecArrayStorage&>(*sens.h_ptr())(0, nt);
+            const_cast<VecArrayStorage&>(*pos1.sens.h_ptr())(dim1, p.atom[0]) += deriv[nt][0]*d;
+            const_cast<VecArrayStorage&>(*pos2.sens.h_ptr())(dim1, p.atom[1]) -= deriv[nt][0]*d;
+            const_cast<VecArrayStorage&>(*pos1.sens.h_ptr())(dim2, p.atom[0]) += deriv[nt][1]*d;
+            const_cast<VecArrayStorage&>(*pos2.sens.h_ptr())(dim2, p.atom[1]) -= deriv[nt][1]*d;
 
         }
     }
@@ -154,11 +154,11 @@ struct Dist1DCoord : public CoordNode
         Timer timer(string("distance1d"));
         for(int nt=0; nt<n_elem; ++nt) {
             auto& p       = params[nt];
-            auto x1       = pos1.output(dim1, p.atom[0]);
-            auto x2       = pos2.output(dim1, p.atom[1]);
+            auto x1       = const_cast<VecArrayStorage&>(*pos1.output.h_ptr())(dim1, p.atom[0]);
+            auto x2       = const_cast<VecArrayStorage&>(*pos2.output.h_ptr())(dim1, p.atom[1]);
 	    auto disp     = x1-x2;
 	    auto dist     = sqrtf(disp*disp);
-	    output(0, nt) = dist;
+	    const_cast<VecArrayStorage&>(*output.h_ptr())(0, nt) = dist;
 	    if (dist == 0)
 	        deriv[nt] = 0.0;
 	    else
@@ -170,9 +170,9 @@ struct Dist1DCoord : public CoordNode
         Timer timer(string("distance1d_deriv"));
         for(int nt=0; nt<n_elem; ++nt) {
             auto& p = params[nt];
-            auto  d = sens(0, nt);
-            pos1.sens(dim1, p.atom[0]) += d*deriv[nt];
-            pos2.sens(dim1, p.atom[1]) -= d*deriv[nt];
+            auto  d = const_cast<VecArrayStorage&>(*sens.h_ptr())(0, nt);
+            const_cast<VecArrayStorage&>(*pos1.sens.h_ptr())(dim1, p.atom[0]) += d*deriv[nt];
+            const_cast<VecArrayStorage&>(*pos2.sens.h_ptr())(dim1, p.atom[1]) -= d*deriv[nt];
 
         }
     }
@@ -211,7 +211,7 @@ struct AngleCoord : public CoordNode
     virtual void compute_value(ComputeMode mode) {
         Timer timer(string("angle"));
         //float* posc = pos.output.x.get();
-        VecArray posc = pos.output;
+        VecArray posc = const_cast<VecArrayStorage&>(*pos.output.h_ptr());
         for(int nt=0; nt<n_elem; ++nt) {
             auto& p = params[nt];
 
@@ -222,7 +222,7 @@ struct AngleCoord : public CoordNode
             auto x1 = atom1 - atom3; auto inv_d1 = inv_mag(x1); auto x1h = x1*inv_d1;
             auto x2 = atom2 - atom3; auto inv_d2 = inv_mag(x2); auto x2h = x2*inv_d2;
             auto dp = dot(x1h, x2h);
-	    output(0, nt) = dp;
+	    const_cast<VecArrayStorage&>(*output.h_ptr())(0, nt) = dp;
             deriv1[nt] = (x2h - x1h*dp) * inv_d1;
             deriv2[nt] = (x1h - x2h*dp) * inv_d2;
             deriv3[nt] = -deriv1[nt]-deriv2[nt];
@@ -231,12 +231,12 @@ struct AngleCoord : public CoordNode
 
     virtual void propagate_deriv() {
         Timer timer(string("angle_deriv"));
-        VecArray pos_sens = pos.sens;
+        VecArray pos_sens = const_cast<VecArrayStorage&>(*pos.sens.h_ptr());
         for(int nt=0; nt<n_elem; ++nt) {
             auto& p = params[nt];
-            update_vec(pos_sens, p.atom[0], sens(0,nt)*deriv1[nt]);
-            update_vec(pos_sens, p.atom[1], sens(0,nt)*deriv2[nt]);
-            update_vec(pos_sens, p.atom[2], sens(0,nt)*deriv3[nt]);
+            update_vec(pos_sens, p.atom[0], const_cast<VecArrayStorage&>(*sens.h_ptr())(0,nt)*deriv1[nt]);
+            update_vec(pos_sens, p.atom[1], const_cast<VecArrayStorage&>(*sens.h_ptr())(0,nt)*deriv2[nt]);
+            update_vec(pos_sens, p.atom[2], const_cast<VecArrayStorage&>(*sens.h_ptr())(0,nt)*deriv3[nt]);
         }
     }
 };
@@ -274,7 +274,7 @@ struct AngleCoord2 : public CoordNode
     virtual void compute_value(ComputeMode mode) {
         Timer timer(string("vector_angle"));
         //float* posc = pos.output.x.get();
-        VecArray posc = pos.output;
+        VecArray posc = const_cast<VecArrayStorage&>(*pos.output.h_ptr());
         for(int nt=0; nt<n_elem; ++nt) {
             auto& p = params[nt];
 
@@ -286,7 +286,7 @@ struct AngleCoord2 : public CoordNode
             auto x1 = atom1 - atom2; auto inv_d1 = inv_mag(x1); auto x1h = x1*inv_d1;
             auto x2 = atom3 - atom4; auto inv_d2 = inv_mag(x2); auto x2h = x2*inv_d2;
             auto dp = dot(x1h, x2h);
-	    output(0, nt) = dp;
+	    const_cast<VecArrayStorage&>(*output.h_ptr())(0, nt) = dp;
             deriv1[nt] = (x2h - x1h*dp) * inv_d1;
             deriv3[nt] = (x1h - x2h*dp) * inv_d2;
             deriv2[nt] = -deriv1[nt];
@@ -296,13 +296,13 @@ struct AngleCoord2 : public CoordNode
 
     virtual void propagate_deriv() {
         Timer timer(string("vector_angle_deriv"));
-        VecArray pos_sens = pos.sens;
+        VecArray pos_sens = const_cast<VecArrayStorage&>(*pos.sens.h_ptr());
         for(int nt=0; nt<n_elem; ++nt) {
             auto& p = params[nt];
-            update_vec(pos_sens, p.atom[0], sens(0,nt)*deriv1[nt]);
-            update_vec(pos_sens, p.atom[1], sens(0,nt)*deriv2[nt]);
-            update_vec(pos_sens, p.atom[2], sens(0,nt)*deriv3[nt]);
-            update_vec(pos_sens, p.atom[3], sens(0,nt)*deriv4[nt]);
+            update_vec(pos_sens, p.atom[0], const_cast<VecArrayStorage&>(*sens.h_ptr())(0,nt)*deriv1[nt]);
+            update_vec(pos_sens, p.atom[1], const_cast<VecArrayStorage&>(*sens.h_ptr())(0,nt)*deriv2[nt]);
+            update_vec(pos_sens, p.atom[2], const_cast<VecArrayStorage&>(*sens.h_ptr())(0,nt)*deriv3[nt]);
+            update_vec(pos_sens, p.atom[3], const_cast<VecArrayStorage&>(*sens.h_ptr())(0,nt)*deriv4[nt]);
         }
     }
 };
@@ -334,8 +334,8 @@ struct DihedralCoord : public CoordNode
     virtual void compute_value(ComputeMode mode) {
         Timer timer(string("dihedral"));
 
-        VecArray dihe_pos = output;
-        float*   posv     = pos.output.x.get();
+        VecArray dihe_pos = const_cast<VecArrayStorage&>(*output.h_ptr());
+        float*   posv     = const_cast<VecArrayStorage&>(*pos.output.h_ptr()).x.get();
 
         for(int nt=0; nt<n_elem; ++nt) {
             const auto& p = params[nt];
@@ -354,7 +354,7 @@ struct DihedralCoord : public CoordNode
 
     virtual void propagate_deriv() {
         Timer timer(string("dihedral_deriv"));
-        float* pos_sens = pos.sens.x.get();
+        float* pos_sens = const_cast<VecArrayStorage&>(*pos.sens.h_ptr()).x.get();
 
         for(int nt=0; nt<n_elem; ++nt) {
             const auto& p = params[nt];
@@ -364,7 +364,7 @@ struct DihedralCoord : public CoordNode
 
             Float4 ps[4];
             for(int na: range(4))
-                ps[na] = fmadd( Float4(sens(0,nt)), Float4(jac[nt].j[na]), Float4(pos_sens + 4*p.atom[na]) );
+                ps[na] = fmadd( Float4(const_cast<VecArrayStorage&>(*sens.h_ptr())(0,nt)), Float4(jac[nt].j[na]), Float4(pos_sens + 4*p.atom[na]) );
 
             for(int na: range(4))
                 ps[na].store(pos_sens + 4*p.atom[na]);  // value was added above
@@ -407,7 +407,7 @@ struct PosCenter : public CoordNode {
             default_logger->add_logger<float>("centers", {n_elem, n_dim}, [&](float* buffer) {
                 for(int ne=0; ne<n_elem; ++ne) {
                     for(int nd=0; nd<n_dim; ++nd) 
-                        buffer[ne*n_dim + nd] = output(nd, ne);
+                        buffer[ne*n_dim + nd] = const_cast<VecArrayStorage&>(*output.h_ptr())(nd, ne);
                 }
             });
 	}
@@ -418,9 +418,9 @@ struct PosCenter : public CoordNode {
 
         for(int nd=0; nd<n_dim; ++nd) {
             for(int g=0; g<n_group; ++g) {
-                output(nd, g) = 0.0;
+                const_cast<VecArrayStorage&>(*output.h_ptr())(nd, g) = 0.0;
                 for(int na=border[g]; na<border[g+1]; ++na) {
-                    output(nd, g) += pos.output(index_dim[nd], index_pos[na]) * scale[g];
+                    const_cast<VecArrayStorage&>(*output.h_ptr())(nd, g) += const_cast<VecArrayStorage&>(*pos.output.h_ptr())(index_dim[nd], index_pos[na]) * scale[g];
                 }
             }
         }
@@ -431,9 +431,9 @@ struct PosCenter : public CoordNode {
 
         for(int nd=0; nd<n_dim; ++nd) {
             for(int g=0; g<n_group; ++g) {
-                auto scale_sens = sens(nd, g)*scale[g];
+                auto scale_sens = const_cast<VecArrayStorage&>(*sens.h_ptr())(nd, g)*scale[g];
                 for(int na=border[g]; na<border[g+1]; ++na) {
-                    pos.sens(index_dim[nd], index_pos[na]) += scale_sens;
+                    const_cast<VecArrayStorage&>(*pos.sens.h_ptr())(index_dim[nd], index_pos[na]) += scale_sens;
                 }
             }
         }
@@ -441,4 +441,3 @@ struct PosCenter : public CoordNode {
 };
 
 static RegisterNodeType<PosCenter,1> pos_center_node("GroupCenter");
-

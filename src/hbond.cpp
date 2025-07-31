@@ -54,7 +54,7 @@ struct Infer_H_O : public CoordNode
         if(logging(LOG_EXTENSIVE)) {
             default_logger->add_logger<float>("virtual", {n_elem, 3}, [&](float* buffer) {
                     for(int nv=0; nv<n_virtual; ++nv) {
-                        auto x = load_vec<6>(output, nv);
+                        auto x = load_vec<6>(const_cast<VecArrayStorage&>(*output.h_ptr()), nv);
                         for(int d=0; d<3; ++d) buffer[nv*3 + d] = x[d];
                     }
                 });
@@ -65,7 +65,7 @@ struct Infer_H_O : public CoordNode
     virtual void compute_value(ComputeMode mode) override {
         Timer timer(string("infer_H_O"));
 
-        VecArray posc  = pos.output;
+        VecArray posc  = const_cast<VecArrayStorage&>(*pos.output.h_ptr());
         for(int nv=0; nv<n_virtual; ++nv) {
             // For output, first three components are position of H/O and second three are HN/OC bond direction
             // Bond direction is a unit vector
@@ -91,20 +91,20 @@ struct Infer_H_O : public CoordNode
             disp.blend<0,0,0,1>(disp_invmag).store(data_for_deriv + nv*3*4 + 8);
 
             // write pos
-            hbond_pos.store(&output(0,nv));
-            hbond_dir.store(&output(3,nv), Alignment::unaligned);
+            hbond_pos.store(&const_cast<VecArrayStorage&>(*output.h_ptr())(0,nv));
+            hbond_dir.store(&const_cast<VecArrayStorage&>(*output.h_ptr())(3,nv), Alignment::unaligned);
         }
     }
 
     virtual void propagate_deriv() override {
         Timer timer(string("infer_H_O_deriv"));
-        VecArray pos_sens = pos.sens;
+        VecArray pos_sens = const_cast<VecArrayStorage&>(*pos.sens.h_ptr());
 
         for(int nv=0; nv<n_virtual; ++nv) {
             const auto& p = params[nv];
 
-            auto sens_pos = Float4(&sens(0,nv)).zero_entries<0,0,0,1>(); // last entry should be zero
-            auto sens_dir = Float4(&sens(3,nv), Alignment::unaligned);
+            auto sens_pos = Float4(&const_cast<VecArrayStorage&>(*sens.h_ptr())(0,nv)).zero_entries<0,0,0,1>(); // last entry should be zero
+            auto sens_dir = Float4(&const_cast<VecArrayStorage&>(*sens.h_ptr())(3,nv), Alignment::unaligned);
 
             auto sens_neg_unitdisp = sens_dir + Float4(p.bond_length)*sens_pos;
 
@@ -330,12 +330,12 @@ struct CTerHBond : public CoordNode {
     virtual void compute_value(ComputeMode mode) override {
         Timer timer(string("CTer_hbond"));
 
-        VecArray vs = output;
+        VecArray vs = const_cast<VecArrayStorage&>(*output.h_ptr());
 
-        auto C = load_vec<3>(bb.output, index2[0]);
+        auto C = load_vec<3>(const_cast<VecArrayStorage&>(*bb.output.h_ptr()), index2[0]);
         for(int n=0; n<n_donor; ++n) {
 
-            auto NH = load_vec<6>(infer.output, index1[n]);
+            auto NH = load_vec<6>(const_cast<VecArrayStorage&>(*infer.output.h_ptr()), index1[n]);
             auto H = extract<0,3>(NH);
             auto disp = H - C;
             auto magHC = mag(disp);
@@ -373,7 +373,7 @@ struct ProteinHBond : public CoordNode
         if(logging(LOG_DETAILED)) {
             default_logger->add_logger<float>("hbond", {n_donor+n_acceptor}, [&](float* buffer) {
                    for(int nv: range(n_donor+n_acceptor))
-                       buffer[nv] = output(6,nv);});
+                       buffer[nv] = const_cast<VecArrayStorage&>(*output.h_ptr())(6,nv);});
         }
     }
 
@@ -381,8 +381,8 @@ struct ProteinHBond : public CoordNode
         Timer timer(string("protein_hbond"));
 
         int n_virtual = n_donor + n_acceptor;
-        VecArray vs = output;
-        VecArray ho = infer.output;
+        VecArray vs = const_cast<VecArrayStorage&>(*output.h_ptr());
+        VecArray ho = const_cast<VecArrayStorage&>(*infer.output.h_ptr());
 
         for(int nv: range(n_virtual)) {
             Float4(&ho(0,nv)).store(&vs(0,nv));
@@ -408,7 +408,7 @@ struct ProteinHBond : public CoordNode
         // we accumulated derivatives for z = 1-exp(-log(no_hb))
         // so we need to convert back with z_sens*(1.f-hb)
         for(int nv=0; nv<n_virtual; ++nv)
-            sens_scaled[nv] = sens(6,nv) * (1.f-output(6,nv));
+            sens_scaled[nv] = const_cast<VecArrayStorage&>(*sens.h_ptr())(6,nv) * (1.f-const_cast<VecArrayStorage&>(*output.h_ptr())(6,nv));
 
         // Push protein HBond derivatives
         for(int ne: range(igraph.n_edge)) {
@@ -420,15 +420,15 @@ struct ProteinHBond : public CoordNode
         igraph.propagate_derivatives();
 
         // pass through derivatives on all other components
-        VecArray pd1 = igraph.pos_node1->sens;
+        VecArray pd1 = const_cast<VecArrayStorage&>(*igraph.pos_node1->sens.h_ptr());
         for(int nd=0; nd<n_donor; ++nd) {
             // the last component is taken care of by the edge loop
-            update_vec(pd1, igraph.loc1[nd], load_vec<6>(sens, nd));
+            update_vec(pd1, igraph.loc1[nd], load_vec<6>(const_cast<VecArrayStorage&>(*sens.h_ptr()), nd));
         }
-        VecArray pd2 = igraph.pos_node2->sens;
+        VecArray pd2 = const_cast<VecArrayStorage&>(*igraph.pos_node2->sens.h_ptr());
         for(int na=0; na<n_acceptor; ++na) {  // acceptor loop
             // the last component is taken care of by the edge loop
-            update_vec(pd2, igraph.loc2[na], load_vec<6>(sens, na+n_donor));
+            update_vec(pd2, igraph.loc2[na], load_vec<6>(const_cast<VecArrayStorage&>(*sens.h_ptr()), na+n_donor));
         }
     }
 };
@@ -453,9 +453,9 @@ struct HBondCoverage : public CoordNode {
         // Compute coverage and its derivative
         igraph.compute_edges();
 
-        fill(output, 0.f);
+        fill(const_cast<VecArrayStorage&>(*output.h_ptr()), 0.f);
         for(int ne=0; ne<igraph.n_edge; ++ne) {
-            output(0, igraph.edge_indices2[ne]) += igraph.edge_value[ne];
+            const_cast<VecArrayStorage&>(*output.h_ptr())(0, igraph.edge_indices2[ne]) += igraph.edge_value[ne];
         }
     }
 
@@ -463,7 +463,7 @@ struct HBondCoverage : public CoordNode {
         Timer timer(string("hbond_coverage_deriv"));
 
         for(int ne: range(igraph.n_edge))
-            igraph.edge_sensitivity[ne] = sens(0,igraph.edge_indices2[ne]);
+            igraph.edge_sensitivity[ne] = const_cast<VecArrayStorage&>(*sens.h_ptr())(0,igraph.edge_indices2[ne]);
         igraph.propagate_derivatives();
     }
 
@@ -555,10 +555,10 @@ struct HBondEnergy : public HBondCounter
 
     virtual void compute_value(ComputeMode mode) override {
         Timer timer(string("hbond_energy"));
-        VecArray pp        = protein_hbond.output;
-        VecArray pp_sens   = protein_hbond.sens;
-        VecArray ramac     = rama.output;
-        VecArray rama_sens = rama.sens;
+        VecArray pp        = const_cast<VecArrayStorage&>(*protein_hbond.output.h_ptr());
+        VecArray pp_sens   = const_cast<VecArrayStorage&>(*protein_hbond.sens.h_ptr());
+        VecArray ramac     = const_cast<VecArrayStorage&>(*rama.output.h_ptr());
+        VecArray rama_sens = const_cast<VecArrayStorage&>(*rama.sens.h_ptr());
 
         for( int i=0; i<n_res; i++) {
             auto r = load_vec<2>(ramac, i);
@@ -662,8 +662,8 @@ struct HBondEnergy : public HBondCounter
         for( int i =0; i<12; i++ ) 
             dparams[i] = 0.0;
 
-        VecArray ramac = rama.output;
-        VecArray pp    = protein_hbond.output;
+        VecArray ramac = const_cast<VecArrayStorage&>(*rama.output.h_ptr());
+        VecArray pp    = const_cast<VecArrayStorage&>(*protein_hbond.output.h_ptr());
         for( int i=0; i<n_res; i++) {
             auto r = load_vec<2>(ramac, i);
 
@@ -737,4 +737,3 @@ struct HBondEnergy : public HBondCounter
     }
 };
 static RegisterNodeType<HBondEnergy,2> hbond_energy_node("hbond_energy");
-

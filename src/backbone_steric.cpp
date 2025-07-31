@@ -88,7 +88,7 @@ struct BackbonePairs : public PotentialNode
 
         if(pot) *pot = 0.f;
         for(int nr=0; nr<n_residue; ++nr) {
-            auto aff = load_vec<7>(alignment.output, params[nr].residue);
+            auto aff = load_vec<7>(const_cast<VecArrayStorage&>(*alignment.output.h_ptr()), params[nr].residue);
             float U[9]; quat_to_rot(U, aff.v+3);
             auto t = extract<0,3>(aff);
             store_vec(coords,nr, t);
@@ -138,8 +138,8 @@ struct BackbonePairs : public PotentialNode
                 Vec<6> combine_deriv1; store<0,3>(combine_deriv1, d1); store<3,6>(combine_deriv1, torque1);
                 Vec<6> combine_deriv2; store<0,3>(combine_deriv2, d2); store<3,6>(combine_deriv2, torque2);
 
-                update_vec(alignment.sens, params[nr1].residue, combine_deriv1);
-                update_vec(alignment.sens, params[nr2].residue, combine_deriv2);
+                update_vec(const_cast<VecArrayStorage&>(*alignment.sens.h_ptr()), params[nr1].residue, combine_deriv1);
+                update_vec(const_cast<VecArrayStorage&>(*alignment.sens.h_ptr()), params[nr2].residue, combine_deriv2);
             }
         }
     }

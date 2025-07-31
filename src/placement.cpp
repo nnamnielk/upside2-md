@@ -62,7 +62,7 @@ struct RamaPlacement {
         const float scale_y = spline.ny * (0.5f/M_PI_F - 1e-7f);
         const float shift = M_PI_F;
 
-        VecArray rama_pos   = rama.output;
+        VecArray rama_pos   = const_cast<VecArrayStorage&>(*rama.output.h_ptr());
 
         auto r   = load_vec<2>(rama_pos,   params[ne].rama_residue);
 
@@ -81,7 +81,7 @@ struct RamaPlacement {
         const float scale_x = spline.nx * (0.5f/M_PI_F - 1e-7f);
         const float scale_y = spline.ny * (0.5f/M_PI_F - 1e-7f);
 
-        VecArray r_sens = rama.sens;
+        VecArray r_sens = const_cast<VecArrayStorage&>(*rama.sens.h_ptr());
 
         auto my_rama_deriv = load_vec<2*n_pos_dim>(rama_deriv, ne);
         auto rd = make_vec2(
@@ -254,7 +254,7 @@ struct PlacementNode: public CoordNode
         if(logging(LOG_EXTENSIVE)) {
             // FIXME prepend the logging with the class name for disambiguation
             default_logger->add_logger<float>("placement_pos", {n_elem, n_pos_dim}, [&](float* buffer) {
-                    VecArray pos = output;
+                    VecArray pos = const_cast<VecArrayStorage&>(*output.h_ptr());
                     for(int ne: range(n_elem))
                         for(int d: range(n_pos_dim))
                             buffer[ne*n_pos_dim + d] = pos(d,ne);});
@@ -264,8 +264,8 @@ struct PlacementNode: public CoordNode
     virtual void compute_value(ComputeMode mode) {
         Timer timer(string("placement"));
 
-        VecArray affine_pos = alignment.output;
-        VecArray pos        = output;
+        VecArray affine_pos = const_cast<VecArrayStorage&>(*alignment.output.h_ptr());
+        VecArray pos        = const_cast<VecArrayStorage&>(*output.h_ptr());
 
         placement_data.reset();
 
@@ -283,12 +283,12 @@ struct PlacementNode: public CoordNode
     virtual void propagate_deriv() {
       Timer timer(string("placement_deriv"));
 
-      VecArray a_sens = alignment.sens;
-      VecArray affine_pos = alignment.output;
+      VecArray a_sens = const_cast<VecArrayStorage&>(*alignment.sens.h_ptr());
+      VecArray affine_pos = const_cast<VecArrayStorage&>(*alignment.output.h_ptr());
 
       for(int ne: range(n_elem)) {
-          auto d = load_vec<n_pos_dim>(sens, ne);
-          float* x = &output(0,ne);
+          auto d = load_vec<n_pos_dim>(const_cast<VecArrayStorage&>(*sens.h_ptr()), ne);
+          float* x = &const_cast<VecArrayStorage&>(*output.h_ptr())(0,ne);
 
           auto aff = load_vec<7>(affine_pos, affine_residue[ne]);
           auto t   = extract<0,3>(aff);

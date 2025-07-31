@@ -58,8 +58,8 @@ struct RamaMapPot : public PotentialNode
         Timer timer(string("rama_map_pot"));
 
         float* pot = mode==PotentialAndDerivMode ? &potential : nullptr;
-        VecArray ramac     = rama.output;
-        VecArray rama_sens = rama.sens;
+        VecArray ramac     = const_cast<VecArrayStorage&>(*rama.output.h_ptr());
+        VecArray rama_sens = const_cast<VecArrayStorage&>(*rama.sens.h_ptr());
         if(pot) *pot = 0.f;
 
         // add a litte paranoia to make sure there are no rounding problems
@@ -135,10 +135,10 @@ struct RamaMapPot2 : public PotentialNode
         Timer timer(string("rama_map_pot"));
 
         float* pot = mode==PotentialAndDerivMode ? &potential : nullptr;
-        VecArray ramac     = rama.output;
-        VecArray rama_sens = rama.sens;
-        VecArray lambdac     = lambda.output;
-        VecArray lambda_sens = lambda.sens;
+        VecArray ramac     = const_cast<VecArrayStorage&>(*rama.output.h_ptr());
+        VecArray rama_sens = const_cast<VecArrayStorage&>(*rama.sens.h_ptr());
+        VecArray lambdac     = const_cast<VecArrayStorage&>(*lambda.output.h_ptr());
+        VecArray lambda_sens = const_cast<VecArrayStorage&>(*lambda.sens.h_ptr());
         if(pot) *pot = 0.f;
 
         // add a litte paranoia to make sure there are no rounding problems
@@ -173,4 +173,3 @@ struct RamaMapPot2 : public PotentialNode
 #endif
 };
 static RegisterNodeType<RamaMapPot2,2> rama_map_pot2_node("RamaMap2");
-

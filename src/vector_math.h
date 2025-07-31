@@ -178,12 +178,23 @@ struct
      const ScalarT& operator[](int i) const {return v[i];}
  };
 
-typedef Vec<1,float> float1;
-typedef Vec<2,float> float2;
-typedef Vec<3,float> float3;
-typedef Vec<4,float> float4;
+namespace vec {
+    typedef Vec<1,float> float1;
+    typedef Vec<2,float> float2;
+    typedef Vec<3,float> float3;
+    typedef Vec<4,float> float4;
+    
+    typedef Vec<3,  int>   int3;
+}
 
-typedef Vec<3,  int>   int3;
+// For backward compatibility, bring them into global namespace when not using CUDA
+#ifndef __CUDACC__
+using vec::float1;
+using vec::float2;
+using vec::float3;
+using vec::float4;
+using vec::int3;
+#endif
 
 // template <int D>
 // inline Vec<D,float> load_vec(const VecArray& a, int idx) {
@@ -262,8 +273,21 @@ inline void update_vec(float* a, const Vec<D> &r) {
 static const float M_PI_F   = 3.141592653589793f;   //!< value of pi as float
 static const float M_1_PI_F = 0.3183098861837907f;  //!< value of 1/pi as float
 
-inline float approx_rsqrt(float x) {return 1.f/sqrtf(x);}  //!< reciprocal square root at lower accuracy
-inline float rsqrt(float x) {return 1.f/sqrtf(x);}  //!< reciprocal square root (1/sqrt(x))
+namespace vec {
+    inline float approx_rsqrt(float x) {return 1.f/sqrtf(x);}  //!< reciprocal square root at lower accuracy
+    inline float rsqrt(float x) {return 1.f/sqrtf(x);}  //!< reciprocal square root (1/sqrt(x))
+    inline bool any(bool x) {return x;} // scalar any function is trivial
+    inline bool none(bool x) {return !x;} // scalar none function is trivial
+}
+
+// For backward compatibility, bring them into global namespace when not using CUDA
+#ifndef __CUDACC__
+using vec::approx_rsqrt;
+using vec::rsqrt;
+using vec::any;
+using vec::none;
+#endif
+
 template <typename D> constexpr inline D sqr(D x) {return x*x;}  //!< square a number (x^2)
 inline float rcp       (float x) {return 1.f/x;}  //!< reciprocal of number
 inline float approx_rcp(float x) {return 1.f/x;}  //!< reciprocal of number
@@ -318,10 +342,18 @@ template<typename S> inline Vec<1,S> make_vec1(const S& x                       
 template<typename S> inline Vec<2,S> make_vec2(const S& x, const S& y                        ) {Vec<2,S> a; a[0]=x; a[1]=y;                 return a;}
 template<typename S> inline Vec<3,S> make_vec3(const S& x, const S& y, const S& z            ) {Vec<3,S> a; a[0]=x; a[1]=y; a[2]=z;         return a;}
 template<typename S> inline Vec<4,S> make_vec4(const S& x, const S& y, const S& z, const S& w) {Vec<4,S> a; a[0]=x; a[1]=y; a[2]=z; a[3]=w; return a;}
-//! make float4 from float3 (as x,y,z) and scalar (as w)
-inline float4 make_vec4(float3 v, float w) { return make_vec4(v.x(),v.y(),v.z(),w); } 
+namespace vec {
+    //! make float4 from float3 (as x,y,z) and scalar (as w)
+    inline float4 make_vec4(float3 v, float w) { return ::make_vec4(v.x(),v.y(),v.z(),w); } 
+    
+    inline float3 xyz(const float4& x) { return ::make_vec3(x.x(),x.y(),x.z()); } //!< return x,y,z as float3 from a float4
+}
 
-inline float3 xyz(const float4& x) { return make_vec3(x.x(),x.y(),x.z()); } //!< return x,y,z as float3 from a float4
+// For backward compatibility, bring them into global namespace when not using CUDA
+#ifndef __CUDACC__
+using vec::make_vec4;
+using vec::xyz;
+#endif
 
 //! \cond
 template <int D, typename S> 
@@ -476,28 +508,37 @@ inline Vec<D,S> operator-(const Vec<D,S>& a) {
 //! \endcond
 
 
-//! \cond, Zongan to handle int3
-/* Implicit type conversion rules in C++ operators
- * int + float =>  float + float = float
- * int * float =>  float * float = float
- * float * int =>  float * float = float
- * int / float =>  float / float = float
- * float / int =>  float / float = float
- * int / int                     = int
- */
-inline float3 operator+(const float3& a, const   int3& b){float3 c; c[0] = a[0]+b[0]; c[1] = a[1]+b[1]; c[2] = a[2]+b[2]; return c;}
-inline float3 operator+(const   int3& a, const float3& b){float3 c; c[0] = a[0]+b[0]; c[1] = a[1]+b[1]; c[2] = a[2]+b[2]; return c;}
+namespace vec {
+    //! \cond, Zongan to handle int3
+    /* Implicit type conversion rules in C++ operators
+     * int + float =>  float + float = float
+     * int * float =>  float * float = float
+     * float * int =>  float * float = float
+     * int / float =>  float / float = float
+     * float / int =>  float / float = float
+     * int / int                     = int
+     */
+    inline float3 operator+(const float3& a, const   int3& b){float3 c; c[0] = a[0]+b[0]; c[1] = a[1]+b[1]; c[2] = a[2]+b[2]; return c;}
+    inline float3 operator+(const   int3& a, const float3& b){float3 c; c[0] = a[0]+b[0]; c[1] = a[1]+b[1]; c[2] = a[2]+b[2]; return c;}
 
-inline float3 operator-(const float3& a, const   int3& b){float3 c; c[0] = a[0]-b[0]; c[1] = a[1]-b[1]; c[2] = a[2]-b[2]; return c;}
-inline float3 operator-(const   int3& a, const float3& b){float3 c; c[0] = a[0]-b[0]; c[1] = a[1]-b[1]; c[2] = a[2]-b[2]; return c;}
+    inline float3 operator-(const float3& a, const   int3& b){float3 c; c[0] = a[0]-b[0]; c[1] = a[1]-b[1]; c[2] = a[2]-b[2]; return c;}
+    inline float3 operator-(const   int3& a, const float3& b){float3 c; c[0] = a[0]-b[0]; c[1] = a[1]-b[1]; c[2] = a[2]-b[2]; return c;}
 
-inline float3 operator*(const float3& a, const   int3& b){float3 c; c[0] = a[0]*b[0]; c[1] = a[1]*b[1]; c[2] = a[2]*b[2]; return c;}
-inline float3 operator*(const   int3& a, const float3& b){float3 c; c[0] = a[0]*b[0]; c[1] = a[1]*b[1]; c[2] = a[2]*b[2]; return c;}
+    inline float3 operator*(const float3& a, const   int3& b){float3 c; c[0] = a[0]*b[0]; c[1] = a[1]*b[1]; c[2] = a[2]*b[2]; return c;}
+    inline float3 operator*(const   int3& a, const float3& b){float3 c; c[0] = a[0]*b[0]; c[1] = a[1]*b[1]; c[2] = a[2]*b[2]; return c;}
 
-inline float3 operator/(const float3& a, const   int3& b){float3 c; c[0] = a[0]/b[0]; c[1] = a[1]/b[1]; c[2] = a[2]/b[2]; return c;}
-inline float3 operator/(const   int3& a, const float3& b){float3 c; c[0] = a[0]/b[0]; c[1] = a[1]/b[1]; c[2] = a[2]/b[2]; return c;}
+    inline float3 operator/(const float3& a, const   int3& b){float3 c; c[0] = a[0]/b[0]; c[1] = a[1]/b[1]; c[2] = a[2]/b[2]; return c;}
+    inline float3 operator/(const   int3& a, const float3& b){float3 c; c[0] = a[0]/b[0]; c[1] = a[1]/b[1]; c[2] = a[2]/b[2]; return c;}
+    //! \endcond
+}
 
-//! \endcond
+// For backward compatibility, bring them into global namespace when not using CUDA
+#ifndef __CUDACC__
+using vec::operator+;
+using vec::operator-;
+using vec::operator*;
+using vec::operator/;
+#endif
 
 // FIXME how to handle sqrtf, rsqrtf for simd types?
 // I will assume there are functions rsqrt(s) and rcp(s) and sqrt(s) and I will write sqr(s)
@@ -691,9 +732,6 @@ inline Vec<2,S> sigmoid(S x) {
     S w = rcp(S(1.f)+z);
     return make_vec2(w, z*w*w);
 }
-
-inline bool any(bool x) {return x;} // scalar any function is trivial
-inline bool none(bool x) {return !x;} // scalar none function is trivial
 
 
 // Sigmoid-like function that has zero derivative outside (-1/sharpness,1/sharpness)

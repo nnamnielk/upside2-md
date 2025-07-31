@@ -260,8 +260,8 @@ void MonteCarloSampler::monte_carlo_step(
 {
     RandomGenerator random(seed, stream_id, 0, round);
 
-    auto &pos = engine.pos->output;
-    VecArrayStorage pos_copy(pos);
+    VecArray pos = const_cast<VecArrayStorage&>(*engine.pos->output.h_ptr());
+    VecArrayStorage pos_copy(const_cast<VecArrayStorage&>(*engine.pos->output.h_ptr()));
     float delta_lprob;
 
     engine.compute(PotentialAndDerivMode);
@@ -279,7 +279,7 @@ void MonteCarloSampler::monte_carlo_step(
         move_stats.n_success++;
     } else {
         // If we reject the move, we must reverse it
-        copy(pos_copy, pos);
+        copy(pos_copy, const_cast<VecArrayStorage&>(*engine.pos->output.h_ptr()));
     }
 }
 
@@ -304,5 +304,3 @@ MultipleMonteCarloSampler::MultipleMonteCarloSampler(hid_t sampler_group, H5Logg
 		samplers.emplace_back(
                         new JumpSampler(name.c_str(), open_group(sampler_group, (name + "_moves").c_str()).get(), logger));
 }
-
-
