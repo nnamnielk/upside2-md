@@ -45,9 +45,9 @@ struct PastePos : public CoordNode {
         for(int ne=0; ne<n_elem; ++ne) {
             auto p = params[ne];
             for(int nd=0; nd<n_dim1; ++nd) 
-                output.get_mutable_host_ptr()[ne * elem_width + nd] = pos1.output.get_mutable_host_ptr()[p.index_pos1 * pos1.elem_width + nd];
+                output(nd, ne)    = pos1.output(nd, p.index_pos1);
             for(int nd=0; nd<n_dim2; ++nd)
-                output.get_mutable_host_ptr()[ne * elem_width + nd+n_dim1] = pos2.output.get_mutable_host_ptr()[p.index_pos2 * pos2.elem_width + nd];
+                output(nd+n_dim1, ne) = pos2.output(nd, p.index_pos2);
         }
     }
 
@@ -57,9 +57,9 @@ struct PastePos : public CoordNode {
         for(int ne=0; ne<n_elem; ++ne) {
             auto p = params[ne];
             for(int nd=0; nd<n_dim1; ++nd) 
-                pos1.sens.get_mutable_host_ptr()[p.index_pos1 * pos1.elem_width + nd] += sens.get_mutable_host_ptr()[ne * elem_width + nd];
+                pos1.sens(nd,p.index_pos1) += sens(nd,ne);
             for(int nd=0; nd<n_dim2; ++nd)
-                pos2.sens.get_mutable_host_ptr()[p.index_pos2 * pos2.elem_width + nd] += sens.get_mutable_host_ptr()[ne * elem_width + nd+n_dim1];
+                pos2.sens(nd,p.index_pos2) += sens(nd+n_dim1,ne);
         }
     }
 };
@@ -93,8 +93,8 @@ struct PasteRama : public CoordNode {
         Timer timer("paste_rama");
         for(int ne=0; ne<n_elem; ++ne) {
             auto p = params[ne];
-            output.get_mutable_host_ptr()[ne * elem_width + 0] = pos1.output.get_mutable_host_ptr()[p.index_pos1 * pos1.elem_width + 0];
-            output.get_mutable_host_ptr()[ne * elem_width + 1] = pos2.output.get_mutable_host_ptr()[p.index_pos2 * pos2.elem_width + 0];
+            output(0, ne) = pos1.output(0, p.index_pos1);
+            output(1, ne) = pos2.output(0, p.index_pos2);
         }
     }
 
@@ -102,8 +102,8 @@ struct PasteRama : public CoordNode {
         Timer timer("d_paste_rama");
         for(int ne=0; ne<n_elem; ++ne) {
             auto p = params[ne];
-            pos1.sens.get_mutable_host_ptr()[p.index_pos1 * pos1.elem_width + 0] += sens.get_mutable_host_ptr()[ne * elem_width + 0];
-            pos2.sens.get_mutable_host_ptr()[p.index_pos2 * pos2.elem_width + 0] += sens.get_mutable_host_ptr()[ne * elem_width + 1];
+            pos1.sens(0, p.index_pos1) += sens(0,ne);
+            pos2.sens(0, p.index_pos2) += sens(1,ne);
         }
     }
 };
@@ -136,11 +136,11 @@ struct CatPos : public CoordNode {
 
         for(int ne=0; ne<pos1_size; ++ne) {
             for(int nd=0; nd<n_dim; ++nd)
-                output.get_mutable_host_ptr()[ne * elem_width + nd] = pos1.output.get_mutable_host_ptr()[index[ne] * pos1.elem_width + nd];
+                output(nd, ne) = pos1.output(nd, index[ne]);
         }
         for(int ne=pos1_size; ne<n_elem; ++ne) {
             for(int nd=0; nd<n_dim; ++nd)
-                output.get_mutable_host_ptr()[ne * elem_width + nd] = pos2.output.get_mutable_host_ptr()[index[ne] * pos2.elem_width + nd];
+                output(nd, ne) = pos2.output(nd, index[ne]);
         }
     }
 
@@ -149,11 +149,11 @@ struct CatPos : public CoordNode {
 
         for(int ne=0; ne<pos1_size; ++ne) {
             for(int nd=0; nd<n_dim; ++nd)
-                pos1.sens.get_mutable_host_ptr()[index[ne] * pos1.elem_width + nd] += sens.get_mutable_host_ptr()[ne * elem_width + nd];
+                pos1.sens(nd,index[ne]) += sens(nd,ne);
         }
         for(int ne=pos1_size; ne<n_elem; ++ne) {
             for(int nd=0; nd<n_dim; ++nd)
-                pos2.sens.get_mutable_host_ptr()[index[ne] * pos2.elem_width + nd] += sens.get_mutable_host_ptr()[ne * elem_width + nd];
+                pos2.sens(nd,index[ne]) += sens(nd,ne);
         }
     }
 };
@@ -183,11 +183,11 @@ struct Concat : public CoordNode
         int loc = 0;
         for(auto cn: coord_nodes) {
             int n_elem_cn = cn->n_elem;
-            VecArray cn_output(cn->output.get_mutable_host_ptr(), cn->elem_width);
+            VecArray cn_output = cn->output;
             
             for(int ne=0; ne<n_elem_cn; ++ne){
                 for(int nw=0; nw<elem_width; ++nw)
-                    output.get_mutable_host_ptr()[loc * elem_width + nw] = cn_output(nw,ne);
+                    output(nw,loc) = cn_output(nw,ne);
                 loc++;
             }
         }
@@ -198,11 +198,11 @@ struct Concat : public CoordNode
         int loc = 0;
         for(auto cn: coord_nodes) {
             int n_elem_cn = cn->n_elem;
-            VecArray cn_sens(cn->sens.get_mutable_host_ptr(), cn->elem_width);
+            VecArray cn_sens = cn->sens;
             
             for(int ne=0; ne<n_elem_cn; ++ne){
                 for(int nw=0; nw<elem_width; ++nw)
-                    cn_sens(nw,loc) += sens.get_mutable_host_ptr()[ne * elem_width + nw];
+                    cn_sens(nw,loc) += sens(nw,ne);
                 loc++;
             }
         }
@@ -233,8 +233,8 @@ struct PosWeight : public CoordNode {
         Timer timer("weight_pos");
         for(int ne=0; ne<n_elem; ++ne) {
             for(int nd=0; nd<n_dim; ++nd)
-                output.get_mutable_host_ptr()[ne * elem_width + nd] = pos.output.get_mutable_host_ptr()[index_pos[ne] * pos.elem_width + nd];
-            output.get_mutable_host_ptr()[ne * elem_width + n_dim]  = weight[ne];
+                output(nd, ne) = pos.output(nd, index_pos[ne]);
+            output(n_dim, ne)  = weight[ne];
         }
     }
 
@@ -242,7 +242,7 @@ struct PosWeight : public CoordNode {
         Timer timer("d_weight_pos");
         for(int ne=0; ne<n_elem; ++ne) {
             for(int nd=0; nd<n_dim; ++nd)
-                pos.sens.get_mutable_host_ptr()[index_pos[ne] * pos.elem_width + nd] += sens.get_mutable_host_ptr()[ne * elem_width + nd];
+                pos.sens(nd, index_pos[ne]) += sens(nd,ne);
         }
     }
 };
@@ -272,7 +272,7 @@ struct SelectPos : public CoordNode {
 
         for(int ne=0; ne<n_elem; ++ne) {
             for(int nd=0; nd<n_dim; ++nd)
-                output.get_mutable_host_ptr()[ne * elem_width + nd] = pos.output.get_mutable_host_ptr()[index_pos[ne] * pos.elem_width + index_dim[nd]];
+                output(nd, ne) = pos.output(index_dim[nd], index_pos[ne]);
         }
     }
 
@@ -281,7 +281,7 @@ struct SelectPos : public CoordNode {
 
         for(int ne=0; ne<n_elem; ++ne) {
             for(int nd=0; nd<n_dim; ++nd)
-                pos.sens.get_mutable_host_ptr()[index_pos[ne] * pos.elem_width + index_dim[nd]] += sens.get_mutable_host_ptr()[ne * elem_width + nd];
+                pos.sens(index_dim[nd], index_pos[ne]) += sens(nd, ne);
         }
     }
 };
@@ -307,7 +307,7 @@ struct Slice : public CoordNode
     virtual void compute_value(ComputeMode mode) override {
         for (int na = 0; na < n_atom; na++) {
             for (int d = 0; d < elem_width; d++) {
-                output.get_mutable_host_ptr()[na * elem_width + d] = pos.output.get_mutable_host_ptr()[id[na] * pos.elem_width + d];
+                output(d, na) = pos.output(d, id[na]);
             }
         }
     }
@@ -315,7 +315,7 @@ struct Slice : public CoordNode
     virtual void propagate_deriv() override {
         for (int na = 0; na < n_atom; na++) {
             for (int d = 0; d < elem_width; d++) {
-                pos.sens.get_mutable_host_ptr()[id[na] * pos.elem_width + d] += sens.get_mutable_host_ptr()[na * elem_width + d];
+                pos.sens(d, id[na]) += sens(d, na);
             }
         }
     }
@@ -349,7 +349,7 @@ struct PosSum : public CoordNode {
             default_logger->add_logger<float>("pos_sum", {n_elem, n_dim}, [&](float* buffer) {
                 for(int ne=0; ne<n_elem; ++ne) {
                     for(int nd=0; nd<n_dim; ++nd) 
-                        buffer[ne*n_dim + nd] = output.get_host_ptr()[ne * elem_width + nd];
+                        buffer[ne*n_dim + nd] = output(nd, ne);
                 }
             });
         }
@@ -361,9 +361,9 @@ struct PosSum : public CoordNode {
         for(int ne=0; ne<n_elem; ++ne) {
             auto index = index_pos[ne];
             for(int nd=0; nd<n_dim; ++nd) {
-                output.get_mutable_host_ptr()[ne * elem_width + nd] = 0.0;
+                output(nd, ne) = 0.0;
                 for( int na=0;na<(int)index.size(); ++na) 
-                    output.get_mutable_host_ptr()[ne * elem_width + nd] += pos.output.get_mutable_host_ptr()[index[na] * pos.elem_width + index_dim[nd]];
+                    output(nd, ne) += pos.output(index_dim[nd], index[na]);
             }
         }
     }
@@ -374,9 +374,9 @@ struct PosSum : public CoordNode {
         for(int ne=0; ne<n_elem; ++ne) {
             auto index = index_pos[ne];
             for(int nd=0; nd<n_dim; ++nd) {
-                auto scale_sens = sens.get_host_ptr()[ne * elem_width + nd];
+                auto scale_sens = sens(nd, ne);
                 for( int na=0;na<(int)index.size(); ++na) 
-                    pos.sens.get_mutable_host_ptr()[index[na] * pos.elem_width + index_dim[nd]] += scale_sens;
+                    pos.sens(index_dim[nd], index[na]) += scale_sens;
             }
         }
     }
@@ -400,8 +400,8 @@ struct ScaledSum: public PotentialNode
 
     virtual void compute_value(ComputeMode mode) override {
         Timer timer(string("scaled_sum")); 
-        VecArray value(input.output.get_mutable_host_ptr(), input.elem_width);
-        VecArray sens(input.sens.get_mutable_host_ptr(), input.elem_width);
+        VecArray value = input.output;
+        VecArray sens  = input.sens;
         int n_elem = input.n_elem;
 
         float pot = 0.f;
@@ -449,8 +449,8 @@ struct BackboneFeaturizer : public CoordNode
     }
 
     virtual void compute_value(ComputeMode mode) override {
-        VecArray ramac(rama.output.get_mutable_host_ptr(), rama.elem_width);
-        VecArray hbondc(hbond.output.get_mutable_host_ptr(), hbond.elem_width);
+        VecArray ramac = rama.output;
+        VecArray hbondc = hbond.output;
 
         for(int ne=0; ne<n_elem; ++ne) {
             auto& p = params[ne];
@@ -460,26 +460,26 @@ struct BackboneFeaturizer : public CoordNode
             float don_hb = p.donor_idx   ==-1 ? 0.f : hbondc(6,p.donor_idx);
             float acc_hb = p.acceptor_idx==-1 ? 0.f : hbondc(6,p.acceptor_idx);
 
-            output.get_mutable_host_ptr()[ne * elem_width + 0] = sin(phi);
-            output.get_mutable_host_ptr()[ne * elem_width + 1] = cos(phi);
-            output.get_mutable_host_ptr()[ne * elem_width + 2] = sin(psi);
-            output.get_mutable_host_ptr()[ne * elem_width + 3] = cos(psi);
-            output.get_mutable_host_ptr()[ne * elem_width + 4] = don_hb;
-            output.get_mutable_host_ptr()[ne * elem_width + 5] = acc_hb;
+            output(0,ne) = sin(phi);
+            output(1,ne) = cos(phi);
+            output(2,ne) = sin(psi);
+            output(3,ne) = cos(psi);
+            output(4,ne) = don_hb;
+            output(5,ne) = acc_hb;
         }
     }
 
     virtual void propagate_deriv() override {
-        VecArray rama_s(rama.sens.get_mutable_host_ptr(), rama.elem_width);
-        VecArray hbond_s(hbond.sens.get_mutable_host_ptr(), hbond.elem_width);
+        VecArray rama_s = rama.sens;
+        VecArray hbond_s = hbond.sens;
 
         for(int ne=0; ne<n_elem; ++ne) {
             auto& p = params[ne];
 
-            rama_s(0,p.rama_idx) += sens.get_host_ptr()[ne * elem_width + 1]*(-output.get_host_ptr()[ne * elem_width + 0]) + sens.get_host_ptr()[ne * elem_width + 0]*output.get_host_ptr()[ne * elem_width + 1];
-            rama_s(1,p.rama_idx) += sens.get_host_ptr()[ne * elem_width + 3]*(-output.get_host_ptr()[ne * elem_width + 2]) + sens.get_host_ptr()[ne * elem_width + 2]*output.get_host_ptr()[ne * elem_width + 3];
-            if(p.donor_idx   !=-1) hbond_s(6,p.donor_idx   ) += sens.get_host_ptr()[ne * elem_width + 4];
-            if(p.acceptor_idx!=-1) hbond_s(6,p.acceptor_idx) += sens.get_host_ptr()[ne * elem_width + 5];
+            rama_s(0,p.rama_idx) += sens(1,ne)*(-output(0,ne)) + sens(0,ne)*output(1,ne);
+            rama_s(1,p.rama_idx) += sens(3,ne)*(-output(2,ne)) + sens(2,ne)*output(3,ne);
+            if(p.donor_idx   !=-1) hbond_s(6,p.donor_idx   ) += sens(4,ne);
+            if(p.acceptor_idx!=-1) hbond_s(6,p.acceptor_idx) += sens(5,ne);
         }
     }
 };
@@ -536,7 +536,7 @@ struct Conv1D : public CoordNode
 
     virtual void compute_value(ComputeMode mode) override {
         Timer timer(string("conv1d")); 
-        VecArray inputc(input.output.get_mutable_host_ptr(), input.elem_width);
+        VecArray inputc = input.output;
         
         int n_elem_output = n_elem;
 
@@ -556,17 +556,17 @@ struct Conv1D : public CoordNode
             case Identity:
                 for(int nr=0; nr<n_elem_output; ++nr)
                     for(int nc=0; nc<out_channels; ++nc)
-                        output.get_mutable_host_ptr()[nr * elem_width + nc] = matmul_output(nr,nc);
+                        output(nc,nr) = matmul_output(nr,nc);
                 break;
             case ReLU:
                 for(int nr=0; nr<n_elem_output; ++nr)
                     for(int nc=0; nc<out_channels; ++nc)
-                        output.get_mutable_host_ptr()[nr * elem_width + nc] = relu(matmul_output(nr,nc));
+                        output(nc,nr) = relu(matmul_output(nr,nc));
                 break;
             case Tanh:
                 for(int nr=0; nr<n_elem_output; ++nr)
                     for(int nc=0; nc<out_channels; ++nc)
-                        output.get_mutable_host_ptr()[nr * elem_width + nc] = tanh(matmul_output(nr,nc));
+                        output(nc,nr) = tanh(matmul_output(nr,nc));
                 break;
         }
     }
@@ -579,17 +579,17 @@ struct Conv1D : public CoordNode
             case Identity:
                 for(int nr=0; nr<n_elem_output; ++nr)
                     for(int nc=0; nc<out_channels; ++nc)
-                        matmul_output(nr,nc) = sens.get_host_ptr()[nr * elem_width + nc];
+                        matmul_output(nr,nc) = sens(nc,nr);
                 break;
             case ReLU:
                 for(int nr=0; nr<n_elem_output; ++nr)
                     for(int nc=0; nc<out_channels; ++nc)
-                        matmul_output(nr,nc) = output.get_host_ptr()[nr * elem_width + nc]>0.f ? sens.get_host_ptr()[nr * elem_width + nc] : 0.f;
+                        matmul_output(nr,nc) = output(nc,nr)>0.f ? sens(nc,nr) : 0.f;
                 break;
             case Tanh:
                 for(int nr=0; nr<n_elem_output; ++nr)
                     for(int nc=0; nc<out_channels; ++nc)
-                        matmul_output(nr,nc) = sens.get_host_ptr()[nr * elem_width + nc] * (1.f-sqr(output.get_host_ptr()[nr * elem_width + nc]));
+                        matmul_output(nr,nc) = sens(nc,nr) * (1.f-sqr(output(nc,nr)));
                 break;
         }
 
@@ -597,7 +597,7 @@ struct Conv1D : public CoordNode
         input_conv_format.noalias() = matmul_output * weights.transpose();
 
         // Backpropagte into sens
-        VecArray inp_sens(input.sens.get_mutable_host_ptr(), input.elem_width);
+        VecArray inp_sens = input.sens;
         for(int nr=0; nr<n_elem_output; ++nr)
             for(int nw=0; nw<conv_width; ++nw)
                 for(int nc=0; nc<in_channels; ++nc)
@@ -628,7 +628,7 @@ struct SigmoidCoord : public CoordNode {
 	pos(pos_), 
 	params(n_elem),
 	deriv(n_elem),
-	n_dim(pos.elem_width),
+	n_dim(pos.output.row_width),
         dim1(read_attribute<int>(grp, ".", "dim1"))
     {
         check_size(grp, "c",    n_elem);
@@ -651,14 +651,14 @@ struct SigmoidCoord : public CoordNode {
         Timer timer("sigmoid_coord");
         for(int ne=0; ne<n_elem; ++ne) {
             auto& p  = params[ne];
-	    auto x   = pos.output.get_mutable_host_ptr()[p.id * pos.elem_width + dim1];
+	    auto x   = pos.output(dim1, p.id);
 	    auto sig = compact_sigmoid(x-p.c, p.s);
 	    if (p.sign > 0) {
-                output.get_mutable_host_ptr()[ne] = sig.x();
+                output(0, ne) = sig.x();
 		deriv[ne] = sig.y();
 	    }
 	    else {
-                output.get_mutable_host_ptr()[ne] = 1.f - sig.x();
+                output(0, ne) = 1.f - sig.x();
 		deriv[ne] = -sig.y();
             }
         }
@@ -666,10 +666,11 @@ struct SigmoidCoord : public CoordNode {
 
     virtual void propagate_deriv() override {
         Timer timer("d_sigmoid_coord");
-        VecArray pos_sens(pos.sens.get_mutable_host_ptr(), pos.elem_width);
+        VecArray pos_sens = pos.sens;
         for(int ne=0; ne<n_elem; ++ne) 
-            pos_sens(dim1, params[ne].id) += sens.get_host_ptr()[ne]*deriv[ne];
+            pos_sens(dim1, params[ne].id) += sens(0, ne)*deriv[ne];
     }
 };
 
 static RegisterNodeType<SigmoidCoord,1> sigmoid_coord_node("SigmoidCoord");
+

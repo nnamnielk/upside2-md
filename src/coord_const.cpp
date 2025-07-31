@@ -28,13 +28,13 @@ struct ConstantCoord1D : public CoordNode
         dim(read_attribute<int>(grp, ".", "dim"))
     {
 	if (initialized_by_coord) {
-	    assert(dim<pos.elem_width);
+	    assert(dim<pos.output.row_width);
             traverse_dset<1,int> (grp, "id", [&](size_t i, int x) {params[i].id = x;});
 	}
 	else{
             n_elem = get_dset_size(1, grp, "value")[0];
             check_size(grp, "value", n_elem, 1);
-            traverse_dset<1,float>(grp, "value", [&](size_t ne, float x) { output.get_mutable_host_ptr()[ne] = x;});
+            traverse_dset<1,float>(grp, "value", [&](size_t ne, float x) { output(0,ne) = x;});
 	}
 
 
@@ -42,10 +42,10 @@ struct ConstantCoord1D : public CoordNode
 
     virtual void compute_value(ComputeMode mode) {
 	if (initialized_by_coord and not initialized) {
-            VecArray posc(pos.output.get_mutable_host_ptr(), pos.elem_width);
+            VecArray posc = pos.output;
             for(int nt=0; nt<n_elem; ++nt) {
                 auto& p = params[nt];
-	        output.get_mutable_host_ptr()[nt] = posc(dim, p.id);
+	        output(0, nt) = posc(dim, p.id);
             }
 	    initialized = true;
 	}
@@ -77,25 +77,25 @@ struct ConstantCoord2D : public CoordNode
         dim2(read_attribute<int>(grp, ".", "dim2"))
     {
 	if (initialized_by_coord) {
-	    assert(dim1<pos.elem_width);
-	    assert(dim2<pos.elem_width);
+	    assert(dim1<pos.output.row_width);
+	    assert(dim2<pos.output.row_width);
             traverse_dset<1,int> (grp, "id", [&](size_t i, int x) {params[i].id = x;});
 	}
 	else{
             n_elem = get_dset_size(2, grp, "value")[0];
             check_size(grp, "value", n_elem, 2);
-            traverse_dset<2,float>(grp, "value", [&](size_t ne, size_t nt, float x) { output.get_mutable_host_ptr()[ne * elem_width + nt] = x;});
+            traverse_dset<2,float>(grp, "value", [&](size_t ne, size_t nt, float x) { output(nt, ne) = x;});
 	}
     }
 
     virtual void compute_value(ComputeMode mode) {
     
 	if (initialized_by_coord and not initialized) {
-            VecArray posc(pos.output.get_mutable_host_ptr(), pos.elem_width);
+            VecArray posc = pos.output;
             for(int nt=0; nt<n_elem; ++nt) {
                 auto& p = params[nt];
-	        output.get_mutable_host_ptr()[nt * elem_width + 0] = posc(dim1, p.id);
-	        output.get_mutable_host_ptr()[nt * elem_width + 1] = posc(dim2, p.id);
+	        output(0, nt) = posc(dim1, p.id);
+	        output(1, nt) = posc(dim2, p.id);
             }
 	    initialized = true;
 	}
@@ -130,15 +130,15 @@ struct ConstantCoord3D : public CoordNode
         dim3(read_attribute<int>(grp, ".", "dim3"))
     {
 	if (initialized_by_coord) {
-	    assert(dim1<pos.elem_width);
-	    assert(dim2<pos.elem_width);
-	    assert(dim3<pos.elem_width);
+	    assert(dim1<pos.output.row_width);
+	    assert(dim2<pos.output.row_width);
+	    assert(dim3<pos.output.row_width);
             traverse_dset<1,int> (grp, "id", [&](size_t i, int x) {params[i].id = x;});
 	}
 	else{
             n_elem = get_dset_size(2, grp, "value")[0];
             check_size(grp, "value", n_elem, 3);
-            traverse_dset<2,float>(grp, "value", [&](size_t ne, size_t nt, float x) { output.get_mutable_host_ptr()[ne * elem_width + nt] = x;});
+            traverse_dset<2,float>(grp, "value", [&](size_t ne, size_t nt, float x) { output(nt, ne) = x;});
 	}
 
         if(logging(LOG_DETAILED)) {
@@ -154,7 +154,7 @@ struct ConstantCoord3D : public CoordNode
                 }
                 default_logger->add_logger<float>( ("Const3D_" + to_string(log_suffix)).c_str(), {n_elem, 3}, [&](float* buffer) {
                     for(int nt=0; nt<n_elem; ++nt) {
-                        auto x = load_vec<3>(VecArray(output.get_mutable_host_ptr(), elem_width), nt);
+                        auto x = load_vec<3>(output, nt);
                         for(int d=0; d<3; ++d) buffer[nt*3 + d] = x[d];
                     }
                 });
@@ -164,12 +164,12 @@ struct ConstantCoord3D : public CoordNode
 
     virtual void compute_value(ComputeMode mode) {
 	if (initialized_by_coord and not initialized) {
-            VecArray posc(pos.output.get_mutable_host_ptr(), pos.elem_width);
+            VecArray posc = pos.output;
             for(int nt=0; nt<n_elem; ++nt) {
                 auto& p = params[nt];
-	        output.get_mutable_host_ptr()[nt * elem_width + 0] = posc(dim1, p.id);
-	        output.get_mutable_host_ptr()[nt * elem_width + 1] = posc(dim2, p.id);
-	        output.get_mutable_host_ptr()[nt * elem_width + 2] = posc(dim3, p.id);
+	        output(0, nt) = posc(dim1, p.id);
+	        output(1, nt) = posc(dim2, p.id);
+	        output(2, nt) = posc(dim3, p.id);
             }
 	    initialized = true;
 	}
@@ -216,12 +216,12 @@ struct MovingConstantCoord1D : public CoordNode
 
 	if (initialized_by_coord) {
             dim = read_attribute<int>(grp, ".", "dim");
-	    assert(dim<pos.elem_width);
+	    assert(dim<pos.output.row_width);
 	}
 	else{
             n_elem = get_dset_size(1, grp, "start_pos")[0];
             check_size(grp, "start_pos", n_elem);
-            traverse_dset<1,float>(grp, "start_pos", [&](size_t i, float x) { output.get_mutable_host_ptr()[i] = x; p[i].start_pos = x;});
+            traverse_dset<1,float>(grp, "start_pos", [&](size_t i, float x) { output(0,i) = x; p[i].start_pos = x;});
 	}
 
         check_size(grp, "velocities",  n_elem);
@@ -232,10 +232,10 @@ struct MovingConstantCoord1D : public CoordNode
     virtual void compute_value(ComputeMode mode) {
 
 	if (initialized_by_coord and not initialized) {
-            VecArray posc(pos.output.get_mutable_host_ptr(), pos.elem_width);
+            VecArray posc = pos.output;
             for(int nt=0; nt<n_elem; ++nt) {
                 auto& pa = params[nt];
-	        output.get_mutable_host_ptr()[nt] = posc(dim, pa.id);
+	        output(0, nt) = posc(dim, pa.id);
 		pa.start_pos  = posc(dim, pa.id);
             }
 	    initialized = true;
@@ -244,7 +244,7 @@ struct MovingConstantCoord1D : public CoordNode
         if (mode == DerivMode) round_num += 1;
         time_estimate = time_initial + float(time_step)*round_num;
         for(auto &p: params) {
-            output.get_mutable_host_ptr()[p.id] = p.start_pos + p.velocities * time_estimate;
+            output(0, p.id) = p.start_pos + p.velocities * time_estimate;
         }
     }
     virtual void propagate_deriv() {}
@@ -289,12 +289,12 @@ struct WhirlingConstantCoord1D : public CoordNode
 
 	if (initialized_by_coord) {
             dim = read_attribute<int>(grp, ".", "dim");
-	    assert(dim<pos.elem_width);
+	    assert(dim<pos.output.row_width);
 	}
 	else{
             n_elem = get_dset_size(1, grp, "start_angle")[0];
             check_size(grp, "start_angle", n_elem);
-            traverse_dset<1,float>(grp, "start_angle", [&](size_t i, float x) { output.get_mutable_host_ptr()[i] = x; p[i].start_angle = x;});
+            traverse_dset<1,float>(grp, "start_angle", [&](size_t i, float x) { output(0,i) = x; p[i].start_angle = x;});
 	}
 
         check_size(grp, "whirling_vel",  n_elem);
@@ -304,10 +304,10 @@ struct WhirlingConstantCoord1D : public CoordNode
     virtual void compute_value(ComputeMode mode) {
 
 	if (initialized_by_coord and not initialized) {
-            VecArray posc(pos.output.get_mutable_host_ptr(), pos.elem_width);
+            VecArray posc = pos.output;
             for(int nt=0; nt<n_elem; ++nt) {
                 auto& pa = params[nt];
-	        output.get_mutable_host_ptr()[nt]  = posc(dim, pa.id);
+	        output(0, nt)  = posc(dim, pa.id);
 		pa.start_angle = posc(dim, pa.id);
             }
 	    initialized = true;
@@ -321,7 +321,7 @@ struct WhirlingConstantCoord1D : public CoordNode
                 angle -= 2*M_PI_F;
             if (angle < -M_PI_F)
                 angle += 2*M_PI_F;
-            output.get_mutable_host_ptr()[p.id] = angle;
+            output(0, p.id) = angle;
         }
     }
     virtual void propagate_deriv() {}
@@ -367,13 +367,13 @@ struct MovingConstantCoord2D : public CoordNode
 	if (initialized_by_coord) {
             dim1 = read_attribute<int>(grp, ".", "dim1");
             dim2 = read_attribute<int>(grp, ".", "dim2");
-	    assert(dim1<pos.elem_width);
-	    assert(dim2<pos.elem_width);
+	    assert(dim1<pos.output.row_width);
+	    assert(dim2<pos.output.row_width);
 	}
 	else{
             n_elem = get_dset_size(1, grp, "start_pos")[0];
             check_size(grp, "start_pos", n_elem, 2);
-            traverse_dset<2,float>(grp, "start_pos", [&](size_t i, size_t j, float x) { output.get_mutable_host_ptr()[i * elem_width + j] = x; p[i].start_pos[j] = x;});
+            traverse_dset<2,float>(grp, "start_pos", [&](size_t i, size_t j, float x) { output(j,i) = x; p[i].start_pos[j] = x;});
 	}
 
         check_size(grp, "velocities",  n_elem, 2);
@@ -384,11 +384,11 @@ struct MovingConstantCoord2D : public CoordNode
     virtual void compute_value(ComputeMode mode) {
 
 	if (initialized_by_coord and not initialized) {
-            VecArray posc(pos.output.get_mutable_host_ptr(), pos.elem_width);
+            VecArray posc = pos.output;
             for(int nt=0; nt<n_elem; ++nt) {
                 auto& pa = params[nt];
-	        output.get_mutable_host_ptr()[nt * elem_width + 0]  = posc(dim1, pa.id);
-	        output.get_mutable_host_ptr()[nt * elem_width + 1]  = posc(dim2, pa.id);
+	        output(0, nt)  = posc(dim1, pa.id);
+	        output(1, nt)  = posc(dim2, pa.id);
 		pa.start_pos[0] = posc(dim1, pa.id);
 		pa.start_pos[1] = posc(dim2, pa.id);
             }
@@ -399,7 +399,7 @@ struct MovingConstantCoord2D : public CoordNode
         time_estimate = time_initial + float(time_step)*round_num;
         for(auto &p: params) {
 	    for(int i: range(2)) {
-                output.get_mutable_host_ptr()[p.id * elem_width + i] = p.start_pos[i] + p.velocities[i] * time_estimate;
+                output(i, p.id) = p.start_pos[i] + p.velocities[i] * time_estimate;
 	    }
         }
     }
@@ -456,9 +456,9 @@ struct MovingConstantCoord3D : public CoordNode
         traverse_dset<2, float>(grp,"velocities",  [&](size_t i, size_t j, float x) {p[i].velocities[j]  = x;});
 
 	if (initialized_by_coord) {
-	    assert(dim1<pos.elem_width);
-	    assert(dim2<pos.elem_width);
-	    assert(dim3<pos.elem_width);
+	    assert(dim1<pos.output.row_width);
+	    assert(dim2<pos.output.row_width);
+	    assert(dim3<pos.output.row_width);
 	}
 	else {
             check_size(grp, "start_pos", n_elem, 3);
@@ -483,12 +483,12 @@ struct MovingConstantCoord3D : public CoordNode
     virtual void compute_value(ComputeMode mode) {
 
 	if (initialized_by_coord and not initialized) {
-            VecArray posc(pos.output.get_mutable_host_ptr(), pos.elem_width);
+            VecArray posc = pos.output;
             for(int nt=0; nt<n_elem; ++nt) {
                 auto& pa = params[nt];
-	        output.get_mutable_host_ptr()[nt * elem_width + 0]   = posc(dim1, pa.id);
-	        output.get_mutable_host_ptr()[nt * elem_width + 1]   = posc(dim2, pa.id);
-	        output.get_mutable_host_ptr()[nt * elem_width + 2]   = posc(dim3, pa.id);
+	        output(0, nt)   = posc(dim1, pa.id);
+	        output(1, nt)   = posc(dim2, pa.id);
+	        output(2, nt)   = posc(dim3, pa.id);
 		pa.start_pos[0] = posc(dim1, pa.id);
 		pa.start_pos[1] = posc(dim2, pa.id);
 		pa.start_pos[2] = posc(dim3, pa.id);
@@ -502,10 +502,11 @@ struct MovingConstantCoord3D : public CoordNode
         for(int nt=0; nt<n_elem; ++nt) {
             auto& pa = params[nt];
 	    for(int i: range(3)) {
-                output.get_mutable_host_ptr()[nt * elem_width + i] = pa.start_pos[i] + pa.velocities[i] * time_estimate;
+                output(i, nt) = pa.start_pos[i] + pa.velocities[i] * time_estimate;
 	    }
         }
     }
     virtual void propagate_deriv() {}
 };
 static RegisterNodeType<MovingConstantCoord3D,1> moving_const3d_node("MovingConst3D");
+

@@ -4,11 +4,22 @@
       "name": "Ubuntu",
       "includePath": [
         "${workspaceFolder}/**",
+        "${workspaceFolder}/src/include",
+        "/usr/local/cuda-12.9/targets/x86_64-linux/include",
+        "/usr/include/eigen3",
+        "/usr/include/hdf5/serial",
         "/usr/include/c++/11",
         "/usr/local/include",
         "/usr/include"
       ],
-      "defines": [],
+      "defines": [
+        "USE_CUDA",
+        "__CUDACC__",
+        "DR123_NO_SINCOS",
+        "restrict=__restrict__",
+        "NDEBUG",
+        "__CUDA_ARCH__=860"
+      ],
       "compilerPath": "/usr/bin/gcc",
       "cStandard": "c11",
       "cppStandard": "c++11",

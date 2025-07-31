@@ -1,40 +1,38 @@
 #ifndef DEVICE_BUFFER_H
 #define DEVICE_BUFFER_H
 
-#include <cstddef> // For size_t
-#include <memory>  // For std::unique_ptr
+#include <cstddef>
 
-template<typename T>
-class device_buffer {
-public:
-    explicit device_buffer(size_t size);
-    ~device_buffer();
+// Forward declarations to avoid including CUDA headers here
+struct VecArrayStorage;
+struct VecArray;
 
-    // The pImpl idiom requires us to define the move operations
-    device_buffer(device_buffer&&) noexcept;
-    device_buffer& operator=(device_buffer&&) noexcept;
-
-    // We explicitly delete the copy operations
-    device_buffer(const device_buffer&) = delete;
-    device_buffer& operator=(const device_buffer&) = delete;
-
-    const T* get_host_ptr();
-    T* get_mutable_host_ptr();
-    const T* get_device_ptr();
-    T* get_mutable_device_ptr();
-    size_t get_size() const;
-
-    void swap(device_buffer& other) noexcept;
-
+template<typename T, int Dim>
+class DeviceBuffer {
 private:
-    struct pimpl; // Forward-declare the private implementation struct
-    std::unique_ptr<pimpl> pimpl_; // A single pointer to the implementation
-};
+    const VecArrayStorage* host_storage_;
+    T* device_ptr_;
+    size_t pitch_bytes_;
 
-// Free swap function for idiomatic C++
-template<typename T>
-void swap(device_buffer<T>& a, device_buffer<T>& b) noexcept {
-    a.swap(b);
-}
+public:
+    explicit DeviceBuffer(const VecArrayStorage& host);
+    ~DeviceBuffer();
+
+    DeviceBuffer(DeviceBuffer&& other) noexcept;
+    DeviceBuffer& operator=(DeviceBuffer&& other) noexcept;
+
+    // Delete copy operations
+    DeviceBuffer(const DeviceBuffer&) = delete;
+    DeviceBuffer& operator=(const DeviceBuffer&) = delete;
+
+    void copyToDevice();
+    void copyToHost();
+
+    const T* devicePtr() const noexcept;
+    size_t   pitch()     const noexcept;
+    
+    // Host view accessor - return pointer to VecArrayStorage (which has implicit VecArray conversion)
+    const VecArrayStorage* h_ptr() const { return host_storage_; }
+};
 
 #endif

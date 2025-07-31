@@ -8,12 +8,12 @@
 #include <initializer_list>
 #include <map>
 #include "vector_math.h"
-#include "device_buffer.h" // Include the new device_buffer header
+#include "device_buffer.h"
 
 //!\brief Copy VecArray to a flat float* array
 inline void copy_vec_array_to_buffer(VecArray arr, int n_elem, int n_dim, float* buffer) {
         for(int i=0; i<n_elem; ++i)
-            for(int d=0; d<n_dim; ++d)
+            for(int d=0; d<n_dim; ++d) 
                 buffer[i*n_dim+d] = arr(d,i);
 }
 
@@ -46,7 +46,7 @@ enum ComputeMode {
 };
 
 //! \brief Differentiable computation node
-struct DerivComputation
+struct DerivComputation 
 {
     //! \brief True if output represents a potential energy rather than a new coordinate
     const bool potential_term;
@@ -86,17 +86,20 @@ struct CoordNode : public DerivComputation
     int n_elem;  //!< number of output elements
     int elem_width;  //!< number of dimensions for each output element
     
-    // MODIFIED: Replaced VecArrayStorage with device_buffer
-    device_buffer<float> output; //!< output values
-    device_buffer<float> sens; //!< sensitivity of the overall potential to each output value
+    VecArrayStorage       output_storage;
+    VecArrayStorage       sens_storage;
+    
+    DeviceBuffer<float, 2> output; //!< output values
+    DeviceBuffer<float, 2> sens; //!< sensitivity of the overall potential to each output value
 
     //! Initialize from n_elem and elem_width
     CoordNode(int n_elem_, int elem_width_):
         DerivComputation(false),
-        n_elem(n_elem_), elem_width(elem_width_),
-        // Initialize buffers with the total size needed
-        output(elem_width * round_up(n_elem,4)),
-        sens  (elem_width * round_up(n_elem,4)) {}
+        n_elem(n_elem_), elem_width(elem_width_), 
+        output_storage(elem_width_, round_up(n_elem_,4)),
+        sens_storage(elem_width_, round_up(n_elem_,4)),
+        output(output_storage),
+        sens(sens_storage) {}
 };
 
 
@@ -129,7 +132,7 @@ struct Pos : public CoordNode
 
     //! Construct from number of atoms
     Pos(int n_atom_):
-        CoordNode(n_atom_, 3),
+        CoordNode(n_atom_, 3), 
         n_atom(n_atom_)
     {}
 
@@ -149,7 +152,7 @@ struct Pos : public CoordNode
 struct DerivEngine
 {
     //! Class for managing the automatic differentiation
-    struct Node
+    struct Node 
     {
         std::string name; //!< HDF5 name of the group for the node
         std::unique_ptr<DerivComputation> computation; //!< underlying DerivComputation for calculations
@@ -166,7 +169,7 @@ struct DerivEngine
 
         Node(std::string name_, std::unique_ptr<DerivComputation> computation_, int integrator_level_):
             name(name_), computation(std::move(computation_)), integrator_level(integrator_level_) {};
-
+        
         //! \brief Construct from name and raw pointer to computation
         Node(std::string name_, DerivComputation* computation_):
             name(name_), computation(computation_) {};
@@ -206,7 +209,7 @@ struct DerivEngine
     //! \brief Default constructor (not used)
     DerivEngine() {}
     //! \brief Construct from number of atoms
-    DerivEngine(int n_atom):
+    DerivEngine(int n_atom): 
         potential(0.f)
     {
         nodes.emplace_back("pos", new Pos(n_atom));
@@ -215,9 +218,9 @@ struct DerivEngine
 
     //! \brief Add nodes to computation graph
     void add_node(
-            const std::string& name,
-            int integrator_level,
-            std::unique_ptr<DerivComputation> fcn,
+            const std::string& name, 
+            int integrator_level, 
+            std::unique_ptr<DerivComputation> fcn, 
             std::vector<std::string> argument_names);
 
     //! \brief Get Node by name
@@ -228,7 +231,7 @@ struct DerivEngine
     //! \brief Get node index by name
     //!
     //! If node name does not exist, if must_exist then exception else return -1
-    int get_idx(const std::string& name, bool must_exist=true);
+    int get_idx(const std::string& name, bool must_exist=true); 
 
     //! \brief Get DerivComputation by name
     //!
@@ -255,9 +258,9 @@ struct DerivEngine
     //! \brief Perform a full integration cycle (3 time steps)
     //!
     //! See integration_stage for details.
-    void integration_cycle(device_buffer<float>& mom, float dt, float max_force, IntegratorType type = Verlet);
-    void integration_cycle(device_buffer<float>& mom, float dt);
-    void integration_cycle(device_buffer<float>& mom, float dt, int inner_step);
+    void integration_cycle(VecArray mom, float dt, float max_force, IntegratorType type = Verlet);
+    void integration_cycle(VecArray mom, float dt);
+    void integration_cycle(VecArray mom, float dt, int inner_step);
 };
 
 //! \brief Count the number hbonds for a system
@@ -280,7 +283,7 @@ typedef std::function<DerivComputation*(hid_t, const ArgList&)> NodeCreationFunc
 typedef std::map<std::string, NodeCreationFunction> NodeCreationMap;
 
 //! \brief Obtain the dynamically-registered node creation map
-NodeCreationMap& node_creation_map();
+NodeCreationMap& node_creation_map(); 
 
 //! \brief Returns true if string s1 is prefix of s2
 bool is_prefix(const std::string& s1, const std::string& s2);
@@ -320,7 +323,7 @@ template <typename NodeClass>
 struct RegisterNodeType<NodeClass,0> {
     RegisterNodeType(std::string name_prefix){
         NodeCreationFunction f = [](hid_t grp, const ArgList& args) {
-            check_arguments_length(args,0);
+            check_arguments_length(args,0); 
             return new NodeClass(grp);};
         add_node_creation_function(name_prefix, f);
     }
@@ -331,7 +334,7 @@ template <typename NodeClass>
 struct RegisterNodeType<NodeClass,1> {
     RegisterNodeType(std::string name_prefix){
         NodeCreationFunction f = [](hid_t grp, const ArgList& args) {
-            check_arguments_length(args,1);
+            check_arguments_length(args,1); 
             return new NodeClass(grp, *args[0]);};
         add_node_creation_function(name_prefix, f);
     }
@@ -342,7 +345,7 @@ template <typename NodeClass>
 struct RegisterNodeType<NodeClass,2> {
     RegisterNodeType(std::string name_prefix){
         NodeCreationFunction f = [](hid_t grp, const ArgList& args) {
-            check_arguments_length(args,2);
+            check_arguments_length(args,2); 
             return new NodeClass(grp, *args[0], *args[1]);};
         add_node_creation_function(name_prefix, f);
     }
@@ -353,7 +356,7 @@ template <typename NodeClass>
 struct RegisterNodeType<NodeClass,3> {
     RegisterNodeType(std::string name_prefix){
         NodeCreationFunction f = [](hid_t grp, const ArgList& args) {
-            check_arguments_length(args,3);
+            check_arguments_length(args,3); 
             return new NodeClass(grp, *args[0], *args[1], *args[2]);};
         add_node_creation_function(name_prefix, f);
     }
@@ -364,7 +367,7 @@ template <typename NodeClass>
 struct RegisterNodeType<NodeClass,4> {
     RegisterNodeType(std::string name_prefix){
         NodeCreationFunction f = [](hid_t grp, const ArgList& args) {
-            check_arguments_length(args,4);
+            check_arguments_length(args,4); 
             return new NodeClass(grp, *args[0], *args[1], *args[2], *args[3]);};
         add_node_creation_function(name_prefix, f);
     }
@@ -380,8 +383,8 @@ std::vector<float> central_difference_deriviative(
 
 static double relative_rms_deviation(
         const std::vector<float> &reference, const std::vector<float> &actual) {
-    if(reference.size() != actual.size())
-        throw std::string("impossible size mismatch ") +
+    if(reference.size() != actual.size()) 
+        throw std::string("impossible size mismatch ") + 
             std::to_string(reference.size()) + " " + std::to_string(actual.size());
     double diff_mag2  = 0.;
     double value1_mag2 = 0.;

@@ -299,7 +299,7 @@ struct AffineAlignment : public CoordNode
         check_size(grp, "ref_geom", n_elem, 3,3);  // (residue, atom, xyz)
 
         traverse_dset<2,int  >(grp,"atoms",   [&](size_t i,size_t j,          int   x){
-                params[i/4].atom_offsets[j][i%4] = x*pos.elem_width;});
+                params[i/4].atom_offsets[j][i%4] = x*pos.output.row_width;});
         traverse_dset<3,float>(grp,"ref_geom",[&](size_t i,size_t na,size_t d,float x){
                 params[i/4].ref_geom[na][d][i%4]=x;});
 
@@ -317,8 +317,8 @@ struct AffineAlignment : public CoordNode
     virtual void compute_value(ComputeMode mode) {
         Timer timer(string("affine_alignment"));
 
-        VecArray rigid_body(output.get_mutable_host_ptr(), elem_width);
-        float* posc = pos.output.get_mutable_host_ptr();
+        VecArray rigid_body = output;
+        float* posc = pos.output.x.get();
 
         for(int ng=0; ng<n_group; ++ng) {
             const auto& p = params[ng];
@@ -387,8 +387,7 @@ struct AffineAlignment : public CoordNode
 
     virtual void propagate_deriv() {
         Timer timer(string("affine_alignment_deriv"));
-        float* pos_sens = pos.sens.get_mutable_host_ptr();
-        VecArray sens(this->sens.get_mutable_host_ptr(), this->elem_width);
+        float* pos_sens = pos.sens.x.get();
 
         for(int ng=0; ng<n_group; ++ng) {
             const auto& p = params[ng];

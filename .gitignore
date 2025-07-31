@@ -1,13 +1,11 @@
 doc/
+notes/
 run/
 bin/
 data/
 doc/
 .venv/
-build/.cmake/
-build/build.ninja
-build/cmake_install.cmake
-build/Makefile
+build/*
 tests/build/
 *~
 *.swp

@@ -2,13 +2,10 @@ cmake_minimum_required(VERSION 3.8)
 project(upside CXX C)
 
 option(USE_CUDA "Enable CUDA acceleration" ON)
-option(DEBUG "Enable debug build" ON)
+option(DEBUG "Enable debug build" OFF)
 
 if(USE_CUDA)
     enable_language(CUDA)
-    find_package(CUDA REQUIRED)
-    include_directories("${CUDA_INCLUDE_DIRS}")
-    
     message(STATUS "CUDA Compiler: ${CMAKE_CUDA_COMPILER}")
     message(STATUS "CUDA Version: ${CMAKE_CUDA_COMPILER_VERSION}")
     set(CMAKE_CUDA_ARCHITECTURES 86)
@@ -79,8 +76,7 @@ timing.cpp
 thermostat.cpp
 h5_support.cpp
 state_logger.cpp
-monte_carlo_sampler.cpp
-device_buffer.cpp)
+monte_carlo_sampler.cpp)
 
 if(USE_CUDA)
 # Add the new .cu file to the source list

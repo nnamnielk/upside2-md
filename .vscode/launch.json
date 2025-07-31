@@ -5,16 +5,16 @@
             "name": "debug upside", // You can name this whatever you like
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/okleinmann/projects/upside2-md/obj/upside", // Path to your executable
+            "program": "/home/okleinmann/projects/upside2-md/cuda/obj/upside", // Path to your executable
             "args": [
                 "--duration", "1000",
                 "--frame-interval", "50",
                 "--temperature", "0.8",
                 "--seed", "1",
-                "/home/okleinmann/projects/upside2-md/example/01.GettingStarted/outputs/simple_test/chig.run.up" // Note: GDB might need absolute paths for files if relative paths cause issues
+                "/home/okleinmann/projects/upside2-md/cuda/example/01.GettingStarted/outputs/simple_test/chig.run.up" // Note: GDB might need absolute paths for files if relative paths cause issues
             ],
             "stopAtEntry": false, // Set to true if you want the debugger to stop at the beginning of main()
-            "cwd": "/home/okleinmann/projects/upside2-md/", // Current working directory for your program
+            "cwd": "/home/okleinmann/projects/upside2-md/cuda/", // Current working directory for your program
             "environment": [],
             "externalConsole": false, // Set to true if you want a separate console window for your program's output
             "MIMode": "gdb",

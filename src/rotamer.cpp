@@ -867,7 +867,7 @@ struct RotamerSidechain: public PotentialNode {
         vector<VecArray> energy_1body;
         energy_1body.reserve(n_prob_nodes);
         for(int i: range(n_prob_nodes)) 
-            energy_1body.emplace_back(prob_nodes[i]->output.get_mutable_host_ptr(), prob_nodes[i]->elem_width);
+            energy_1body.emplace_back(prob_nodes[i]->output);
 
         for(int n: range(igraph.n_elem1)) {
             unsigned id = igraph.id1[n];
@@ -1007,7 +1007,7 @@ struct RotamerSidechain: public PotentialNode {
         vector<float> e3(nodes3.n_elem, 0.f);
         vector<float> e6(nodes6.n_elem, 0.f);
 
-        VecArray energy_1body(prob_nodes[prob_node_index]->output.get_mutable_host_ptr(), prob_nodes[prob_node_index]->elem_width);
+        VecArray energy_1body = prob_nodes[prob_node_index]->output;
         for(int n: range(igraph.n_elem1)) {
             unsigned id = igraph.id1[n];
             unsigned selector = (1u<<n_bit_rotamer) - 1u;
@@ -1069,7 +1069,7 @@ struct RotamerSidechain: public PotentialNode {
         vector<VecArray> sens_1body;
         sens_1body.reserve(n_prob_nodes);
         for(int i: range(n_prob_nodes)) 
-            sens_1body.emplace_back(prob_nodes[i]->sens.get_mutable_host_ptr(), prob_nodes[i]->elem_width);
+            sens_1body.emplace_back(prob_nodes[i]->sens);
 
         for(int n: range(igraph.n_elem1)) {
             unsigned id = igraph.id1[n];

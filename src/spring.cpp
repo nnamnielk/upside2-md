@@ -27,7 +27,7 @@ struct Spring : public PotentialNode
         n_elem(get_dset_size(1, grp, "id")[0]), 
 	pos(pos_), 
 	params(n_elem),
-	n_dim(pos.elem_width),
+	n_dim(pos.output.row_width),
         dim1( read_attribute<int>(grp, ".", "dim1") ),
         pbc(  read_attribute<int>(grp, ".", "pbc") ),
         box_len(read_attribute<float>(grp, ".", "box_len") )
@@ -46,8 +46,8 @@ struct Spring : public PotentialNode
 
     virtual void compute_value(ComputeMode mode) {
         Timer timer(string("pos_spring_1d"));
-        VecArray posc(pos.output.get_mutable_host_ptr(), pos.elem_width);
-        VecArray pos_sens(pos.sens.get_mutable_host_ptr(), pos.elem_width);
+        VecArray posc = pos.output;
+        VecArray pos_sens = pos.sens;
         float* pot = mode==PotentialAndDerivMode ? &potential : nullptr;
         if(pot) *pot = 0.f;
         for(int nt=0; nt<n_elem; ++nt) {
@@ -100,7 +100,7 @@ struct WallSpring : public PotentialNode
         n_elem(get_dset_size(1, grp, "id")[0]), 
 	pos(pos_), 
 	params(n_elem),
-	n_dim(pos.elem_width),
+	n_dim(pos.output.row_width),
         dim1( read_attribute<int>(grp, ".", "dim1") )
     {
         check_size(grp, "equil_dist",   n_elem);
@@ -117,8 +117,8 @@ struct WallSpring : public PotentialNode
 
     virtual void compute_value(ComputeMode mode) {
         Timer timer(string("pos_spring_1d"));
-        VecArray posc(pos.output.get_mutable_host_ptr(), pos.elem_width);
-        VecArray pos_sens(pos.sens.get_mutable_host_ptr(), pos.elem_width);
+        VecArray posc = pos.output;
+        VecArray pos_sens = pos.sens;
         float* pot = mode==PotentialAndDerivMode ? &potential : nullptr;
         if(pot) *pot = 0.f;
         for(int nt=0; nt<n_elem; ++nt) {

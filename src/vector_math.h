@@ -107,16 +107,6 @@ struct VecArrayStorage {
 };
 
 
-static void copy(const VecArray& v_src, VecArrayStorage& v_dst) {
-    assert(v_src.row_width == v_dst.row_width);
-    std::copy_n(v_src.x, v_dst.n_elem*v_dst.row_width, v_dst.x.get());
-}
-
-static void copy(const VecArrayStorage& v_src, VecArray& v_dst) {
-    assert(v_src.row_width == v_dst.row_width);
-    std::copy_n(v_src.x.get(), v_src.n_elem*v_src.row_width, v_dst.x);
-}
-
 static void copy(VecArrayStorage& v_src, VecArrayStorage& v_dst) {
     assert(v_src.n_elem    == v_dst.n_elem);
     assert(v_src.row_width == v_dst.row_width);
