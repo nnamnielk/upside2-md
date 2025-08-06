@@ -28,7 +28,8 @@ dependencies:
   - h5py
   
   # --- Statistical and analysis packages ---
-  - pymbar
+  # Note: pymbar not available for linux-aarch64, install via pip if needed
+  # - pymbar
   
   # --- Project-specific dependencies ---
   # These are now installed directly from conda-forge for better compatibility
