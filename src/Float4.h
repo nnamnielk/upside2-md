@@ -307,7 +307,7 @@ struct alignas(16) Float4
             return min(min(broadcast<0>(), broadcast<1>()), min(broadcast<2>(),broadcast<3>()));
         }
 
-        #if defined(__APPLE__) && defined(__arm64__)
+        #if defined(__arm64__) || defined(__aarch64__)
             float x() const { return vgetq_lane_f32(vec, 0); }
             float y() const { return vgetq_lane_f32(vec, 1); }
             float z() const { return vgetq_lane_f32(vec, 2); }
