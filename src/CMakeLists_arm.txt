@@ -27,6 +27,9 @@ if(APPLE)
     include_directories(/opt/homebrew/include/eigen3) 
     link_directories(/opt/homebrew/opt/libomp/lib)
     set(CMAKE_OSX_ARCHITECTURES arm64)
+else()
+    # Linux ARM64 - ensure we can find SSE2NEON header
+    include_directories(/usr/include)
 endif()
 
 set(ENGINE_SRC 
