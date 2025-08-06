@@ -17,12 +17,17 @@ set(WARN "-pedantic -Wall -Wno-strict-overflow -Wno-unused-function -Wno-unknown
 
 set(CMAKE_CXX_FLAGS "${OMP_FLAGS} ${CMAKE_CXX_FLAGS} ${DEBUG_FLAGS} -std=c++11 ${DEFINES} ${OPT} ${WARN}")
 set(CMAKE_EXE_LINKER_FLAGS "${OMP_FLAGS} ${CMAKE_EXE_LINKER_FLAGS}")
-set(CMAKE_OSX_ARCHITECTURES arm64)
-
 include_directories(SYSTEM "include")
-include_directories(/opt/homebrew/include)
-include_directories(/opt/homebrew/include/eigen3) 
-link_directories(/opt/homebrew/opt/libomp/lib)
+
+# Use standard paths instead of hardcoded Homebrew paths
+# CMake will find libraries in system locations on Linux
+if(APPLE)
+    # Mac-specific Homebrew paths
+    include_directories(/opt/homebrew/include)
+    include_directories(/opt/homebrew/include/eigen3) 
+    link_directories(/opt/homebrew/opt/libomp/lib)
+    set(CMAKE_OSX_ARCHITECTURES arm64)
+endif()
 
 set(ENGINE_SRC 
     main.cpp

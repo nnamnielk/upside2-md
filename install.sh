@@ -1,21 +1,21 @@
 #!/bin/bash
 
-echo `pwd`
-upside_path=$(pwd |sed -e 's/\//\\\//g')
+echo "Building Upside2 for $(uname -m) architecture..."
 
-# Detect ARM macOS and use appropriate source file
-if [[ "$(uname -m)" == "arm64" ]]; then
-    cp source_arm source.sh
-    sed -i '' "s/UP_PATH/$upside_path/g" source.sh
-else
-    cp source_x86 source.sh
-    sed -i "s/UP_PATH/$upside_path/g" source.sh
-fi
+# Set up common environment variables
+export UPSIDE_HOME="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export MY_PYTHON="/opt/conda"
+export PATH="$MY_PYTHON/bin:$PATH"
+export PATH="$UPSIDE_HOME/obj:$PATH"
+export PYTHONPATH="$UPSIDE_HOME/py:$PYTHONPATH"
+export EIGEN_HOME="/usr/include/eigen3"
 
-source source.sh
-
+# Clean and build
 rm -rf obj/*
 cd obj
 
-cmake ../src/  -DEIGEN3_INCLUDE_DIR=$EIGEN_HOME
+# CMake will detect architecture and use appropriate configuration
+cmake ../src/ -DEIGEN3_INCLUDE_DIR=$EIGEN_HOME
 make
+
+echo "Build complete!"

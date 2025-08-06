@@ -9,8 +9,16 @@
             // -- BUILD ARGUMENT TO CHOOSE ENVIRONMENT --
             // To use the fast environment, uncomment the following line and rebuild the container.
             // "INSTALL_TYPE": "fast"
+            
+            // -- MULTI-ARCHITECTURE SUPPORT --
+            // Uncomment one of these lines to test specific architecture:
+            // "TARGETPLATFORM": "linux/amd64"
+            // "TARGETPLATFORM": "linux/arm64"
         }
     },
+
+    // Add platform-specific run arguments if needed for testing
+    // "runArgs": ["--platform=linux/arm64"],
 
     // --- KEY SETTINGS FOR USER EXPERIENCE ---
     "containerEnv": {

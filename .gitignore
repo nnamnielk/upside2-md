@@ -3,6 +3,8 @@ run/
 bin/
 data/
 doc/
+notes/
+env/
 *~
 *.swp
 *.vtf

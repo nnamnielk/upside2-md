@@ -1,6 +1,10 @@
 # .devcontainer/Dockerfile
 
-FROM continuumio/miniconda3
+# Multi-architecture support
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
+
+FROM --platform=$TARGETPLATFORM continuumio/miniconda3
 LABEL maintainer="Oliver Kleinmann"
 
 WORKDIR /upside2-md

@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gdbserver \
     vim \
     nano \
+    ccache \
     hexdump \
     && rm -rf /var/lib/apt/lists/*
 
