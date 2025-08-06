@@ -3,11 +3,11 @@
 
 // Author: John Jumper
 
-#if defined(__APPLE__) && defined(__arm64__)
-// ARM Mac (M1/M2/M3) - Use SSE2NEON
+#if defined(__arm64__) || defined(__aarch64__)
+// ARM architectures (Mac M1/M2/M3 or Linux ARM64) - Use SSE2NEON
 #include <sse2neon.h>
 #else
-// Other architectures (e.g., x86_64) - Use XMMintrin
+// x86_64 architectures - Use native SSE
 #include <xmmintrin.h>
 #include <smmintrin.h>
 #include <immintrin.h>

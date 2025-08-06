@@ -28,6 +28,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
+# Install SSE2NEON for ARM64 builds (will be ignored on x86_64)
+RUN if [ "$TARGETPLATFORM" = "linux/arm64" ]; then \
+        git clone https://github.com/DLTcollab/sse2neon.git /tmp/sse2neon && \
+        cp /tmp/sse2neon/sse2neon.h /usr/local/include/ && \
+        rm -rf /tmp/sse2neon; \
+    fi
+
 # Create a symlink to fix the hardcoded Eigen3 path in the build scripts.
 # This makes the scripts' expected path point to the actual installation location.
 RUN mkdir -p /home/user && \
