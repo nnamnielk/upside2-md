@@ -43,7 +43,7 @@ RUN mkdir -p /home/user && \
 
 # Clone the project repository into the working directory.
 # This creates a self-contained image with the project code.
-RUN git clone https://github.com/nnamnielk/upside2-md --branch nnamnielk .
+RUN git clone https://github.com/nnamnielk/upside2-md --branch arm-devcontainer-backup .
 
 # Copy environment definition file into the container.
 # This will overwrite the cloned version with the local one, allowing for easy customization.
