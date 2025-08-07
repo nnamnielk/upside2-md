@@ -13,6 +13,8 @@ private:
     const VecArrayStorage* host_storage_;
     T* device_ptr_;
     size_t pitch_bytes_;
+    mutable bool host_is_dirty_;
+    mutable bool device_is_dirty_;
 
 public:
     explicit DeviceBuffer(const VecArrayStorage& host);
@@ -28,11 +30,17 @@ public:
     void copyToDevice();
     void copyToHost();
 
+    // Legacy methods (kept for compatibility)
     const T* devicePtr() const noexcept;
     size_t   pitch()     const noexcept;
     
-    // Host view accessor - return pointer to VecArrayStorage (which has implicit VecArray conversion)
-    const VecArrayStorage* h_ptr() const { return host_storage_; }
+    // Smart synchronization API - host side
+    const VecArrayStorage* h_ptr() const;
+    VecArrayStorage* h_ptr();
+    
+    // Smart synchronization API - device side
+    const T* d_ptr() const;
+    T* d_ptr();
 };
 
 #endif

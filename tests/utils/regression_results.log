@@ -1,0 +1,23 @@
+Regression test started at Wed Aug  6 19:37:43 CDT 2025
+/home/okleinmann/.miniconda3/envs/upside2-env/lib/python3.11/site-packages/prody/utilities/misctools.py:424: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+@> 679 atoms and 1 coordinate set(s) were parsed in 0.01s.
+/bin/sh: 1: sbatch: not found
+Initial structure gen...
+python /home/okleinmann/projects/upside2-md/cuda/py/PDB_to_initial_structure.py ./pdb/EHEE_rd2_0005.pdb .//inputs/EHEE_rd2_0005 --record-chain-breaks 
+Configuring...
+Config commandline options:
+/home/okleinmann/projects/upside2-md/cuda/py/upside_config.py --fasta=.//inputs/EHEE_rd2_0005.fasta --output=.//inputs/EHEE_rd2_0005.up --initial-structure=.//inputs/EHEE_rd2_0005.initial.npy --rama-library=/home/okleinmann/projects/upside2-md/cuda/parameters/common/rama.dat --rama-sheet-mixing-energy=/home/okleinmann/projects/upside2-md/cuda/parameters/ff_2.1/sheet --hbond-energy=/home/okleinmann/projects/upside2-md/cuda/parameters/ff_2.1/hbond.h5 --reference-state-rama=/home/okleinmann/projects/upside2-md/cuda/parameters/common/rama_reference.pkl --rotamer-placement=/home/okleinmann/projects/upside2-md/cuda/parameters/ff_2.1/sidechain.h5 --dynamic-rotamer-1body --rotamer-interaction=/home/okleinmann/projects/upside2-md/cuda/parameters/ff_2.1/sidechain.h5 --environment-potential=/home/okleinmann/projects/upside2-md/cuda/parameters/ff_2.1/environment.h5 --bb-environment-potential=/home/okleinmann/projects/upside2-md/cuda/parameters/ff_2.1/bb_env.dat --chain-break-from-file=.//inputs/EHEE_rd2_0005.chain_breaks
+
+n_chains: 1
+
+hbond, 39 donors, 39 acceptors in sequence
+
+
+Running...
+Traceback (most recent call last):
+  File "/home/okleinmann/projects/upside2-md/cuda/example/03.TrajectoryAnalysis/0.run.py", line 210, in <module>
+    sp.check_call(cmd, shell=True)
+  File "/home/okleinmann/.miniconda3/envs/upside2-env/lib/python3.11/subprocess.py", line 413, in check_call
+    raise CalledProcessError(retcode, cmd)
+subprocess.CalledProcessError: Command 'sbatch --account=your_account --job-name=EHEE_rd2_0005_REMD --output=.//outputs/REMD/EHEE_rd2_0005.run.log --time=36:00:00 --partition=yout_partition --nodes=1 --ntasks-per-node=16  --wrap="/home/okleinmann/projects/upside2-md/cuda/obj/upside --duration 200000 --frame-interval 100 --temperature 0.7999999999999999,0.8126398282133228,0.8253787285866472,0.838216701119973,0.8511537458133004,0.8641898626666292,0.8773250516799596,0.8905593128532916,0.9038926461866249,0.9173250516799597,0.930856529333296,0.9444870791466338,0.9582167011199731,0.9720453952533139,0.9859731615466563,1.0 --seed 1 --replica-interval 10 --swap-set 0-1,2-3,4-5,6-7,8-9,10-11,12-13,14-15 --swap-set 1-2,3-4,5-6,7-8,9-10,11-12,13-14  .//outputs/REMD/EHEE_rd2_0005.run.0.up .//outputs/REMD/EHEE_rd2_0005.run.1.up .//outputs/REMD/EHEE_rd2_0005.run.2.up .//outputs/REMD/EHEE_rd2_0005.run.3.up .//outputs/REMD/EHEE_rd2_0005.run.4.up .//outputs/REMD/EHEE_rd2_0005.run.5.up .//outputs/REMD/EHEE_rd2_0005.run.6.up .//outputs/REMD/EHEE_rd2_0005.run.7.up .//outputs/REMD/EHEE_rd2_0005.run.8.up .//outputs/REMD/EHEE_rd2_0005.run.9.up .//outputs/REMD/EHEE_rd2_0005.run.10.up .//outputs/REMD/EHEE_rd2_0005.run.11.up .//outputs/REMD/EHEE_rd2_0005.run.12.up .//outputs/REMD/EHEE_rd2_0005.run.13.up .//outputs/REMD/EHEE_rd2_0005.run.14.up .//outputs/REMD/EHEE_rd2_0005.run.15.up"' returned non-zero exit status 127.

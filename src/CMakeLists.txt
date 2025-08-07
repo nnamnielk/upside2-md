@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.8)
 project(upside CXX C)
 
 option(USE_CUDA "Enable CUDA acceleration" ON)
-option(DEBUG "Enable debug build" OFF)
+option(DEBUG "Enable debug build" ON)
 
 if(USE_CUDA)
     enable_language(CUDA)

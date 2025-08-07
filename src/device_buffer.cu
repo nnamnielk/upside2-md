@@ -15,7 +15,8 @@ static void handle_cuda_error(cudaError_t err, const char *file, int line) {
 
 template<typename T, int Dim>
 DeviceBuffer<T, Dim>::DeviceBuffer(const VecArrayStorage& host)
-    : host_storage_(&host), device_ptr_(nullptr), pitch_bytes_(0) {
+    : host_storage_(&host), device_ptr_(nullptr), pitch_bytes_(0), 
+      host_is_dirty_(true), device_is_dirty_(false) {
     
     if (Dim == 1) {
         // 1D allocation using cudaMalloc
@@ -43,9 +44,13 @@ template<typename T, int Dim>
 DeviceBuffer<T, Dim>::DeviceBuffer(DeviceBuffer&& other) noexcept
     : host_storage_(other.host_storage_), 
       device_ptr_(other.device_ptr_), 
-      pitch_bytes_(other.pitch_bytes_) {
+      pitch_bytes_(other.pitch_bytes_),
+      host_is_dirty_(other.host_is_dirty_),
+      device_is_dirty_(other.device_is_dirty_) {
     other.device_ptr_ = nullptr;
     other.pitch_bytes_ = 0;
+    other.host_is_dirty_ = false;
+    other.device_is_dirty_ = false;
 }
 
 template<typename T, int Dim>
@@ -57,8 +62,12 @@ DeviceBuffer<T, Dim>& DeviceBuffer<T, Dim>::operator=(DeviceBuffer&& other) noex
         host_storage_ = other.host_storage_;
         device_ptr_ = other.device_ptr_;
         pitch_bytes_ = other.pitch_bytes_;
+        host_is_dirty_ = other.host_is_dirty_;
+        device_is_dirty_ = other.device_is_dirty_;
         other.device_ptr_ = nullptr;
         other.pitch_bytes_ = 0;
+        other.host_is_dirty_ = false;
+        other.device_is_dirty_ = false;
     }
     return *this;
 }
@@ -76,6 +85,8 @@ void DeviceBuffer<T, Dim>::copyToDevice() {
                               width_bytes, height,
                               cudaMemcpyHostToDevice));
     }
+    host_is_dirty_ = false;
+    device_is_dirty_ = false;  // After copy, both are in sync
 }
 
 template<typename T, int Dim>
@@ -91,6 +102,8 @@ void DeviceBuffer<T, Dim>::copyToHost() {
                               width_bytes, height,
                               cudaMemcpyDeviceToHost));
     }
+    host_is_dirty_ = false;
+    device_is_dirty_ = false;  // After copy, both are in sync
 }
 
 template<typename T, int Dim>
@@ -101,6 +114,46 @@ const T* DeviceBuffer<T, Dim>::devicePtr() const noexcept {
 template<typename T, int Dim>
 size_t DeviceBuffer<T, Dim>::pitch() const noexcept {
     return pitch_bytes_;
+}
+
+// Smart synchronization methods - host side
+template<typename T, int Dim>
+const VecArrayStorage* DeviceBuffer<T, Dim>::h_ptr() const {
+    if (device_is_dirty_) {
+        // Device has newer data, sync to host
+        const_cast<DeviceBuffer*>(this)->copyToHost();
+    }
+    return host_storage_;
+}
+
+template<typename T, int Dim>
+VecArrayStorage* DeviceBuffer<T, Dim>::h_ptr() {
+    // First ensure we have the latest data
+    const_cast<const DeviceBuffer*>(this)->h_ptr();
+    // Mark host as dirty since caller can modify it
+    host_is_dirty_ = true;
+    device_is_dirty_ = false;
+    return const_cast<VecArrayStorage*>(host_storage_);
+}
+
+// Smart synchronization methods - device side
+template<typename T, int Dim>
+const T* DeviceBuffer<T, Dim>::d_ptr() const {
+    if (host_is_dirty_) {
+        // Host has newer data, sync to device
+        const_cast<DeviceBuffer*>(this)->copyToDevice();
+    }
+    return device_ptr_;
+}
+
+template<typename T, int Dim>
+T* DeviceBuffer<T, Dim>::d_ptr() {
+    // First ensure we have the latest data
+    const_cast<const DeviceBuffer*>(this)->d_ptr();
+    // Mark device as dirty since caller can modify it
+    device_is_dirty_ = true;
+    host_is_dirty_ = false;
+    return device_ptr_;
 }
 
 // Explicit template instantiations for the types we need
