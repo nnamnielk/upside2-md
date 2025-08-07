@@ -4,7 +4,12 @@
       "name": "Ubuntu",
       "includePath": [
         "${workspaceFolder}/**",
+        "${workspaceFolder}/src",
         "${workspaceFolder}/src/include",
+        "${workspaceFolder}/tests/src",
+        "${workspaceFolder}/tests/obj/_deps/googletest-src/googletest/include",
+        "${workspaceFolder}/tests/obj/_deps/googletest-src/googlemock/include",
+        "${workspaceFolder}/tests/obj/_deps/nlohmann_json-src/include",
         "/usr/local/cuda-12.9/targets/x86_64-linux/include",
         "/usr/include/eigen3",
         "/usr/include/hdf5/serial",

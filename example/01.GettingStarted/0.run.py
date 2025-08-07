@@ -99,10 +99,12 @@ upside_opts = (
               )
 upside_opts = upside_opts.format(duration, frame_interval, T, randomseed)
 
-h5_file  = "{}/{}.run.up".format(run_dir, pdb_id)
+h5_file  = os.path.abspath("{}/{}.run.up".format(run_dir, pdb_id))
 log_file = "{}/{}.run.log".format(run_dir, pdb_id)
 shutil.copyfile(config_base, h5_file)
 
 print ("Running...")
-cmd = "{}/obj/upside {} {} | tee {}".format(upside_path, upside_opts, h5_file, log_file)
+cmd = "{}/obj/upside {} {}".format(upside_path, upside_opts, h5_file)
+print("EXECUTING: " + cmd)
+cmd = "{} | tee {}".format(cmd, log_file)
 sp.check_call(cmd, shell=True)

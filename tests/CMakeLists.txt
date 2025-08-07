@@ -1,73 +1,72 @@
-cmake_minimum_required(VERSION 3.16) # Eigen3 find_package benefits from newer versions
-project(PairlistUnitTest)
+cmake_minimum_required(VERSION 3.16)
+project(CoordNodeTests)
 
-# === Settings from main project's CMakeLists.txt ===
-set(ARCH "native" CACHE STRING "architecture to use for -march flag to compiler")
-find_package(OpenMP QUIET) # From main project
+# Use same compiler settings as main project
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O2 -Wall")
 
-set(PROJECT_DEBUG_FLAGS "-g") # Renamed to avoid conflict if CMAKE_BUILD_TYPE sets its own
-set(PROJECT_GPROF_FLAGS "-pg")
-set(PROJECT_OMP_FLAGS "") # Initialize
-if(OpenMP_FOUND)
-    set(PROJECT_OMP_FLAGS "${OpenMP_CXX_FLAGS}")
-endif()
-set(PROJECT_DEFINES "-DR123_NO_SINCOS -Drestrict=__restrict__ -DNDEBUG") # NDEBUG might affect Catch2 assertions if not handled.
-set(PROJECT_OPT "-Og -fno-omit-frame-pointer -march=${ARCH}")
-set(PROJECT_WARN "-pedantic -Wall -Wno-strict-overflow -Wno-unused-function -Wno-unknown-pragmas")
-set(PROJECT_CXX_STANDARD "-std=c++11")
-
-# Combine all flags
-# We are explicitly setting many flags here as per the main project.
-set(CMAKE_CXX_FLAGS "${PROJECT_OMP_FLAGS} ${PROJECT_DEBUG_FLAGS} ${PROJECT_CXX_STANDARD} ${PROJECT_DEFINES} ${PROJECT_OPT} ${PROJECT_WARN} ${PROJECT_GPROF_FLAGS}")
-# Linker flags from main project (optional for compile flags request, but good for consistency if needed)
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${PROJECT_OMP_FLAGS} ${PROJECT_GPROF_FLAGS}")
-set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ${PROJECT_OMP_FLAGS} ${PROJECT_GPROF_FLAGS}")
-
-# === Eigen3 ===
+# Find dependencies
 find_package(Eigen3 3.3 REQUIRED CONFIG)
 
-# === Catch2 ===
+# Fetch Google Test
 include(FetchContent)
 FetchContent_Declare(
-  Catch2
-  GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-  GIT_TAG v2.13.10 # Stable Catch2 v2.x release compatible with C++11
+  googletest
+  GIT_REPOSITORY https://github.com/google/googletest.git
+  GIT_TAG release-1.12.1
 )
-FetchContent_MakeAvailable(Catch2)
+# For Windows: Prevent overriding the parent project's compiler/linker settings
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
 
-# === Test Executable ===
-add_executable(testbridge testbridge.cpp)
-
-# Add the compile definition for test accessors HERE:
-target_compile_definitions(testbridge PRIVATE TEST_HOOKS)
-
-# === Include Directories ===
-# Assuming Float4.h, interaction_graph.h, vector_math.h are in a 'src' directory
-# relative to the main project root, and tests are in 'project_root/tests'.
-# Adjust the path "${CMAKE_CURRENT_SOURCE_DIR}/../src" as needed.
-# The error message indicated #include "../src/Float4.h" from test_pairlist.cpp
-target_include_directories(testbridge PRIVATE
-    "${CMAKE_CURRENT_SOURCE_DIR}/../src" # Path to Float4.h, interaction_graph.h etc.
-    "$catch2_SOURCE_DIR/include" # Catch2 include directory
-    # Add other necessary include paths here
+# Fetch nlohmann/json
+FetchContent_Declare(
+  nlohmann_json
+  GIT_REPOSITORY https://github.com/nlohmann/json.git
+  GIT_TAG v3.11.2
 )
+FetchContent_MakeAvailable(nlohmann_json)
 
-# === Link Libraries ===
-target_link_libraries(testbridge PRIVATE
-    Catch2::Catch2
-    Eigen3::Eigen      # For Eigen
-)
-if(OpenMP_FOUND)
-    target_link_libraries(testbridge PRIVATE OpenMP::OpenMP_CXX)
+# Include directories from main project
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../src)
+
+# Find and link upside library
+find_library(UPSIDE_LIB upside PATHS "${CMAKE_CURRENT_SOURCE_DIR}/../obj")
+if(NOT UPSIDE_LIB)
+    message(FATAL_ERROR "libupside.so not found. Run ../install.sh first.")
 endif()
 
-# === Enable Testing with CTest ===
+# Additional libraries that upside depends on
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(HDF5 REQUIRED hdf5)
+
+# Create nodes executable
+add_executable(nodes src/nodes.cpp)
+
+target_link_libraries(nodes PRIVATE 
+    gtest_main
+    gtest
+    nlohmann_json::nlohmann_json
+    ${UPSIDE_LIB}
+    Eigen3::Eigen
+    ${HDF5_LIBRARIES}
+    pthread
+)
+
+target_include_directories(nodes PRIVATE ${HDF5_INCLUDE_DIRS})
+target_compile_options(nodes PRIVATE ${HDF5_CFLAGS_OTHER})
+
+# Enable testing and discover tests
 enable_testing()
-add_test(NAME PairlistComputationTests COMMAND testbridge)
+include(GoogleTest)
+gtest_discover_tests(nodes)
 
-# === HDF5 Support ===
-find_package(HDF5 COMPONENTS C QUIET)
-if(HDF5_FOUND)
-  target_include_directories(testbridge PRIVATE ${HDF5_C_INCLUDE_DIRS})
-  target_link_libraries(testbridge PRIVATE ${HDF5_C_LIBRARIES})
-endif()
+# Manual test targets for specific categories
+add_test(NAME CoordNodeCPUTests 
+         COMMAND nodes --gtest_filter="*CPU*")
+add_test(NAME CoordNodeGPUTests 
+         COMMAND nodes --gtest_filter="*GPU*")
+add_test(NAME CoordNodeComparisonTests 
+         COMMAND nodes --gtest_filter="*CPUvsGPU*")
+add_test(NAME GoldenMasterGeneration
+         COMMAND nodes --gtest_filter="*GenerateGolden*")

@@ -8,12 +8,25 @@ import traceback
 
 upside_home = os.environ.get("UPSIDE_HOME")
 
+'''
+I know this script is ugly. It generates a GDB script to capture the function inpuuts at a specific file:line location.
+'''
+
+
 # Instead of function name, use file and line number
-source_file = "src/interaction_graph.h"  # Adjust path as needed
-line_number = 213  # Replace with actual line number
-max_hits = 20
-run_name = "chig" # Used for output file name; should be somewhat specific (e.g. chig-hdx).
-custom_commands = {"pos_array_1": "p *aligned_pos1 @ (this.n_elem1 * pos1_stride)","pos_array_2": "p *aligned_pos2 @ (this.n_elem2 * pos2_stride)","symmetry":"p symmetric"} # Optional custom GDB command configuration
+source_file = "src/coord_basic.cpp"  # Adjust path as needed
+line_number = 36  # Replace with actual line number
+max_hits = 100
+label = "distcoord_compute_value_chig" # class_function_protien name is the convention
+# Custom commands that will be tried safely - different commands for different node types
+custom_commands = {
+    # For CoordNodes
+    "coord_output": "python\ntry:\n    print('*output_storage.x.get()@n_elem =', gdb.parse_and_eval('*output_storage.x.get()@n_elem'))\nexcept:\n    print('coord_output: No output_storage found')\nend",
+    "coord_sens": "python\ntry:\n    print('*sens_storage.x.get()@n_elem =', gdb.parse_and_eval('*sens_storage.x.get()@n_elem'))\nexcept:\n    print('coord_sens: No sens_storage found')\nend",
+    # For PotentialNodes
+    "pot_mom": "python\ntry:\n    print('*mom.output_storage.x.get()@n_elem =', gdb.parse_and_eval('*mom.output_storage.x.get()@n_elem'))\nexcept:\n    print('pot_mom: No mom.output_storage found')\nend",
+    "pot_pos": "python\ntry:\n    print('*pos.output_storage.x.get()@n_elem =', gdb.parse_and_eval('*pos.output_storage.x.get()@n_elem'))\nexcept:\n    print('pot_pos: No pos.output_storage found')\nend"
+}
 
 upside_args = [
     "--duration", "1000",
@@ -80,7 +93,7 @@ echo CUSTOM_{custom_name.upper()}_END:\\n"""
 set confirm off
 set width 0
 set print pretty on
-set print elements 100
+set print elements 0
 set print max-depth 5
 set print null-stop on
 
@@ -529,7 +542,7 @@ def capture_function_inputs_with_gdb(
     line_number,
     program_args=None,
     max_hits=1,
-    gdb_temp_script_path=f"{upside_home}/tests/records/temp_capture_args.gdb",
+    gdb_temp_script_path=f"{upside_home}/tests/tmp/temp_capture_args.gdb",
     gdb_log_file="gdb_function_args.log"
 ):
     """
@@ -635,7 +648,7 @@ info breakpoints
 quit
 """
     
-    test_script_path = f"{upside_home}/tests/records/test_gdb.gdb"
+    test_script_path = f"{upside_home}/tests/tmp/test_gdb.gdb"
     with open(test_script_path, "w") as f:
         f.write(test_script)
     
@@ -650,36 +663,32 @@ quit
     print(f"Test GDB Return Code: {result.returncode}")
 
 if __name__ == "__main__":
+    import argparse
+    
+    parser = argparse.ArgumentParser(description='Capture function inputs with GDB')
+    parser.add_argument('-f', '--file', required=True, help='Source file path (e.g., src/surface.cpp)')
+    parser.add_argument('-l', '--line', type=int, required=True, help='Line number')
+    parser.add_argument('--label', required=True, help='Label for output files')
+    parser.add_argument('--max-hits', type=int, default=100, help='Maximum hits to capture (default: 100)')
+    
+    args = parser.parse_args()
+    
+    # Override global variables with command line arguments
+    source_file = args.file
+    line_number = args.line
+    label = args.label
+    max_hits = args.max_hits
+    
     cpp_executable = f"{upside_home}/obj/upside"
-    function_pattern = "PairlistComputation"  # Pattern to search for
     
-    
-
     if not os.path.exists(cpp_executable):
-        print(f"Executable '{cpp_executable}' not found.")
+        print(f"Error: Executable '{cpp_executable}' not found.")
         exit(1)
 
+    print(f"Processing {label} at {source_file}:{line_number}")
     test_gdb_basic(cpp_executable, source_file, line_number)
     
-    # # Try to automatically find the function location
-    # print("Searching for function location...")
-    # found_file, found_line = find_function_location(cpp_executable, function_pattern)
-    
-    # if found_file and found_line:
-    #     print(f"Found function at: {found_file}:{found_line}")
-    #     source_file = found_file
-    #     line_number = found_line
-    # else:
-    #     print("Could not automatically find function. Using manual specification.")
-    #     print("Available source files in executable:")
-    #     files = list_source_files(cpp_executable)
-    #     for f in files[:10]:  # Show first 10
-    #         print(f"  {f}")
-        
-        # Manual specification - you'll need to find the right file and line
-    source_file = source_file  # UPDATE THIS
-    line_number = line_number  # UPDATE THIS
-    print(f"Using manual location: {source_file}:{line_number}")
+    print(f"Using location: {source_file}:{line_number}")
 
     captured_inputs = capture_function_inputs_with_gdb(
         executable_path=cpp_executable,
@@ -687,15 +696,15 @@ if __name__ == "__main__":
         line_number=line_number,
         program_args=upside_args,
         max_hits=max_hits,
-        gdb_log_file=f"{upside_home}/tests/records/line_{line_number}_inputs.log"
+        gdb_log_file=f"{upside_home}/tests/tmp/{label}_inputs.log"
     )
 
     if captured_inputs:
         print("\n--- Successfully Captured Data ---")
         
         # Save to JSON with cleaning
-        json_filename = f"line_{line_number}_capture.json"
-        save_to_json(captured_inputs, f'{upside_home}/tests/records/{json_filename}')
+        json_filename = f"{label}_capture.json"
+        save_to_json(captured_inputs, f'{upside_home}/tests/tmp/{json_filename}')
         
         # Print summary
         for i, hit_data in enumerate(captured_inputs):
@@ -719,5 +728,7 @@ if __name__ == "__main__":
             print("-" * 40)
             
         print(f"\nCleaned data saved to {json_filename}")
+        print(f"SUCCESS: Captured data for {label}")
     else:
-        print("No data captured.")
+        print(f"ERROR: No data captured for {label}")
+        exit(1)

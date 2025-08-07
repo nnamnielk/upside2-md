@@ -1,11 +1,13 @@
 doc/
-notes/
+notes/*
 run/
 bin/
 data/
+env/
 doc/
 .venv/
-build/*
+tests/tmp/
+tests/obj/
 tests/build/
 *~
 *.swp
@@ -18,9 +20,9 @@ a.out
 *.i
 *.s
 .clang_complete
+
 CMakeCache.txt
-tests/records/temp_capture_args.gdb
-tests/records/test_gdb.gdb
+.envrc
 gmon.out
 CMakeFiles/
 *.bak
