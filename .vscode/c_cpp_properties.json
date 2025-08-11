@@ -2,33 +2,41 @@
   "configurations": [
     {
       "name": "Ubuntu",
+      "compileCommands": "${workspaceFolder}/build/compile_commands.json",
       "includePath": [
-        "${workspaceFolder}/**",
-        "${workspaceFolder}/src",
+        "${workspaceFolder}/src/**",
         "${workspaceFolder}/src/include",
-        "${workspaceFolder}/tests/src",
-        "${workspaceFolder}/tests/obj/_deps/googletest-src/googletest/include",
-        "${workspaceFolder}/tests/obj/_deps/googletest-src/googlemock/include",
-        "${workspaceFolder}/tests/obj/_deps/nlohmann_json-src/include",
         "/usr/local/cuda-12.9/targets/x86_64-linux/include",
+        "/usr/local/cuda-12.9/include",
         "/usr/include/eigen3",
         "/usr/include/hdf5/serial",
-        "/usr/include/c++/11",
+        "/usr/include/c++/13",
+        "/usr/include/c++/13/**",
         "/usr/local/include",
         "/usr/include"
       ],
       "defines": [
-        "USE_CUDA",
+        "USE_CUDA=1",
         "__CUDACC__",
         "DR123_NO_SINCOS",
         "restrict=__restrict__",
         "NDEBUG",
         "__CUDA_ARCH__=860"
       ],
-      "compilerPath": "/usr/bin/gcc",
+      "compilerPath": "/usr/bin/g++",
       "cStandard": "c11",
       "cppStandard": "c++11",
-      "intelliSenseMode": "linux-gcc-x64"
+      "intelliSenseMode": "linux-gcc-x64",
+      "browse": {
+        "path": [
+          "${workspaceFolder}/src",
+          "/usr/local/cuda-12.9/include",
+          "/usr/include/eigen3",
+          "/usr/include/hdf5/serial",
+          "/usr/include"
+        ],
+        "limitSymbolsToIncludedHeaders": false
+      }
     }
   ],
   "version": 4

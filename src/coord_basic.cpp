@@ -6,9 +6,14 @@
 #include "timing.h"
 #include "state_logger.h"
 #include "vector_math.h"
+#include "device_buffer.h"
+#include "device_utils.h"
+#include "coord_basic.h"
 
 using namespace h5;
 using namespace std;
+
+extern const bool cuda_mode;
 
 struct DistCoord : public CoordNode
 {
@@ -17,49 +22,110 @@ struct DistCoord : public CoordNode
     int n_elem;
     CoordNode& pos1;
     CoordNode& pos2;
-    vector<Params> params;
-    vector<float3> deriv;
+    DeviceBuffer<int, 2> params;
+    DeviceBuffer<float, 3> deriv;
+    int compute_threads_per_block;
+    int deriv_threads_per_block;
 
     DistCoord(hid_t grp, CoordNode& pos1_,  CoordNode& pos2_):
         CoordNode(get_dset_size(2, grp, "id")[0], 1),
         n_elem(get_dset_size(2, grp, "id")[0]), 
-	pos1(pos1_), 
-	pos2(pos2_), 
-	params(n_elem),
-	deriv(n_elem) 
+        pos1(pos1_), 
+        pos2(pos2_), 
+        params(VecArrayStorage(2, n_elem)),
+        deriv(VecArrayStorage(3, n_elem))
     {
         int n_dep = 2;  // number of atoms that each term depends on 
         check_size(grp, "id", n_elem, n_dep);
-        traverse_dset<2,int> (grp, "id", [&](size_t i, size_t j, int x) {params[i].atom[j] = x;});
+        
+        traverse_dset<2,int>(grp, "id", [&](size_t i, size_t j, int x) {
+            const_cast<VecArrayStorage&>(*params.h_ptr())(j, i) = x;
+        });
+        
+        if (cuda_mode) {
+            compute_threads_per_block = compute_block_size(2, n_elem, sizeof(int));
+            deriv_threads_per_block = compute_block_size(3, n_elem, sizeof(float));
+        }
     }
 
     virtual void compute_value(ComputeMode mode) {
         Timer timer(string("distance"));
-        VecArray posc1 = const_cast<VecArrayStorage&>(*pos1.output.h_ptr());
-        VecArray posc2 = const_cast<VecArrayStorage&>(*pos2.output.h_ptr());
-        for(int nt=0; nt<n_elem; ++nt) {
-            auto& p = params[nt];
-            auto x1 = load_vec<3>(posc1, p.atom[0]);
-            auto x2 = load_vec<3>(posc2, p.atom[1]);
-            auto disp = x1 - x2;
-	    auto dist = mag(disp);
-	    const_cast<VecArrayStorage&>(*output.h_ptr())(0, nt) = dist;
-	    if (dist != 0.)
-                deriv[nt] = disp * inv_mag(disp);
-	    else
-                deriv[nt] = disp * 0.f;
+        
+        if (cuda_mode) {
+            // GPU path
+            const float* d_pos1 = pos1.output.d_ptr();
+            const float* d_pos2 = pos2.output.d_ptr();
+            const int* d_params = params.d_ptr();
+            float* d_output = output.d_ptr();
+            float* d_deriv = deriv.d_ptr();
+            
+            distcoord_compute_device(
+                d_pos1, d_pos2, d_params, d_output, d_deriv, 
+                n_elem, 4, compute_threads_per_block
+            );
+        } else {
+            // CPU path
+            VecArray posc1 = const_cast<VecArrayStorage&>(*pos1.output.h_ptr());
+            VecArray posc2 = const_cast<VecArrayStorage&>(*pos2.output.h_ptr());
+            VecArray h_params = const_cast<VecArrayStorage&>(*params.h_ptr());
+            VecArray h_deriv = const_cast<VecArrayStorage&>(*deriv.h_ptr());
+            
+            for(int nt=0; nt<n_elem; ++nt) {
+                int atom0 = (int)h_params(0, nt);
+                int atom1 = (int)h_params(1, nt);
+                auto x1 = load_vec<3>(posc1, atom0);
+                auto x2 = load_vec<3>(posc2, atom1);
+                auto disp = x1 - x2;
+                auto dist = mag(disp);
+                const_cast<VecArrayStorage&>(*output.h_ptr())(0, nt) = dist;
+                if (dist != 0.) {
+                    auto normalized = disp * inv_mag(disp);
+                    h_deriv(0, nt) = normalized.x();
+                    h_deriv(1, nt) = normalized.y();
+                    h_deriv(2, nt) = normalized.z();
+                } else {
+                    h_deriv(0, nt) = 0.f;
+                    h_deriv(1, nt) = 0.f;
+                    h_deriv(2, nt) = 0.f;
+                }
+            }
         }
     }
 
     virtual void propagate_deriv() {
         Timer timer(string("distance_deriv"));
-        VecArray pos_sens1 = const_cast<VecArrayStorage&>(*pos1.sens.h_ptr());
-        VecArray pos_sens2 = const_cast<VecArrayStorage&>(*pos2.sens.h_ptr());
-        for(int nt=0; nt<n_elem; ++nt) {
-            auto& p = params[nt];
-            auto  d = const_cast<VecArrayStorage&>(*sens.h_ptr())(0, nt);
-            update_vec(pos_sens1, p.atom[0],  deriv[nt]*d);
-            update_vec(pos_sens2, p.atom[1], -deriv[nt]*d);
+        
+        if (cuda_mode) {
+            // GPU path
+            const int* d_params = params.d_ptr();
+            const float* d_deriv = deriv.d_ptr();
+            const float* d_sens = sens.d_ptr();
+            float* d_pos1_sens = pos1.sens.d_ptr();
+            float* d_pos2_sens = pos2.sens.d_ptr();
+            
+            distcoord_deriv_device(
+                d_params, d_deriv, d_sens, d_pos1_sens, d_pos2_sens,
+                n_elem, 4, deriv_threads_per_block
+            );
+        } else {
+            // CPU path
+            VecArray pos_sens1 = const_cast<VecArrayStorage&>(*pos1.sens.h_ptr());
+            VecArray pos_sens2 = const_cast<VecArrayStorage&>(*pos2.sens.h_ptr());
+            VecArray h_params = const_cast<VecArrayStorage&>(*params.h_ptr());
+            VecArray h_deriv = const_cast<VecArrayStorage&>(*deriv.h_ptr());
+            
+            for(int nt=0; nt<n_elem; ++nt) {
+                int atom0 = (int)h_params(0, nt);
+                int atom1 = (int)h_params(1, nt);
+                auto d = const_cast<VecArrayStorage&>(*sens.h_ptr())(0, nt);
+                
+                vec::float3 deriv_vec = make_vec3(
+                    h_deriv(0, nt), h_deriv(1, nt), h_deriv(2, nt)
+                );
+                
+                update_vec(pos_sens1, atom0, deriv_vec * d);
+                update_vec(pos_sens2, atom1, -deriv_vec * d);
+            }
         }
     }
 };

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
 project(upside CXX C)
 
-option(USE_CUDA "Enable CUDA acceleration" ON)
+option(USE_CUDA "Enable CUDA acceleration" OFF)
 option(DEBUG "Enable debug build" ON)
 
 if(USE_CUDA)
@@ -80,7 +80,9 @@ monte_carlo_sampler.cpp)
 
 if(USE_CUDA)
 # Add the new .cu file to the source list
-list(APPEND ENGINE_SRC interaction_graph.cu device_buffer.cu)
+list(APPEND ENGINE_SRC 
+    device_buffer.cu
+)
 endif()
 
 add_executable (upside ${ENGINE_SRC})

@@ -1,5 +1,6 @@
 {
-    "cmake.sourceDirectory": "/home/okleinmann/projects/upside2-md/cuda/src",
+    "cmake.sourceDirectory": "${workspaceFolder}/src",
+    "cmake.buildDirectory": "${workspaceFolder}/obj",
     "C_Cpp.intelliSenseEngine": "default",
     "C_Cpp.default.intelliSenseMode": "linux-gcc-x64",
     "C_Cpp.errorSquiggles": "enabled",
@@ -7,9 +8,14 @@
     "C_Cpp.enhancedColorization": "enabled",
     "C_Cpp.default.browse.limitSymbolsToIncludedHeaders": false,
     "C_Cpp.default.browse.databaseFilename": "",
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json",
+    "C_Cpp.loggingLevel": "Information",
+    "C_Cpp.configurationWarnings": "enabled",
     "files.associations": {
         "*.cu": "cuda-cpp",
-        "*.cuh": "cuda-cpp"
+        "*.cuh": "cuda-cpp",
+        "*.h": "c",
+        "*.hpp": "cpp"
     },
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#65c89b",

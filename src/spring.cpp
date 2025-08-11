@@ -25,9 +25,9 @@ struct Spring : public PotentialNode
     Spring(hid_t grp, CoordNode& pos_):
         PotentialNode(),
         n_elem(get_dset_size(1, grp, "id")[0]), 
-	pos(pos_), 
-	params(n_elem),
-	n_dim(pos.output.h_ptr()->row_width),
+	    pos(pos_), 
+	    params(n_elem),
+	    n_dim(pos.output.h_ptr()->row_width),
         dim1( read_attribute<int>(grp, ".", "dim1") ),
         pbc(  read_attribute<int>(grp, ".", "pbc") ),
         box_len(read_attribute<float>(grp, ".", "box_len") )
@@ -53,28 +53,28 @@ struct Spring : public PotentialNode
         for(int nt=0; nt<n_elem; ++nt) {
             auto& p = params[nt];
             float dist   = posc(dim1, p.id);
-	    float excess = dist-p.equil_dist;
-	    float sqr_excess = sqr(excess);
+            float excess = dist-p.equil_dist;
+            float sqr_excess = sqr(excess);
 
-	    if (excess == 0.f) continue;
+            if (excess == 0.f) continue;
 
-	    if (pbc) {
-                float excess1 = dist-p.equil_dist-box_len;
-                float excess2 = dist-p.equil_dist+box_len;
-	        float sqr_excess1 = sqr(excess1);
-	        float sqr_excess2 = sqr(excess2);
-		if (sqr_excess1 < sqr_excess) {
+            if (pbc) {
+                    float excess1 = dist-p.equil_dist-box_len;
+                    float excess2 = dist-p.equil_dist+box_len;
+                    float sqr_excess1 = sqr(excess1);
+                float sqr_excess2 = sqr(excess2);
+                if (sqr_excess1 < sqr_excess) {
                     sqr_excess = sqr_excess1;
                     excess     = excess1;
-		}
-		if (sqr_excess2 < sqr_excess) {
-		    sqr_excess = sqr_excess2;
+                }
+                if (sqr_excess2 < sqr_excess) {
+                    sqr_excess = sqr_excess2;
                     excess     = excess2;
-		}
-	    }
+                }
+            }
 
-            if(pot) *pot         += 0.5f * p.spring_const * sqr_excess;
-            pos_sens(dim1, p.id) +=        p.spring_const * excess;
+                if(pot) *pot         += 0.5f * p.spring_const * sqr_excess;
+                pos_sens(dim1, p.id) +=        p.spring_const * excess;
         }
     }
 };

@@ -40,7 +40,7 @@ struct PaddedMatrix {
     static constexpr int w2=(D2+3)/4;
 
     // I am having some weird type errors that I don't understand related to
-    //   things like v[0].broadcast<0>() that do not correctly interpret as a method call.
+    // things like v[0].broadcast<0>() that do not correctly interpret as a method call.
     // This function will fix that will fix them, but I do not know why it is necessary.
     // C++ can be humbling some times.  I am sure that my mental block is something silly.
     template<int i_bcast>

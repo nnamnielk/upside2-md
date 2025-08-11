@@ -2,21 +2,21 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "debug upside", // You can name this whatever you like
+            "name": "debug upside (CPU)",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/okleinmann/projects/upside2-md/cuda/obj/upside", // Path to your executable
+            "program": "${workspaceFolder}/obj/upside",
             "args": [
                 "--duration", "1000",
                 "--frame-interval", "50",
                 "--temperature", "0.8",
                 "--seed", "1",
-                "/home/okleinmann/projects/upside2-md/cuda/example/01.GettingStarted/outputs/simple_test/chig.run.up" // Note: GDB might need absolute paths for files if relative paths cause issues
+                "${workspaceFolder}/example/01.GettingStarted/outputs/simple_test/chig.run.up"
             ],
-            "stopAtEntry": false, // Set to true if you want the debugger to stop at the beginning of main()
-            "cwd": "/home/okleinmann/projects/upside2-md/cuda/", // Current working directory for your program
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
             "environment": [],
-            "externalConsole": false, // Set to true if you want a separate console window for your program's output
+            "externalConsole": false,
             "MIMode": "gdb",
             "setupCommands": [
                 {
@@ -25,28 +25,28 @@
                     "ignoreFailures": true
                 },
                 {
-                    "description": "Set Disassembly Flavor to Intel", // Optional, personal preference
+                    "description": "Set Disassembly Flavor to Intel",
                     "text": "-gdb-set disassembly-flavor intel",
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "CMake Build", // This task will run before debugging starts
-            "miDebuggerPath": "/usr/bin/gdb" // Path to your GDB in WSL
+            "preLaunchTask": "CMake Build",
+            "miDebuggerPath": "/usr/bin/gdb"
         },
         {
             "name": "debug upside (CUDA)",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/okleinmann/projects/upside2-md/obj/upside",
+            "program": "${workspaceFolder}/obj/upside",
             "args": [
                 "--duration", "1000",
                 "--frame-interval", "50",
                 "--temperature", "0.8",
                 "--seed", "1",
-                "/home/okleinmann/projects/upside2-md/example/01.GettingStarted/outputs/simple_test/chig.run.up"
+                "${workspaceFolder}/example/01.GettingStarted/outputs/simple_test/chig.run.up"
             ],
             "stopAtEntry": false,
-            "cwd": "/home/okleinmann/projects/upside2-md/",
+            "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
@@ -68,15 +68,7 @@
                 }
             ],
             "preLaunchTask": "CMake Build CUDA Debug",
-            "miDebuggerPath": "/usr/local/cuda/bin/cuda-gdb" // Path to cuda-gdb
+            "miDebuggerPath": "/usr/local/cuda/bin/cuda-gdb"
         },
-        {
-            "name": "test upside",
-            "type": "pydbg",
-            "request": "launch",
-            "program": "${file}",
-            "console": "integratedTerminal",
-            "args": ["${workspaceFolder}/tests/build/testbridge","???","${workspaceFolder}/tests/records/line_213_capture.json"]
-        }
     ]
 }
