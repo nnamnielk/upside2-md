@@ -9,6 +9,7 @@ doc/
 tests/tmp/
 tests/obj/
 tests/build/
+
 *~
 *.swp
 *.vtf
@@ -19,8 +20,8 @@ a.out
 *.o
 *.i
 *.s
-.clang_complete
 
+.clang_complete
 CMakeCache.txt
 .envrc
 gmon.out
@@ -33,4 +34,3 @@ compile_commands.json
 source.sh
 **inputs/
 **outputs/
-

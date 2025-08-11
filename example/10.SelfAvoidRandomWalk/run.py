@@ -6,8 +6,6 @@ from math import sqrt
 import time
 
 
-
-
 upside_path = os.environ['UPSIDE_HOME']
 upside_utils_dir = os.path.expanduser(upside_path+"/py")
 sys.path.insert(0, upside_utils_dir)
@@ -23,14 +21,14 @@ sim_id           = 'SARW'
 is_native        = True
 ff               = 'ff_2.1'
 
-duration         = 50000
-frame_interval   = 100
+duration         = 100
+frame_interval   = 10
 work_dir         = './'
 
-exchange         = False # if True, it will run the replica exchange simulation
+exchange         = True # if True, it will run the replica exchange simulation
                          # if False, it will run the constant temperature simulation
 
-n_rep            = 8     # replica number
+n_rep            = 4     # replica number
 T_low            = 0.80 
 T_high           = 1.00
 replica_interval = 10    # How long takes an exchange attempt (upside time unit)
@@ -43,12 +41,6 @@ continue_sim     = False # when you run a new simulation, set it as "False"
 
 randomseed       = 1     # np.random.randint(0,100000) 
                          # Might want to change the fixed seed for the random number
-
-account          = "your_account"    # FIXME change it 
-partition        = "yout_partition"  # FIXME change it
-job_name         = '{}_{}'.format(pdb_id, sim_id)
-run_time         = "36:00:00" # requested run time of job allocation in hh:mm:ss
-
 
 #----------------------------------------------------------------------
 # Set the path and filename
@@ -192,20 +184,6 @@ else:
     for fn in h5_files:
         shutil.copyfile(config_base, fn)
 
-# SLURM options
-# Will want to increase the time for production runs 
-sbatch_opts = (
-                "--account={} " #bphs35001
-                "--job-name={} "
-                "--output={} "
-                "--time={} "
-                "--partition={} "
-                "--nodes=1 "
-                "--ntasks-per-node={} "
-              )
-
-sbatch_opts = sbatch_opts.format(account, job_name, log_file, run_time, partition, n_rep)
-
 print ("Running...")
-cmd = "sbatch {} --wrap=\"{}/obj/upside {} {}\"".format(sbatch_opts, upside_path, upside_opts, h5_files_str)
+cmd = "{}/obj/upside {} {}".format(upside_path, upside_opts, h5_files_str)
 sp.check_call(cmd, shell=True)

@@ -25,6 +25,12 @@
 using namespace std;
 using namespace h5;
 
+#ifdef __CUDACC__
+    const bool cuda_mode = true;
+#else
+    const bool cuda_mode = false;
+#endif
+
 // If any stop signal is received (currently we trap sigterm and sigint)
 // we increment any_stop_signal_received.
 constexpr sig_atomic_t NO_SIGNAL = -1;  // FIXME is this a valid sentinel value?

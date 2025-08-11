@@ -11,29 +11,6 @@
 #include <iostream>
 #include <stdexcept>
 
-#ifdef USE_CUDA
-// Forward declare the C-style wrapper functions from the .cu file
-extern "C" {
-bool ensure_cache_valid_cuda(
-    int n_elem1, int n_elem2, bool symmetric,
-    const float* aligned_pos1, const int pos1_stride, int* id1,
-    const float* aligned_pos2, const int pos2_stride, int* id2,
-    float cache_cutoff, float cutoff,
-    const float* cache_pos1, const float* cache_pos2,
-    const int* cache_id1, const int* cache_id2);
-
-void find_edges_cuda(
-    int& n_edge, int max_n_edge, int cache_n_edge,
-    float cutoff, bool symmetric,
-    int n_elem1, int n_elem2, int pos1_stride, int pos2_stride,
-    const float* aligned_pos1, const float* aligned_pos2,
-    const int32_t* cache_edge_indices1, const int32_t* cache_edge_indices2,
-    const int32_t* cache_edge_id1,      const int32_t* cache_edge_id2,
-    int32_t* edge_indices1, int32_t* edge_indices2,
-    int32_t* edge_id1,      int32_t* edge_id2);
-}
-#endif
-
 template <typename T>
 inline T* operator+(const std::unique_ptr<T[]>& ptr, int i) {
     // little function to make unique_ptr for an array do pointer arithmetic
@@ -88,16 +65,6 @@ struct PairlistComputation {
                 const float* aligned_pos1, const int pos1_stride, int* id1, 
                 const float* aligned_pos2, const int pos2_stride, int* id2)
         {
-            // #ifdef USE_CUDA
-            // Timer t1("pairlist_cache_check_gpu");
-            // if (cache_valid) {
-            //      bool still_valid = ensure_cache_valid_cuda(n_elem1, n_elem2, symmetric, 
-            //         aligned_pos1, pos1_stride, id1, aligned_pos2, pos2_stride, id2,
-            //         cache_cutoff, cutoff,
-            //         cache_pos1.get(), cache_pos2.get(), cache_id1.get(), cache_id2.get());
-            //      if (still_valid) return;
-            // }
-            // #else
             Timer t1("pairlist_cache_check");
             // Find maximum deviation from cached positions to determine if cache must be rebuilt
             auto max_dist_exceeded = Float4();
@@ -131,7 +98,6 @@ struct PairlistComputation {
             }
             t1.stop();
             if(cache_valid && max_dist_exceeded.none() && id_changed.none()) return;
-            // #endif
             // printf("cache rebuild\n");
 
             // If we reach here, we must rebuild the cache
@@ -251,16 +217,6 @@ struct PairlistComputation {
             ensure_cache_valid<acceptable_id_pair>(cutoff,
                     aligned_pos1, pos1_stride, id1,
                     aligned_pos2, pos2_stride, id2);
-            #ifdef USE_CUDA
-            Timer timer("pairlist_refine_gpu");
-            find_edges_cuda(n_edge, max_n_edge, cache_n_edge, cutoff, symmetric,
-                n_elem1, n_elem2, pos1_stride, pos2_stride,
-                aligned_pos1, (symmetric ? aligned_pos1 : aligned_pos2),
-                cache_edge_indices1.get(), cache_edge_indices2.get(),
-                cache_edge_id1.get(), cache_edge_id2.get(),
-                edge_indices1.get(), edge_indices2.get(),
-                edge_id1.get(), edge_id2.get());
-            #else
             Timer timer("pairlist_refine");
 
             int ne=0;
@@ -304,7 +260,6 @@ struct PairlistComputation {
             int n_extra = round_up(cache_n_edge,4)-cache_n_edge;
             int invalid_mask = ((1<<4)-1) & ~((1<<(4-n_extra))-1);
             n_edge = ne-popcnt_nibble(acceptable&invalid_mask);
-            #endif
 
             for(int i=n_edge; i<round_up(n_edge,4); ++i) {
                 edge_indices1[i] = edge_indices1[i-i%4];
