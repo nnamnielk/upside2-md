@@ -25,10 +25,10 @@
 using namespace std;
 using namespace h5;
 
-#ifdef __CUDACC__
-    const bool cuda_mode = true;
+#ifdef USE_CUDA
+    extern const bool cuda_mode = true;
 #else
-    const bool cuda_mode = false;
+    extern const bool cuda_mode = false;
 #endif
 
 // If any stop signal is received (currently we trap sigterm and sigint)

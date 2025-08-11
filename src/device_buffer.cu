@@ -15,7 +15,7 @@ static void handle_cuda_error(cudaError_t err, const char *file, int line) {
 
 template<typename T, int Dim>
 DeviceBuffer<T, Dim>::DeviceBuffer(const VecArrayStorage& host)
-    : host_storage_(&host), device_ptr_(nullptr), pitch_bytes_(0), 
+    : host_storage_(const_cast<VecArrayStorage*>(&host)), device_ptr_(nullptr), pitch_bytes_(0), 
       host_is_dirty_(true), device_is_dirty_(false) {
     
     if (Dim == 1) {
@@ -133,7 +133,7 @@ VecArrayStorage* DeviceBuffer<T, Dim>::h_ptr() {
     // Mark host as dirty since caller can modify it
     host_is_dirty_ = true;
     device_is_dirty_ = false;
-    return const_cast<VecArrayStorage*>(host_storage_);
+    return host_storage_;
 }
 
 // Smart synchronization methods - device side
@@ -159,3 +159,6 @@ T* DeviceBuffer<T, Dim>::d_ptr() {
 // Explicit template instantiations for the types we need
 template class DeviceBuffer<float, 1>;
 template class DeviceBuffer<float, 2>;
+template class DeviceBuffer<float, 3>;
+template class DeviceBuffer<int, 2>;
+template class DeviceBuffer<double, 2>;

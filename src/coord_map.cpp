@@ -171,7 +171,7 @@ struct Concat : public CoordNode
     }
 
     Concat(hid_t grp, const std::vector<CoordNode*> &coord_nodes_):
-        CoordNode(sum_n_elem(coord_nodes_), coord_nodes[0]->elem_width),
+        CoordNode(sum_n_elem(coord_nodes_), coord_nodes_[0]->elem_width),
         coord_nodes(coord_nodes_)
     {
         for(auto cn: coord_nodes)

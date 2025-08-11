@@ -50,6 +50,25 @@ inline int compute_block_size(int length, int width, int height, int bytes_per_e
     return compute_block_size(length * width * height, bytes_per_element);
 }
 
+#else
+// Stub functions for non-CUDA compilation - should never be called
+#include <cstdlib>
+#include <iostream>
+inline int compute_block_size(int width, int bytes_per_element) {
+    std::cerr << "ERROR: compute_block_size called in non-CUDA mode!" << std::endl;
+    std::abort();
+    return 0;
+}
+inline int compute_block_size(int width, int height, int bytes_per_element) {
+    std::cerr << "ERROR: compute_block_size called in non-CUDA mode!" << std::endl;
+    std::abort();
+    return 0;
+}
+inline int compute_block_size(int length, int width, int height, int bytes_per_element) {
+    std::cerr << "ERROR: compute_block_size called in non-CUDA mode!" << std::endl;
+    std::abort();
+    return 0;
+}
 #endif
 
 #endif // DEVICE_UTILS_H

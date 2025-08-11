@@ -22,6 +22,8 @@ struct DistCoord : public CoordNode
     int n_elem;
     CoordNode& pos1;
     CoordNode& pos2;
+    VecArrayStorage params_storage;
+    VecArrayStorage deriv_storage;
     DeviceBuffer<int, 2> params;
     DeviceBuffer<float, 3> deriv;
     int compute_threads_per_block;
@@ -32,14 +34,16 @@ struct DistCoord : public CoordNode
         n_elem(get_dset_size(2, grp, "id")[0]), 
         pos1(pos1_), 
         pos2(pos2_), 
-        params(VecArrayStorage(2, n_elem)),
-        deriv(VecArrayStorage(3, n_elem))
+        params_storage(2, n_elem),
+        deriv_storage(3, n_elem),
+        params(params_storage),
+        deriv(deriv_storage)
     {
         int n_dep = 2;  // number of atoms that each term depends on 
         check_size(grp, "id", n_elem, n_dep);
         
         traverse_dset<2,int>(grp, "id", [&](size_t i, size_t j, int x) {
-            const_cast<VecArrayStorage&>(*params.h_ptr())(j, i) = x;
+            params_storage(j, i) = x;
         });
         
         if (cuda_mode) {
