@@ -1,40 +1,11 @@
 {
     "cmake.sourceDirectory": "${workspaceFolder}/src",
-    "cmake.buildDirectory": "${workspaceFolder}/obj",
-    "C_Cpp.intelliSenseEngine": "default",
-    "C_Cpp.default.intelliSenseMode": "linux-gcc-x64",
-    "C_Cpp.errorSquiggles": "enabled",
-    "C_Cpp.autocomplete": "default",
-    "C_Cpp.enhancedColorization": "enabled",
-    "C_Cpp.default.browse.limitSymbolsToIncludedHeaders": false,
-    "C_Cpp.default.browse.databaseFilename": "",
-    "C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json",
-    "C_Cpp.loggingLevel": "Information",
-    "C_Cpp.configurationWarnings": "enabled",
-    "files.associations": {
-        "*.cu": "cuda-cpp",
-        "*.cuh": "cuda-cpp",
-        "*.h": "c",
-        "*.hpp": "cpp"
-    },
-    "workbench.colorCustomizations": {
-        "activityBar.activeBackground": "#65c89b",
-        "activityBar.background": "#65c89b",
-        "activityBar.foreground": "#15202b",
-        "activityBar.inactiveForeground": "#15202b99",
-        "activityBarBadge.background": "#945bc4",
-        "activityBarBadge.foreground": "#e7e7e7",
-        "commandCenter.border": "#15202b99",
-        "sash.hoverBorder": "#65c89b",
-        "statusBar.background": "#42b883",
-        "statusBar.foreground": "#15202b",
-        "statusBarItem.hoverBackground": "#359268",
-        "statusBarItem.remoteBackground": "#42b883",
-        "statusBarItem.remoteForeground": "#15202b",
-        "titleBar.activeBackground": "#42b883",
-        "titleBar.activeForeground": "#15202b",
-        "titleBar.inactiveBackground": "#42b88399",
-        "titleBar.inactiveForeground": "#15202b99"
-    },
-    "peacock.remoteColor": "#42b883"
+    "C_Cpp.default.includePath": [
+        "${workspaceFolder}/src/**",
+        "/home/okleinmann/.miniconda3/envs/upside2-env/include",
+        "/home/okleinmann/.miniconda3/envs/upside2-env/targets/x86_64-linux/include"
+    ],
+    "C_Cpp.default.compilerPath": "/usr/bin/gcc",
+    "C_Cpp.default.cppStandard": "c++11",
+    "C_Cpp.default.intelliSenseMode": "linux-gcc-x64"
 }

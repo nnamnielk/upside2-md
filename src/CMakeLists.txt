@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
 project(upside CXX C)
 
-option(USE_CUDA "Enable CUDA acceleration" OFF)
+option(USE_CUDA "Enable CUDA acceleration" ON)
 option(DEBUG "Enable debug build" ON)
 
 if(USE_CUDA)
@@ -82,6 +82,12 @@ if(USE_CUDA)
 # Add the new .cu file to the source list
 list(APPEND ENGINE_SRC 
     device_buffer.cu
+    device_utils.cu
+)
+else()
+# Add non-CUDA implementation
+list(APPEND ENGINE_SRC 
+    device_buffer.cpp
 )
 endif()
 

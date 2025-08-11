@@ -10,7 +10,7 @@ struct VecArray;
 template<typename T, int Dim>
 class DeviceBuffer {
 private:
-    const VecArrayStorage* host_storage_;
+    VecArrayStorage* host_storage_;
     T* device_ptr_;
     size_t pitch_bytes_;
     mutable bool host_is_dirty_;
@@ -30,15 +30,12 @@ public:
     void copyToDevice();
     void copyToHost();
 
-    // Legacy methods (kept for compatibility)
     const T* devicePtr() const noexcept;
     size_t   pitch()     const noexcept;
     
-    // Smart synchronization API - host side
     const VecArrayStorage* h_ptr() const;
     VecArrayStorage* h_ptr();
     
-    // Smart synchronization API - device side
     const T* d_ptr() const;
     T* d_ptr();
 };
