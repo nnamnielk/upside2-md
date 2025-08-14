@@ -12,7 +12,7 @@
             
             // -- MULTI-ARCHITECTURE SUPPORT --
             // Uncomment one of these lines to test specific architecture:
-            // "TARGETPLATFORM": "linux/amd64"
+            "TARGETPLATFORM": "linux/amd64" //Necessary for Github Codespaces
             // "TARGETPLATFORM": "linux/arm64"
         }
     },
@@ -48,7 +48,8 @@
                 "ms-python.python",
                 "ms-python.vscode-pylance",
                 "ms-vscode.cpptools",
-                "ms-azuretools.vscode-docker"
+                "ms-azuretools.vscode-docker",
+                "ms-toolsai.jupyter"
             ]
         }
     },

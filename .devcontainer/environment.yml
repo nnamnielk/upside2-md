@@ -40,6 +40,23 @@ dependencies:
   - setuptools
   - pip
   
+  # --- Debugging and development tools ---
+  - gdb
+  - ccache
+  - ipdb
+  - pdbpp
+  - line_profiler
+  - memory_profiler
+  - py-spy
+  
+  # --- Data science and visualization ---
+  - matplotlib
+  - seaborn
+  - jupyter
+  - jupyterlab
+  - ipywidgets
+  - nglview
+  
   # --- Pip section ---
   # Keep minimal; only for packages not available on conda-forge
   - pip: []

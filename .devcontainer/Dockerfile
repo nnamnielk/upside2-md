@@ -13,16 +13,13 @@ RUN useradd -ms /bin/bash user
 RUN apt-get update && apt-get install -y sudo && \
     echo 'user ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
-# Install essential build tools and dependencies
+# Install essential build tools and system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     cmake \
     git \
     libhdf5-dev \
     libeigen3-dev \
-    python3 \
-    python3-dev \
-    python3-pip \
     procps \
     wget \
     ca-certificates \
