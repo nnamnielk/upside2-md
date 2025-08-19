@@ -346,7 +346,7 @@ struct MembraneCBPotential : public PotentialNode
             auto xyz = load_vec<3>(cb_pos, ri);
 
             if (use_curvature) {
-                dist = mag( xyz - ccenter );
+                dist = ::mag( xyz - ccenter );
                 r_dist = 1.f/dist;
                 cb_z = curvature_sign* ( dist - curvature_radius );
             }
@@ -454,7 +454,7 @@ struct MembraneCBPotential : public PotentialNode
             float cb_z        = cb_pos(2, ri);
             if (use_curvature) {
                 auto xyz = load_vec<3>(cb_pos, ri);
-                float dist = mag( xyz - ccenter );
+                float dist = ::mag( xyz - ccenter );
                 cb_z = curvature_sign* ( dist - curvature_radius );
             }
             auto  sig_left    = compact_sigmoid(cb_z-left_right_node, left_right_sharpness);
@@ -555,7 +555,7 @@ struct MembraneHBPotential : public PotentialNode
             float r_dist = 1.f;
             auto xyz = load_vec<3>(hb_pos, ri);
             if (use_curvature) {
-                dist = mag( xyz - ccenter );
+                dist = ::mag( xyz - ccenter );
                 r_dist = 1.f/dist;
                 hb_z = curvature_sign* ( dist - curvature_radius );
             }
@@ -639,7 +639,7 @@ struct MembraneHBPotential : public PotentialNode
             float hb_z         = hb_pos(2, ri);
             if (use_curvature) {
                 auto xyz = load_vec<3>(hb_pos, ri);
-                float dist = mag( xyz - ccenter );
+                float dist = ::mag( xyz - ccenter );
                 hb_z = curvature_sign* ( dist - curvature_radius );
             }
 

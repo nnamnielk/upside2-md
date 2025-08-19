@@ -7,8 +7,8 @@
 // CUDA error-checking macro
 static void handle_cuda_error(cudaError_t err, const char *file, int line) {
     if (err != cudaSuccess) {
-        std::cerr << "CUDA error in " << file << " at line " << line << ": " << cudaGetErrorString(err) << std::endl;
-        exit(EXIT_FAILURE);
+        std::string error_msg = std::string("CUDA error in ") + file + " at line " + std::to_string(line) + ": " + cudaGetErrorString(err);
+        throw error_msg;
     }
 }
 #define CUDA_CHECK(err) (handle_cuda_error(err, __FILE__, __LINE__))
@@ -18,16 +18,32 @@ DeviceBuffer<T, Dim>::DeviceBuffer(const VecArrayStorage& host)
     : host_storage_(const_cast<VecArrayStorage*>(&host)), device_ptr_(nullptr), pitch_bytes_(0), 
       host_is_dirty_(true), device_is_dirty_(false) {
     
+    std::cout << "DEBUG: DeviceBuffer constructor - Dim=" << Dim 
+              << ", n_elem=" << host.n_elem 
+              << ", row_width=" << host.row_width 
+              << ", sizeof(T)=" << sizeof(T) << std::endl;
+    std::cout.flush();
+
     if (Dim == 1) {
         // 1D allocation using cudaMalloc
         size_t size_bytes = host.n_elem * host.row_width * sizeof(T);
+        std::cout << "DEBUG: DeviceBuffer (Dim=1) - Allocating " << size_bytes << " bytes" << std::endl;
+        std::cout.flush();
         CUDA_CHECK(cudaMalloc(&device_ptr_, size_bytes));
         pitch_bytes_ = host.row_width * sizeof(T);
+        std::cout << "DEBUG: DeviceBuffer (Dim=1) - Allocation successful, ptr=" << device_ptr_ << std::endl;
+        std::cout.flush();
     } else if (Dim == 2) {
         // 2D allocation using cudaMallocPitch
         size_t width_bytes = host.row_width * sizeof(T);
         size_t height = host.n_elem;
+        std::cout << "DEBUG: DeviceBuffer (Dim=2) - Allocating pitch memory with width_bytes=" << width_bytes 
+                  << ", height=" << height << std::endl;
+        std::cout.flush();
         CUDA_CHECK(cudaMallocPitch(reinterpret_cast<void**>(&device_ptr_), &pitch_bytes_, width_bytes, height));
+        std::cout << "DEBUG: DeviceBuffer (Dim=2) - Allocation successful, ptr=" << device_ptr_ 
+                  << ", pitch_bytes=" << pitch_bytes_ << std::endl;
+        std::cout.flush();
     } else {
         throw std::runtime_error("DeviceBuffer only supports Dim=1 or Dim=2");
     }

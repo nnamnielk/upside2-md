@@ -25,12 +25,12 @@ nonbonded_kernel_or_deriv_over_r(float r_mag2)
     const float width = 0.10f;
     const float sharpness = 1.f/(wall*width);  // ensure character
 
-    const float2 V = energy_scale*compact_sigmoid(r_mag2-wall_squared, sharpness);
+    const vec::float2 V = energy_scale*compact_sigmoid(r_mag2-wall_squared, sharpness);
     return return_deriv ? 2.f*V.y() : V.x();
 }
 
-Int4 acceptable_backbone_pair(const Int4& id1, const Int4& id2) {
-        auto sequence_exclude = Int4(1);
+vec::Int4 acceptable_backbone_pair(const vec::Int4& id1, const vec::Int4& id2) {
+        auto sequence_exclude = vec::Int4(1);
         return (sequence_exclude < id1-id2) | (sequence_exclude < id2-id1);
 }
 }
@@ -39,7 +39,7 @@ struct BackbonePairs : public PotentialNode
 {
     struct RefPos {
         int32_t n_atom;
-        float3  pos[4];
+        vec::float3  pos[4];
     };
 
     int n_residue;
@@ -73,7 +73,7 @@ struct BackbonePairs : public PotentialNode
         float max_atom_dev = 0.f;
         for(const auto& p: ref_pos)
             for(int na: range(p.n_atom))
-                max_atom_dev = max(mag(p.pos[na]), max_atom_dev);
+                max_atom_dev = max(::mag(p.pos[na]), max_atom_dev);
 
         dist_cutoff = 2*max_atom_dev + sqrtf(nonbonded_atom_cutoff2);
     }
@@ -84,7 +84,7 @@ struct BackbonePairs : public PotentialNode
         float* pot = mode==PotentialAndDerivMode ? &potential : nullptr;
         VecArrayStorage coords(3,round_up(n_residue,4));
         vector<int>    ref_pos_atoms (n_residue);
-        vector<float3> ref_pos_coords(n_residue*4);
+        vector<vec::float3> ref_pos_coords(n_residue*4);
 
         if(pot) *pot = 0.f;
         for(int nr=0; nr<n_residue; ++nr) {
@@ -108,29 +108,29 @@ struct BackbonePairs : public PotentialNode
             int nr1 = pairlist.edge_indices1[ne];
             int nr2 = pairlist.edge_indices2[ne];
 
-            auto d1 = make_zero<3>(); auto torque1 = make_zero<3>(); auto t1 = load_vec<3>(coords,nr1);
-            auto d2 = make_zero<3>(); auto torque2 = make_zero<3>(); auto t2 = load_vec<3>(coords,nr2);
+            auto d1 = ::make_zero<3>(); auto torque1 = ::make_zero<3>(); auto t1 = load_vec<3>(coords,nr1);
+            auto d2 = ::make_zero<3>(); auto torque2 = ::make_zero<3>(); auto t2 = load_vec<3>(coords,nr2);
 
             int n_atom1 = ref_pos_atoms[nr1];
             int n_atom2 = ref_pos_atoms[nr2];
 
             bool hit = false;
             for(int i1=0; i1<n_atom1; ++i1) {
-                const float3 x1 = ref_pos_coords[nr1*4+i1];
+                const vec::float3 x1 = ref_pos_coords[nr1*4+i1];
 
                 for(int i2=0; i2<n_atom2; ++i2) {
-                    const float3 x2 = ref_pos_coords[nr2*4+i2];
+                    const vec::float3 x2 = ref_pos_coords[nr2*4+i2];
 
-                    const float3 r = x1-x2;
-                    const float r_mag2 = mag2(r);
+                    const vec::float3 r = x1-x2;
+                    const float r_mag2 = ::mag2(r);
                     if(r_mag2>nonbonded_atom_cutoff2) continue;
                     hit = true;
                     const float deriv_over_r  = nonbonded_kernel_or_deriv_over_r<true> (r_mag2);
                     if(pot)     *pot         += nonbonded_kernel_or_deriv_over_r<false>(r_mag2);
-                    const float3 g = deriv_over_r*r;
+                    const vec::float3 g = deriv_over_r*r;
 
-                    d1 +=  g;  torque1 += cross(x1-t1,  g);
-                    d2 += -g;  torque2 += cross(x2-t2, -g);
+                    d1 +=  g;  torque1 += ::cross(x1-t1,  g);
+                    d2 += -g;  torque2 += ::cross(x2-t2, -g);
                 }
             }
 

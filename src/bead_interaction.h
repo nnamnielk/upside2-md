@@ -29,29 +29,29 @@
 
 namespace {
     template<int n_knot_angular, int n_knot, int n_dim1, int n_dim2>
-        inline Float4 quadspline(
-                Vec<n_dim1,Float4> &d1, Vec<n_dim2,Float4> &d2,
+        inline vec::Float4 quadspline(
+                vec::Vec<n_dim1,vec::Float4> &d1, vec::Vec<n_dim2,vec::Float4> &d2,
                 const float inv_dtheta, const float inv_dx, const float* p[4],
-                const Vec<n_dim1,Float4> &x1, const Vec<n_dim2,Float4> &x2)
+                const vec::Vec<n_dim1,vec::Float4> &x1, const vec::Vec<n_dim2,vec::Float4> &x2)
         {
-            Float4 one(1.f);
-            auto displace = extract<0,3>(x2)-extract<0,3>(x1);
-            auto rvec1 = extract<3,6>(x1);
-            auto rvec2 = extract<3,6>(x2);
+            vec::Float4 one(1.f);
+            auto displace = ::extract<0,3>(x2)-::extract<0,3>(x1);
+            auto rvec1 = ::extract<3,6>(x1);
+            auto rvec2 = ::extract<3,6>(x2);
 
-            auto dist2 = mag2(displace);
-            auto inv_dist = rsqrt(dist2);
-            auto dist_coord = dist2*(inv_dist*Float4(inv_dx));
+            auto dist2 = ::mag2(displace);
+            auto inv_dist = ::rsqrt(dist2);
+            auto dist_coord = dist2*(inv_dist*vec::Float4(inv_dx));
             auto displace_unitvec = inv_dist*displace;
 
-            auto cos_cov_angle1 = dot(rvec1, displace_unitvec);
-            auto cos_cov_angle2 = dot(rvec2,-displace_unitvec);
+            auto cos_cov_angle1 = ::dot(rvec1, displace_unitvec);
+            auto cos_cov_angle2 = ::dot(rvec2,-displace_unitvec);
 
             // Spline evaluation
-            auto angular_sigmoid1 = deBoor_value_and_deriv(p,  (cos_cov_angle1+one)*Float4(inv_dtheta)+one);
+            auto angular_sigmoid1 = deBoor_value_and_deriv(p,  (cos_cov_angle1+one)*vec::Float4(inv_dtheta)+one);
             int o = n_knot_angular; const float* pp[4] = {p[0]+o, p[1]+o, p[2]+o, p[3]+o};
 
-            auto angular_sigmoid2 = deBoor_value_and_deriv(pp, (cos_cov_angle2+one)*Float4(inv_dtheta)+one);
+            auto angular_sigmoid2 = deBoor_value_and_deriv(pp, (cos_cov_angle2+one)*vec::Float4(inv_dtheta)+one);
             o=n_knot_angular; pp[0]+=o; pp[1]+=o; pp[2]+=o; pp[3]+=o;
 
             auto wide_cover   = clamped_deBoor_value_and_deriv(pp, dist_coord, n_knot);
@@ -62,12 +62,12 @@ namespace {
             // Partition derivatives
             auto angular_weight = angular_sigmoid1.x() * angular_sigmoid2.x();
 
-            auto radial_deriv   = Float4(inv_dx    ) * (wide_cover.y() + angular_weight*narrow_cover.y());
-            auto angular_deriv1 = Float4(inv_dtheta) * angular_sigmoid1.y()*angular_sigmoid2.x()*narrow_cover.x();
-            auto angular_deriv2 = Float4(inv_dtheta) * angular_sigmoid1.x()*angular_sigmoid2.y()*narrow_cover.x();
+            auto radial_deriv   = vec::Float4(inv_dx    ) * (wide_cover.y() + angular_weight*narrow_cover.y());
+            auto angular_deriv1 = vec::Float4(inv_dtheta) * angular_sigmoid1.y()*angular_sigmoid2.x()*narrow_cover.x();
+            auto angular_deriv2 = vec::Float4(inv_dtheta) * angular_sigmoid1.x()*angular_sigmoid2.y()*narrow_cover.x();
 
             auto rXX = angular_deriv1*rvec1 - angular_deriv2*rvec2;
-            auto deriv_dir = inv_dist * (rXX - dot(displace_unitvec,rXX)*displace_unitvec);
+            auto deriv_dir = inv_dist * (rXX - ::dot(displace_unitvec,rXX)*displace_unitvec);
 
             auto d_displace =    radial_deriv * displace_unitvec + deriv_dir;
             auto d_rvec1    =  angular_deriv1 * displace_unitvec;
@@ -75,38 +75,38 @@ namespace {
 
             auto coverage = wide_cover.x() + angular_weight*narrow_cover.x();
 
-            store<0,3>(d1, -d_displace);
-            store<3,6>(d1,  d_rvec1);
+            ::store<0,3>(d1, -d_displace);
+            ::store<3,6>(d1,  d_rvec1);
 
-            store<0,3>(d2, d_displace);
-            store<3,6>(d2, d_rvec2);
+            ::store<0,3>(d2, d_displace);
+            ::store<3,6>(d2, d_rvec2);
 
             return coverage;
         }
 
     template<int n_knot_angular, int n_knot, int n_param, int n_dim1, int n_dim2>
         inline void quadspline_param_deriv(
-                Vec<n_param> &d_param,
+                vec::Vec<n_param> &d_param,
                 const float inv_dtheta, const float inv_dx, const float* p,
-                const Vec<n_dim1> &x1, const Vec<n_dim2> &x2)
+                const vec::Vec<n_dim1> &x1, const vec::Vec<n_dim2> &x2)
         {
-            d_param = make_zero<n_param>();
+            d_param = ::make_zero<n_param>();
 
 
-            float3 displace = extract<0,3>(x2)-extract<0,3>(x1);
-            float3 rvec1 = extract<3,6>(x1);
-            float3 rvec2 = extract<3,6>(x2);
+            vec::float3 displace = ::extract<0,3>(x2)-::extract<0,3>(x1);
+            vec::float3 rvec1 = ::extract<3,6>(x1);
+            vec::float3 rvec2 = ::extract<3,6>(x2);
 
-            float  dist2 = mag2(displace);
-            float  inv_dist = rsqrt(dist2);
+            float  dist2 = ::mag2(displace);
+            float  inv_dist = vec::rsqrt(dist2);
             float  dist_coord = dist2*(inv_dist*inv_dx);
-            float3 displace_unitvec = inv_dist*displace;
+            vec::float3 displace_unitvec = inv_dist*displace;
 
-            float  cos_cov_angle1 = dot(rvec1, displace_unitvec);
-            float  cos_cov_angle2 = dot(rvec2,-displace_unitvec);
+            float  cos_cov_angle1 = ::dot(rvec1, displace_unitvec);
+            float  cos_cov_angle2 = ::dot(rvec2,-displace_unitvec);
 
-            float2 angular_sigmoid1 = deBoor_value_and_deriv(p,                (cos_cov_angle1+1.f)*inv_dtheta+1.f);
-            float2 angular_sigmoid2 = deBoor_value_and_deriv(p+n_knot_angular, (cos_cov_angle2+1.f)*inv_dtheta+1.f);
+            vec::float2 angular_sigmoid1 = deBoor_value_and_deriv(p,                (cos_cov_angle1+1.f)*inv_dtheta+1.f);
+            vec::float2 angular_sigmoid2 = deBoor_value_and_deriv(p+n_knot_angular, (cos_cov_angle2+1.f)*inv_dtheta+1.f);
 
             // wide_cover derivative
             int starting_bin;
@@ -120,7 +120,7 @@ namespace {
                 d_param[2*n_knot_angular+n_knot+starting_bin+i] = angular_sigmoid1.x()*angular_sigmoid2.x()*result[i];
 
             // angular_sigmoid derivatives
-            float2 narrow_cover = clamped_deBoor_value_and_deriv(p+2*n_knot_angular+n_knot, dist_coord, n_knot);
+            vec::float2 narrow_cover = clamped_deBoor_value_and_deriv(p+2*n_knot_angular+n_knot, dist_coord, n_knot);
 
             deBoor_coeff_deriv(&starting_bin, result, (cos_cov_angle1+1.f)*inv_dtheta+1.f);
             for(int i: range(4)) d_param[starting_bin+i] = angular_sigmoid2.x()*narrow_cover.x()*result[i];
@@ -152,15 +152,15 @@ namespace {
             return true;
         }
 
-        static Int4 acceptable_id_pair(const Int4& id1, const Int4& id2) {
+        static vec::Int4 acceptable_id_pair(const vec::Int4& id1, const vec::Int4& id2) {
             return id1.srl(n_bit_rotamer) != id2.srl(n_bit_rotamer);
         }
 
-        static Float4 compute_edge(Vec<n_dim1,Float4> &d1, Vec<n_dim2,Float4> &d2, const float* p[4],
-                const Vec<n_dim1,Float4> &x1, const Vec<n_dim2,Float4> &x2) {
+        static vec::Float4 compute_edge(vec::Vec<n_dim1,vec::Float4> &d1, vec::Vec<n_dim2,vec::Float4> &d2, const float* p[4],
+                const vec::Vec<n_dim1,vec::Float4> &x1, const vec::Vec<n_dim2,vec::Float4> &x2) {
             auto disp       = x1-x2;
-            auto dist2      = mag2(disp);
-            auto inv_dist   = rsqrt(dist2+Float4(1e-7f));  // 1e-7 is divergence protection
+            auto dist2      = ::mag2(disp);
+            auto inv_dist   = ::rsqrt(dist2+vec::Float4(1e-7f));  // 1e-7 is divergence protection
             auto dist_coord = dist2*(inv_dist*inv_dx);
 
             auto en = clamped_deBoor_value_and_deriv(p, dist_coord, n_param);
@@ -169,9 +169,9 @@ namespace {
             return en.x();
         }
 
-        static void param_deriv(Vec<n_param> &d_param, const float* p,
-                const Vec<n_dim1> &x1, const Vec<n_dim2> &x2) {
-            auto dist_coord = inv_dx*mag(x1-x2);
+        static void param_deriv(vec::Vec<n_param> &d_param, const float* p,
+                const vec::Vec<n_dim1> &x1, const vec::Vec<n_dim2> &x2) {
+            auto dist_coord = inv_dx*::mag(x1-x2);
 
             int starting_bin;
             float result[4];
@@ -194,17 +194,17 @@ namespace {
             return (n_knot-2-1e-6)/inv_dx;  // 1e-6 insulates from roundoff
         }
 
-        static Int4 acceptable_id_pair(const Int4& id1, const Int4& id2) {
+        static vec::Int4 acceptable_id_pair(const vec::Int4& id1, const vec::Int4& id2) {
             return id1.srl(n_bit_rotamer) != id2.srl(n_bit_rotamer);
         }
 
-        static Float4 compute_edge(Vec<n_dim1,Float4> &d1, Vec<n_dim2,Float4> &d2, const float* p[4],
-                const Vec<n_dim1,Float4> &sc_pos1, const Vec<n_dim2,Float4> &sc_pos2) {
+        static vec::Float4 compute_edge(vec::Vec<n_dim1,vec::Float4> &d1, vec::Vec<n_dim2,vec::Float4> &d2, const float* p[4],
+                const vec::Vec<n_dim1,vec::Float4> &sc_pos1, const vec::Vec<n_dim2,vec::Float4> &sc_pos2) {
             return quadspline<n_knot_angular, n_knot>(d1,d2, inv_dtheta,inv_dx,p, sc_pos1,sc_pos2);
         }
 
-        static void param_deriv(Vec<n_param> &d_param, const float* p,
-                const Vec<n_dim1> &sc_pos1, const Vec<n_dim2> &sc_pos2) {
+        static void param_deriv(vec::Vec<n_param> &d_param, const float* p,
+                const vec::Vec<n_dim1> &sc_pos1, const vec::Vec<n_dim2> &sc_pos2) {
             quadspline_param_deriv<n_knot_angular, n_knot>(d_param, inv_dtheta,inv_dx,p, sc_pos1,sc_pos2);
         }
 

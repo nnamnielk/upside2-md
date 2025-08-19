@@ -116,14 +116,14 @@ struct FixedHMM : public PotentialNode
 
             // first find the minimum energy
             // note that this code must be correct even if n_state<4
-            auto e_min = Float4(x[0]);
+            auto e_min = vec::Float4(x[0]);
             // handle full groups after first group
             int ns=0;
             for(; ns<n_state-3; ns+=4)
-                e_min = min(e_min, Float4(x+ns));
+                e_min = min(e_min, vec::Float4(x+ns));
             // handle partial group at end
             for(; ns<n_state; ++ns)
-                e_min = min(e_min, Float4(x[ns]));
+                e_min = min(e_min, vec::Float4(x[ns]));
 
             // now put minimum in all elements of e_min Float4
             e_min = min(shuffle<0,1,0,1>(e_min), shuffle<2,3,2,3>(e_min));
@@ -133,7 +133,7 @@ struct FixedHMM : public PotentialNode
             // write emmision probabilities
             float* p = &emission_prob(0,nr);
             for(int ns=0; ns<n_state; ns+=4)
-                expf(e_min - Float4(x+ns)).store(p+ns);
+                expf(e_min - vec::Float4(x+ns)).store(p+ns);
         }
         // tprep.stop();
 

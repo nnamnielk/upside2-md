@@ -178,10 +178,10 @@ static constexpr int compute_pos_dim_from_signature() {
 }
 
 template<int offset>
-void do_transformations(const float* U, const float3& t, const float* val, float* pos) {}
+void do_transformations(const float* U, const vec::float3& t, const float* val, float* pos) {}
 
 template<int offset, PlaceT first, PlaceT ... rest>
-void do_transformations(const float* U, const float3& t, const float* val, float* pos) {
+void do_transformations(const float* U, const vec::float3& t, const float* val, float* pos) {
 
     switch(first) {
         case PlaceT::SCALAR:
@@ -203,13 +203,13 @@ void do_transformations(const float* U, const float3& t, const float* val, float
 
 template<int offset>
 void do_sens_transformations(
-        float* restrict ref_sens, float3& com_deriv, float3& torque, 
-        const float* U, const float3& t, const float* x, const float* sens) {}
+        float* restrict ref_sens, vec::float3& com_deriv, vec::float3& torque, 
+        const float* U, const vec::float3& t, const float* x, const float* sens) {}
 
 template<int offset, PlaceT first, PlaceT ... rest>
 void do_sens_transformations(
-        float* restrict ref_sens, float3& com_deriv, float3& torque, 
-        const float* U, const float3& t, const float* x, const float* sens) {
+        float* restrict ref_sens, vec::float3& com_deriv, vec::float3& torque, 
+        const float* U, const vec::float3& t, const float* x, const float* sens) {
 
     if(first==PlaceT::SCALAR) {
         ref_sens[offset] = sens[offset];

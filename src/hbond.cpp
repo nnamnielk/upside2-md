@@ -74,16 +74,16 @@ struct Infer_H_O : public CoordNode
 
             auto& p = params[nv];
 
-            auto prev_c = Float4(&posc(0,p.atom[0]));
-            auto curr_c = Float4(&posc(0,p.atom[1]));
-            auto next_c = Float4(&posc(0,p.atom[2]));
+            auto prev_c = vec::Float4(&posc(0,p.atom[0]));
+            auto curr_c = vec::Float4(&posc(0,p.atom[1]));
+            auto next_c = vec::Float4(&posc(0,p.atom[2]));
 
-            auto prev = prev_c - curr_c; auto prev_invmag = inv_mag(prev); prev *= prev_invmag;
-            auto next = next_c - curr_c; auto next_invmag = inv_mag(next); next *= next_invmag;
-            auto disp = prev   + next  ; auto disp_invmag = inv_mag(disp); disp *= disp_invmag;
+            auto prev = prev_c - curr_c; auto prev_invmag = ::inv_mag(prev); prev *= prev_invmag;
+            auto next = next_c - curr_c; auto next_invmag = ::inv_mag(next); next *= next_invmag;
+            auto disp = prev   + next  ; auto disp_invmag = ::inv_mag(disp); disp *= disp_invmag;
 
             auto hbond_dir = -disp;
-            auto hbond_pos = fmadd(Float4(p.bond_length),hbond_dir, curr_c);
+            auto hbond_pos = fmadd(vec::Float4(p.bond_length),hbond_dir, curr_c);
 
             // store derived values for derivatives later
             prev.blend<0,0,0,1>(prev_invmag).store(data_for_deriv + nv*3*4 + 0);
@@ -103,20 +103,20 @@ struct Infer_H_O : public CoordNode
         for(int nv=0; nv<n_virtual; ++nv) {
             const auto& p = params[nv];
 
-            auto sens_pos = Float4(&const_cast<VecArrayStorage&>(*sens.h_ptr())(0,nv)).zero_entries<0,0,0,1>(); // last entry should be zero
-            auto sens_dir = Float4(&const_cast<VecArrayStorage&>(*sens.h_ptr())(3,nv), Alignment::unaligned);
+            auto sens_pos = vec::Float4(&const_cast<VecArrayStorage&>(*sens.h_ptr())(0,nv)).zero_entries<0,0,0,1>(); // last entry should be zero
+            auto sens_dir = vec::Float4(&const_cast<VecArrayStorage&>(*sens.h_ptr())(3,nv), Alignment::unaligned);
 
-            auto sens_neg_unitdisp = sens_dir + Float4(p.bond_length)*sens_pos;
+            auto sens_neg_unitdisp = sens_dir + vec::Float4(p.bond_length)*sens_pos;
 
             // loading: first 3 entries are unitvec and last is inv_mag
-            auto prev4 = Float4(data_for_deriv + nv*3*4 + 0);  auto prev_invmag = prev4.broadcast<3>();
-            auto next4 = Float4(data_for_deriv + nv*3*4 + 4);  auto next_invmag = next4.broadcast<3>();
-            auto disp4 = Float4(data_for_deriv + nv*3*4 + 8);  auto disp_invmag = disp4.broadcast<3>();
+            auto prev4 = vec::Float4(data_for_deriv + nv*3*4 + 0);  auto prev_invmag = prev4.broadcast<3>();
+            auto next4 = vec::Float4(data_for_deriv + nv*3*4 + 4);  auto next_invmag = next4.broadcast<3>();
+            auto disp4 = vec::Float4(data_for_deriv + nv*3*4 + 8);  auto disp_invmag = disp4.broadcast<3>();
 
             // use dot3 here so we don't have to zero the last component of disp4, etc
-            auto sens_nonunit_disp =   disp_invmag *fmsub(dot3(disp4,sens_neg_unitdisp),disp4, sens_neg_unitdisp);
-            auto sens_nonunit_prev = (-prev_invmag)*fmsub(dot3(prev4,sens_nonunit_disp),prev4, sens_nonunit_disp);
-            auto sens_nonunit_next = (-next_invmag)*fmsub(dot3(next4,sens_nonunit_disp),next4, sens_nonunit_disp);
+            auto sens_nonunit_disp =   disp_invmag *fmsub(::dot3(disp4,sens_neg_unitdisp),disp4, sens_neg_unitdisp);
+            auto sens_nonunit_prev = (-prev_invmag)*fmsub(::dot3(prev4,sens_nonunit_disp),prev4, sens_nonunit_disp);
+            auto sens_nonunit_next = (-next_invmag)*fmsub(::dot3(next4,sens_nonunit_disp),next4, sens_nonunit_disp);
 
             sens_nonunit_prev                                 .update(&pos_sens(0,p.atom[0]));
             (sens_pos - sens_nonunit_prev - sens_nonunit_next).update(&pos_sens(0,p.atom[1]));
@@ -132,25 +132,25 @@ static RegisterNodeType<Infer_H_O,1> infer_node("infer_H_O");
 #define angular_cutoff (0.f)
 
 template <typename S>
-Vec<2,S> hbond_radial_potential(const S& input,
+vec::Vec<2,S> hbond_radial_potential(const S& input,
         const S& inner_barrier, const S& inv_inner_width,
         const S& outer_barrier, const S& inv_outer_width
         )
 {
-    Vec<2,S> outer_sigmoid = sigmoid((outer_barrier-input)*inv_outer_width);
-    Vec<2,S> inner_sigmoid = sigmoid((input-inner_barrier)*inv_inner_width);
+    vec::Vec<2,S> outer_sigmoid = sigmoid((outer_barrier-input)*inv_outer_width);
+    vec::Vec<2,S> inner_sigmoid = sigmoid((input-inner_barrier)*inv_inner_width);
 
-    return make_vec2( outer_sigmoid.x() * inner_sigmoid.x(),
+    return ::make_vec2( outer_sigmoid.x() * inner_sigmoid.x(),
             - inv_outer_width * outer_sigmoid.y() * inner_sigmoid.x()
             + inv_inner_width * inner_sigmoid.y() * outer_sigmoid.x());
 }
 
 
 template <typename S>
-Vec<2,S> hbond_angular_potential(const S& dotp, const S& wall_dp, const S& inv_dp_width)
+vec::Vec<2,S> hbond_angular_potential(const S& dotp, const S& wall_dp, const S& inv_dp_width)
 {
-    Vec<2,S> v = sigmoid((dotp-wall_dp)*inv_dp_width);
-    return make_vec2(v.x(), inv_dp_width*v.y());
+    vec::Vec<2,S> v = sigmoid((dotp-wall_dp)*inv_dp_width);
+    return ::make_vec2(v.x(), inv_dp_width*v.y());
 }
 
 
@@ -165,50 +165,50 @@ namespace {
             return sqrtf(radial_cutoff2); // FIXME make parameter dependent
         }
 
-        static Int4 acceptable_id_pair(const Int4& id1, const Int4& id2) {
+        static vec::Int4 acceptable_id_pair(const vec::Int4& id1, const vec::Int4& id2) {
             //return Int4() == Int4();  // No exclusions (all true)
-            auto sequence_exclude = Int4(1);
+            auto sequence_exclude = vec::Int4(1);
             return (sequence_exclude < id1-id2) | (sequence_exclude < id2-id1);
         }
 
-        static Float4 compute_edge(Vec<n_dim1,Float4> &d1, Vec<n_dim2,Float4> &d2, const float* p[4],
-                const Vec<n_dim1,Float4> &x1, const Vec<n_dim2,Float4> &x2) {
-            auto one = Float4(1.f);
+        static vec::Float4 compute_edge(vec::Vec<n_dim1,vec::Float4> &d1, vec::Vec<n_dim2,vec::Float4> &d2, const float* p[4],
+                const vec::Vec<n_dim1,vec::Float4> &x1, const vec::Vec<n_dim2,vec::Float4> &x2) {
+            auto one = vec::Float4(1.f);
 
-            auto  H = extract<0,3>(x1);
-            auto  O = extract<0,3>(x2);
-            auto  rHN = extract<3,6>(x1);
-            auto  rOC = extract<3,6>(x2);
+            auto  H = ::extract<0,3>(x1);
+            auto  O = ::extract<0,3>(x2);
+            auto  rHN = ::extract<3,6>(x1);
+            auto  rOC = ::extract<3,6>(x2);
 
             auto HO = H-O;
 
-            auto magHO2 = mag2(HO) + Float4(1e-6f); // a bit of paranoia to avoid division by zero later
-            auto invHOmag = rsqrt(magHO2);
+            auto magHO2 = ::mag2(HO) + vec::Float4(1e-6f); // a bit of paranoia to avoid division by zero later
+            auto invHOmag = ::rsqrt(magHO2);
             auto magHO    = magHO2 * invHOmag;  // avoid a sqrtf later
 
             auto rHO = HO*invHOmag;
 
-            auto dotHOC =  dot(rHO,rOC);
-            auto dotOHN = -dot(rHO,rHN);
+            auto dotHOC =  ::dot(rHO,rOC);
+            auto dotOHN = -::dot(rHO,rHN);
 
-            Vec<3,Float4> dH,dO,drHN,drOC;
-            Float4 hb;
-            auto within_angular_cutoff = (Float4(angular_cutoff) < dotHOC) & (Float4(angular_cutoff) < dotOHN);
+            vec::Vec<3,vec::Float4> dH,dO,drHN,drOC;
+            vec::Float4 hb;
+            auto within_angular_cutoff = (vec::Float4(angular_cutoff) < dotHOC) & (vec::Float4(angular_cutoff) < dotOHN);
             if(none(within_angular_cutoff)) {
-                dH=dO=drHN=drOC=make_zero<3,Float4>();
-                hb = zero<Float4>();
+                dH=dO=drHN=drOC=::make_zero<3,vec::Float4>();
+                hb = zero<vec::Float4>();
             } else {
                 // FIXME I have to load up 4 of these rather pointlessly since they will all be the same
                 // FIXME I don't know if I guarantee alignment on parameters
                 // I expand to 8 to be sure
-                auto p0 = Float4(p[0]);
-                auto p1 = Float4(p[1]);
-                auto p2 = Float4(p[2]);
-                auto p3 = Float4(p[3]);   transpose4(p0,p1,p2,p3);
-                auto p4 = Float4(p[0]+4);
-                auto p5 = Float4(p[1]+4);
-                auto p6 = Float4(p[2]+4);
-                auto p7 = Float4(p[3]+4); transpose4(p4,p5,p6,p7);
+                auto p0 = vec::Float4(p[0]);
+                auto p1 = vec::Float4(p[1]);
+                auto p2 = vec::Float4(p[2]);
+                auto p3 = vec::Float4(p[3]);   transpose4(p0,p1,p2,p3);
+                auto p4 = vec::Float4(p[0]+4);
+                auto p5 = vec::Float4(p[1]+4);
+                auto p6 = vec::Float4(p[2]+4);
+                auto p7 = vec::Float4(p[3]+4); transpose4(p4,p5,p6,p7);
 
                 auto radial   = hbond_radial_potential (magHO , p0, p1, p2, p3);  // x has val, y has deriv
                 auto angular1 = hbond_angular_potential(dotHOC, p4, p5);
@@ -226,19 +226,19 @@ namespace {
                 dO = -dH;
             }
 
-            auto hb_log = ternary(one<=hb, Float4(100.f), -logf(one-hb));  // work in multiplicative space
+            auto hb_log = ternary(one<=hb, vec::Float4(100.f), -logf(one-hb));  // work in multiplicative space
 
-            auto deriv_prefactor = min(rcp(one-hb),Float4(1e5f)); // FIXME this is a mess
-            store<0,3>(d1, dH   * deriv_prefactor);
-            store<3,6>(d1, drHN * deriv_prefactor);
-            store<0,3>(d2, dO   * deriv_prefactor);
-            store<3,6>(d2, drOC * deriv_prefactor);
+            auto deriv_prefactor = min(rcp(one-hb),vec::Float4(1e5f)); // FIXME this is a mess
+            ::store<0,3>(d1, dH   * deriv_prefactor);
+            ::store<3,6>(d1, drHN * deriv_prefactor);
+            ::store<0,3>(d2, dO   * deriv_prefactor);
+            ::store<3,6>(d2, drOC * deriv_prefactor);
 
             return hb_log;
         }
 
-        static void param_deriv(Vec<n_param> &d_param, const float* p,
-                const Vec<n_dim1> &x1, const Vec<n_dim2> &x2) {
+        static void param_deriv(vec::Vec<n_param> &d_param, const float* p,
+                const vec::Vec<n_dim1> &x1, const vec::Vec<n_dim2> &x2) {
             for(int np: range(n_param)) d_param[np] = -1.f;
         }
 
@@ -259,16 +259,16 @@ namespace {
             return (n_knot-2-1e-6)/inv_dx;  // 1e-6 insulates from roundoff
         }
 
-        static Int4 acceptable_id_pair(const Int4& id1, const Int4& id2) {
+        static vec::Int4 acceptable_id_pair(const vec::Int4& id1, const vec::Int4& id2) {
             // return Int4() == Int4();  // No exclusions (all true)
             // return id1 != id2; // exclude interactions on the same residue
-            auto sequence_exclude = Int4(2);  // exclude i,i, i,i+1, and i,i+2
+            auto sequence_exclude = vec::Int4(2);  // exclude i,i, i,i+1, and i,i+2
             return (sequence_exclude < id1-id2) | (sequence_exclude < id2-id1);
         }
 
-        static Float4 compute_edge(Vec<n_dim1,Float4> &d1, Vec<n_dim2,Float4> &d2, const float* p[4],
-                const Vec<n_dim1,Float4> &hb_pos, const Vec<n_dim2,Float4> &sc_pos) {
-            Float4 one(1.f);
+        static vec::Float4 compute_edge(vec::Vec<n_dim1,vec::Float4> &d1, vec::Vec<n_dim2,vec::Float4> &d2, const float* p[4],
+                const vec::Vec<n_dim1,vec::Float4> &hb_pos, const vec::Vec<n_dim2,vec::Float4> &sc_pos) {
+            vec::Float4 one(1.f);
 
             // print_vector("hb_pos[0]", hb_pos[0]);
             // print_vector("sc_pos[0]", sc_pos[0]);
@@ -278,13 +278,13 @@ namespace {
             auto prefactor = sqr(one-hb_pos[6]);
             d1 *= prefactor;
             d2 *= prefactor;
-            d1[6] = -coverage * (one-hb_pos[6])*Float4(2.f);
+            d1[6] = -coverage * (one-hb_pos[6])*vec::Float4(2.f);
 
             return prefactor * coverage;
         }
 
-        static void param_deriv(Vec<n_param> &d_param, const float* p,
-                const Vec<n_dim1> &hb_pos, const Vec<n_dim2> &sc_pos) {
+        static void param_deriv(vec::Vec<n_param> &d_param, const float* p,
+                const vec::Vec<n_dim1> &hb_pos, const vec::Vec<n_dim2> &sc_pos) {
             quadspline_param_deriv<n_knot_angular, n_knot>(d_param, inv_dtheta,inv_dx,p, hb_pos,sc_pos);
             auto prefactor = sqr(1.f-hb_pos[6]);
             d_param *= prefactor;
@@ -336,9 +336,9 @@ struct CTerHBond : public CoordNode {
         for(int n=0; n<n_donor; ++n) {
 
             auto NH = load_vec<6>(const_cast<VecArrayStorage&>(*infer.output.h_ptr()), index1[n]);
-            auto H = extract<0,3>(NH);
+            auto H = ::extract<0,3>(NH);
             auto disp = H - C;
-            auto magHC = mag(disp);
+            auto magHC = ::mag(disp);
             if (magHC <  cutoff and abs(id1[n]-id2[0]) > 1) {
                 //auto radial = hbond_radial_potential(magHC, inner_barrier, inner_scale, outer_barrier, outer_scale);
                 //vs(0,n) = radial.x();
@@ -385,8 +385,8 @@ struct ProteinHBond : public CoordNode
         VecArray ho = const_cast<VecArrayStorage&>(*infer.output.h_ptr());
 
         for(int nv: range(n_virtual)) {
-            Float4(&ho(0,nv)).store(&vs(0,nv));
-            Float4(&ho(4,nv)).store(&vs(4,nv)); // result is already zero padded
+            vec::Float4(&ho(0,nv)).store(&vs(0,nv));
+            vec::Float4(&ho(4,nv)).store(&vs(4,nv)); // result is already zero padded
         }
 
         // Compute protein hbonding score and its derivative
