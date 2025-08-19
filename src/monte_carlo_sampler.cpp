@@ -80,7 +80,7 @@ PivotSampler::PivotSampler(const std::string& name, hid_t grp, H5Logger& logger)
 void PivotSampler::propose_random_move(float* delta_lprob, 
     	RandomGenerator& random, VecArray pos) const {
     Timer timer(std::string("random_pivot"));
-    float4 random_values = random.uniform_open_closed();
+    vec::float4 random_values = random.uniform_open_closed();
 
     // pick a random pivot location
     int loc = int(n_pivot_loc * random_values.z());
@@ -101,19 +101,19 @@ void PivotSampler::propose_random_move(float* delta_lprob,
 
     // now pick a random location in that bin
     // Note the half-bin shift because we want the bin center of the left-most bin at 0
-    float2 new_rama = (2.f*M_PI_F/n_bin)*make_vec2(phi_bin+random_values.x()-0.5f, psi_bin+random_values.y()-0.5f) - M_PI_F;
+    vec::float2 new_rama = (2.f*M_PI_F/n_bin)*::make_vec2(phi_bin+random_values.x()-0.5f, psi_bin+random_values.y()-0.5f) - M_PI_F;
 
     // find deviation from old rama
-    float3 d1,d2,d3,d4;
-    float3 prevC = load_vec<3>(pos, p.rama_atom[0]);
-    float3 N     = load_vec<3>(pos, p.rama_atom[1]);
-    float3 CA    = load_vec<3>(pos, p.rama_atom[2]);
-    float3 C     = load_vec<3>(pos, p.rama_atom[3]);
-    float3 nextN = load_vec<3>(pos, p.rama_atom[4]);
+    vec::float3 d1,d2,d3,d4;
+    vec::float3 prevC = load_vec<3>(pos, p.rama_atom[0]);
+    vec::float3 N     = load_vec<3>(pos, p.rama_atom[1]);
+    vec::float3 CA    = load_vec<3>(pos, p.rama_atom[2]);
+    vec::float3 C     = load_vec<3>(pos, p.rama_atom[3]);
+    vec::float3 nextN = load_vec<3>(pos, p.rama_atom[4]);
 
-    float2 old_rama = make_vec2(
-            dihedral_germ(prevC,N,CA,C, d1,d2,d3,d4),
-            dihedral_germ(N,CA,C,nextN, d1,d2,d3,d4));
+    vec::float2 old_rama = ::make_vec2(
+            ::dihedral_germ(prevC,N,CA,C, d1,d2,d3,d4),
+            ::dihedral_germ(N,CA,C,nextN, d1,d2,d3,d4));
 
     // reverse the half-bin shift
     int old_phi_bin = (old_rama.x()+M_PI_F) * (0.5f/M_PI_F) * n_bin + 0.5f;
@@ -123,31 +123,31 @@ void PivotSampler::propose_random_move(float* delta_lprob,
     float old_lprob = proposal_pot[(p.restype*n_bin + old_phi_bin)*n_bin + old_psi_bin];
 
     // apply rotations
-    float3 phi_origin = CA;
-    float3 psi_origin = C;
+    vec::float3 phi_origin = CA;
+    vec::float3 psi_origin = C;
 
-    float2 delta_rama = new_rama - old_rama;
-    float phi_U[9]; axis_angle_to_rot(phi_U, delta_rama.x(), normalized(CA-N ));
-    float psi_U[9]; axis_angle_to_rot(psi_U, delta_rama.y(), normalized(C -CA));
+    vec::float2 delta_rama = new_rama - old_rama;
+    float phi_U[9]; axis_angle_to_rot(phi_U, delta_rama.x(), ::normalized(CA-N ));
+    float psi_U[9]; axis_angle_to_rot(psi_U, delta_rama.y(), ::normalized(C -CA));
 
     {
         auto y = load_vec<3>(pos, p.rama_atom[3]);  // C
-        float3 after_psi = psi_origin + apply_rotation(psi_U, y        -psi_origin); // unnecessary but harmless
-        float3 after_phi = phi_origin + apply_rotation(phi_U, after_psi-phi_origin);
+        vec::float3 after_psi = psi_origin + apply_rotation(psi_U, y        -psi_origin); // unnecessary but harmless
+        vec::float3 after_phi = phi_origin + apply_rotation(phi_U, after_psi-phi_origin);
         store_vec(pos, p.rama_atom[3], after_phi);
     }
 
     {
         auto y = load_vec<3>(pos, p.rama_atom[4]);  // nextN
-        float3 after_psi = psi_origin + apply_rotation(psi_U, y        -psi_origin);
-        float3 after_phi = phi_origin + apply_rotation(phi_U, after_psi-phi_origin);
+        vec::float3 after_psi = psi_origin + apply_rotation(psi_U, y        -psi_origin);
+        vec::float3 after_phi = phi_origin + apply_rotation(phi_U, after_psi-phi_origin);
         store_vec(pos, p.rama_atom[4], after_phi);
     }
 
     for(int na=p.pivot_range[0]; na<p.pivot_range[1]; ++na) {
         auto y = load_vec<3>(pos, na);
-        float3 after_psi = psi_origin + apply_rotation(psi_U, y        -psi_origin);
-        float3 after_phi = phi_origin + apply_rotation(phi_U, after_psi-phi_origin);
+        vec::float3 after_psi = psi_origin + apply_rotation(psi_U, y        -psi_origin);
+        vec::float3 after_phi = phi_origin + apply_rotation(phi_U, after_psi-phi_origin);
         store_vec(pos, na, after_phi);
     }
 
@@ -205,7 +205,7 @@ void JumpSampler::propose_random_move(float* delta_lprob,
     Timer timer(std::string("random_jump"));
 
     // pick jump move type: translation or rotation
-    float4 rand_type_val = random.uniform_open_closed();
+    vec::float4 rand_type_val = random.uniform_open_closed();
     int jump_move_type = int(2 * rand_type_val.x());
 
     // pick a random jump chain
@@ -215,34 +215,34 @@ void JumpSampler::propose_random_move(float* delta_lprob,
 
     if (jump_move_type == 0) { // translation
         // pick a random jump translation
-        float3 rand_disp_val = j.sigma_trans/sqrtf(3.f) * random.normal3();
+        vec::float3 rand_disp_val = j.sigma_trans/sqrtf(3.f) * random.normal3();
 
         // apply displacement
         for (int na = j.first_atom; na < j.next_first; na++) {
-            float3 pos_na = load_vec<3>(pos, na);
-            float3 new_pos_na = rand_disp_val + pos_na;
+            vec::float3 pos_na = load_vec<3>(pos, na);
+            vec::float3 new_pos_na = rand_disp_val + pos_na;
             store_vec(pos, na, new_pos_na);
         }
     }
     else { // rotation
         // pick a random jump rotation angle and axis unit vector. Create rotation matrix 
-        float4 rand_rot_variates = random.normal();
+        vec::float4 rand_rot_variates = random.normal();
         float  rand_rot_angle    = j.sigma_rot * rand_rot_variates[0];
-        float3 rand_rot_axis     = extract<1,4>(rand_rot_variates);
-        rand_rot_axis /= mag(rand_rot_axis)+1e-16f;  // 1e-16 is paranoia against division by zero
+        vec::float3 rand_rot_axis     = ::extract<1,4>(rand_rot_variates);
+        rand_rot_axis /= ::mag(rand_rot_axis)+1e-16f;  // 1e-16 is paranoia against division by zero
         
         float U[9]; axis_angle_to_rot(U, rand_rot_angle, rand_rot_axis);
 
         // get CoM
-        float3 com = make_vec3(0.f, 0.f, 0.f);
+        vec::float3 com = ::make_vec3(0.f, 0.f, 0.f);
         for (int na = j.first_atom; na < j.next_first; na++)
             com += load_vec<3>(pos, na);
         com *= 1.f/(j.next_first-j.first_atom);
 
         // apply rotation about com
         for (int na = j.first_atom; na < j.next_first; na++) {
-            float3 pos_na = load_vec<3>(pos, na);
-            float3 new_pos_na = com + apply_rotation(U, pos_na-com);
+            vec::float3 pos_na = load_vec<3>(pos, na);
+            vec::float3 new_pos_na = com + apply_rotation(U, pos_na-com);
             store_vec(pos, na, new_pos_na);
         }       
     }

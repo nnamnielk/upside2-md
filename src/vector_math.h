@@ -185,16 +185,15 @@ namespace vec {
     typedef Vec<4,float> float4;
     
     typedef Vec<3,  int>   int3;
+    
+    // Import Float4 and Int4 from global namespace
+    typedef ::Float4 Float4;
+    typedef ::Int4   Int4;
+    
+    // Also provide Vec template alias
+    template<int D, typename S = float>
+    using Vec = ::Vec<D, S>;
 }
-
-// For backward compatibility, bring them into global namespace when not using CUDA
-#ifndef __CUDACC__
-using vec::float1;
-using vec::float2;
-using vec::float3;
-using vec::float4;
-using vec::int3;
-#endif
 
 // template <int D>
 // inline Vec<D,float> load_vec(const VecArray& a, int idx) {
@@ -276,17 +275,12 @@ static const float M_1_PI_F = 0.3183098861837907f;  //!< value of 1/pi as float
 namespace vec {
     inline float approx_rsqrt(float x) {return 1.f/sqrtf(x);}  //!< reciprocal square root at lower accuracy
     inline float rsqrt(float x) {return 1.f/sqrtf(x);}  //!< reciprocal square root (1/sqrt(x))
+    inline Float4 rsqrt(const Float4& x) {return x.rsqrt();}  //!< reciprocal square root for Float4
     inline bool any(bool x) {return x;} // scalar any function is trivial
     inline bool none(bool x) {return !x;} // scalar none function is trivial
 }
 
-// For backward compatibility, bring them into global namespace when not using CUDA
-#ifndef __CUDACC__
-using vec::approx_rsqrt;
-using vec::rsqrt;
-using vec::any;
-using vec::none;
-#endif
+// Backward compatibility imports removed to enforce explicit namespace usage
 
 template <typename D> constexpr inline D sqr(D x) {return x*x;}  //!< square a number (x^2)
 inline float rcp       (float x) {return 1.f/x;}  //!< reciprocal of number
@@ -349,11 +343,7 @@ namespace vec {
     inline float3 xyz(const float4& x) { return ::make_vec3(x.x(),x.y(),x.z()); } //!< return x,y,z as float3 from a float4
 }
 
-// For backward compatibility, bring them into global namespace when not using CUDA
-#ifndef __CUDACC__
-using vec::make_vec4;
-using vec::xyz;
-#endif
+// Backward compatibility imports removed to enforce explicit namespace usage
 
 //! \cond
 template <int D, typename S> 
@@ -532,13 +522,7 @@ namespace vec {
     //! \endcond
 }
 
-// For backward compatibility, bring them into global namespace when not using CUDA
-#ifndef __CUDACC__
-using vec::operator+;
-using vec::operator-;
-using vec::operator*;
-using vec::operator/;
-#endif
+// Backward compatibility imports removed to enforce explicit namespace usage
 
 // FIXME how to handle sqrtf, rsqrtf for simd types?
 // I will assume there are functions rsqrt(s) and rcp(s) and sqrt(s) and I will write sqr(s)
@@ -588,7 +572,7 @@ inline void store(Vec<D,S>& x, const Vec<stop_loc-start_loc,S> &y) {
 
 template <typename S>
 inline S a_sqrt(const S& a) {
-    return a * rsqrt(a);
+    return a * vec::rsqrt(a);
 }
 
 // template <int D, typename S>
@@ -614,7 +598,7 @@ inline S mag2(const Vec<D,S>& a) {
 
 template <int ndim, typename S>
 inline S inv_mag(const Vec<ndim,S>& a) {
-    return rsqrt(mag2(a));
+    return vec::rsqrt(mag2(a));
 }
 
 template <int ndim, typename S>
@@ -820,7 +804,7 @@ static typename V::scalar_t dihedral_germ(
     S inv_Bmag2 = inv_mag2(B);
 
     S Gmag2    = mag2(G);
-    S inv_Gmag = rsqrt(Gmag2);
+    S inv_Gmag = vec::rsqrt(Gmag2);
     S Gmag     = Gmag2 * inv_Gmag;
 
     d1 = -Gmag * inv_Amag2 * A;

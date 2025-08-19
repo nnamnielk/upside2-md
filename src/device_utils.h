@@ -1,10 +1,26 @@
 #ifndef DEVICE_UTILS_H
 #define DEVICE_UTILS_H
 
-#ifdef __CUDACC__
+#ifdef USE_CUDA
 #include <cuda_runtime.h>
 #include <iostream>
 #include <cstdlib>
+
+// Avoid namespace conflicts with vector_math.h
+namespace cuda {
+  using ::float1;
+  using ::float2;
+  using ::float3;
+  using ::float4;
+  using ::int1;
+  using ::int2;
+  using ::int3;
+  using ::int4;
+  using ::uint1;
+  using ::uint2;
+  using ::uint3;
+  using ::uint4;
+}
 
 // CUDA error-checking function and macro
 static void assert_cuda_success(cudaError_t err, const char *file, int line) {

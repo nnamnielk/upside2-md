@@ -2,45 +2,129 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "CMake Build", // This label must match "preLaunchTask" in launch.json
+            "label": "CMake Build",
             "type": "shell",
-            "command": "cmake --build \"${workspaceFolder}/obj\"", // Or your build directory, e.g., "${workspaceFolder}/build"
-            // If your CMakeLists.txt is not in the root, or you need to configure first:
-            // "command": "cmake -S \"${workspaceFolder}\" -B \"${workspaceFolder}/obj\" && cmake --build \"${workspaceFolder}/obj\"",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "${workspaceFolder}/build",
+                "--parallel"
+            ],
             "group": {
                 "kind": "build",
-                "isDefault": true // Makes this the default build task (Ctrl+Shift+B)
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
             },
             "problemMatcher": [
                 "$gcc"
             ],
-            "detail": "Build the CMake project."
-        },
-        {
-            "label": "CMake Configure (Debug)",
-            "type": "shell",
-            "command": "cmake -S \"${workspaceFolder}/src\" -B \"${workspaceFolder}/obj\" -DCMAKE_BUILD_TYPE=Debug",
-            // Or your build directory, e.g., -B \"${workspaceFolder}/build\"
-            "problemMatcher": [],
-            "detail": "Configure CMake for Debug build."
+            "dependsOn": "CMake Configure"
         },
         {
             "label": "CMake Build CUDA Debug",
             "type": "shell",
-            "command": "cmake --build \"${workspaceFolder}/obj\" --config Debug",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "${workspaceFolder}/obj",
+                "--parallel",
+                "--config",
+                "Debug"
+            ],
             "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
             "problemMatcher": [
                 "$gcc",
                 "$nvcc"
             ],
-            "detail": "Build the CMake project with CUDA debug support."
+            "dependsOn": "CMake Configure Debug"
         },
         {
-            "label": "CMake Configure (CUDA Debug)",
+            "label": "CMake Configure",
             "type": "shell",
-            "command": "cmake -S \"${workspaceFolder}/src\" -B \"${workspaceFolder}/obj\" -DCMAKE_BUILD_TYPE=Debug -DCUDA_SEPARABLE_COMPILATION=ON -DCMAKE_CUDA_FLAGS=\"-G -lineinfo\"",
-            "problemMatcher": [],
-            "detail": "Configure CMake for CUDA Debug build with debug symbols."
+            "command": "cmake",
+            "args": [
+                "-B",
+                "${workspaceFolder}/build",
+                "-S",
+                "${workspaceFolder}/src",
+                "-DUSE_CUDA=ON",
+                "-DDEBUG=OFF"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "options": {
+                "env": {
+                    "PATH": "/home/okleinmann/.miniconda3/envs/upside2-env/bin:${env:PATH}",
+                    "CMAKE_CUDA_COMPILER": "/home/okleinmann/.miniconda3/envs/upside2-env/bin/nvcc"
+                }
+            }
+        },
+        {
+            "label": "CMake Configure Debug",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "-B",
+                "${workspaceFolder}/obj",
+                "-S",
+                "${workspaceFolder}/src",
+                "-DUSE_CUDA=ON",
+                "-DDEBUG=ON",
+                "-DCMAKE_BUILD_TYPE=Debug"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "options": {
+                "env": {
+                    "PATH": "/home/okleinmann/.miniconda3/envs/upside2-env/bin:${env:PATH}",
+                    "CMAKE_CUDA_COMPILER": "/home/okleinmann/.miniconda3/envs/upside2-env/bin/nvcc"
+                }
+            }
+        },
+        {
+            "label": "Clean Build",
+            "type": "shell",
+            "command": "rm",
+            "args": [
+                "-rf",
+                "${workspaceFolder}/build"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
         }
     ]
 }

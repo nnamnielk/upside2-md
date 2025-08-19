@@ -5,9 +5,9 @@
 
 
 //! \brief Apply a 3x3 rotation matrix U to 3d vector r
-inline float3 apply_rotation(const float* restrict U, const float3 &r)
+inline vec::float3 apply_rotation(const float* restrict U, const vec::float3 &r)
 {
-    float3 ret;
+    vec::float3 ret;
     ret.x() = U[0]*r.x() + U[1]*r.y() + U[2]*r.z();
     ret.y() = U[3]*r.x() + U[4]*r.y() + U[5]*r.z();
     ret.z() = U[6]*r.x() + U[7]*r.y() + U[8]*r.z();
@@ -18,9 +18,9 @@ inline float3 apply_rotation(const float* restrict U, const float3 &r)
 //!
 //! Given a rotation matrix U, this applies the transpose/inverse of U
 //! so that it "undoes" a rotation by U
-inline float3 apply_inverse_rotation(const float* restrict U, const float3 &r)
+inline vec::float3 apply_inverse_rotation(const float* restrict U, const vec::float3 &r)
 {
-    float3 ret;
+    vec::float3 ret;
     ret.x() = U[0]*r.x() + U[3]*r.y() + U[6]*r.z();
     ret.y() = U[1]*r.x() + U[4]*r.y() + U[7]*r.z();
     ret.z() = U[2]*r.x() + U[5]*r.y() + U[8]*r.z();
@@ -31,8 +31,8 @@ inline float3 apply_inverse_rotation(const float* restrict U, const float3 &r)
 //!
 //! A affine transformation is the combination of rotation and translation so 
 //! that output = U*r + t.
-inline float3 apply_affine(const float* restrict U, const float3& t, const float3& r) {
-    float3 ret;
+inline vec::float3 apply_affine(const float* restrict U, const vec::float3& t, const vec::float3& r) {
+    vec::float3 ret;
     ret.x() = U[0]*r.x() + U[1]*r.y() + U[2]*r.z() + t[0];
     ret.y() = U[3]*r.x() + U[4]*r.y() + U[5]*r.z() + t[1];
     ret.z() = U[6]*r.x() + U[7]*r.y() + U[8]*r.z() + t[2];
@@ -49,7 +49,7 @@ inline float3 apply_affine(const float* restrict U, const float3& t, const float
 inline void axis_angle_to_rot(
         float* U,
         float angle,
-        float3 axis) { // must be normalized
+        vec::float3 axis) { // must be normalized
     float x = axis.x();
     float y = axis.y();
     float z = axis.z();

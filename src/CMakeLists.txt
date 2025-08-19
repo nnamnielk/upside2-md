@@ -10,7 +10,7 @@ if(USE_CUDA)
     message(STATUS "CUDA Version: ${CMAKE_CUDA_COMPILER_VERSION}")
     set(CMAKE_CUDA_ARCHITECTURES 86)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DUSE_CUDA")
-    set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -D__CUDACC__")
+    set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -D__CUDACC__ -DUSE_CUDA")
 endif()
 
 set (CMAKE_MODULE_PATH "../cmake;${CMAKE_MODULE_PATH}")
@@ -22,9 +22,15 @@ set(ARCH "native" CACHE STRING "architecture to use for -march flag to compiler"
 if(DEBUG)
     set (OPT "-Og -g -fno-omit-frame-pointer -march=${ARCH}")
     set(GPROF_FLAGS "-pg")
+    if(USE_CUDA)
+        set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -g -G -O0 --ptxas-options=-v")
+    endif()
 else()
     set(GPROF_FLAGS "")
     set (OPT "-O3 --fast-math -fno-omit-frame-pointer -march=${ARCH}")
+    if(USE_CUDA)
+        set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -O3")
+    endif()
 endif()
 
 set (OMP_FLAGS "${OpenMP_CXX_FLAGS}") # "-fsanitize=address") #
@@ -83,6 +89,7 @@ if(USE_CUDA)
 list(APPEND ENGINE_SRC 
     device_buffer.cu
     device_utils.cu
+    coord_basic.cu
 )
 else()
 # Add non-CUDA implementation

@@ -332,8 +332,8 @@ struct MovingConstantCoord2D : public CoordNode
 {
     struct Params { 
 	index_t id; 
-        float2 velocities;
-        float2 start_pos;
+        vec::float2 velocities;
+        vec::float2 start_pos;
     };
 
     int n_elem;
@@ -411,8 +411,8 @@ struct MovingConstantCoord3D : public CoordNode
 {
     struct Params { 
 	index_t id; 
-        float3 velocities;
-        float3 start_pos;
+        vec::float3 velocities;
+        vec::float3 start_pos;
     };
 
     int n_elem;

@@ -117,12 +117,12 @@ struct PivotSampler {
         float2 new_rama = (2.f*M_PI_F/n_bin)*make_vec2(phi_bin+random_values.x()-0.5f, psi_bin+random_values.y()-0.5f) - M_PI_F;
 
         // find deviation from old rama
-        float3 d1,d2,d3,d4;
-        float3 prevC = load_vec<3>(pos, p.rama_atom[0]);
-        float3 N     = load_vec<3>(pos, p.rama_atom[1]);
-        float3 CA    = load_vec<3>(pos, p.rama_atom[2]);
-        float3 C     = load_vec<3>(pos, p.rama_atom[3]);
-        float3 nextN = load_vec<3>(pos, p.rama_atom[4]);
+        vec::float3 d1,d2,d3,d4;
+        vec::float3 prevC = load_vec<3>(pos, p.rama_atom[0]);
+        vec::float3 N     = load_vec<3>(pos, p.rama_atom[1]);
+        vec::float3 CA    = load_vec<3>(pos, p.rama_atom[2]);
+        vec::float3 C     = load_vec<3>(pos, p.rama_atom[3]);
+        vec::float3 nextN = load_vec<3>(pos, p.rama_atom[4]);
 
         float2 old_rama = make_vec2(
                 dihedral_germ(prevC,N,CA,C, d1,d2,d3,d4),
@@ -136,8 +136,8 @@ struct PivotSampler {
         float old_lprob = proposal_pot[(p.restype*n_bin + old_phi_bin)*n_bin + old_psi_bin];
 
         // apply rotations
-        float3 phi_origin = CA;
-        float3 psi_origin = C;
+        vec::float3 phi_origin = CA;
+        vec::float3 psi_origin = C;
 
         float2 delta_rama = new_rama - old_rama;
         float phi_U[9]; axis_angle_to_rot(phi_U, delta_rama.x(), normalized(CA-N ));
@@ -145,22 +145,22 @@ struct PivotSampler {
 
         {
             auto y = load_vec<3>(pos, p.rama_atom[3]);  // C
-            float3 after_psi = psi_origin + apply_rotation(psi_U, y        -psi_origin); // unnecessary but harmless
-            float3 after_phi = phi_origin + apply_rotation(phi_U, after_psi-phi_origin);
+            vec::float3 after_psi = psi_origin + apply_rotation(psi_U, y        -psi_origin); // unnecessary but harmless
+            vec::float3 after_phi = phi_origin + apply_rotation(phi_U, after_psi-phi_origin);
             store_vec(pos, p.rama_atom[3], after_phi);
         }
 
         {
             auto y = load_vec<3>(pos, p.rama_atom[4]);  // nextN
-            float3 after_psi = psi_origin + apply_rotation(psi_U, y        -psi_origin);
-            float3 after_phi = phi_origin + apply_rotation(phi_U, after_psi-phi_origin);
+            vec::float3 after_psi = psi_origin + apply_rotation(psi_U, y        -psi_origin);
+            vec::float3 after_phi = phi_origin + apply_rotation(phi_U, after_psi-phi_origin);
             store_vec(pos, p.rama_atom[4], after_phi);
         }
 
         for(int na=p.pivot_range[0]; na<p.pivot_range[1]; ++na) {
             auto y = load_vec<3>(pos, na);
-            float3 after_psi = psi_origin + apply_rotation(psi_U, y        -psi_origin);
-            float3 after_phi = phi_origin + apply_rotation(phi_U, after_psi-phi_origin);
+            vec::float3 after_psi = psi_origin + apply_rotation(psi_U, y        -psi_origin);
+            vec::float3 after_phi = phi_origin + apply_rotation(phi_U, after_psi-phi_origin);
             store_vec(pos, na, after_phi);
         }
 

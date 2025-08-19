@@ -264,16 +264,16 @@ struct Surface : public CoordNode
             float box_lenx = ngrid_x*GRID_X;
             float box_leny = ngrid_y*GRID_Y;
 
-            float3 side    = make_vec3( minx-0.5f*(box_lenx-lenx), miny-0.5f*(box_leny-leny), tm_min-atom_radius );
-            float3 bscale1 = make_vec3( ngrid_x/box_lenx, ngrid_y/box_leny, r_GRID_Z );
-            float3 bscale2 = make_vec3( SNGRID_X*ngrid_x/box_lenx, SNGRID_Y*ngrid_y/box_leny, SNGRID_Z*r_GRID_Z );
+            vec::float3 side    = make_vec3( minx-0.5f*(box_lenx-lenx), miny-0.5f*(box_leny-leny), tm_min-atom_radius );
+            vec::float3 bscale1 = make_vec3( ngrid_x/box_lenx, ngrid_y/box_leny, r_GRID_Z );
+            vec::float3 bscale2 = make_vec3( SNGRID_X*ngrid_x/box_lenx, SNGRID_Y*ngrid_y/box_leny, SNGRID_Z*r_GRID_Z );
             int3d voxels( ngrid_x, int2d(ngrid_y, int1d(ngrid_z, -1)) );
 
             // 6. Put backbone and Cb atoms in voxels. Label the voxel as 1
-            vector<int3> vids(n_tm_res*4);
+            vector<vec::int3> vids(n_tm_res*4);
             for(int nr: range(n_tm_res)) {
                 for(int i=0;i<3;i++) {
-                    float3 aa_xyz = make_vec3(bbx[nr*3+i], bby[nr*3+i], bbz[nr*3+i]);
+                    vec::float3 aa_xyz = make_vec3(bbx[nr*3+i], bby[nr*3+i], bbz[nr*3+i]);
                     int iv = nr*4+i;
                     vids[iv] = vec_floor((aa_xyz - side) * bscale1);
                     voxels[vids[iv].x()][vids[iv].y()][vids[iv].z()] = 1;
@@ -282,22 +282,22 @@ struct Surface : public CoordNode
                         float dx = 0.0;
                         float dy = auxiliary_points[j].xz[0]*atom_radius;
                         float dz = auxiliary_points[j].xz[1]*atom_radius;
-                        float3 aa_aux_xyz = make_vec3(bbx[nr*3+i]+dx, bby[nr*3+i]+dy , bbz[nr*3+i]+dz);
-                        int3 vid_aux = vec_floor((aa_aux_xyz - side) * bscale1);
+                        vec::float3 aa_aux_xyz = make_vec3(bbx[nr*3+i]+dx, bby[nr*3+i]+dy , bbz[nr*3+i]+dz);
+                        vec::int3 vid_aux = vec_floor((aa_aux_xyz - side) * bscale1);
                         voxels[vid_aux.x()][vid_aux.y()][vid_aux.z()] = 1;
                     }
                     for(int j=0;j<n_aux;j++) {
                         float dx = auxiliary_points[j].xz[0]*atom_radius;
                         float dy = 0.0;
                         float dz = auxiliary_points[j].xz[1]*atom_radius;
-                        float3 aa_aux_xyz = make_vec3(bbx[nr*3+i]+dx, bby[nr*3+i]+dy , bbz[nr*3+i]+dz);
-                        int3 vid_aux = vec_floor((aa_aux_xyz - side) * bscale1);
+                        vec::float3 aa_aux_xyz = make_vec3(bbx[nr*3+i]+dx, bby[nr*3+i]+dy , bbz[nr*3+i]+dz);
+                        vec::int3 vid_aux = vec_floor((aa_aux_xyz - side) * bscale1);
                         voxels[vid_aux.x()][vid_aux.y()][vid_aux.z()] = 1;
                     }
 
                 }
 
-                float3 cb_xyz = make_vec3(cbx[nr], cby[nr], cbz[nr]);
+                vec::float3 cb_xyz = make_vec3(cbx[nr], cby[nr], cbz[nr]);
                 int iv = nr*4+3;
                 vids[iv] = vec_floor((cb_xyz - side) * bscale1);
                 voxels[vids[iv].x()][vids[iv].y()][vids[iv].z()] = 1;
@@ -306,16 +306,16 @@ struct Surface : public CoordNode
                     float dx = 0.0;
                     float dy = auxiliary_points[j].xz[0]*atom_radius;
                     float dz = auxiliary_points[j].xz[1]*atom_radius;
-                    float3 cb_aux_xz = make_vec3(cbx[nr]+dx, cby[nr]+dy , cbz[nr]+dz);
-                    int3 cb_vid_aux = vec_floor((cb_aux_xz - side) * bscale1);
+                    vec::float3 cb_aux_xz = make_vec3(cbx[nr]+dx, cby[nr]+dy , cbz[nr]+dz);
+                    vec::int3 cb_vid_aux = vec_floor((cb_aux_xz - side) * bscale1);
                     voxels[cb_vid_aux.x()][cb_vid_aux.y()][cb_vid_aux.z()] = 1;
                 }
                 for(int j=0;j<n_aux;j++) {
                     float dx = auxiliary_points[j].xz[0]*atom_radius;
                     float dy = 0.0;
                     float dz = auxiliary_points[j].xz[1]*atom_radius;
-                    float3 cb_aux_yz = make_vec3(cbx[nr]+dx, cby[nr]+dy , cbz[nr]+dz);
-                    int3 cb_vid_aux = vec_floor((cb_aux_yz - side) * bscale1);
+                    vec::float3 cb_aux_yz = make_vec3(cbx[nr]+dx, cby[nr]+dy , cbz[nr]+dz);
+                    vec::int3 cb_vid_aux = vec_floor((cb_aux_yz - side) * bscale1);
                     voxels[cb_vid_aux.x()][cb_vid_aux.y()][cb_vid_aux.z()] = 1;
                 }
             }
@@ -480,8 +480,8 @@ struct Surface : public CoordNode
                     int vtype     = voxels[vids[iv].x()][vids[iv].y()][vids[iv].z()];
 
                     if (vtype <= 1) continue;
-                    float3 aa_xyz = make_vec3(bbx[nr*3+i], bby[nr*3+i], bbz[nr*3+i]);
-                    int3 vid2     = vec_floor((aa_xyz - side) * bscale2);
+                    vec::float3 aa_xyz = make_vec3(bbx[nr*3+i], bby[nr*3+i], bbz[nr*3+i]);
+                    vec::int3 vid2     = vec_floor((aa_xyz - side) * bscale2);
 
                     int kj        = vid2.y()*ngrid_z*SNGRID_Z+vid2.z();
                     int ki        = vid2.x()*ngrid_z*SNGRID_Z+vid2.z();
@@ -500,8 +500,8 @@ struct Surface : public CoordNode
                         float dx = 0.0;
                         float dy = auxiliary_points[j].xz[0]*atom_radius;
                         float dz = auxiliary_points[j].xz[1]*atom_radius;
-                        float3 aa_aux_xyz = make_vec3(bbx[nr*3+i]+dx, bby[nr*3+i]+dy , bbz[nr*3+i]+dz);
-                        int3 vid_aux = vec_floor((aa_aux_xyz - side) * bscale2);
+                        vec::float3 aa_aux_xyz = make_vec3(bbx[nr*3+i]+dx, bby[nr*3+i]+dy , bbz[nr*3+i]+dz);
+                        vec::int3 vid_aux = vec_floor((aa_aux_xyz - side) * bscale2);
                         int kj = vid_aux.y()*ngrid_z*SNGRID_Z+vid2.z();
                         if (v2 == 1 and vid_aux.x() < xmin_surf_fine[kj]) xmin_surf_fine[kj] = vid_aux.x();
                         if (v3 == 1 and vid_aux.x() > xmax_surf_fine[kj]) xmax_surf_fine[kj] = vid_aux.x();
@@ -511,8 +511,8 @@ struct Surface : public CoordNode
                         float dx = auxiliary_points[j].xz[0]*atom_radius;
                         float dy = 0.0;
                         float dz = auxiliary_points[j].xz[1]*atom_radius;
-                        float3 aa_aux_xyz = make_vec3(bbx[nr*3+i]+dx, bby[nr*3+i]+dy , bbz[nr*3+i]+dz);
-                        int3 vid_aux = vec_floor((aa_aux_xyz - side) * bscale2);
+                        vec::float3 aa_aux_xyz = make_vec3(bbx[nr*3+i]+dx, bby[nr*3+i]+dy , bbz[nr*3+i]+dz);
+                        vec::int3 vid_aux = vec_floor((aa_aux_xyz - side) * bscale2);
                         int ki = vid_aux.x()*ngrid_z*SNGRID_Z+vid2.z();
                         if (v4 == 1 and vid_aux.y() < ymin_surf_fine[ki]) ymin_surf_fine[ki] = vid_aux.y();
                         if (v5 == 1 and vid_aux.y() > ymax_surf_fine[ki]) ymax_surf_fine[ki] = vid_aux.y();
@@ -526,8 +526,8 @@ struct Surface : public CoordNode
                 int vtype     = voxels[vids[iv].x()][vids[iv].y()][vids[iv].z()];
 
                 if (vtype <= 1) continue;
-                float3 cb_xyz = make_vec3(cbx[nr], cby[nr], cbz[nr]);
-                int3 vid2     = vec_floor((cb_xyz - side) * bscale2);
+                vec::float3 cb_xyz = make_vec3(cbx[nr], cby[nr], cbz[nr]);
+                vec::int3 vid2     = vec_floor((cb_xyz - side) * bscale2);
                 int v5        = vtype/10000;
                 int v4        = (vtype%10000)/1000;
                 int v3        = ((vtype%10000)%1000)/100;
@@ -537,8 +537,8 @@ struct Surface : public CoordNode
                     float dx = 0.0;
                     float dy = auxiliary_points[j].xz[0]*atom_radius;
                     float dz = auxiliary_points[j].xz[1]*atom_radius;
-                    float3 aa_aux_xyz = make_vec3(cbx[nr]+dx, cby[nr]+dy , cbz[nr]+dz);
-                    int3 vid_aux = vec_floor((aa_aux_xyz - side) * bscale2);
+                    vec::float3 aa_aux_xyz = make_vec3(cbx[nr]+dx, cby[nr]+dy , cbz[nr]+dz);
+                    vec::int3 vid_aux = vec_floor((aa_aux_xyz - side) * bscale2);
                     int kj = vid_aux.y()*ngrid_z*SNGRID_Z+vid2.z();
                     if (v2 == 1 and vid_aux.x() < xmin_surf_fine[kj]) xmin_surf_fine[kj] = vid_aux.x();
                     if (v3 == 1 and vid_aux.x() > xmax_surf_fine[kj]) xmax_surf_fine[kj] = vid_aux.x();
@@ -548,8 +548,8 @@ struct Surface : public CoordNode
                     float dx = auxiliary_points[j].xz[0]*atom_radius;
                     float dy = 0.0;
                     float dz = auxiliary_points[j].xz[1]*atom_radius;
-                    float3 aa_aux_xyz = make_vec3(cbx[nr]+dx, cby[nr]+dy , cbz[nr]+dz);
-                    int3 vid_aux = vec_floor((aa_aux_xyz - side) * bscale2);
+                    vec::float3 aa_aux_xyz = make_vec3(cbx[nr]+dx, cby[nr]+dy , cbz[nr]+dz);
+                    vec::int3 vid_aux = vec_floor((aa_aux_xyz - side) * bscale2);
                     int ki = vid_aux.x()*ngrid_z*SNGRID_Z+vid2.z();
                     if (v4 == 1 and vid_aux.y() < ymin_surf_fine[ki]) ymin_surf_fine[ki] = vid_aux.y();
                     if (v5 == 1 and vid_aux.y() > ymax_surf_fine[ki]) ymax_surf_fine[ki] = vid_aux.y();
@@ -566,8 +566,8 @@ struct Surface : public CoordNode
                 int vtype     = voxels[vids[iv].x()][vids[iv].y()][vids[iv].z()];
 
                 if (vtype <= 1) continue;
-                float3 cb_xyz = make_vec3(cbx[nr], cby[nr], cbz[nr]);
-                int3 vid2     = vec_floor((cb_xyz - side) * bscale2);
+                vec::float3 cb_xyz = make_vec3(cbx[nr], cby[nr], cbz[nr]);
+                vec::int3 vid2     = vec_floor((cb_xyz - side) * bscale2);
                 int kj        = vid2.y()*ngrid_z*SNGRID_Z+vid2.z();
                 int ki        = vid2.x()*ngrid_z*SNGRID_Z+vid2.z();
 

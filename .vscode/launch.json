@@ -45,9 +45,22 @@
                 "--seed", "1",
                 "${workspaceFolder}/example/01.GettingStarted/outputs/simple_test/chig.run.up"
             ],
-            "stopAtEntry": false,
+            "stopAtEntry": true,
             "cwd": "${workspaceFolder}/",
-            "environment": [],
+            "environment": [
+                {
+                    "name": "PATH",
+                    "value": "/home/okleinmann/.miniconda3/envs/upside2-env/bin:${env:PATH}"
+                },
+                {
+                    "name": "CUDA_LAUNCH_BLOCKING",
+                    "value": "1"
+                },
+                {
+                    "name": "CUDA_DEVICE_DEBUG",
+                    "value": "1"
+                }
+            ],
             "externalConsole": false,
             "MIMode": "gdb",
             "setupCommands": [
@@ -57,18 +70,28 @@
                     "ignoreFailures": true
                 },
                 {
-                    "description": "Set CUDA focus to device",
+                    "description": "Set breakpoint pending",
+                    "text": "-gdb-set breakpoint pending on",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Enable CUDA break on launch",
                     "text": "set cuda break_on_launch application",
                     "ignoreFailures": true
                 },
                 {
-                    "description": "Enable CUDA debugging",
+                    "description": "Set CUDA focus",
+                    "text": "set cuda software_preemption on",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Enable CUDA memcheck",
                     "text": "set cuda memcheck on",
                     "ignoreFailures": true
                 }
             ],
             "preLaunchTask": "CMake Build CUDA Debug",
-            "miDebuggerPath": "/usr/local/cuda/bin/cuda-gdb" // Path to cuda-gdb
+            "miDebuggerPath": "/usr/local/cuda-12.9/bin/cuda-gdb"
         },
         {
             "name": "test upside",

@@ -93,4 +93,5 @@ T* DeviceBuffer<T, Dim>::d_ptr() {
 template class DeviceBuffer<float, 2>;
 template class DeviceBuffer<float, 3>;
 template class DeviceBuffer<int, 2>;
+template class DeviceBuffer<int, 3>;
 template class DeviceBuffer<double, 2>;

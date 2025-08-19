@@ -1,3 +1,4 @@
+#include "main.h" // For cuda_acceleration
 #include <math.h>
 #include <string>
 #include <algorithm>
@@ -13,8 +14,6 @@
 using namespace h5;
 using namespace std;
 
-extern const bool cuda_mode;
-
 struct DistCoord : public CoordNode
 {
     struct Params { index_t atom[2]; };
@@ -25,7 +24,7 @@ struct DistCoord : public CoordNode
     VecArrayStorage params_storage;
     VecArrayStorage deriv_storage;
     DeviceBuffer<int, 2> params;
-    DeviceBuffer<float, 3> deriv;
+    DeviceBuffer<float, 2> deriv;
     int compute_threads_per_block;
     int deriv_threads_per_block;
 
@@ -39,6 +38,8 @@ struct DistCoord : public CoordNode
         params(params_storage),
         deriv(deriv_storage)
     {
+        std::cout << "DEBUG: DistCoord constructor - n_elem=" << n_elem << ", cuda_acceleration=" << cuda_acceleration << std::endl;
+        std::cout.flush();
         int n_dep = 2;  // number of atoms that each term depends on 
         check_size(grp, "id", n_elem, n_dep);
         
@@ -46,16 +47,20 @@ struct DistCoord : public CoordNode
             params_storage(j, i) = x;
         });
         
-        if (cuda_mode) {
+        if (cuda_acceleration) {
+            std::cout << "DEBUG: DistCoord constructor - calling compute_block_size" << std::endl;
+            std::cout.flush();
             compute_threads_per_block = compute_block_size(2, n_elem, sizeof(int));
             deriv_threads_per_block = compute_block_size(3, n_elem, sizeof(float));
+            std::cout << "DEBUG: DistCoord constructor complete - blocks=" << compute_threads_per_block << std::endl;
+            std::cout.flush();
         }
     }
 
     virtual void compute_value(ComputeMode mode) {
         Timer timer(string("distance"));
         
-        if (cuda_mode) {
+        if (cuda_acceleration) {
             // GPU path
             const float* d_pos1 = pos1.output.d_ptr();
             const float* d_pos2 = pos2.output.d_ptr();
@@ -80,10 +85,10 @@ struct DistCoord : public CoordNode
                 auto x1 = load_vec<3>(posc1, atom0);
                 auto x2 = load_vec<3>(posc2, atom1);
                 auto disp = x1 - x2;
-                auto dist = mag(disp);
+                auto dist = ::mag(disp);
                 const_cast<VecArrayStorage&>(*output.h_ptr())(0, nt) = dist;
                 if (dist != 0.) {
-                    auto normalized = disp * inv_mag(disp);
+                    auto normalized = disp * ::inv_mag(disp);
                     h_deriv(0, nt) = normalized.x();
                     h_deriv(1, nt) = normalized.y();
                     h_deriv(2, nt) = normalized.z();
@@ -99,7 +104,7 @@ struct DistCoord : public CoordNode
     virtual void propagate_deriv() {
         Timer timer(string("distance_deriv"));
         
-        if (cuda_mode) {
+        if (cuda_acceleration) {
             // GPU path
             const int* d_params = params.d_ptr();
             const float* d_deriv = deriv.d_ptr();
@@ -123,7 +128,7 @@ struct DistCoord : public CoordNode
                 int atom1 = (int)h_params(1, nt);
                 auto d = const_cast<VecArrayStorage&>(*sens.h_ptr())(0, nt);
                 
-                vec::float3 deriv_vec = make_vec3(
+                vec::float3 deriv_vec = ::make_vec3(
                     h_deriv(0, nt), h_deriv(1, nt), h_deriv(2, nt)
                 );
                 
@@ -145,7 +150,7 @@ struct Dist2DCoord : public CoordNode
     CoordNode& pos1;
     CoordNode& pos2;
     vector<Params> params;
-    vector<float2> deriv;
+    vector<vec::float2> deriv;
 
     Dist2DCoord(hid_t grp, CoordNode& pos1_,  CoordNode& pos2_):
         CoordNode(get_dset_size(2, grp, "id")[0], 1),
@@ -170,11 +175,11 @@ struct Dist2DCoord : public CoordNode
             auto x2       = const_cast<VecArrayStorage&>(*pos2.output.h_ptr())(dim1, p.atom[1]);
             auto y1       = const_cast<VecArrayStorage&>(*pos1.output.h_ptr())(dim2, p.atom[0]);
             auto y2       = const_cast<VecArrayStorage&>(*pos2.output.h_ptr())(dim2, p.atom[1]);
-	    auto disp     = make_vec2(x1-x2, y1-y2);
-	    auto dist     = mag(disp);
+	    auto disp     = ::make_vec2(x1-x2, y1-y2);
+	    auto dist     = ::mag(disp);
 	    const_cast<VecArrayStorage&>(*output.h_ptr())(0, nt) = dist;
 	    if (dist != 0.)
-                deriv[nt] = disp * inv_mag(disp);
+                deriv[nt] = disp * ::inv_mag(disp);
 	    else
                 deriv[nt] = disp * 0.f;
         }
@@ -252,61 +257,158 @@ static RegisterNodeType<Dist1DCoord,2> dist1D_coord_node("Distance1D");
 
 struct AngleCoord : public CoordNode
 {
-    //struct alignas(16) Jac {float d[3][4];}; // padding for vector load/store
     struct Params { index_t atom[3];};
 
     int n_elem;
     CoordNode& pos;
-    vector<Params> params;
-    //unique_ptr<Jac[]> jac;
-    vector<float3> deriv1;
-    vector<float3> deriv2;
-    vector<float3> deriv3;
+    VecArrayStorage params_storage;
+    VecArrayStorage deriv1_storage;
+    VecArrayStorage deriv2_storage;
+    VecArrayStorage deriv3_storage;
+    DeviceBuffer<int, 2> params;
+    DeviceBuffer<float, 2> deriv1;
+    DeviceBuffer<float, 2> deriv2;
+    DeviceBuffer<float, 2> deriv3;
+    int compute_threads_per_block;
+    int deriv_threads_per_block;
 
     AngleCoord(hid_t grp, CoordNode& pos_):
         CoordNode(get_dset_size(2, grp, "id")[0], 1),
         n_elem(get_dset_size(2, grp, "id")[0]), 
 	pos(pos_), 
-	params(n_elem),
-	deriv1(n_elem),
-	deriv2(n_elem),
-	deriv3(n_elem)
-        //jac(new_aligned<Jac>(n_elem,1))
+	params_storage(3, n_elem),
+	deriv1_storage(3, n_elem),
+	deriv2_storage(3, n_elem),
+	deriv3_storage(3, n_elem),
+	params(params_storage),
+	deriv1(deriv1_storage),
+	deriv2(deriv2_storage),
+	deriv3(deriv3_storage)
     {
+        std::cout << "DEBUG: AngleCoord constructor - n_elem=" << n_elem << ", cuda_acceleration=" << cuda_acceleration << std::endl;
+        std::cout.flush();
         int n_dep = 3;  // number of atoms that each term depends on 
-        check_size(grp, "id",              n_elem, n_dep);
-        traverse_dset<2,int> (grp, "id", [&](size_t i, size_t j, int x) { params[i].atom[j] = x;});
+        check_size(grp, "id", n_elem, n_dep);
+        
+        traverse_dset<2,int>(grp, "id", [&](size_t i, size_t j, int x) {
+            params_storage(j, i) = x;
+        });
+        
+        if (cuda_acceleration) {
+            std::cout << "DEBUG: AngleCoord constructor - calling compute_block_size" << std::endl;
+            std::cout.flush();
+            compute_threads_per_block = compute_block_size(3, n_elem, sizeof(int));
+            deriv_threads_per_block = compute_block_size(3, n_elem, sizeof(float));
+            std::cout << "DEBUG: AngleCoord constructor complete - blocks=" << compute_threads_per_block << std::endl;
+            std::cout.flush();
+        }
     }
 
     virtual void compute_value(ComputeMode mode) {
         Timer timer(string("angle"));
-        //float* posc = pos.output.x.get();
-        VecArray posc = const_cast<VecArrayStorage&>(*pos.output.h_ptr());
-        for(int nt=0; nt<n_elem; ++nt) {
-            auto& p = params[nt];
+        
+        if (cuda_acceleration) {
+            // GPU path
+            std::cout << "DEBUG: AngleCoord GPU path - about to call CUDA kernel" << std::endl;
+            std::cout.flush();
+            const float* d_pos = pos.output.d_ptr();
+            const int* d_params = params.d_ptr();
+            float* d_output = output.d_ptr();
+            float* d_deriv1 = deriv1.d_ptr();
+            float* d_deriv2 = deriv2.d_ptr();
+            float* d_deriv3 = deriv3.d_ptr();
+            
+            anglecoord_compute_device(
+                d_pos, d_params, d_output, d_deriv1, d_deriv2, d_deriv3,
+                n_elem, 4, compute_threads_per_block
+            );
+            std::cout << "DEBUG: AngleCoord GPU kernel completed" << std::endl;
+            std::cout.flush();
+        } else {
+            // CPU path
+            VecArray posc = const_cast<VecArrayStorage&>(*pos.output.h_ptr());
+            VecArray h_params = const_cast<VecArrayStorage&>(*params.h_ptr());
+            VecArray h_deriv1 = const_cast<VecArrayStorage&>(*deriv1.h_ptr());
+            VecArray h_deriv2 = const_cast<VecArrayStorage&>(*deriv2.h_ptr());
+            VecArray h_deriv3 = const_cast<VecArrayStorage&>(*deriv3.h_ptr());
+            
+            for(int nt=0; nt<n_elem; ++nt) {
+                int atom0 = (int)h_params(0, nt);
+                int atom1 = (int)h_params(1, nt);
+                int atom2 = (int)h_params(2, nt);
 
-            auto atom1 = load_vec<3>(posc, p.atom[0]);
-            auto atom2 = load_vec<3>(posc, p.atom[1]);
-            auto atom3 = load_vec<3>(posc, p.atom[2]);
+                auto atom1_pos = load_vec<3>(posc, atom0);
+                auto atom2_pos = load_vec<3>(posc, atom1);
+                auto atom3_pos = load_vec<3>(posc, atom2);
 
-            auto x1 = atom1 - atom3; auto inv_d1 = inv_mag(x1); auto x1h = x1*inv_d1;
-            auto x2 = atom2 - atom3; auto inv_d2 = inv_mag(x2); auto x2h = x2*inv_d2;
-            auto dp = dot(x1h, x2h);
-	    const_cast<VecArrayStorage&>(*output.h_ptr())(0, nt) = dp;
-            deriv1[nt] = (x2h - x1h*dp) * inv_d1;
-            deriv2[nt] = (x1h - x2h*dp) * inv_d2;
-            deriv3[nt] = -deriv1[nt]-deriv2[nt];
+                auto x1 = atom1_pos - atom3_pos; auto inv_d1 = ::inv_mag(x1); auto x1h = x1*inv_d1;
+                auto x2 = atom2_pos - atom3_pos; auto inv_d2 = ::inv_mag(x2); auto x2h = x2*inv_d2;
+                auto dp = ::dot(x1h, x2h);
+                const_cast<VecArrayStorage&>(*output.h_ptr())(0, nt) = dp;
+                
+                auto deriv1_val = (x2h - x1h*dp) * inv_d1;
+                auto deriv2_val = (x1h - x2h*dp) * inv_d2;
+                auto deriv3_val = -deriv1_val - deriv2_val;
+                
+                h_deriv1(0, nt) = deriv1_val.x();
+                h_deriv1(1, nt) = deriv1_val.y();
+                h_deriv1(2, nt) = deriv1_val.z();
+                
+                h_deriv2(0, nt) = deriv2_val.x();
+                h_deriv2(1, nt) = deriv2_val.y();
+                h_deriv2(2, nt) = deriv2_val.z();
+                
+                h_deriv3(0, nt) = deriv3_val.x();
+                h_deriv3(1, nt) = deriv3_val.y();
+                h_deriv3(2, nt) = deriv3_val.z();
+            }
         }
     }
 
     virtual void propagate_deriv() {
         Timer timer(string("angle_deriv"));
-        VecArray pos_sens = const_cast<VecArrayStorage&>(*pos.sens.h_ptr());
-        for(int nt=0; nt<n_elem; ++nt) {
-            auto& p = params[nt];
-            update_vec(pos_sens, p.atom[0], const_cast<VecArrayStorage&>(*sens.h_ptr())(0,nt)*deriv1[nt]);
-            update_vec(pos_sens, p.atom[1], const_cast<VecArrayStorage&>(*sens.h_ptr())(0,nt)*deriv2[nt]);
-            update_vec(pos_sens, p.atom[2], const_cast<VecArrayStorage&>(*sens.h_ptr())(0,nt)*deriv3[nt]);
+        
+        if (cuda_acceleration) {
+            // GPU path
+            const int* d_params = params.d_ptr();
+            const float* d_deriv1 = deriv1.d_ptr();
+            const float* d_deriv2 = deriv2.d_ptr();
+            const float* d_deriv3 = deriv3.d_ptr();
+            const float* d_sens = sens.d_ptr();
+            float* d_pos_sens = pos.sens.d_ptr();
+            
+            anglecoord_deriv_device(
+                d_params, d_deriv1, d_deriv2, d_deriv3, d_sens, d_pos_sens,
+                n_elem, 4, deriv_threads_per_block
+            );
+        } else {
+            // CPU path
+            VecArray pos_sens = const_cast<VecArrayStorage&>(*pos.sens.h_ptr());
+            VecArray h_params = const_cast<VecArrayStorage&>(*params.h_ptr());
+            VecArray h_deriv1 = const_cast<VecArrayStorage&>(*deriv1.h_ptr());
+            VecArray h_deriv2 = const_cast<VecArrayStorage&>(*deriv2.h_ptr());
+            VecArray h_deriv3 = const_cast<VecArrayStorage&>(*deriv3.h_ptr());
+            
+            for(int nt=0; nt<n_elem; ++nt) {
+                int atom0 = (int)h_params(0, nt);
+                int atom1 = (int)h_params(1, nt);
+                int atom2 = (int)h_params(2, nt);
+                auto d = const_cast<VecArrayStorage&>(*sens.h_ptr())(0, nt);
+                
+                vec::float3 deriv1_vec = ::make_vec3(
+                    h_deriv1(0, nt), h_deriv1(1, nt), h_deriv1(2, nt)
+                );
+                vec::float3 deriv2_vec = ::make_vec3(
+                    h_deriv2(0, nt), h_deriv2(1, nt), h_deriv2(2, nt)
+                );
+                vec::float3 deriv3_vec = ::make_vec3(
+                    h_deriv3(0, nt), h_deriv3(1, nt), h_deriv3(2, nt)
+                );
+                
+                update_vec(pos_sens, atom0, d * deriv1_vec);
+                update_vec(pos_sens, atom1, d * deriv2_vec);
+                update_vec(pos_sens, atom2, d * deriv3_vec);
+            }
         }
     }
 };
@@ -321,10 +423,10 @@ struct AngleCoord2 : public CoordNode
     CoordNode& pos;
     vector<Params> params;
     //unique_ptr<Jac[]> jac;
-    vector<float3> deriv1;
-    vector<float3> deriv2;
-    vector<float3> deriv3;
-    vector<float3> deriv4;
+    vector<vec::float3> deriv1;
+    vector<vec::float3> deriv2;
+    vector<vec::float3> deriv3;
+    vector<vec::float3> deriv4;
 
     AngleCoord2(hid_t grp, CoordNode& pos_):
         CoordNode(get_dset_size(2, grp, "id")[0], 1),
@@ -353,9 +455,9 @@ struct AngleCoord2 : public CoordNode
             auto atom3 = load_vec<3>(posc, p.atom[2]);
             auto atom4 = load_vec<3>(posc, p.atom[3]);
 
-            auto x1 = atom1 - atom2; auto inv_d1 = inv_mag(x1); auto x1h = x1*inv_d1;
-            auto x2 = atom3 - atom4; auto inv_d2 = inv_mag(x2); auto x2h = x2*inv_d2;
-            auto dp = dot(x1h, x2h);
+            auto x1 = atom1 - atom2; auto inv_d1 = ::inv_mag(x1); auto x1h = x1*inv_d1;
+            auto x2 = atom3 - atom4; auto inv_d2 = ::inv_mag(x2); auto x2h = x2*inv_d2;
+            auto dp = ::dot(x1h, x2h);
 	    const_cast<VecArrayStorage&>(*output.h_ptr())(0, nt) = dp;
             deriv1[nt] = (x2h - x1h*dp) * inv_d1;
             deriv3[nt] = (x1h - x2h*dp) * inv_d2;
@@ -416,7 +518,7 @@ struct DihedralCoord : public CoordNode
 	    if (p.dummy_angle)
 	        dihe_pos(0,nt) = -1.3963f;   // -80 degrees if dummy angle
 	    else {
-                dihe_pos(0,nt) = dihedral_germ(x[0],x[1],x[2],x[3], d[0],d[1],d[2],d[3]).x();
+                dihe_pos(0,nt) = ::dihedral_germ(x[0],x[1],x[2],x[3], d[0],d[1],d[2],d[3]).x();
                 for(int na: range(4)) d[na].store(jac[nt].j[na]);
             }
         }
