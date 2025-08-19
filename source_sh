@@ -1,9 +1,9 @@
 #!/bin/bash
 
-export MY_PYTHON=/home/user/Anaconda3 # change it according to your environment
-export EIGEN_HOME=/home/user/Eigen-3.3.5 #  change it according to your environment
+export MY_PYTHON=/home/okleinmann/.miniconda3/envs/upside2-env/ # change it according to your environment
+export EIGEN_HOME=/usr/include/eigen3/ #  change it according to your environment
 
-export UPSIDE_HOME=UP_PATH
+export UPSIDE_HOME=/home/okleinmann/projects/upside2-md/cuda
 
 export PATH="$MY_PYTHON/bin:$PATH"
 export PATH=$UPSIDE_HOME/obj:$PATH
