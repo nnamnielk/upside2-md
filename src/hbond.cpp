@@ -52,12 +52,14 @@ struct Infer_H_O : public CoordNode
         traverse_dset<1,float>(acc.get(),"bond_length", [&](size_t i,          float x){params[n_donor+i].bond_length  =x;});
 
         if(logging(LOG_EXTENSIVE)) {
-            default_logger->add_logger<float>("virtual", {n_elem, 3}, [&](float* buffer) {
-                    for(int nv=0; nv<n_virtual; ++nv) {
-                        auto x = load_vec<6>(const_cast<VecArrayStorage&>(*output.h_ptr()), nv);
-                        for(int d=0; d<3; ++d) buffer[nv*3 + d] = x[d];
-                    }
-                });
+            if(default_logger) {
+                default_logger->add_logger<float>("virtual", {n_elem, 3}, [&](float* buffer) {
+                        for(int nv=0; nv<n_virtual; ++nv) {
+                            auto x = load_vec<6>(const_cast<VecArrayStorage&>(*output.h_ptr()), nv);
+                            for(int d=0; d<3; ++d) buffer[nv*3 + d] = x[d];
+                        }
+                    });
+            }
         }
     }
 

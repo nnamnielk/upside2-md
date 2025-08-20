@@ -253,11 +253,13 @@ struct PlacementNode: public CoordNode
 
         if(logging(LOG_EXTENSIVE)) {
             // FIXME prepend the logging with the class name for disambiguation
-            default_logger->add_logger<float>("placement_pos", {n_elem, n_pos_dim}, [&](float* buffer) {
-                    VecArray pos = const_cast<VecArrayStorage&>(*output.h_ptr());
-                    for(int ne: range(n_elem))
-                        for(int d: range(n_pos_dim))
-                            buffer[ne*n_pos_dim + d] = pos(d,ne);});
+            if(default_logger) {
+                default_logger->add_logger<float>("placement_pos", {n_elem, n_pos_dim}, [&](float* buffer) {
+                        VecArray pos = const_cast<VecArrayStorage&>(*output.h_ptr());
+                        for(int ne: range(n_elem))
+                            for(int d: range(n_pos_dim))
+                                buffer[ne*n_pos_dim + d] = pos(d,ne);});
+            }
         }
     }
 

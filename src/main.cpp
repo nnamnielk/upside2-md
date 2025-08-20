@@ -837,7 +837,7 @@ try {
             sys->logger->add_logger<double>("time", {}, [sys,dt,inner_step](double* time_buffer) {
                     *time_buffer=inner_step*dt*sys->round_num;});
 
-            if(log_level >= LOG_EXTENSIVE) {
+            if(log_level >= LOG_DETAILED) {
                 sys->logger->write_graph(&sys->engine, "deriv_graph.dot");
             }
 
