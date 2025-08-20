@@ -1,7 +1,14 @@
+#include "main.h" // For cuda_acceleration
 #include "deriv_engine.h"
 #include "timing.h"
 #include "state_logger.h"
+#include "device_buffer.h"
+#include "device_utils.h"
+#include "spring.h"
 #include <iostream>
+#ifdef USE_CUDA
+#include <cuda_runtime.h>
+#endif
 
 using namespace h5;
 using namespace std;
@@ -21,6 +28,17 @@ struct Spring : public PotentialNode
     int dim1;
     bool pbc;
     float box_len;
+    
+    // Device buffers for GPU computation
+    VecArrayStorage ids_storage;
+    VecArrayStorage equil_dist_storage;
+    VecArrayStorage spring_const_storage;
+    VecArrayStorage potential_storage;
+    DeviceBuffer<int, 1> ids;
+    DeviceBuffer<float, 1> equil_dist;
+    DeviceBuffer<float, 1> spring_const;
+    DeviceBuffer<float, 1> potential_buffer;
+    int threads_per_block;
 
     Spring(hid_t grp, CoordNode& pos_):
         PotentialNode(),
@@ -30,7 +48,15 @@ struct Spring : public PotentialNode
 	    n_dim(pos.output.h_ptr()->row_width),
         dim1( read_attribute<int>(grp, ".", "dim1") ),
         pbc(  read_attribute<int>(grp, ".", "pbc") ),
-        box_len(read_attribute<float>(grp, ".", "box_len") )
+        box_len(read_attribute<float>(grp, ".", "box_len") ),
+        ids_storage(1, n_elem),
+        equil_dist_storage(1, n_elem),
+        spring_const_storage(1, n_elem),
+        potential_storage(1, 1),
+        ids(ids_storage),
+        equil_dist(equil_dist_storage),
+        spring_const(spring_const_storage),
+        potential_buffer(potential_storage)
     {
         check_size(grp, "equil_dist",   n_elem);
         check_size(grp, "spring_const", n_elem);
@@ -42,39 +68,81 @@ struct Spring : public PotentialNode
 	assert(dim1<n_dim);
 
 	if (pbc) assert(box_len>0);
+	
+	// Initialize device buffers with parameter data
+        for(int i = 0; i < n_elem; ++i) {
+            ids_storage(0, i) = p[i].id;
+            equil_dist_storage(0, i) = p[i].equil_dist;
+            spring_const_storage(0, i) = p[i].spring_const;
+        }
+        potential_storage(0, 0) = 0.0f;
+        
+        if (cuda_acceleration) {
+            threads_per_block = compute_block_size(1, n_elem, sizeof(float));
+        }
     }
 
     virtual void compute_value(ComputeMode mode) {
         Timer timer(string("pos_spring_1d"));
-        VecArray posc = const_cast<VecArrayStorage&>(*pos.output.h_ptr());
-        VecArray pos_sens = const_cast<VecArrayStorage&>(*pos.sens.h_ptr());
-        float* pot = mode==PotentialAndDerivMode ? &potential : nullptr;
-        if(pot) *pot = 0.f;
-        for(int nt=0; nt<n_elem; ++nt) {
-            auto& p = params[nt];
-            float dist   = posc(dim1, p.id);
-            float excess = dist-p.equil_dist;
-            float sqr_excess = sqr(excess);
-
-            if (excess == 0.f) continue;
-
-            if (pbc) {
-                    float excess1 = dist-p.equil_dist-box_len;
-                    float excess2 = dist-p.equil_dist+box_len;
-                    float sqr_excess1 = sqr(excess1);
-                float sqr_excess2 = sqr(excess2);
-                if (sqr_excess1 < sqr_excess) {
-                    sqr_excess = sqr_excess1;
-                    excess     = excess1;
-                }
-                if (sqr_excess2 < sqr_excess) {
-                    sqr_excess = sqr_excess2;
-                    excess     = excess2;
-                }
+        
+        if (cuda_acceleration) {
+            // GPU path
+            const float* d_pos = pos.output.d_ptr();
+            const int* d_ids = ids.d_ptr();
+            const float* d_equil_dist = equil_dist.d_ptr();
+            const float* d_spring_const = spring_const.d_ptr();
+            float* d_pos_sens = pos.sens.d_ptr();
+            float* d_potential = potential_buffer.d_ptr();
+            
+            // Zero out potential buffer on device
+            if (mode == PotentialAndDerivMode) {
+                CUDA_ASSERT_SUCCESS(cudaMemset(d_potential, 0, sizeof(float)));
             }
+            
+            // Launch kernel
+            launch_spring_kernel(
+                d_pos, d_ids, d_equil_dist, d_spring_const, d_pos_sens,
+                mode == PotentialAndDerivMode ? d_potential : nullptr,
+                n_elem, 4, dim1, pbc, box_len, threads_per_block
+            );
+            
+            // Copy potential back to host if needed
+            if (mode == PotentialAndDerivMode) {
+                const VecArrayStorage* h_potential_storage = potential_buffer.h_ptr();
+                potential = (*h_potential_storage)(0, 0);
+            }
+        } else {
+            // CPU path
+            VecArray posc = const_cast<VecArrayStorage&>(*pos.output.h_ptr());
+            VecArray pos_sens = const_cast<VecArrayStorage&>(*pos.sens.h_ptr());
+            float* pot = mode==PotentialAndDerivMode ? &potential : nullptr;
+            if(pot) *pot = 0.f;
+            for(int nt=0; nt<n_elem; ++nt) {
+                auto& p = params[nt];
+                float dist   = posc(dim1, p.id);
+                float excess = dist-p.equil_dist;
+                float sqr_excess = sqr(excess);
 
-                if(pot) *pot         += 0.5f * p.spring_const * sqr_excess;
-                pos_sens(dim1, p.id) +=        p.spring_const * excess;
+                if (excess == 0.f) continue;
+
+                if (pbc) {
+                        float excess1 = dist-p.equil_dist-box_len;
+                        float excess2 = dist-p.equil_dist+box_len;
+                        float sqr_excess1 = sqr(excess1);
+                    float sqr_excess2 = sqr(excess2);
+                    if (sqr_excess1 < sqr_excess) {
+                        sqr_excess = sqr_excess1;
+                        excess     = excess1;
+                    }
+                    if (sqr_excess2 < sqr_excess) {
+                        sqr_excess = sqr_excess2;
+                        excess     = excess2;
+                    }
+                }
+
+                    if(pot) *pot         += 0.5f * p.spring_const * sqr_excess;
+                    pos_sens(dim1, p.id) +=        p.spring_const * excess;
+            }
         }
     }
 };

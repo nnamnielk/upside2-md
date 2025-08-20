@@ -90,6 +90,7 @@ list(APPEND ENGINE_SRC
     device_buffer.cu
     device_utils.cu
     coord_basic.cu
+    spring.cu
 )
 else()
 # Add non-CUDA implementation
