@@ -427,9 +427,6 @@ vector<float> potential_deriv_agreement(DerivEngine& engine) {
 
 int upside_main(int argc, const char* const * argv, int verbose=1)
 try {
-    printf("DEBUG: Starting upside_main function\n");
-    fflush(stdout);
-    
     using namespace TCLAP;  // Templatized C++ Command Line Parser (tclap.sourceforge.net)
     CmdLine cmd("Using Protein Statistical Information for Dynamics Estimation (Upside)\n Author: John Jumper, Xiangda Peng, Nabil Faruk", 
             ' ', "2.0alpha");
@@ -536,17 +533,11 @@ try {
 
     cuda_acceleration = cuda_acceleration_arg.getValue();
 
-    printf("DEBUG: Command line parsing completed successfully\n");
-    fflush(stdout);
-
     try {
         if(verbose) printf("invocation: ");
         std::string invocation(argv[0]);
         for(auto arg=argv+1; arg!=argv+argc; ++arg) invocation += string(" ") + *arg;
         if(verbose) printf("%s\n", invocation.c_str());
-
-        printf("DEBUG: Starting parameter processing\n");
-        fflush(stdout);
 
         map<string,vector<float>> set_param_map;
         if(set_param_arg.getValue().size()) {
@@ -691,14 +682,8 @@ try {
         // then exit immediately after the block.
         bool error_exit_omp = false;
         
-        printf("DEBUG: About to initialize %d systems\n", n_system);
-        fflush(stdout);
-        
         #pragma omp critical
         for(int ns=0; ns<n_system; ++ns) try {
-            printf("DEBUG: Initializing system %d\n", ns);
-            fflush(stdout);
-            
             System* sys = &systems[ns];  // a pointer here makes later lambda's more natural
             sys->random_seed = base_random_seed + ns;
 
@@ -765,14 +750,8 @@ try {
             if(pos_shape[1]!=3) throw string("invalid dimensions for initial position");
             if(pos_shape[2]!=1) throw string("must have n_system 1 from config");
 
-            printf("DEBUG: About to initialize engine from HDF5 for system %d\n", ns);
-            fflush(stdout);
-            
             auto potential_group = open_group(sys->config.get(), "/input/potential");
             sys->engine = initialize_engine_from_hdf5(sys->n_atom, potential_group.get());
-            
-            printf("DEBUG: Engine initialization completed for system %d\n", ns);
-            fflush(stdout);
             
             if  (integrator_arg.getValue() == "mv" )
                 sys->engine.build_integrator_levels(true, dt, inner_step );

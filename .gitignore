@@ -1,10 +1,9 @@
 doc/
-notes/*
+notes/
 run/
 bin/
 data/
-env/
-doc/
+tmp/
 .venv/
 tests/tmp/
 tests/obj/
