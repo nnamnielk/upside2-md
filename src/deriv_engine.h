@@ -261,6 +261,9 @@ struct DerivEngine
     void integration_cycle(VecArray mom, float dt, float max_force, IntegratorType type = Verlet);
     void integration_cycle(VecArray mom, float dt);
     void integration_cycle(VecArray mom, float dt, int inner_step);
+
+    //! \brief Write computation graph in Graphviz DOT format
+    void write_graphviz(const std::string &filename) const;
 };
 
 //! \brief Count the number hbonds for a system

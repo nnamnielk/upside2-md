@@ -21,6 +21,7 @@ a.out
 *.s
 
 .clang_complete
+.clinerules
 CMakeCache.txt
 .envrc
 gmon.out

@@ -154,6 +154,9 @@ struct H5Logger {
         h5::append_to_dset(data_set.get(), data_buffer, 0);
     }
 
+    //! \brief Emit computation graph via DerivEngine
+    void write_graph(DerivEngine* engine, const std::string& filename);
+
     virtual ~H5Logger() {
         flush();
     }

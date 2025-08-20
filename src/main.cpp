@@ -837,6 +837,10 @@ try {
             sys->logger->add_logger<double>("time", {}, [sys,dt,inner_step](double* time_buffer) {
                     *time_buffer=inner_step*dt*sys->round_num;});
 
+            if(log_level >= LOG_EXTENSIVE) {
+                sys->logger->write_graph(&sys->engine, "deriv_graph.dot");
+            }
+
             if(mc_interval) {
                 // sys->mc_samplers = MultipleMonteCarloSampler{open_group(sys->config.get(), "/input/sampler_group").get(), *sys->logger};
                 sys->mc_samplers = MultipleMonteCarloSampler{open_group(sys->config.get(), "/input").get(), *sys->logger};

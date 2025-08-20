@@ -5,6 +5,7 @@
 #include <memory>
 #include <iostream>
 #include <cassert>
+#include <fstream>
 
 using namespace h5;
 
@@ -497,4 +498,48 @@ vector<float> central_difference_deriviative(
     compute_value();
 
     return jacobian;
+}
+
+void DerivEngine::write_graphviz(const std::string &filename) const {
+    // Ensure exec levels are computed
+    const_cast<DerivEngine*>(this)->build_exec_levels();
+    
+    std::ofstream out(filename);
+    if (!out) {
+        throw std::string("Cannot open file for writing: ") + filename;
+    }
+    
+    out << "digraph G {\n";
+    out << "  rankdir=LR;\n";
+    out << "  node [shape=box];\n\n";
+    
+    // Find max level
+    int max_level = 0;
+    for (const auto& node : nodes) {
+        if (node.germ_exec_level > max_level) {
+            max_level = node.germ_exec_level;
+        }
+    }
+    
+    // Group nodes by execution level
+    for (int level = 0; level <= max_level; ++level) {
+        out << "  { rank=same; ";
+        for (const auto& node : nodes) {
+            if (node.germ_exec_level == level) {
+                out << "\"" << node.name << "\"; ";
+            }
+        }
+        out << "}\n";
+    }
+    out << "\n";
+    
+    // Emit edges
+    for (const auto& node : nodes) {
+        for (size_t parent_idx : node.parents) {
+            out << "  \"" << nodes[parent_idx].name << "\" -> \"" << node.name << "\";\n";
+        }
+    }
+    
+    out << "}\n";
+    out.close();
 }
