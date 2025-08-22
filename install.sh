@@ -10,5 +10,8 @@ source source.sh
 rm -rf obj/*
 cd obj
 
-cmake ../src/  -DEIGEN3_INCLUDE_DIR=$EIGEN_HOME
+cmake ../src/ \
+    -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
+    -DCMAKE_CUDA_COMPILER_LAUNCHER=ccache \
+    -DEIGEN3_INCLUDE_DIR=$EIGEN_HOME
 make
