@@ -23,8 +23,8 @@ struct DistCoord : public CoordNode
     CoordNode& pos2;
     VecArrayStorage params_storage;
     VecArrayStorage deriv_storage;
-    DeviceBuffer<int, 2> params;
-    DeviceBuffer<float, 2> deriv;
+    DeviceBuffer<float, 1> params;
+    DeviceBuffer<float, 1> deriv;
     int compute_threads_per_block;
     int deriv_threads_per_block;
 
@@ -50,7 +50,7 @@ struct DistCoord : public CoordNode
         if (cuda_acceleration) {
             std::cout << "DEBUG: DistCoord constructor - calling compute_block_size" << std::endl;
             std::cout.flush();
-            compute_threads_per_block = compute_block_size(2, n_elem, sizeof(int));
+            compute_threads_per_block = compute_block_size(2, n_elem, sizeof(float));
             deriv_threads_per_block = compute_block_size(3, n_elem, sizeof(float));
             std::cout << "DEBUG: DistCoord constructor complete - blocks=" << compute_threads_per_block << std::endl;
             std::cout.flush();
@@ -64,14 +64,20 @@ struct DistCoord : public CoordNode
             // GPU path
             const float* d_pos1 = pos1.output.d_ptr();
             const float* d_pos2 = pos2.output.d_ptr();
-            const int* d_params = params.d_ptr();
+            const float* d_params = params.d_ptr();
             float* d_output = output.d_ptr();
             float* d_deriv = deriv.d_ptr();
             
-            distcoord_compute_device(
-                d_pos1, d_pos2, d_params, d_output, d_deriv, 
-                n_elem, 4, compute_threads_per_block
-            );
+            {
+                int param_stride = params_storage.row_width;
+                int deriv_stride = deriv_storage.row_width;
+                int out_stride = output_storage.row_width;
+                distcoord_compute_device(
+                    d_pos1, d_pos2, d_params, d_output, d_deriv,
+                    n_elem, 4, compute_threads_per_block,
+                    param_stride, deriv_stride, out_stride
+                );
+            }
         } else {
             // CPU path
             VecArray posc1 = const_cast<VecArrayStorage&>(*pos1.output.h_ptr());
@@ -106,16 +112,21 @@ struct DistCoord : public CoordNode
         
         if (cuda_acceleration) {
             // GPU path
-            const int* d_params = params.d_ptr();
+            const float* d_params = params.d_ptr();
             const float* d_deriv = deriv.d_ptr();
             const float* d_sens = sens.d_ptr();
             float* d_pos1_sens = pos1.sens.d_ptr();
             float* d_pos2_sens = pos2.sens.d_ptr();
             
-            distcoord_deriv_device(
-                d_params, d_deriv, d_sens, d_pos1_sens, d_pos2_sens,
-                n_elem, 4, deriv_threads_per_block
-            );
+            {
+                int param_stride = params_storage.row_width;
+                int deriv_stride = deriv_storage.row_width;
+                distcoord_deriv_device(
+                    d_params, d_deriv, d_sens, d_pos1_sens, d_pos2_sens,
+                    n_elem, 4, deriv_threads_per_block,
+                    param_stride, deriv_stride
+                );
+            }
         } else {
             // CPU path
             VecArray pos_sens1 = const_cast<VecArrayStorage&>(*pos1.sens.h_ptr());
@@ -265,10 +276,10 @@ struct AngleCoord : public CoordNode
     VecArrayStorage deriv1_storage;
     VecArrayStorage deriv2_storage;
     VecArrayStorage deriv3_storage;
-    DeviceBuffer<int, 2> params;
-    DeviceBuffer<float, 2> deriv1;
-    DeviceBuffer<float, 2> deriv2;
-    DeviceBuffer<float, 2> deriv3;
+    DeviceBuffer<float, 1> params;
+    DeviceBuffer<float, 1> deriv1;
+    DeviceBuffer<float, 1> deriv2;
+    DeviceBuffer<float, 1> deriv3;
     int compute_threads_per_block;
     int deriv_threads_per_block;
 
@@ -295,12 +306,8 @@ struct AngleCoord : public CoordNode
         });
         
         if (cuda_acceleration) {
-            std::cout << "DEBUG: AngleCoord constructor - calling compute_block_size" << std::endl;
-            std::cout.flush();
-            compute_threads_per_block = compute_block_size(3, n_elem, sizeof(int));
+            compute_threads_per_block = compute_block_size(3, n_elem, sizeof(float));
             deriv_threads_per_block = compute_block_size(3, n_elem, sizeof(float));
-            std::cout << "DEBUG: AngleCoord constructor complete - blocks=" << compute_threads_per_block << std::endl;
-            std::cout.flush();
         }
     }
 
@@ -308,22 +315,25 @@ struct AngleCoord : public CoordNode
         Timer timer(string("angle"));
         
         if (cuda_acceleration) {
-            // GPU path
-            std::cout << "DEBUG: AngleCoord GPU path - about to call CUDA kernel" << std::endl;
-            std::cout.flush();
+            // GPU path - COPY DistCoord's minimal working pattern exactly
             const float* d_pos = pos.output.d_ptr();
-            const int* d_params = params.d_ptr();
+            const float* d_params = params.d_ptr();
             float* d_output = output.d_ptr();
             float* d_deriv1 = deriv1.d_ptr();
             float* d_deriv2 = deriv2.d_ptr();
             float* d_deriv3 = deriv3.d_ptr();
-            
-            anglecoord_compute_device(
-                d_pos, d_params, d_output, d_deriv1, d_deriv2, d_deriv3,
-                n_elem, 4, compute_threads_per_block
-            );
-            std::cout << "DEBUG: AngleCoord GPU kernel completed" << std::endl;
-            std::cout.flush();
+
+
+            {
+                int param_stride = params_storage.row_width;
+                int deriv_stride = deriv1_storage.row_width;
+                int out_stride = output_storage.row_width;
+                anglecoord_compute_device(
+                    d_pos, d_params, d_output, d_deriv1, d_deriv2, d_deriv3,
+                    n_elem, 4, compute_threads_per_block,
+                    param_stride, deriv_stride, out_stride
+                );
+            }
         } else {
             // CPU path
             VecArray posc = const_cast<VecArrayStorage&>(*pos.output.h_ptr());
@@ -370,17 +380,23 @@ struct AngleCoord : public CoordNode
         
         if (cuda_acceleration) {
             // GPU path
-            const int* d_params = params.d_ptr();
+            const float* d_params = params.d_ptr();
             const float* d_deriv1 = deriv1.d_ptr();
             const float* d_deriv2 = deriv2.d_ptr();
             const float* d_deriv3 = deriv3.d_ptr();
             const float* d_sens = sens.d_ptr();
             float* d_pos_sens = pos.sens.d_ptr();
-            
-            anglecoord_deriv_device(
-                d_params, d_deriv1, d_deriv2, d_deriv3, d_sens, d_pos_sens,
-                n_elem, 4, deriv_threads_per_block
-            );
+
+
+            {
+                int param_stride = params_storage.row_width;
+                int deriv_stride = deriv1_storage.row_width;
+                anglecoord_deriv_device(
+                    d_params, d_deriv1, d_deriv2, d_deriv3, d_sens, d_pos_sens,
+                    n_elem, 4, deriv_threads_per_block,
+                    param_stride, deriv_stride
+                );
+            }
         } else {
             // CPU path
             VecArray pos_sens = const_cast<VecArrayStorage&>(*pos.sens.h_ptr());

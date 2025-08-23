@@ -1,0 +1,7 @@
+- Build the project using install.sh. The build dir is obj/ and the source dir is /src.
+- .up files are h5 files.
+- Whenever writing code get a sense of the data you are handling. Ask questions! Add print statements! You can look at the HDF5 .up dump here: /home/okleinmann/projects/upside2-md/cuda/tmp/output.txt
+- Always test your work as frequently as possible. Test upside via: /home/okleinmann/projects/upside2-md/cuda/obj/upside --duration 1000 --frame-interval 50 --temperature 0.8 --seed 1 /home/okleinmann/projects/upside2-md/cuda/example/01.GettingStarted/outputs/simple_test/chig.run.up --cuda-acceleration
+- you can inspect the input/ and output/ folders from there!
+- The numerically accurate output is found in 
+- the conda environment for this project is upside2-env

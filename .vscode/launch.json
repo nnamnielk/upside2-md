@@ -43,6 +43,7 @@
                 "--frame-interval", "50",
                 "--temperature", "0.8",
                 "--seed", "1",
+                "--cuda-acceleration",
                 "${workspaceFolder}/example/01.GettingStarted/outputs/simple_test/chig.run.up"
             ],
             "stopAtEntry": true,
@@ -90,16 +91,8 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "CMake Build CUDA Debug",
+            // "preLaunchTask": "Build with install.sh",
             "miDebuggerPath": "/usr/local/cuda-12.9/bin/cuda-gdb"
-        },
-        {
-            "name": "test upside",
-            "type": "pydbg",
-            "request": "launch",
-            "program": "${file}",
-            "console": "integratedTerminal",
-            "args": ["${workspaceFolder}/tests/build/testbridge","???","${workspaceFolder}/tests/records/line_213_capture.json"]
         }
     ]
 }

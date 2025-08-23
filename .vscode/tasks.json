@@ -28,16 +28,10 @@
             "dependsOn": "CMake Configure"
         },
         {
-            "label": "CMake Build CUDA Debug",
+            "label": "Build with install.sh",
             "type": "shell",
-            "command": "cmake",
-            "args": [
-                "--build",
-                "${workspaceFolder}/obj",
-                "--parallel",
-                "--config",
-                "Debug"
-            ],
+            "command": "./install.sh",
+            "args": [],
             "group": "build",
             "presentation": {
                 "echo": true,
@@ -51,7 +45,9 @@
                 "$gcc",
                 "$nvcc"
             ],
-            "dependsOn": "CMake Configure Debug"
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
         },
         {
             "label": "CMake Configure",
@@ -64,35 +60,6 @@
                 "${workspaceFolder}/src",
                 "-DUSE_CUDA=ON",
                 "-DDEBUG=OFF"
-            ],
-            "group": "build",
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": true,
-                "clear": false
-            },
-            "options": {
-                "env": {
-                    "PATH": "/home/okleinmann/.miniconda3/envs/upside2-env/bin:${env:PATH}",
-                    "CMAKE_CUDA_COMPILER": "/home/okleinmann/.miniconda3/envs/upside2-env/bin/nvcc"
-                }
-            }
-        },
-        {
-            "label": "CMake Configure Debug",
-            "type": "shell",
-            "command": "cmake",
-            "args": [
-                "-B",
-                "${workspaceFolder}/obj",
-                "-S",
-                "${workspaceFolder}/src",
-                "-DUSE_CUDA=ON",
-                "-DDEBUG=ON",
-                "-DCMAKE_BUILD_TYPE=Debug"
             ],
             "group": "build",
             "presentation": {

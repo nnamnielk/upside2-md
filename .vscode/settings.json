@@ -39,5 +39,12 @@
         "titleBar.inactiveBackground": "#42b88399",
         "titleBar.inactiveForeground": "#15202b99"
     },
-    "peacock.remoteColor": "#42b883"
+    "peacock.remoteColor": "#42b883",
+    "remote.autoForwardPorts": false,
+    "remote.autoForwardPortsSource": "output",
+    "remote.portsAttributes": {
+        "3030": {
+            "onAutoForward": "ignore"
+        }
+    }
 }
