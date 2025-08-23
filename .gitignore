@@ -9,6 +9,7 @@ doc/
 tests/tmp/
 tests/obj/
 tests/build/
+tmp/
 
 *~
 *.swp

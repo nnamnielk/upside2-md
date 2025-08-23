@@ -1147,7 +1147,7 @@ struct RotamerSidechain: public PotentialNode {
             }
 
             // compute max deviation
-            // printf("(%i,%.3f,%.3f)\n", iter, nodes3.max_deviation(), nodes6.max_deviation());
+            // std::cout << "(" << iter << "," << std::fixed << std::setprecision(3) << nodes3.max_deviation() << "," << std::fixed << std::setprecision(3) << nodes6.max_deviation() << ")\n";
             max_deviation = max(nodes3.max_deviation(), nodes6.max_deviation());
         }
 

@@ -237,13 +237,9 @@ void DerivEngine::build_integrator_levels( bool print_info, float dt, int inner_
 }
 
 void DerivEngine::compute(ComputeMode mode) {
-    printf("DEBUG: DerivEngine::compute called with mode %d\n", (int)mode);
-    fflush(stdout);
     
     if(mode == PotentialAndDerivMode) potential = 0.f;
 
-    printf("DEBUG: Processing %zu germ_exec_levels\n", germ_exec_levels.size());
-    fflush(stdout);
 
     for(int i : germ_exec_levels) {
         auto& n = nodes[i];
@@ -259,16 +255,12 @@ void DerivEngine::compute(ComputeMode mode) {
         }
     }
 
-    printf("DEBUG: Processing %zu deriv_exec_levels\n", deriv_exec_levels.size());
-    fflush(stdout);
 
     for(int i : deriv_exec_levels) {
         auto& n = nodes[i];
         n.computation->propagate_deriv();
     }
     
-    printf("DEBUG: DerivEngine::compute completed\n");
-    fflush(stdout);
 }
 
 void DerivEngine::compute(ComputeMode mode, int integrator_level) {
@@ -305,8 +297,6 @@ void DerivEngine::compute(ComputeMode mode, int integrator_level) {
 
 
 void DerivEngine::integration_cycle(VecArray mom, float dt, float max_force, IntegratorType type) {
-    printf("DEBUG: integration_cycle called with dt=%f, max_force=%f\n", dt, max_force);
-    fflush(stdout);
     
     // integrator from Predescu et al., 2012
     // http://dx.doi.org/10.1080/00268976.2012.681311
@@ -318,8 +308,6 @@ void DerivEngine::integration_cycle(VecArray mom, float dt, float max_force, Int
     float pos_update[] = {     3.f*b, 3.0f-6.f*b, 3.f*b};
 
     for(int stage=0; stage<3; ++stage) {
-        printf("DEBUG: integration stage %d\n", stage);
-        fflush(stdout);
         
         compute(DerivMode);   // compute derivatives
         Timer timer(string("integration"));
@@ -331,8 +319,6 @@ void DerivEngine::integration_cycle(VecArray mom, float dt, float max_force, Int
                 pos->n_atom);
     }
     
-    printf("DEBUG: integration_cycle completed\n");
-    fflush(stdout);
 }
 
 void DerivEngine::integration_cycle(VecArray mom, float dt) {
@@ -373,25 +359,14 @@ void DerivEngine::integration_cycle(VecArray mom, float dt, int inner_step) {
 
 DerivEngine initialize_engine_from_hdf5(int n_atom, hid_t potential_group)
 {
-    printf("DEBUG: initialize_engine_from_hdf5 called with n_atom=%d\n", n_atom);
-    fflush(stdout);
     
     DerivEngine engine(n_atom);
     auto& m = node_creation_map();
-
-    printf("DEBUG: Building dependency graph\n");
-    fflush(stdout);
 
     map<string, pair<bool,vector<string>>> dep_graph;  // bool indicates node is active
     dep_graph["pos"] = make_pair(true, vector<string>());
     for(const auto &name : node_names_in_group(potential_group, "."))
         dep_graph[name] = make_pair(true, read_attribute<vector<string>>(potential_group, name.c_str(), "arguments"));
-
-    printf("DEBUG: Found %zu nodes in dependency graph\n", dep_graph.size());
-    fflush(stdout);
-
-    printf("DEBUG: Checking dependencies\n");
-    fflush(stdout);
 
     for(auto &kv : dep_graph) {
         for(auto& dep_name : kv.second.second) {
@@ -400,9 +375,6 @@ DerivEngine initialize_engine_from_hdf5(int n_atom, hid_t potential_group)
                     " as an argument, but no node of that name can be found.";
         }
     }
-
-    printf("DEBUG: Building topological order\n");
-    fflush(stdout);
 
     vector<string> topo_order;
     auto in_topo = [&](const string &name) {
@@ -421,19 +393,12 @@ DerivEngine initialize_engine_from_hdf5(int n_atom, hid_t potential_group)
     for(auto &kv : dep_graph) if(kv.second.first) 
         throw string("Unsatisfiable dependency ") + kv.first + " in potential computation";
 
-    printf("DEBUG: Topological order complete, processing %zu nodes\n", topo_order.size());
-    fflush(stdout);
-
     // using topo_order here ensures that a node is only parsed after all its arguments
     for(auto &nm : topo_order) {
-        printf("DEBUG: Processing node '%s'\n", nm.c_str());
-        fflush(stdout);
         
         // if(!quiet)  printf("initializing %-27s%s", nm.c_str(), nm=="pos" ? "\n" : ""); 
         if(nm=="pos") continue;  // pos node is added specially
         
-        printf("DEBUG: Finding node type for '%s'\n", nm.c_str());
-        fflush(stdout);
         
         // some name in the node_creation_map must be a prefix of this name
         string node_type_name = "";
@@ -443,19 +408,12 @@ DerivEngine initialize_engine_from_hdf5(int n_atom, hid_t potential_group)
         }
         if(node_type_name == "") throw string("No node type found for name '") + nm + "'";
         
-        printf("DEBUG: Found node type '%s' for '%s'\n", node_type_name.c_str(), nm.c_str());
-        fflush(stdout);
         
         NodeCreationFunction& node_func = m[node_type_name];
 
-        printf("DEBUG: Reading attributes for '%s'\n", nm.c_str());
-        fflush(stdout);
         
         auto argument_names = read_attribute<vector<string>>(potential_group, nm.c_str(), "arguments");
         int integrator_level = read_attribute<int>(potential_group, nm.c_str(), "integrator_level", 2);
-
-        printf("DEBUG: Building argument list for '%s' with %zu arguments\n", nm.c_str(), argument_names.size());
-        fflush(stdout);
 
         ArgList arguments;
 
@@ -466,31 +424,18 @@ DerivEngine initialize_engine_from_hdf5(int n_atom, hid_t potential_group)
                 throw arg_name + " is not an intermediate value, but it is an argument of " + nm;
         }
 
-        printf("DEBUG: Creating computation for '%s'\n", nm.c_str());
-        fflush(stdout);
-
         try {
             auto grp = open_group(potential_group,nm.c_str());
             auto g_get = grp.get();
             auto computation = unique_ptr<DerivComputation>(node_func(g_get, arguments));
             engine.add_node(nm, integrator_level, move(computation), argument_names);
             
-            printf("DEBUG: Successfully added node '%s'\n", nm.c_str());
-            fflush(stdout);
         } catch(const string &e) {
-            printf("DEBUG: Error adding node '%s': %s\n", nm.c_str(), e.c_str());
-            fflush(stdout);
             throw "while adding '" + nm + "', " + e;
         }
     }
 
-    printf("DEBUG: Building execution levels\n");
-    fflush(stdout);
-
     engine.build_exec_levels();
-
-    printf("DEBUG: Engine initialization completed successfully\n");
-    fflush(stdout);
 
     return engine;
 }

@@ -409,10 +409,10 @@ vector<float> potential_deriv_agreement(DerivEngine& engine) {
     for(auto &n: engine.nodes) {
         if(n.computation->potential_term) {
             auto &v = dynamic_cast<PotentialNode&>(*n.computation.get()).potential;
-            printf("%s: % 4.3f\n", n.name.c_str(), v);
+            std::cout << n.name.c_str() << ": " << v << std::endl;
         }
     }
-    printf("\n\n");
+    std::cout << "\n\n";
 
     auto central_diff_jac = central_difference_deriviative(do_compute, input, output, 1e-3);
     vector<float> deriv_array;
@@ -427,8 +427,6 @@ vector<float> potential_deriv_agreement(DerivEngine& engine) {
 
 int upside_main(int argc, const char* const * argv, int verbose=1)
 try {
-    printf("DEBUG: Starting upside_main function\n");
-    fflush(stdout);
     
     using namespace TCLAP;  // Templatized C++ Command Line Parser (tclap.sourceforge.net)
     CmdLine cmd("Using Protein Statistical Information for Dynamics Estimation (Upside)\n Author: John Jumper, Xiangda Peng, Nabil Faruk", 
@@ -536,8 +534,6 @@ try {
 
     cuda_acceleration = cuda_acceleration_arg.getValue();
 
-    printf("DEBUG: Command line parsing completed successfully\n");
-    fflush(stdout);
 
     try {
         if(verbose) printf("invocation: ");
@@ -545,8 +541,6 @@ try {
         for(auto arg=argv+1; arg!=argv+argc; ++arg) invocation += string(" ") + *arg;
         if(verbose) printf("%s\n", invocation.c_str());
 
-        printf("DEBUG: Starting parameter processing\n");
-        fflush(stdout);
 
         map<string,vector<float>> set_param_map;
         if(set_param_arg.getValue().size()) {
@@ -579,7 +573,7 @@ try {
         uint32_t base_random_seed = uint32_t(seed_arg.getValue() % big_prime);
 
         // initialize thermostat and thermalize momentum
-        if(verbose) printf("random seed: %lu\n", (unsigned long)(base_random_seed));
+            if(verbose) std::cout << "random seed: " << (unsigned long)(base_random_seed) << std::endl;
 
         int mc_interval = mc_interval_arg.getValue() > 0. 
             ? max(1,int(mc_interval_arg.getValue()/(inner_step*dt))) 
@@ -691,13 +685,9 @@ try {
         // then exit immediately after the block.
         bool error_exit_omp = false;
         
-        printf("DEBUG: About to initialize %d systems\n", n_system);
-        fflush(stdout);
         
         #pragma omp critical
         for(int ns=0; ns<n_system; ++ns) try {
-            printf("DEBUG: Initializing system %d\n", ns);
-            fflush(stdout);
             
             System* sys = &systems[ns];  // a pointer here makes later lambda's more natural
             sys->random_seed = base_random_seed + ns;
@@ -765,14 +755,10 @@ try {
             if(pos_shape[1]!=3) throw string("invalid dimensions for initial position");
             if(pos_shape[2]!=1) throw string("must have n_system 1 from config");
 
-            printf("DEBUG: About to initialize engine from HDF5 for system %d\n", ns);
-            fflush(stdout);
             
             auto potential_group = open_group(sys->config.get(), "/input/potential");
             sys->engine = initialize_engine_from_hdf5(sys->n_atom, potential_group.get());
             
-            printf("DEBUG: Engine initialization completed for system %d\n", ns);
-            fflush(stdout);
             
             if  (integrator_arg.getValue() == "mv" )
                 sys->engine.build_integrator_levels(true, dt, inner_step );
@@ -789,15 +775,15 @@ try {
                 traverse_dset<3,float>(sys->config.get(), "/input/pos", [&](size_t na, size_t d, size_t ns, float x) { 
                         const_cast<VecArrayStorage&>(*sys->engine.pos->output.h_ptr())(d,na) = x;});
 
-            if(verbose) printf("%s\nn_atom %i\n\n", config_paths[ns].c_str(), sys->n_atom);
+            if(verbose) std::cout << config_paths[ns].c_str() << "\nn_atom " << sys->n_atom << "\n\n";
 
             if(potential_deriv_agreement_arg.getValue()){
                 sys->engine.compute(PotentialAndDerivMode);
-                if(verbose) printf("Initial potential:\n");
+                if(verbose) std::cout << "Initial potential:\n";
                 auto relative_error = potential_deriv_agreement(sys->engine);
-                if(verbose) printf("overall potential relative error: ");
-                for(auto r: relative_error) printf(" %.5f", r);
-                if(verbose) printf("\n");
+                if(verbose) std::cout << "overall potential relative error: ";
+                for(auto r: relative_error) std::cout << " " << r;
+                if(verbose) std::cout << std::endl;
             }
 
             sys->thermostat = OrnsteinUhlenbeckThermostat(
@@ -895,7 +881,7 @@ try {
 
         unique_ptr<ReplicaExchange> replex;
         if(replica_interval) {
-            if(verbose) printf("initializing replica exchange\n");
+            if(verbose) std::cout << "initializing replica exchange\n";
             replex.reset(new ReplicaExchange(systems, swap_set_args.getValue()));
             if(!replex->swap_sets.size()) throw string("replica exchange requested but no swap sets proposed");
         }
@@ -910,25 +896,25 @@ try {
 
         unique_ptr<CurvatureChange> curvature_changer;
         if(curvature_changer_interval) {
-            if(verbose) printf("initializing curvature changer\n");
+            if(verbose) std::cout << "initializing curvature changer\n";
             curvature_changer.reset(new CurvatureChange(systems));
         }
 
-        if(verbose) printf("\n");
+        if(verbose) std::cout << std::endl;
         for(int ns: range(systems.size())) {
-            if(verbose) printf("%i %.2f\n", ns, systems[ns].temperature);
+            if(verbose) std::cout << ns << " " << systems[ns].temperature << std::endl;
             float* temperature_pointer = &(systems[ns].temperature);
             systems[ns].logger->add_logger<double>("temperature", {1}, [temperature_pointer](double* temperature_buffer) {
                     temperature_buffer[0] = *temperature_pointer;});
         }
-        if(verbose) printf("\n");
+        if(verbose) std::cout << std::endl;
 
-        if(verbose) printf("Initial potential energy:");
+        if(verbose) std::cout << "Initial potential energy:";
         for(System& sys: systems) {
             sys.engine.compute(PotentialAndDerivMode);
-            if(verbose) printf(" %.2f", sys.engine.potential);
+            if(verbose) std::cout << " " << sys.engine.potential;
         }
-        if(verbose) printf("\n");
+        if(verbose) std::cout << std::endl;
 
 
         // Install signal handlers to dump state only when the simulation has really started.  This is intended to prevent
@@ -986,13 +972,13 @@ try {
                             Rg += mag2(load_vec<3>(VecArray(const_cast<VecArrayStorage&>(*sys.engine.pos->output.h_ptr())),na)-com);
                         Rg = sqrtf(Rg/sys.n_atom);
 
-                        if(verbose) printf(
-                                "%*.0f / %*.0f elapsed %2i system %.2f temp %5.1f hbonds, Rg %5.1f A, potential % 8.2f\n", 
-                                duration_print_width, nr*double(dt*inner_step), 
-                                duration_print_width, duration, 
-                                ns, sys.temperature,
-                                get_n_hbond(sys.engine), Rg, sys.engine.potential);
-                        fflush(stdout);
+                        if(verbose) std::cout <<
+                                std::setw(duration_print_width) << std::fixed << std::setprecision(0) << nr*double(dt*inner_step) << " / " <<
+                                std::setw(duration_print_width) << std::fixed << std::setprecision(0) << duration << " elapsed " <<
+                                std::setw(2) << ns << " system " << std::fixed << std::setprecision(2) << sys.temperature << " temp " <<
+                                std::setw(5) << std::fixed << std::setprecision(1) << get_n_hbond(sys.engine) << " hbonds, Rg " <<
+                                std::setw(5) << std::fixed << std::setprecision(1) << Rg << " A, potential " <<
+                                std::setw(8) << std::fixed << std::setprecision(2) << sys.engine.potential << std::endl;
                     }
 
                     if(!dense_output_interval || !(nr%dense_output_interval)) {
@@ -1034,12 +1020,11 @@ try {
 
         auto elapsed = chrono::duration<double>(std::chrono::high_resolution_clock::now() - tstart).count();
         if(verbose)
-            printf("\n\nfinished in %.1f seconds (%.2f us/systems/step, %.1e simulation_time_unit/hour)\n",
-                elapsed,
-                elapsed*1e6/systems.size()/systems[0].round_num/inner_step, 
-                systems[0].round_num*inner_step*dt/elapsed * 3600.); 
+            std::cout << "\n\nfinished in " << std::fixed << std::setprecision(1) << elapsed << " seconds (" <<
+                std::fixed << std::setprecision(2) << elapsed*1e6/systems.size()/systems[0].round_num/inner_step << " us/systems/step, " <<
+                std::scientific << std::setprecision(1) << systems[0].round_num*inner_step*dt/elapsed * 3600. << " simulation_time_unit/hour)\n";
 
-        if(verbose) printf("\navg_kinetic_energy/1.5kT");
+        if(verbose) std::cout << "\navg_kinetic_energy/1.5kT";
         for(auto& sys: systems) {
             double sum_kinetic = 0.;
             long n_kinetic = 0l;
@@ -1059,9 +1044,9 @@ try {
                     if(nf>tot_frames/2){ sum_kinetic+=x; n_kinetic++; }
                 });
 
-            if(verbose) printf(" % .3f", sum_kinetic/n_kinetic / (1.5*sys.temperature));
+            if(verbose) std::cout << " " << std::fixed << std::setprecision(3) << sum_kinetic/n_kinetic / (1.5*sys.temperature);
         }
-        if(verbose) printf("\n");
+        if(verbose) std::cout << std::endl;
 
         // FIXME this code should be moved into MC sampler code
         try {

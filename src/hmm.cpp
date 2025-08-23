@@ -9,7 +9,7 @@ using namespace Eigen;
 
 template <typename T>
 void printit(const T& x) {
-    printf(" (%lu,%lu)", x.rows(), x.cols());
+    std::cout << " (" << x.rows() << "," << x.cols() << ")";
 }
 
 namespace {

@@ -1,5 +1,6 @@
 
 #include "monte_carlo_sampler.h"
+#include <iomanip>
 
 // ===[Pivot Sampler Definitions]===
 struct PivotLocation {
@@ -183,20 +184,20 @@ JumpSampler::JumpSampler(const std::string& name, hid_t grp, H5Logger& logger): 
     check_size(grp, "sigma_trans", n_jump_chains);
     check_size(grp, "sigma_rot",   n_jump_chains);
 
-    printf("---[Adding JumpSampler]---\n");
+    std::cout << "---[Adding JumpSampler]---\n";
 
     traverse_dset<2,int>(grp, "atom_range", [&](size_t ns, size_t begin_end, int x) { 
         if(!begin_end) {
-            printf("[%d,", x);
+            std::cout << "[" << x << ",";
             jump_chains[ns].first_atom = x; }
         else {
-            printf("%d]\n", x);
+            std::cout << x << "]\n";
             jump_chains[ns].next_first = x; } });
     traverse_dset<1,float>(grp, "sigma_trans", [&](size_t ns, float x) { 
-        printf("%.3f\n", x);
+        std::cout << std::fixed << std::setprecision(3) << x << std::endl;
         jump_chains[ns].sigma_trans = x; });
     traverse_dset<1,float>(grp, "sigma_rot",   [&](size_t ns, float x) {
-        printf("%.3f\n", x); 
+        std::cout << std::fixed << std::setprecision(3) << x << std::endl; 
         jump_chains[ns].sigma_rot = x; });
 }
 

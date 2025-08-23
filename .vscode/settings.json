@@ -4,18 +4,6 @@
         "PATH": "/home/okleinmann/.miniconda3/envs/upside2-env/bin:${env:PATH}",
         "CUDA_LAUNCH_BLOCKING": "1"
     },
-    "C_Cpp.default.includePath": [
-        "${workspaceFolder}/src/**",
-        "/home/okleinmann/.miniconda3/envs/upside2-env/include",
-        "/home/okleinmann/.miniconda3/envs/upside2-env/targets/x86_64-linux/include"
-    ],
-    "C_Cpp.default.compilerPath": "/home/okleinmann/.miniconda3/envs/upside2-env/bin/g++",
-    "C_Cpp.default.cppStandard": "c++11",
-    "C_Cpp.default.intelliSenseMode": "linux-gcc-x64",
-    "C_Cpp.default.defines": [
-        "USE_CUDA",
-        "__CUDACC__"
-    ],
     "files.associations": {
         "*.cu": "cuda-cpp",
         "*.cuh": "cuda-cpp"

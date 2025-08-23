@@ -5,7 +5,7 @@
             "name": "debug upside", // You can name this whatever you like
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/tests/obj/upside", // Path to your executable
+            "program": "${workspaceFolder}/obj/upside", // Path to your executable
             "args": [
                 "--duration", "1000",
                 "--frame-interval", "50",
@@ -30,7 +30,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "CMake Build", // This task will run before debugging starts
+            "preLaunchTask": "Build with install.sh", // This task will run before debugging starts
             "miDebuggerPath": "/usr/bin/gdb" // Path to your GDB in WSL
         },
         {
@@ -91,7 +91,7 @@
                     "ignoreFailures": true
                 }
             ],
-            // "preLaunchTask": "Build with install.sh",
+            "preLaunchTask": "Build with install.sh",
             "miDebuggerPath": "/usr/local/cuda-12.9/bin/cuda-gdb"
         }
     ]

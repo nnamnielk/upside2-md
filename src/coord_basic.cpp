@@ -38,8 +38,6 @@ struct DistCoord : public CoordNode
         params(params_storage),
         deriv(deriv_storage)
     {
-        std::cout << "DEBUG: DistCoord constructor - n_elem=" << n_elem << ", cuda_acceleration=" << cuda_acceleration << std::endl;
-        std::cout.flush();
         int n_dep = 2;  // number of atoms that each term depends on 
         check_size(grp, "id", n_elem, n_dep);
         
@@ -48,12 +46,8 @@ struct DistCoord : public CoordNode
         });
         
         if (cuda_acceleration) {
-            std::cout << "DEBUG: DistCoord constructor - calling compute_block_size" << std::endl;
-            std::cout.flush();
             compute_threads_per_block = compute_block_size(2, n_elem, sizeof(float));
             deriv_threads_per_block = compute_block_size(3, n_elem, sizeof(float));
-            std::cout << "DEBUG: DistCoord constructor complete - blocks=" << compute_threads_per_block << std::endl;
-            std::cout.flush();
         }
     }
 
@@ -296,8 +290,6 @@ struct AngleCoord : public CoordNode
 	deriv2(deriv2_storage),
 	deriv3(deriv3_storage)
     {
-        std::cout << "DEBUG: AngleCoord constructor - n_elem=" << n_elem << ", cuda_acceleration=" << cuda_acceleration << std::endl;
-        std::cout.flush();
         int n_dep = 3;  // number of atoms that each term depends on 
         check_size(grp, "id", n_elem, n_dep);
         

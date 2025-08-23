@@ -4,12 +4,16 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/src/**",
+                "${workspaceFolder}/obj/**",
                 "/home/okleinmann/.miniconda3/envs/upside2-env/include",
                 "/home/okleinmann/.miniconda3/envs/upside2-env/targets/x86_64-linux/include",
                 "/usr/include",
                 "/usr/local/include"
             ],
-            "defines": [],
+            "defines": [
+                "USE_CUDA",
+                "__CUDACC__"
+            ],
             "compilerPath": "/home/okleinmann/.miniconda3/envs/upside2-env/bin/g++",
             "cStandard": "c11",
             "cppStandard": "c++11",
@@ -17,6 +21,7 @@
             "browse": {
                 "path": [
                     "${workspaceFolder}/src",
+                    "${workspaceFolder}/obj",
                     "/home/okleinmann/.miniconda3/envs/upside2-env/include",
                     "/home/okleinmann/.miniconda3/envs/upside2-env/targets/x86_64-linux/include"
                 ]

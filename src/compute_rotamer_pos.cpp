@@ -116,7 +116,7 @@ int main(int argc, char** argv) try {
         string rname   = rf.first;
         if(rname=="ALA" || rname=="GLY") continue;
         auto &res_func = *rf.second;
-        printf("%s\n", rname.c_str());
+        std::cout << rname.c_str() << std::endl;
         auto grp = ensure_group(config.get(), rname.c_str());
 
         int n_res_total = get_dset_size(2, grp.get(), "chi")[0];
