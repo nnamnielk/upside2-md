@@ -89,8 +89,8 @@ struct CoordNode : public DerivComputation
     VecArrayStorage       output_storage;
     VecArrayStorage       sens_storage;
     
-    DeviceBuffer<float, 2> output; //!< output values
-    DeviceBuffer<float, 2> sens; //!< sensitivity of the overall potential to each output value
+    DeviceBuffer<float, 1> output; //!< output values
+    DeviceBuffer<float, 1> sens; //!< sensitivity of the overall potential to each output value
 
     //! Initialize from n_elem and elem_width
     CoordNode(int n_elem_, int elem_width_):
