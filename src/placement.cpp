@@ -252,12 +252,19 @@ struct PlacementNode: public CoordNode
         traverse_dset<1,int>(grp, "affine_residue", [&](size_t np, int x){affine_residue[np] = x;});
 
         if(logging(LOG_EXTENSIVE)) {
-            // FIXME prepend the logging with the class name for disambiguation
-            default_logger->add_logger<float>("placement_pos", {n_elem, n_pos_dim}, [&](float* buffer) {
-                    VecArray pos = const_cast<VecArrayStorage&>(*output.h_ptr());
-                    for(int ne: range(n_elem))
-                        for(int d: range(n_pos_dim))
-                            buffer[ne*n_pos_dim + d] = pos(d,ne);});
+            // Use unique name per node to avoid collisions across multiple placement nodes
+            char namebuf[1024];
+            ssize_t n = H5Iget_name(grp, namebuf, sizeof(namebuf));
+            std::string grp_name = (n >= 0) ? std::string(namebuf, n) : std::string("unknown_group");
+            for(char& c : grp_name) if(c=='/') c = '_';
+            std::string ds_name = std::string("pos_") + grp_name;
+
+            default_logger->add_logger<float>(ds_name.c_str(), {n_elem, n_pos_dim}, [&](float* buffer) {
+                VecArray pos = const_cast<VecArrayStorage&>(*output.h_ptr());
+                for(int ne: range(n_elem))
+                    for(int d: range(n_pos_dim))
+                        buffer[ne*n_pos_dim + d] = pos(d,ne);
+            });
         }
     }
 

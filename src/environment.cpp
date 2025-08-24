@@ -303,9 +303,17 @@ struct EnvironmentCoverage : public CoordNode {
         traverse_dset<1,int>  (grp,"aa_types",[&](size_t ne, int x){aa_types[ne]=x;});
 
         if(logging(LOG_EXTENSIVE)) {
-            default_logger->add_logger<float>("environment_coverage", {n_elem}, [&](float* buffer) {
-                    for(int ne: range(n_elem))
-                            buffer[ne] = const_cast<VecArrayStorage&>(*output.h_ptr())(0,ne);});
+            // Unique dataset name per node instance
+            char namebuf[1024];
+            ssize_t n = H5Iget_name(grp, namebuf, sizeof(namebuf));
+            std::string grp_name = (n >= 0) ? std::string(namebuf, n) : std::string("unknown_group");
+            for(char& c : grp_name) if(c=='/') c = '_';
+            std::string ds_name = grp_name;
+
+            default_logger->add_logger<float>(ds_name.c_str(), {n_elem}, [&](float* buffer) {
+                for(int ne: range(n_elem))
+                    buffer[ne] = const_cast<VecArrayStorage&>(*output.h_ptr())(0,ne);
+            });
         }
 
         for(int i=0;i<n_aa*n_res; ++i)
@@ -354,9 +362,17 @@ struct HbondEnvironmentCoverage : public CoordNode {
         CoordNode(get_dset_size(1,grp,"index1")[0], 1),
         igraph(grp, &pos1_, &pos2_) {
         if(logging(LOG_EXTENSIVE)) {
-            default_logger->add_logger<float>("hbond_environment_coverage", {n_elem}, [&](float* buffer) {
+            // Unique dataset name per node instance
+            char namebuf[1024];
+            ssize_t n = H5Iget_name(grp, namebuf, sizeof(namebuf));
+            std::string grp_name = (n >= 0) ? std::string(namebuf, n) : std::string("unknown_group");
+            for(char& c : grp_name) if(c=='/') c = '_';
+            std::string ds_name = grp_name;
+
+            default_logger->add_logger<float>(ds_name.c_str(), {n_elem}, [&](float* buffer) {
                 for(int ne: range(n_elem))
-                    buffer[ne] = const_cast<VecArrayStorage&>(*output.h_ptr())(0,ne);});
+                    buffer[ne] = const_cast<VecArrayStorage&>(*output.h_ptr())(0,ne);
+            });
         }
     }
 
@@ -391,9 +407,17 @@ struct HbondBackBoneCoverage : public CoordNode {
         CoordNode(get_dset_size(1,grp,"index1")[0], 1),
         igraph(grp, &pos1_, &pos2_) {
         if(logging(LOG_EXTENSIVE)) {
-            default_logger->add_logger<float>("hbond_backbone_coverage", {n_elem}, [&](float* buffer) {
+            // Unique dataset name per node instance
+            char namebuf[1024];
+            ssize_t n = H5Iget_name(grp, namebuf, sizeof(namebuf));
+            std::string grp_name = (n >= 0) ? std::string(namebuf, n) : std::string("unknown_group");
+            for(char& c : grp_name) if(c=='/') c = '_';
+            std::string ds_name = grp_name;
+
+            default_logger->add_logger<float>(ds_name.c_str(), {n_elem}, [&](float* buffer) {
                 for(int ne: range(n_elem))
-                    buffer[ne] = const_cast<VecArrayStorage&>(*output.h_ptr())(0,ne);});
+                    buffer[ne] = const_cast<VecArrayStorage&>(*output.h_ptr())(0,ne);
+            });
         }
     }
 
