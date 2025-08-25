@@ -49,7 +49,7 @@ __global__ void distcoord_compute_kernel(
     float dist = sqrtf(dist_sq);
     
     // Store distance
-    output_data[idx * out_stride + 0] = dist;
+    output_data[idx * out_stride] = dist;
     
     // Compute and store derivative (unit vector)
     if (dist > 1e-8f) {
@@ -182,7 +182,7 @@ __global__ void anglecoord_compute_kernel(
 
     // Dot product
     float dp = x1h.x * x2h.x + x1h.y * x2h.y + x1h.z * x2h.z;
-    output_data[idx * out_stride + 0] = dp;
+    output_data[idx * out_stride] = dp;
 
     // Derivatives
     float3 deriv1 = make_float3((x2h.x - x1h.x * dp) * inv_d1, (x2h.y - x1h.y * dp) * inv_d1, (x2h.z - x1h.z * dp) * inv_d1);

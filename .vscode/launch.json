@@ -2,21 +2,26 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "debug upside", // You can name this whatever you like
+            "name": "debug upside (standard)",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/obj/upside", // Path to your executable
+            "program": "${workspaceFolder}/obj/upside",
             "args": [
                 "--duration", "1000",
                 "--frame-interval", "50",
                 "--temperature", "0.8",
                 "--seed", "1",
-                "${workspaceFolder}/example/01.GettingStarted/outputs/simple_test/chig.run.up" // Note: GDB might need absolute paths for files if relative paths cause issues
+                "${workspaceFolder}/example/01.GettingStarted/outputs/simple_test/chig.run.up"
             ],
-            "stopAtEntry": false, // Set to true if you want the debugger to stop at the beginning of main()
-            "cwd": "${workspaceFolder}/tests/", // Current working directory for your program
-            "environment": [],
-            "externalConsole": false, // Set to true if you want a separate console window for your program's output
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}/",
+            "environment": [
+                {
+                    "name": "PATH",
+                    "value": "/home/okleinmann/.miniconda3/envs/upside2-env/bin:${env:PATH}"
+                }
+            ],
+            "externalConsole": false,
             "MIMode": "gdb",
             "setupCommands": [
                 {
@@ -25,22 +30,21 @@
                     "ignoreFailures": true
                 },
                 {
-                    "description": "Set Disassembly Flavor to Intel", // Optional, personal preference
-                    "text": "-gdb-set disassembly-flavor intel",
+                    "description": "Set breakpoint pending",
+                    "text": "-gdb-set breakpoint pending on",
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "Build with install.sh", // This task will run before debugging starts
-            "miDebuggerPath": "/usr/bin/gdb" // Path to your GDB in WSL
+            "miDebuggerPath": "/usr/bin/gdb"
         },
         {
-            "name": "debug upside (CUDA)",
+            "name": "debug upside (CUDA - minimal)",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/obj/upside",
             "args": [
-                "--duration", "1000",
-                "--frame-interval", "50",
+                "--duration", "100",
+                "--frame-interval", "10",
                 "--temperature", "0.8",
                 "--seed", "1",
                 "--cuda-acceleration",
@@ -56,9 +60,51 @@
                 {
                     "name": "CUDA_LAUNCH_BLOCKING",
                     "value": "1"
+                }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
                 },
                 {
-                    "name": "CUDA_DEVICE_DEBUG",
+                    "description": "Set breakpoint pending",
+                    "text": "-gdb-set breakpoint pending on",
+                    "ignoreFailures": true
+                }
+            ],
+            "miDebuggerPath": "/usr/local/cuda-12.9/bin/cuda-gdb",
+            "miDebuggerArgs": "--interpreter=mi2"
+        },
+        {
+            "name": "debug upside (CUDA - device debugging)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/obj/upside",
+            "args": [
+                "--duration", "100",
+                "--frame-interval", "10", 
+                "--temperature", "0.8",
+                "--seed", "1",
+                "--cuda-acceleration",
+                "${workspaceFolder}/example/01.GettingStarted/outputs/simple_test/chig.run.up"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/",
+            "environment": [
+                {
+                    "name": "PATH",
+                    "value": "/home/okleinmann/.miniconda3/envs/upside2-env/bin:${env:PATH}"
+                },
+                {
+                    "name": "CUDA_LAUNCH_BLOCKING",
+                    "value": "1"
+                },
+                {
+                    "name": "CUDA_DEVICE_MAX_CONNECTIONS",
                     "value": "1"
                 }
             ],
@@ -76,6 +122,21 @@
                     "ignoreFailures": true
                 },
                 {
+                    "description": "Handle CUDA signals",
+                    "text": "handle SIGPIPE nostop noprint",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Handle SIGCONT signals",
+                    "text": "handle SIGCONT nostop noprint pass",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Enable CUDA API debugging",
+                    "text": "set cuda api_failures stop",
+                    "ignoreFailures": true
+                },
+                {
                     "description": "Enable CUDA break on launch",
                     "text": "set cuda break_on_launch application",
                     "ignoreFailures": true
@@ -86,13 +147,21 @@
                     "ignoreFailures": true
                 },
                 {
-                    "description": "Enable CUDA memcheck",
-                    "text": "set cuda memcheck on",
+                    "description": "Enable CUDA device debugging",
+                    "text": "set cuda device_debugging on",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set CUDA memcheck off for better performance",
+                    "text": "set cuda memcheck off",
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "Build with install.sh",
-            "miDebuggerPath": "/usr/local/cuda-12.9/bin/cuda-gdb"
+            "miDebuggerPath": "/usr/local/cuda-12.9/bin/cuda-gdb",
+            "miDebuggerArgs": "--interpreter=mi2",
+            "sourceFileMap": {
+                "/proc/self/cwd": "${workspaceFolder}"
+            }
         }
     ]
 }

@@ -4,15 +4,20 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/src/**",
+                "${workspaceFolder}/src/include/**",
                 "${workspaceFolder}/obj/**",
                 "/home/okleinmann/.miniconda3/envs/upside2-env/include",
                 "/home/okleinmann/.miniconda3/envs/upside2-env/targets/x86_64-linux/include",
+                "/usr/include/eigen3",
                 "/usr/include",
                 "/usr/local/include"
             ],
             "defines": [
                 "USE_CUDA",
-                "__CUDACC__"
+                "__CUDACC__",
+                "R123_NO_SINCOS",
+                "restrict=__restrict__",
+                "NDEBUG"
             ],
             "compilerPath": "/home/okleinmann/.miniconda3/envs/upside2-env/bin/g++",
             "cStandard": "c11",
@@ -21,11 +26,21 @@
             "browse": {
                 "path": [
                     "${workspaceFolder}/src",
+                    "${workspaceFolder}/src/include",
                     "${workspaceFolder}/obj",
                     "/home/okleinmann/.miniconda3/envs/upside2-env/include",
-                    "/home/okleinmann/.miniconda3/envs/upside2-env/targets/x86_64-linux/include"
-                ]
-            }
+                    "/home/okleinmann/.miniconda3/envs/upside2-env/targets/x86_64-linux/include",
+                    "/usr/include/eigen3"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "compilerArgs": [
+                "-pedantic",
+                "-Wall",
+                "-Wno-strict-overflow",
+                "-Wno-unused-function",
+                "-Wno-unknown-pragmas"
+            ]
         }
     ],
     "version": 4

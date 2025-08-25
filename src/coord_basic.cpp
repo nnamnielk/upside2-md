@@ -66,9 +66,10 @@ struct DistCoord : public CoordNode
                 int param_stride = params_storage.row_width;
                 int deriv_stride = deriv_storage.row_width;
                 int out_stride = output_storage.row_width;
+                int pos_stride = pos1.output.h_ptr()->row_width;
                 distcoord_compute_device(
                     d_pos1, d_pos2, d_params, d_output, d_deriv,
-                    n_elem, 4, compute_threads_per_block,
+                    n_elem, pos_stride, compute_threads_per_block,
                     param_stride, deriv_stride, out_stride
                 );
             }
@@ -115,9 +116,10 @@ struct DistCoord : public CoordNode
             {
                 int param_stride = params_storage.row_width;
                 int deriv_stride = deriv_storage.row_width;
+                int pos_stride = pos1.output.h_ptr()->row_width;
                 distcoord_deriv_device(
                     d_params, d_deriv, d_sens, d_pos1_sens, d_pos2_sens,
-                    n_elem, 4, deriv_threads_per_block,
+                    n_elem, pos_stride, deriv_threads_per_block,
                     param_stride, deriv_stride
                 );
             }
@@ -320,9 +322,10 @@ struct AngleCoord : public CoordNode
                 int param_stride = params_storage.row_width;
                 int deriv_stride = deriv1_storage.row_width;
                 int out_stride = output_storage.row_width;
+                int pos_stride = pos.output.h_ptr()->row_width;
                 anglecoord_compute_device(
                     d_pos, d_params, d_output, d_deriv1, d_deriv2, d_deriv3,
-                    n_elem, 4, compute_threads_per_block,
+                    n_elem, pos_stride, compute_threads_per_block,
                     param_stride, deriv_stride, out_stride
                 );
             }
@@ -383,9 +386,10 @@ struct AngleCoord : public CoordNode
             {
                 int param_stride = params_storage.row_width;
                 int deriv_stride = deriv1_storage.row_width;
+                int pos_stride = pos.output.h_ptr()->row_width;
                 anglecoord_deriv_device(
                     d_params, d_deriv1, d_deriv2, d_deriv3, d_sens, d_pos_sens,
-                    n_elem, 4, deriv_threads_per_block,
+                    n_elem, pos_stride, deriv_threads_per_block,
                     param_stride, deriv_stride
                 );
             }

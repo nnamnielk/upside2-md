@@ -33,7 +33,7 @@ upside_args = [
     "--frame-interval", "50",
     "--temperature", "0.8",
     "--seed", "1",
-    f"{upside_home}/example/01.GettingStarted/outputs/simple_test/chig.run.up"
+    f"{upside_home}/example/01.GettingStarted/outputs/simple_test/chig.run.up", "--no-cuda"
 ]
 
 def clean_json_values(data):
