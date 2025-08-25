@@ -49,6 +49,30 @@ struct DistCoord : public CoordNode
             compute_threads_per_block = compute_block_size(2, n_elem, sizeof(float));
             deriv_threads_per_block = compute_block_size(3, n_elem, sizeof(float));
         }
+        
+        if(logging(LOG_EXTENSIVE)) {
+            default_logger->add_logger<float>("distcoord_output", {n_elem}, [&](float* buffer) {
+                for(int ne=0; ne<n_elem; ++ne) {
+                    buffer[ne] = const_cast<VecArrayStorage&>(*output.h_ptr())(0, ne);
+                }
+            });
+            
+            default_logger->add_logger<float>("distcoord_pos1_sens", {pos1.n_elem, 3}, [&](float* buffer) {
+                for(int na=0; na<pos1.n_elem; ++na) {
+                    for(int d=0; d<3; ++d) {
+                        buffer[na*3 + d] = const_cast<VecArrayStorage&>(*pos1.sens.h_ptr())(d, na);
+                    }
+                }
+            });
+            
+            default_logger->add_logger<float>("distcoord_pos2_sens", {pos2.n_elem, 3}, [&](float* buffer) {
+                for(int na=0; na<pos2.n_elem; ++na) {
+                    for(int d=0; d<3; ++d) {
+                        buffer[na*3 + d] = const_cast<VecArrayStorage&>(*pos2.sens.h_ptr())(d, na);
+                    }
+                }
+            });
+        }
     }
 
     virtual void compute_value(ComputeMode mode) {
@@ -302,6 +326,22 @@ struct AngleCoord : public CoordNode
         if (cuda_acceleration) {
             compute_threads_per_block = compute_block_size(3, n_elem, sizeof(float));
             deriv_threads_per_block = compute_block_size(3, n_elem, sizeof(float));
+        }
+        
+        if(logging(LOG_EXTENSIVE)) {
+            default_logger->add_logger<float>("anglecoord_output", {n_elem}, [&](float* buffer) {
+                for(int ne=0; ne<n_elem; ++ne) {
+                    buffer[ne] = const_cast<VecArrayStorage&>(*output.h_ptr())(0, ne);
+                }
+            });
+            
+            default_logger->add_logger<float>("anglecoord_pos_sens", {pos.n_elem, 3}, [&](float* buffer) {
+                for(int na=0; na<pos.n_elem; ++na) {
+                    for(int d=0; d<3; ++d) {
+                        buffer[na*3 + d] = const_cast<VecArrayStorage&>(*pos.sens.h_ptr())(d, na);
+                    }
+                }
+            });
         }
     }
 
