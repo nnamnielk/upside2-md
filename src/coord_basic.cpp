@@ -51,7 +51,7 @@ struct DistCoord : public CoordNode
         }
         
         if(logging(LOG_EXTENSIVE)) {
-            default_logger->add_logger<float>("distcoord_output", {n_elem}, [&](float* buffer) {
+            default_logger->add_logger<float>("distcoord_vals", {n_elem}, [&](float* buffer) {
                 for(int ne=0; ne<n_elem; ++ne) {
                     buffer[ne] = const_cast<VecArrayStorage&>(*output.h_ptr())(0, ne);
                 }
@@ -329,7 +329,7 @@ struct AngleCoord : public CoordNode
         }
         
         if(logging(LOG_EXTENSIVE)) {
-            default_logger->add_logger<float>("anglecoord_output", {n_elem}, [&](float* buffer) {
+            default_logger->add_logger<float>("anglecoord_vals", {n_elem}, [&](float* buffer) {
                 for(int ne=0; ne<n_elem; ++ne) {
                     buffer[ne] = const_cast<VecArrayStorage&>(*output.h_ptr())(0, ne);
                 }
