@@ -11,6 +11,8 @@ rm -rf obj/*
 cd obj
 
 cmake ../src/ \
+    -DCMAKE_CUDA_COMPILER=/usr/local/cuda-13.0/bin/nvcc \
+    -DCMAKE_CUDA_HOST_COMPILER=/usr/bin/g++ \
     -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
     -DCMAKE_CUDA_COMPILER_LAUNCHER=ccache \
     -DEIGEN3_INCLUDE_DIR=$EIGEN_HOME

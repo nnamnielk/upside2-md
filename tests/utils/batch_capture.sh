@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Batch processing script to run input_capture.py for all nodes in nodes.list.txt
-# Author: Generated for upside2-md project
+# Author: Oliver Kleinmann (e73eo709@gmail.com)
 # Usage: ./batch_capture.sh
 
 # Don't exit on individual command failures - we want to continue processing
