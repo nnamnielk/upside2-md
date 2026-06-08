@@ -15,6 +15,11 @@ cd obj
 
 # Configure with CMake
 cmake .. \
+    -DCMAKE_CUDA_COMPILER=/usr/local/cuda/bin/nvcc \
+    -DCMAKE_CUDA_HOST_COMPILER=/usr/bin/g++ \
+    -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
+    -DCMAKE_CUDA_COMPILER_LAUNCHER=ccache \
+    -DCMAKE_CUDA_ARCHITECTURES=86 \
     -DEIGEN3_INCLUDE_DIR="$EIGEN_HOME" \
     -DCMAKE_BUILD_TYPE=Debug
 

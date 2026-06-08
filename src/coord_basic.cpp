@@ -45,10 +45,10 @@ struct DistCoord : public CoordNode
             params_storage(j, i) = x;
         });
         
-        if (cuda_acceleration) {
+#ifdef USE_CUDA
             compute_threads_per_block = compute_block_size(2, n_elem, sizeof(float));
             deriv_threads_per_block = compute_block_size(3, n_elem, sizeof(float));
-        }
+#endif
         
         if(logging(LOG_EXTENSIVE)) {
             default_logger->add_logger<float>("distcoord_vals", {n_elem}, [&](float* buffer) {
@@ -323,10 +323,10 @@ struct AngleCoord : public CoordNode
             params_storage(j, i) = x;
         });
         
-        if (cuda_acceleration) {
+#ifdef USE_CUDA
             compute_threads_per_block = compute_block_size(3, n_elem, sizeof(float));
             deriv_threads_per_block = compute_block_size(3, n_elem, sizeof(float));
-        }
+#endif
         
         if(logging(LOG_EXTENSIVE)) {
             default_logger->add_logger<float>("anglecoord_vals", {n_elem}, [&](float* buffer) {
